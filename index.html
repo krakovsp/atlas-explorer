@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Atlas Explorer</title>
+    
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <h1>Atlas Explorer</h1>
+</header>
+
+<section class="intro-section">
+    <div class="intro-container">
+        <div class="about-block main-about">
+            <div class="about-section">
+                <h2>About</h2>
+                <p>Atlas Explorer – це оновлюваний веб-каталог електронних атласів (настільних та онлайн), у якому атласи класифіковані за бібліографічними, тематичними та медіа-картографічними характеристиками.Останні характеризують атласи як кінцеві застосунки за такими блоками, як інтерфейс, інформаційна архітектура та навігація, репрезентація контенту, та функціональність.</p>
+
+<p>Загалом виділено 70 ключових показників, детальний опис яких представлено у книзі. Стисла характеристика кожного показника з’являється при наведені на заголовок колонок таблиці.
+</p>
+</div>
+           
+            <div class="about-section limitations">
+                <h3>Limitations</h3>
+                <ul class="limitations-list">
+                <li>Складність досягти повноти. Автор просить вибачення за пропущені атласи та заохочує пропонувати нові атласи</li>
+                <li>Представлені результати не ґрунтуються на детальному аналізі кожного атласу (приблизно 35-50 годин), тож певні характеристики можуть бути інтерпретовані некоректно</li>
+                 </ul>
+            </div>
+        </div>
+
+        <div class="about-block criteria-block">
+            <h2>Atlas Criteria</h2>
+                <ol class="criteria-list">
+                <li>Заголовок «атлас» або найменування «атласом» у публікаціях</li>
+                <li>Наявність (гео)просторових візуалізацій</li>
+                <li>Прив’язка контенту до конкретної території та теми (наявність тематичної інформації)</li>
+                <li>Наявність декількох розділів та/або історій та/або попередньо підготовлених карт</li>
+                <li>Представлення контенту у середовищі веб-сайту/застосунку</li>
+                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i>: Каталожний геопорталом, зібранням дашбоардів, інтерактивною картою, КІС або ГІС</li>
+            </ol>
+        </div>
+
+        <div class="about-block functionality-block">
+            <h2>Functionality</h2>
+             <ul class="functionality-list">
+        <li>Кожна таблиця є інтерактивною та надає можливість користувачам проводити власний порівняльний та трендовий аналіз атласів.</li>
+        <li>Перемикання між таблицями здійснюється за допомогою вкладок ліворуч.</li>
+        <li>Праворуч розташовані кнопки перемикання колонок та відкриття таблиці на весь екран.</li>
+        <li>Кнопка дозволяє вмикати/вимикати колонки таблиці.</li>
+        <li>Кожна колонка підтримує сортування за зростанням/спаданням та фільтрацію (список або ручне введення).</li>
+        <li>Шириною колонок можна маніпулювати.</li>
+        <li>Усі назви атласів містять гіперпосилання.</li>
+    </ul>
+  </div>
+
+      <div class="info-block">
+    <h2>Developer Info</h2>
+
+    <div class="author-section">
+        <h3 class="author-name">Stanislav Krakovskyi</h3>
+        <p class="author-position">PhD in Geography</p>
+        <p class="author-position">Researcher at the 
+  <a href="https://igu.org.ua/en" target="_blank" rel="noopener noreferrer" class="afil-link">
+    IGU
+  </a> of the 
+  <a href="https://www.nas.gov.ua/" target="_blank" rel="noopener noreferrer" class="afil-link">
+    NAS of Ukraine
+  </a></p>
+    </div>
+
+    <div class="contact-grid">
+        <a href="https://orcid.org/..." class="contact-link" >
+            <i class="fab fa-orcid"></i>
+            <span class="value">0000-0001-5164-6272</span>
+        </a>
+        <a href="www.researchgate.net/profile/Stanislav-Krakovskyi" class="contact-link" >
+            <i class="fab fa-researchgate"></i>
+            <span class="value">ResearchGate Profile</span>
+        </a>
+        <a href="mailto:krakovsp@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span class="value">krakovsp@gmail.com</span>
+        </a>
+    </div>
+
+    <div class="site-meta">
+        <div class="meta-item">
+            <span class="meta-label">Updated:</span>
+            <span class="meta-value">14.03.2026</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Version:</span>
+            <span class="meta-value">0.5.0</span>
+        </div>
+    </div>
+</div>
+</section>
+
+<main class="table-section">
+    <nav class="nav-tabs">
+        <div class="tab-buttons-group">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Bibliographic Indicators</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Content Indicators</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Media-Cartographic Indicators</button>
+        </div> <div class="settings-group">
+            <button class="tab-button settings-btn" onclick="toggleColumnPicker()">
+                <i class="fas fa-cog"></i> Show/Hide Columns
+            </button>
+            <div id="column-picker" class="column-picker-container"></div>
+            
+            <button class="fullscreen-btn" onclick="toggleFullscreen()" title="На весь екран">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </nav>
+
+<div id="tab1" class="tab-content active">
+    <div id="table1-id"></div>
+</div>
+<div id="tab2" class="tab-content">
+    <div id="table2-id"></div>
+</div>
+<div id="tab3" class="tab-content">
+    <div id="table3-id"></div>
+</div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

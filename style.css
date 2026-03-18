@@ -510,9 +510,7 @@ body {
 /* Рядки */
 .tabulator-row {
     border-bottom: 1px solid #eee !important;
-    min-height: clamp(28px, 3.5vh, 45px) !important; 
-    display: flex !important;
-    align-items: center !important;
+   
 }
 /* "Зебра" */
 .tabulator-row.tabulator-row-odd {
@@ -529,13 +527,7 @@ body {
 .tabulator .tabulator-cell {
     padding: 0.4vh 10px !important; 
     border-right: 1px solid #EDEADE !important;
-    display: flex !important;
-    align-items: center !important;
-    
-    /* Шрифт має бути меншим за хедер (хедер у нас 1.6vh) */
-    /* Тут: мін 12px, ідеально 1.4vh, макс 16px */
     font-size: clamp(12px, 1.4vh, 16px) !important;
-    line-height: 1.2 !important;
     overflow: hidden;
     text-overflow: ellipsis;
 }

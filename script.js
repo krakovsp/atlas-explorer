@@ -226,7 +226,7 @@ function toggleFullscreen() {
     
     setTimeout(() => {
         if (activeTable) {
-            /
+            
             activeTable.redraw(true); 
         }
     }, 50);

@@ -9,16 +9,17 @@ let activeTable;
             popupContainer: true, 
             columnDefaults: {
                 headerHozAlign: "center",
+                hozAlign: "left",
                 minWidth: 200,
             }, 
             pagination: "local",       
             paginationSize: 10,        
             paginationSizeSelector: [5, 10, 20, 50, 100, true],
-            
+            // Налаштування мови, щоб "true" відображалося як "Всі" або "All"
             langs: {
                "default": {
                    "pagination": {
-                         "all": "all",
+                         "all": "all", // Слово, яке буде замість true у списку
                                  }
                          }
             }, 
@@ -37,17 +38,17 @@ let activeTable;
             frozen: true, 
             headerFilter: "list",
                         headerFilterParams: { 
-                            valuesLookup: "data", 
-                            sort: "asc",          
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
                             clearable: true
                             },
             formatter: function(cell, formatterParams, onRendered) {
         // Отримуємо дані всього рядка
         const data = cell.getRow().getData();
-        const url = data.URL; // 
+        const url = data.URL; // 'url' - назва поля з вашого JSON, де зберігається посилання
         const name = cell.getValue();
 
-       
+        // Якщо URL існує, створюємо посилання, інакше просто текст
         if (url) {
             return `<a href="${url}" target="_blank" style="color: #0078d4; text-decoration: none; font-weight: 500;">${name}</a>`;
         } else {
@@ -60,8 +61,8 @@ let activeTable;
             headerTooltip: "Тут може бути ваш дуже довгий опис на 100 слів, який пояснює методологію розрахунку цього показника або джерела даних...",
             headerFilter: "list",
                         headerFilterParams: { 
-                            valuesLookup: "data", 
-                            sort: "asc",          
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
                             clearable: true
                             }},
             {
@@ -91,17 +92,17 @@ let activeTable;
                 title:"General Information",
                 columns:[
                      {title: "Прогрес виконання", 
-                     field: "progress_val", 
+                     field: "progress_val", // Назва поля у вашому JSON (значення 0-100)
                      formatter: "progress", 
                      formatterParams: {
                      min: 0,
                      max: 100,
-                     
+                     // Пастельна палітра: Кораловий -> Теплий беж -> Приглушений зелений
                      color: ["#e57373", "#ffd54f", "#81c784"], 
                      legend: function(value) {
                          return value + "%";
                      },
-                     legendColor: "#4A4541", 
+                     legendColor: "#4A4541", // Темно-коричневий текст, як ми обрали раніше
                      legendAlign: "center",
                                       }
                     },
@@ -111,8 +112,8 @@ let activeTable;
                         field:"Спосіб реалізації",
                         headerFilter: "list",
                         headerFilterParams: { 
-                            valuesLookup: "data", 
-                            sort: "asc",          
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
                             clearable: true
                             }
                     },
@@ -152,25 +153,26 @@ let activeTable;
 
         activeTable = window.table1;
 
-        
+        // Маленькая хитрость: принудительно перерисовываем первую таблицу через 100мс,
+       // чтобы она точно "вписалась" в свои 60% высоты
         setTimeout(() => {
         if(window.table1) window.table1.redraw();
     }, 100);
     });
 
-// 3. Управління колонками 
+// 3. Управління колонками (ОПТИМІЗОВАНО ДЛЯ ВСІХ ТАБЛИЦЬ)
 function toggleColumnPicker() {
         const picker = document.getElementById("column-picker");
-    const btn = document.querySelector(".settings-btn"); 
+    const btn = document.querySelector(".settings-btn"); // Знаходимо нашу кнопку
     if (!picker || !activeTable) return;
 
     if (picker.style.display === "block") {
         picker.style.display = "none";
-        btn.classList.remove("active"); 
+        btn.classList.remove("active"); // Видаляємо клас, коли меню закрите
         } else {
             picker.innerHTML = "";
             picker.style.display = "block";
-            btn.classList.add("active"); 
+            btn.classList.add("active"); // Додаємо клас, коли меню відкрите
 
             activeTable.getColumns().forEach(column => {
                 const def = column.getDefinition();
@@ -195,7 +197,7 @@ function toggleColumnPicker() {
         }
     }
 
-// 4. Переключення вкладок 
+// 4. Переключення вкладок (ВИПРАВЛЕНО: винесено окремо)
 function openTab(evt, tabName) {
     const contents = document.getElementsByClassName("tab-content");
     for (let x of contents) x.classList.remove("active");
@@ -218,12 +220,13 @@ function openTab(evt, tabName) {
     }, 50);
 }
 
-// 5. Повноекранний режим 
+// 5. Повноекранний режим (ВИПРАВЛЕНО: винесено окремо)
 function toggleFullscreen() {
     const tableSection = document.querySelector('.table-section');
     tableSection.classList.toggle('fullscreen-mode');
     
-    
+    // Даємо браузеру 50мс на перерахунок розмірів контейнера, 
+    // а потім кажемо Tabulator перемалюватися
     setTimeout(() => {
         if (activeTable) {
             
@@ -231,7 +234,7 @@ function toggleFullscreen() {
         }
     }, 50);
 
-    
+    // Додаємо обробку Escape для виходу
     const escapeHandler = function(e) {
         if (e.key === "Escape" && tableSection.classList.contains('fullscreen-mode')) {
             tableSection.classList.remove('fullscreen-mode');

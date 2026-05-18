@@ -93,13 +93,16 @@
     </div>
 
     <div class="site-meta">
+         <button class="updates-log-pill-btn" onclick="openUpdatesLog(event)">
+            Update History
+        </button>
         <div class="meta-item">
             <span class="meta-label">Updated:</span>
-            <span class="meta-value">18.03.2026</span>
+            <span class="meta-value">18.05.2026</span>
         </div>
         <div class="meta-item">
             <span class="meta-label">Version:</span>
-            <span class="meta-value">0.5.1</span>
+            <span class="meta-value">0.6.1</span>
         </div>
     </div>
 </div>
@@ -134,5 +137,34 @@
 </div>
 </main>
 <script src="script.js"></script>
+
+<div id="updates-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Updates History</h2>
+            <button class="modal-close-btn" onclick="closeUpdatesLog()">&times;</button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="update-block">
+                <div class="update-date">18.05.2026</div>
+                <p>Yo sé quién soy —respondió don Quijote—, y sé que puedo ser, no sólo los que he dicho, sino todos los Doce Pares de Francia, y aun todos los Nueve de la Fama, pues a todas las hazañas que ellos todos juntos y cada uno por sí hicieron se aventajarán las mías.</p>
+                <ul class="update-list">
+                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                    <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariaturх.</li>
+                </ul>
+            </div>
+
+            <div class="update-block">
+                <div class="update-date">10.02.2026</div>
+                <p>“Now, what I want is, Facts. Teach these boys and girls nothing but Facts. Facts alone are wanted in life. Plant nothing else, and root out everything else. You can only form the minds of reasoning animals upon Facts: nothing else will ever be of any service to them. This is the principle on which I bring up my own children, and this is the principle on which I bring up these children. Stick to Facts, sir!” The speaker, and the schoolmaster, and the third grown person present, all backed a little, and swept with their eyes the inclined plane of little vessels then and there arranged in order, ready to have imperial gallons of facts poured into them until they were full to the brim. In this life, we want nothing but Facts, sir; nothing but Facts!” “Girl number twenty,” said Mr. Gradgrind, squarely pointing with his square forefinger, “I don’t know that girl. Who is that girl?” “Sissy Jupe, sir,” explained number twenty, blushing, rising up. “Sissy is not a name,” said Mr. Gradgrind. “Don’t call yourself Sissy. Call yourself Cecilia.” “Yes, sir,” returned the girl. “Cecilia Jupe. Let me see. What is your father?” “He belongs to the horse-riding, if you please, sir.” “Girl number twenty unable to define a horse!” said Mr. Gradgrind, for the general behoof of all present. “Girl number twenty possessed of no facts in reference to one of the commonest of animals! Some boy’s definition of a horse. Bitzer, yours.” “The quadruped, and graminivorous, Mr. Gradgrind,” replied Bitzer, “forty teeth, namely twenty-four grinders, four eye-teeth, and twelve incisive. Sheds coat in the spring; in marshy countries sheds hoofs, too. Hoofs hard, but requiring to be shod with iron. Age known by marks in mouth.” “Now girl number twenty,” said Mr. Gradgrind, “you know what a horse is.” “Yes, sir,” said Sissy Jupe. “Then define a horse.” Sissy Jupe hesitated, and looked for help, and blushed, and said nothing. “Girl number twenty unable to define a horse!” repeated Mr. Gradgrind. “Very well. Now let me ask you this. You know what a carpet is?” “Yes, sir.” “Then you know what a carpet is made of?” “Of wool, sir.” “Very well. Now suppose you were asked to describe a carpet, what would you say?” “I should say it was a thing that was made of wool, and had patterns on it, and was something to walk on.” “Why, yes. And what do you mean by patterns?” “Why, I mean flowers, and birds, and horses, and things like that.” “Not facts, girl number twenty! Not facts!”</p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

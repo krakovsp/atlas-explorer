@@ -245,8 +245,10 @@ body {
 /* Мета-дані (версія/дата) */
 .site-meta {
     margin-top: auto !important;
-    padding-top: 1vh !important;
-    border-top: 1px dashed #D1CBC5 !important;
+    padding-top: 1.5vh !important; /* Отступ от контактов до штриховой линии */
+    border-top: 1px dashed #D1CBC5 !important; /* Та самая линия */
+    display: flex;
+    flex-direction: column;
 }
 
 .meta-item {
@@ -263,9 +265,167 @@ body {
     font-weight: 700;
     color: #8E7F71;
 }
+/* Новая кнопка-таблетка (полный аналог вкладки таблицы) */
+.updates-log-pill-btn {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    
+    /* Геометрия и скругление как на скриншоте */
+    padding: 0.3vh 1vw !important; 
+    border-radius: 8px !important;
+    border: 1px solid #ced4da !important;
+    background-color: #FAF9F6 !important; /* Светлый фон */
+    
+    /* Шрифт и текст */
+    color: #212529 !important;
+    font-family: 'Source Sans 3'!important;
+    font-size: clamp(13px, 1.4vh, 16px) !important;
+    font-weight: 700 !important; /* Жирный текст, как в Content Indicators */
+    text-align: center !important;
+    
+    /* Отступы и анимация */
+    margin-top: 0.5vh !important;
+    margin-bottom: 1.5vh !important; /* Отступ от кнопки до полей Updated/Version */
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Ховер-эффект (синеет при наведении, как вкладка) */
+.updates-log-pill-btn:hover {
+    background-color: #ffffff !important;
+    border-color: #adb5bd !important;
+    color: #0078d4 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* --- Стили для модального окна Updates Log --- */
+
+/* Затемненный фон, перекрывающий всё приложение */
+.modal-overlay {
+    display: none; /* По умолчанию скрыто */
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(74, 69, 65, 0.6) !important; /* Наш фирменный темный тон с прозрачностью */
+    backdrop-filter: blur(4px); /* Элегантное размытие интерфейса сзади */
+    z-index: 30000 !important; /* Выше таблицы и тултипов */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Окно с контентом */
+.modal-content {
+    background-color: #FCFBF7 !important; /* Светлый крем, как у карточки About */
+    border: 1px solid #C9C1B9 !important;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 550px;
+    max-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    animation: fadeInModal 0.25s ease-out;
+}
+
+/* Шапка модального окна */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh 1.5vw;
+    border-bottom: 2px solid #EDEADE;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #4A4541;
+    font-size: clamp(18px, 2.2vh, 24px);
+    font-weight: 700;
+}
+
+/* Кнопка закрытия (крестик) */
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #8E7F71;
+    cursor: pointer;
+    transition: color 0.15s;
+    line-height: 1;
+    padding: 0;
+}
+.modal-close-btn:hover {
+    color: #0078d4;
+}
+
+/* Скроллируемая область логов */
+.modal-body {
+    padding: 2.5vh 1.5vw;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh; /* Разнос между блоками разных дат */
+}
+
+/* Блок конкретной даты */
+.update-block {
+    display: flex;
+    flex-direction: column;
+    text-align: left !important; /* Строго по левому краю */
+}
+
+/* Жирный заголовок даты */
+.update-date {
+    font-size: clamp(15px, 1.8vh, 18px);
+    font-weight: 700 !important;
+    color: #8E7F71; /* Акцентный цвет заголовков */
+    margin-bottom: 1vh;
+}
+
+/* Обычный текст внутри модалки */
+.modal-body p {
+    font-size: clamp(13px, 1.5vh, 15px);
+    line-height: 1.5;
+    color: #212529;
+    margin: 0 0 1vh 0;
+}
+
+/* Точечный список изменений */
+.update-list {
+    margin: 0;
+    padding-left: 1.5vw;
+    list-style-type: disc !important;
+}
+
+.update-list li {
+    font-size: clamp(13px, 1.5vh, 15px);
+    line-height: 1.5;
+    color: #4A4541;
+    margin-bottom: 0.6vh;
+}
+
+/* Кастомный скроллбар для модалки */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: #C2BAB0;
+    border-radius: 3px;
+}
+
+/* Анимация плавного появления */
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 
 /* 3. Блок с таблицей (60%) */
+
 .table-section {
     position: relative; /* Додайте крапку з комою, її не було */
     flex: 1 1 38vh;    /* Змінюємо 0 0 на 1 1 (дозволяємо ріст і стискання) */
@@ -529,7 +689,7 @@ body {
 .tabulator .tabulator-cell {
     padding: 0.4vh 10px !important; 
     border-right: 1px solid #EDEADE !important;
-    font-size: clamp(12px, 1.4vh, 16px) !important;
+    font-size: clamp(12px, 1.6vh, 16px) !important;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -554,6 +714,14 @@ body {
 /* Колір для колонки "Functionallity' */
 .tabulator .tabulator-header .tabulator-col.column-func {
     background-color: #D6D6D6!important; 
+}
+
+/* --- Увеличение шрифта только для колонки Title --- */
+/* 1. Увеличиваем текст и ссылки в обычных ячейках колонки Title */
+.tabulator-row .tabulator-cell.title-column,
+.tabulator-row .tabulator-cell.title-column a {
+    /* Меняйте значение 15px или 1.6vh под ваши нужды */
+    font-size: clamp(13px, 1.6vh, 18px) !important; 
 }
 
 
@@ -735,15 +903,45 @@ body {
     border-radius: 8px !important;
     padding: 12px 16px !important;
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 1.5 !important;         /* Збільшений інтервал для 100 слів */
     max-width: 350px !important;         /* Обмежуємо ширину, щоб текст йшов колонкою */
     box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
     border: 1px solid #8E7F71 !important;
-    z-index: 2000 !important;
+    z-index: 20000 !important;
     word-wrap: break-word !important;    /* Перенос довгих слів */
     white-space: normal !important;      /* Дозволяємо багаторядковість */
 }
+.tabulator-tooltip .tooltip-values-title {
+    font-weight: 700;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8E7F71; /* Используем акцентный беж */
+    margin-top: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed #8E7F71;
+    padding-bottom: 2px;
+
+}
+
+.tabulator-tooltip .tooltip-values-list {
+    margin: 0 !important;
+    padding-left: 15px !important;
+    list-style-type: disc !important; /* Принудительно включаем маркеры точек */
+}
+
+.tabulator-tooltip .tooltip-values-list li {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 6px !important;
+    color: #E5E0DB;
+}
+
+.tabulator-tooltip .tooltip-values-list li strong {
+    color: #FFFFFF !important; /* Выделяем само значение белым цветом */
+}
+
 
 /* Стрілочка тултіпа (якщо підтримується бібліотекою) */
 .tabulator-tooltip::after {
@@ -785,4 +983,37 @@ body {
 /* Колір для вже відвіданих посилань (робимо таким самим, як і звичайні) */
 .tabulator-cell a:visited {
     color: #0078d4;
+}
+
+
+/* --- Фикс отображения фильтров и тултипов при popupContainer: true --- */
+
+/* Разрешаем элементам шапки выходить за свои визуальные границы */
+.tabulator,
+.tabulator-header,
+.tabulator-headers,
+.tabulator-col,
+.tabulator-col-content,
+.tabulator-header-filter {
+    overflow: visible !important;
+}
+
+/* Фиксируем позиционирование кастомных попапов Tabulator */
+.tabulator-popup-container {
+    position: absolute !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+}
+
+/* Специальный фикс для режима Fullscreen:
+   Если ваш контейнер, который разворачивается на весь экран, имеет свой класс 
+   (например, #app-container или .wrapper), замените .main-fullscreen-holder на него */
+:fullscreen, :fullscreen * {
+    overflow: visible !important;
+}
+
+/* Дополнительно предотвращаем обрезание строк самой таблицы, 
+   но сохраняем внутренний скролл для контента */
+.tabulator-tableholder {
+    overflow: auto !important;
 }

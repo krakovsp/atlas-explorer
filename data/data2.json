@@ -16,8 +16,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://energyatlas.eurac.edu"
+    "Story-centred Content": "No"
   },
   {
     "id": 2,
@@ -36,8 +35,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://www.maps.tnc.org/AfricanGreatLakes/MapSeries/index.html?appid=a1bb9dcb40a64ad7a3066936be91103c"
+    "Story-centred Content": "No"
   },
   {
     "id": 3,
@@ -56,8 +54,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://dsl.richmond.edu/panorama/"
+    "Story-centred Content": "No"
   },
   {
     "id": 4,
@@ -76,8 +73,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://www.wri.org/applications/aqueduct/water-risk-atlas"
+    "Story-centred Content": "No"
   },
   {
     "id": 5,
@@ -96,8 +92,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://atlantecalvino.unige.ch/"
+    "Story-centred Content": "No"
   },
   {
     "id": 6,
@@ -116,8 +111,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "Yes",
-    "Story-centred Content": "No",
-    "URL": "https://atlasau.mitma.gob.es"
+    "Story-centred Content": "No"
   },
   {
     "id": 7,
@@ -136,8 +130,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://antartida-anida.ign.gob.ar/static/atlas-antartida-web"
+    "Story-centred Content": "No"
   },
   {
     "id": 8,
@@ -156,8 +149,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://sitservicios.lapaz.bo/sit/atlasmetropolitano"
+    "Story-centred Content": "No"
   },
   {
     "id": 9,
@@ -176,8 +168,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://atlas.inpi.gob.mx/"
+    "Story-centred Content": "No"
   },
   {
     "id": 10,
@@ -196,8 +187,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "No",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://ipysvenezuela.org/atlas-del-silencio"
+    "Story-centred Content": "No"
   },
   {
     "id": 11,
@@ -216,16 +206,15 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://www.biodiversidad.gob.mx/atlas/"
+    "Story-centred Content": "No"
   },
   {
     "id": 12,
     "Title": "Atlas des Sports",
     "Content Type": "Thematic",
     "Thematic Coverage": "Monothematic",
-    "Topic 1": "Human geography",
-    "Topic 2": "Other",
+    "Topic 1": "Other",
+    "Topic 2": "Human geography",
     "Topic 3": "",
     "Theme": "Sport",
     "Spatial Ontology of Objects": "Earth Objects & Phenomena",
@@ -236,8 +225,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://atlas-des-sports.science/"
+    "Story-centred Content": "No"
   },
   {
     "id": 13,
@@ -256,8 +244,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "Yes",
-    "Story-centred Content": "No",
-    "URL": "https://atlasfontium.pl/en/"
+    "Story-centred Content": "No"
   },
   {
     "id": 14,
@@ -276,8 +263,7 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://app.sazp.sk/atlassr"
+    "Story-centred Content": "No"
   },
   {
     "id": 15,
@@ -296,7 +282,6 @@
     "AI-generated Content": "No",
     "Regular Updates": "Yes",
     "Data Catalogue": "No",
-    "Story-centred Content": "No",
-    "URL": "https://www.atlasleefomgeving.nl"
+    "Story-centred Content": "No"
   }
 ]

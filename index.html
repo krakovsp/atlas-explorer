@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RKM4M70Q6P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-RKM4M70Q6P');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Atlas Explorer</title>
+
+    <link rel="icon" type="image/png" href="img/globe2.png">
     
     <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/table-section.css">
 
-    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+    <script src="js/table-config.js"></script>
+    <script src="js/main.js"></script>
+
 </head>
 <body>
 
@@ -22,43 +37,46 @@
         <div class="about-block main-about">
             <div class="about-section">
                 <h2>About</h2>
-                <p>Atlas Explorer – це оновлюваний веб-каталог електронних атласів (настільних та онлайн), у якому атласи класифіковані за бібліографічними, тематичними та медіа-картографічними характеристиками.Останні характеризують атласи як кінцеві застосунки за такими блоками, як інтерфейс, інформаційна архітектура та навігація, репрезентація контенту, та функціональність.</p>
+                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to <em>search</em> for atlases, explore their structure, and conduct your own comparative and trend analyses. <br>The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand body of knowledge about atlases and their diverse metaconcepts </br> </p>
 
-<p>Загалом виділено 70 ключових показників, детальний опис яких представлено у книзі. Стисла характеристика кожного показника з’являється при наведені на заголовок колонок таблиці.
-</p>
-</div>
-           
-            <div class="about-section limitations">
-                <h3>Limitations</h3>
-                <ul class="limitations-list">
-                <li>Складність досягти повноти. Автор просить вибачення за пропущені атласи та заохочує пропонувати нові атласи</li>
-                <li>Представлені результати не ґрунтуються на детальному аналізі кожного атласу (приблизно 35-50 годин), тож певні характеристики можуть бути інтерпретовані некоректно</li>
-                 </ul>
-            </div>
+                <p> In the current version of Atlas Explorer, electronic atlases are classified according to <strong>bibliographic</strong> (22), <strong>content</strong> (15), and <strong>media-cartographic </strong> attributes. The 75 media-cartographic attributes are grouped into the following blocks: general informotaion, interface, information architecture and navigation, content representation, and functionality. A description of each attribute is provided in the tooltips of the table column headers.</p>
+
+                <p>The methodological aspects of media-cartographic analysis are covered in detail in the <a href="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf" target="_blank" rel="noopener noreferrer" class="afil-link">
+    book </a>. Unlike the standard analysis model (which takes an average of 30–50 hours), Atlas Explorer employs an express analysis with an estimated duration of 2–3 hours. This model enables the identification of integral and most important attributes, but the reliability and depth of the analysis are inferior to the standard model.</p>
+
+               <div class="about-footer">
+                    <p class="suggestions-text">New atlases and attributes are forthcoming, and your suggestions are welcome!</p>
+                    <h3 class="enjoy-text">Enjoy exploring the atlases!</h3>
+                </div>
+
+</div>  
+            
         </div>
 
         <div class="about-block criteria-block">
             <h2>Atlas Criteria</h2>
                 <ol class="criteria-list">
-                <li>Заголовок «атлас» або найменування «атласом» у публікаціях</li>
-                <li>Наявність (гео)просторових візуалізацій</li>
-                <li>Прив’язка контенту до конкретної території та теми (наявність тематичної інформації)</li>
-                <li>Наявність декількох розділів та/або історій та/або попередньо підготовлених карт</li>
-                <li>Представлення контенту у середовищі веб-сайту/застосунку</li>
-                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i>: Каталожний геопорталом, зібранням дашбоардів, інтерактивною картою, КІС або ГІС</li>
+                <li>Defined theme and territory</li>
+                <li>Includes multiple thematic sections or predefined thematic maps (excluding the metaconcept of organizational mechanisms)</li>
+                <li>Includes maps or (geo)spatial visualisations</li>
+                <li>Content is delivered either within the atlas shell or on purpose-built pages (not PDF pages)</li>
+                <li>Operational and completed product (not a beta version)</li>
+                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i>: Not a catalog geoportal, collection of dashboards, interactive map, (web)GIS or applied CIS</li>
             </ol>
         </div>
 
         <div class="about-block functionality-block">
             <h2>Functionality</h2>
              <ul class="functionality-list">
-        <li>Кожна таблиця є інтерактивною та надає можливість користувачам проводити власний порівняльний та трендовий аналіз атласів.</li>
-        <li>Перемикання між таблицями здійснюється за допомогою вкладок ліворуч.</li>
-        <li>Праворуч розташовані кнопки перемикання колонок та відкриття таблиці на весь екран.</li>
-        <li>Кнопка дозволяє вмикати/вимикати колонки таблиці.</li>
-        <li>Кожна колонка підтримує сортування за зростанням/спаданням та фільтрацію (список або ручне введення).</li>
-        <li>Шириною колонок можна маніпулювати.</li>
-        <li>Усі назви атласів містять гіперпосилання.</li>
+        <li>Table switching is performed using the buttons on the left</li>
+        <li>On the right are the buttons for horizontal table scrolling, show/hide selected columns, and full-screen mode</li>
+        <li>Column widths can be adjusted</li>
+        <li>All atlas titles contain hyperlinks</li>
+        <li>Clicking any table cell copies its content</li>
+        <li>Columns can be sorted (ascending/descending) and filtered using: (1) keywords, (2) list selection, and (3) expressions (for numeric columns)</li>
+        <li>Table filters can be reset using the ‘Clear Filters’ button located at the bottom, next to the pagination menu</li>
+        <li>Use the ‘Page Size’ dropdown in the pagination menu to set the number of atlases (rows) displayed</li>
+        
     </ul>
   </div>
 
@@ -66,23 +84,23 @@
     <h2>Developer Info</h2>
 
     <div class="author-section">
-        <h3 class="author-name">Stanislav Krakovskyi</h3>
+        <h3 class="author-name">Stanislav Krakovskyi <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/1x1/ua.svg" alt="UA" class="author-flag"></h3>
         <p class="author-position">PhD in Geography</p>
         <p class="author-position">Researcher at the 
   <a href="https://igu.org.ua/en" target="_blank" rel="noopener noreferrer" class="afil-link">
     IGU
   </a> of the 
   <a href="https://www.nas.gov.ua/" target="_blank" rel="noopener noreferrer" class="afil-link">
-    NAS of Ukraine
+    NAS of Ukraine 
   </a></p>
     </div>
 
     <div class="contact-grid">
-        <a href="https://orcid.org/..." class="contact-link" >
+        <a href="https://orcid.org/0000-0001-5164-6272" class="contact-link" >
             <i class="fab fa-orcid"></i>
             <span class="value">0000-0001-5164-6272</span>
         </a>
-        <a href="www.researchgate.net/profile/Stanislav-Krakovskyi" class="contact-link" >
+        <a href="https://www.researchgate.net/profile/Stanislav-Krakovskyi?ev=hdr_xprf" class="contact-link" >
             <i class="fab fa-researchgate"></i>
             <span class="value">ResearchGate Profile</span>
         </a>
@@ -98,11 +116,11 @@
         </button>
         <div class="meta-item">
             <span class="meta-label">Updated:</span>
-            <span class="meta-value">18.05.2026</span>
+            <span class="meta-value">25.05.2026</span>
         </div>
         <div class="meta-item">
             <span class="meta-label">Version:</span>
-            <span class="meta-value">0.6.1</span>
+            <span class="meta-value">0.8.1</span>
         </div>
     </div>
 </div>
@@ -111,9 +129,9 @@
 <main class="table-section">
     <nav class="nav-tabs">
         <div class="tab-buttons-group">
-            <button class="tab-button active" onclick="openTab(event, 'tab1')">Bibliographic Indicators</button>
-            <button class="tab-button" onclick="openTab(event, 'tab2')">Content Indicators</button>
-            <button class="tab-button" onclick="openTab(event, 'tab3')">Media-Cartographic Indicators</button>
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Bibliographic Attributes</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Content Attributes</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Media-Cartographic Attributes</button>
         </div> <div class="settings-group">
             <button class="tab-button settings-btn" onclick="toggleColumnPicker()">
                 <i class="fas fa-cog"></i> Show/Hide Columns
@@ -136,7 +154,7 @@
     <div id="table3-id"></div>
 </div>
 </main>
-<script src="script.js"></script>
+
 
 <div id="updates-modal" class="modal-overlay">
     <div class="modal-content">
@@ -147,8 +165,8 @@
         <div class="modal-body">
             
             <div class="update-block">
-                <div class="update-date">18.05.2026</div>
-                <p>Yo sé quién soy —respondió don Quijote—, y sé que puedo ser, no sólo los que he dicho, sino todos los Doce Pares de Francia, y aun todos los Nueve de la Fama, pues a todas las hazañas que ellos todos juntos y cada uno por sí hicieron se aventajarán las mías.</p>
+                <div class="update-date">18.03.2026</div>
+                <p>Es una ciencia —replicó don Quijote— que encierra en sí todas o las más ciencias del mundo, a causa que el que la profesa ha de ser jurisperito, y saber las leyes de la justicia distributiva y commutativa, para dar a cada uno lo que es suyo y lo que le conviene; ha de ser teólogo, para saber dar razón de la cristiana ley que profesa, clara y distintamente, dondequiera que le fuere pedido; ha de ser médico, y principalmente herbolario, para conocer en mitad de los despoblados y desiertos las yerbas que tienen virtud de sanar las heridas, que no ha de andar el caballero andante a cada triquete buscando quien se las cure; ha de ser astrólogo, para conocer por las estrellas cuántas horas son pasadas de la noche, y en qué parte y en qué clima del mundo se halla; ha de saber las matemáticas, porque a cada paso se le ofrecerá tener necesidad dellas... Ha de estar adornado de todas las virtudes teologales y cardinales; rescendiendo a otras menudencias, digo que ha de saber nadar... ha de saber herrar un caballo y aderezar la silla y el freno; y, volviendo a lo que toca a la fidelidad de Dios y de su dama, ha de ser casto en los pensamientos, honesto en las palabras, liberal en las obras, valiente en los hechos, sufrido en los trabajos, caritativo con los necesitados, y, finalmente, mantenedor de la verdad, aunque le cueste la vida el defenderla.</p>
                 <ul class="update-list">
                     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
                     <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>

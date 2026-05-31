@@ -1109,7 +1109,7 @@
             headerTooltip: function() {
                 return createHeaderTooltip(
                 "Central focus of the EA, which influences the design of all other components",
-                [{ value: "Data", desc: "Data analysis and/or the provision of statistical information are central to an EA. Maps and visualisations serve an instrumental role by simplifying the understanding of key patterns in data distribution or acting as an interface to the data and supplementary visualisations" },
+                [{ value: "Data", desc: "Data analysis and/or the provision of statistical information are central to the EA. Maps and visualisations serve an instrumental role by simplifying the understanding of key patterns in data distribution or acting as an interface to the data and supplementary visualisations" },
                 { value: "Theme", desc: "EA is focused on representation and on complex thematic plots, emphasizing the explanation of facts, memorable visual imagery, storytelling, a synthesis of topography and thematic content, and multimedia. Attribute information plays a supporting role" }
                 ]);
             }},

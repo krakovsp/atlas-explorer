@@ -1,188 +1,279 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RKM4M70Q6P"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RKM4M70Q6P');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Atlas Explorer</title>
-
-    <link rel="icon" type="image/png" href="img/globe2.png">
+    <title>Аналіз атласів</title>
     
-    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/table-section.css">
-
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator_midnight.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-    <script src="js/table-config.js"></script>
-    <script src="js/main.js"></script>
 
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden; /* Оставляем прокрутку только внутри таблиц */
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        /* Новый Хедер */
+        .site-header {
+            background-color: #000;
+            padding: 10px 20px;
+            border-bottom: 1px solid #333;
+        }
+        .site-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #0078d4;
+        }
+
+        /* Контейнер для текста введения */
+        .intro-section {
+            padding: 15px 20px;
+            background-color: #222;
+            border-bottom: 1px solid #333;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .nav-tabs {
+            display: flex; background: #1a1a1a; height: 50px;
+            align-items: center; padding: 0 20px; gap: 10px;
+            border-bottom: 2px solid #333;
+        }
+
+        .tab-button {
+            padding: 8px 20px; cursor: pointer; background: #333;
+            color: white; border: none; border-radius: 4px 4px 0 0;
+        }
+
+        .tab-button.active { background: #0078d4; font-weight: bold; }
+
+        /* Динамический расчет высоты: 100vh минус хедер, интро и навигация */
+        .tab-content { 
+            height: calc(100vh - 180px); /* Подберите это значение под высоту вашего текста */
+            display: none; 
+        }
+        .tab-content.active { display: block; }
+        .table-container { height: 100%; width: 100%; }
+
+        .tabulator-tooltip {
+            background-color: #2c3e50 !important;
+            color: #ecf0f1 !important;
+            border-radius: 4px !important;
+            padding: 10px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        /* Добавляет тень для закрепленной колонки, чтобы отделить её от прокручиваемой части */
+        .tabulator-cell.tabulator-frozen {
+           border-right: 2px solid #333 !important;
+           box-shadow: 5px 0 5px -5px rgba(0,0,0,0.5);
+        }
+        /* Цвет для зеленой галочки */
+        .tabulator-cell span[aria-label="true"] {
+           color: #27ae60 !important;
+           font-weight: bold;
+           font-size: 1.2em;
+        }
+
+        /* Цвет для красного крестика */
+         .tabulator-cell span[aria-label="false"] {
+           color: #e74c3c !important;
+           font-weight: bold;
+           font-size: 1.2em;
+        }
+        .tabulator-col-group {
+           background-color: #2c3e50 !important;
+           border-bottom: 1px solid #444 !important;
+        }
+        /* Стилизация полей ввода фильтров в шапке */
+.tabulator-header-filter input {
+    background: #333 !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+    border-radius: 3px;
+    padding: 4px !important;
+    box-sizing: border-box;
+}
+
+/* Стилизация выпадающего списка (select) */
+.tabulator-header-filter select {
+    background: #333 !important;
+    color: #fff !important;
+}
+
+/* Убираем лишние отступы, чтобы шапка не стала слишком огромной */
+.tabulator-header .tabulator-col .tabulator-col-content .tabulator-header-filter {
+    margin-top: 5px;
+}
+/* Стилизация блока пагинации */
+.tabulator-footer {
+    background-color: #1a1a1a !important;
+    color: white !important;
+    border-top: 1px solid #333 !important;
+    padding: 10px !important;
+}
+
+/* Стилизация кнопок пагинации (1, 2, 3, След...) */
+.tabulator-page {
+    background: #333 !important;
+    color: white !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+.tabulator-page.active {
+    background: #0078d4 !important; /* Цвет активной страницы */
+    border-color: #0078d4 !important;
+}
+
+/* Стилизация селектора количества строк */
+.tabulator-page-size {
+    background: #333 !important;
+    color: white !important;
+    border: 1px solid #444 !important;
+}
+    </style>
 </head>
 <body>
 
 <header class="site-header">
-    <h1>Atlas Explorer</h1>
+    <h1>Аналіз атласів</h1>
 </header>
 
 <section class="intro-section">
-    <div class="intro-container">
-        <div class="about-block main-about">
-            <div class="about-section">
-                <h2>About</h2>
-                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to <em>search</em> for atlases, explore their structure, and conduct your own comparative and trend analyses. <br>The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand body of knowledge about atlases and their diverse metaconcepts </br> </p>
-
-                <p> In the current version of Atlas Explorer, electronic atlases are classified according to <strong>bibliographic</strong> (22), <strong>content</strong> (15), and <strong>media-cartographic </strong> attributes. The 75 media-cartographic attributes are grouped into the following blocks: general informotaion, interface, information architecture and navigation, content representation, and functionality. A description of each attribute is provided in the tooltips of the table column headers.</p>
-
-                <p>The methodological aspects of media-cartographic analysis are covered in detail in the <a href="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf" target="_blank" rel="noopener noreferrer" class="afil-link">
-    book </a>. Unlike the standard analysis model (which takes an average of 30–50 hours), Atlas Explorer employs an express analysis with an estimated duration of 2–3 hours. This model enables the identification of integral and most important attributes, but the reliability and depth of the analysis are inferior to the standard model.</p>
-
-               <div class="about-footer">
-                    <p class="suggestions-text">New atlases and attributes are forthcoming, and your suggestions are welcome!</p>
-                    <h3 class="enjoy-text">Enjoy exploring the atlases!</h3>
-                </div>
-
-</div>  
-            
-        </div>
-
-        <div class="about-block criteria-block">
-            <h2>Atlas Criteria</h2>
-                <ol class="criteria-list">
-                <li>Defined theme and territory</li>
-                <li>Includes multiple thematic sections or predefined thematic maps (excluding the metaconcept of organizational mechanisms)</li>
-                <li>Includes maps or (geo)spatial visualisations</li>
-                <li>Content is delivered either within the atlas shell or on purpose-built pages (not PDF pages)</li>
-                <li>Operational and completed product (not a beta version)</li>
-                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i>: Not a catalog geoportal, collection of dashboards, interactive map, (web)GIS or applied CIS</li>
-            </ol>
-        </div>
-
-        <div class="about-block functionality-block">
-            <h2>Functionality</h2>
-             <ul class="functionality-list">
-        <li>Table switching is performed using the buttons on the left</li>
-        <li>On the right are the buttons for horizontal table scrolling, show/hide selected columns, and full-screen mode</li>
-        <li>Column widths can be adjusted</li>
-        <li>All atlas titles contain hyperlinks</li>
-        <li>Clicking any table cell copies its content</li>
-        <li>Columns can be sorted (ascending/descending) and filtered using: (1) keywords, (2) list selection, and (3) expressions (for numeric columns)</li>
-        <li>Table filters can be reset using the ‘Clear Filters’ button located at the bottom, next to the pagination menu</li>
-        <li>Use the ‘Page Size’ dropdown in the pagination menu to set the number of atlases (rows) displayed</li>
-        
-    </ul>
-  </div>
-
-      <div class="info-block">
-    <h2>Developer Info</h2>
-
-    <div class="author-section">
-        <h3 class="author-name">Stanislav Krakovskyi <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/1x1/ua.svg" alt="UA" class="author-flag"></h3>
-        <p class="author-position">PhD in Geography</p>
-        <p class="author-position">Researcher at the 
-  <a href="https://igu.org.ua/en" target="_blank" rel="noopener noreferrer" class="afil-link">
-    IGU
-  </a> of the 
-  <a href="https://www.nas.gov.ua/" target="_blank" rel="noopener noreferrer" class="afil-link">
-    NAS of Ukraine 
-  </a></p>
-    </div>
-
-    <div class="contact-grid">
-        <a href="https://orcid.org/0000-0001-5164-6272" class="contact-link" >
-            <i class="fab fa-orcid"></i>
-            <span class="value">0000-0001-5164-6272</span>
-        </a>
-        <a href="https://www.researchgate.net/profile/Stanislav-Krakovskyi?ev=hdr_xprf" class="contact-link" >
-            <i class="fab fa-researchgate"></i>
-            <span class="value">ResearchGate Profile</span>
-        </a>
-        <a href="mailto:krakovsp@gmail.com" class="contact-link">
-            <i class="fas fa-envelope"></i>
-            <span class="value">krakovsp@gmail.com</span>
-        </a>
-    </div>
-
-    <div class="site-meta">
-         <button class="updates-log-pill-btn" onclick="openUpdatesLog(event)">
-            Update History
-        </button>
-        <div class="meta-item">
-            <span class="meta-label">Updated:</span>
-            <span class="meta-value">25.05.2026</span>
-        </div>
-        <div class="meta-item">
-            <span class="meta-label">Version:</span>
-            <span class="meta-value">0.8.1</span>
-        </div>
-    </div>
-</div>
+    <p>Ласкаво просимо! Нижче представлені інтерактивні таблиці для аналізу сучасних картографічних атласів. 
+       Ви можете перемикатися між категоріями, сортувати дані та переглядати деталі при наведенні на комірки.</p>
 </section>
 
-<main class="table-section">
-    <nav class="nav-tabs">
-        <div class="tab-buttons-group">
-            <button class="tab-button active" onclick="openTab(event, 'tab1')">Bibliographic Attributes</button>
-            <button class="tab-button" onclick="openTab(event, 'tab2')">Content Attributes</button>
-            <button class="tab-button" onclick="openTab(event, 'tab3')">Media-Cartographic Attributes</button>
-        </div> <div class="settings-group">
-            <button class="tab-button settings-btn" onclick="toggleColumnPicker()">
-                <i class="fas fa-cog"></i> Show/Hide Columns
-            </button>
-            <div id="column-picker" class="column-picker-container"></div>
-            
-            <button class="fullscreen-btn" onclick="toggleFullscreen()" title="На весь екран">
-                <i class="fas fa-expand"></i>
-            </button>
-        </div>
-    </nav>
+<nav class="nav-tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Склад</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Города</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Задачи</button>
+</nav>
 
 <div id="tab1" class="tab-content active">
-    <div id="table1-id"></div>
+    <div id="table1-id" class="table-container"></div>
 </div>
+
 <div id="tab2" class="tab-content">
-    <div id="table2-id"></div>
+    <div id="table2-id" class="table-container"></div>
 </div>
+
 <div id="tab3" class="tab-content">
-    <div id="table3-id"></div>
-</div>
-</main>
-
-
-<div id="updates-modal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Updates History</h2>
-            <button class="modal-close-btn" onclick="closeUpdatesLog()">&times;</button>
-        </div>
-        <div class="modal-body">
-            
-            <div class="update-block">
-                <div class="update-date">18.03.2026</div>
-                <p>Es una ciencia —replicó don Quijote— que encierra en sí todas o las más ciencias del mundo, a causa que el que la profesa ha de ser jurisperito, y saber las leyes de la justicia distributiva y commutativa, para dar a cada uno lo que es suyo y lo que le conviene; ha de ser teólogo, para saber dar razón de la cristiana ley que profesa, clara y distintamente, dondequiera que le fuere pedido; ha de ser médico, y principalmente herbolario, para conocer en mitad de los despoblados y desiertos las yerbas que tienen virtud de sanar las heridas, que no ha de andar el caballero andante a cada triquete buscando quien se las cure; ha de ser astrólogo, para conocer por las estrellas cuántas horas son pasadas de la noche, y en qué parte y en qué clima del mundo se halla; ha de saber las matemáticas, porque a cada paso se le ofrecerá tener necesidad dellas... Ha de estar adornado de todas las virtudes teologales y cardinales; rescendiendo a otras menudencias, digo que ha de saber nadar... ha de saber herrar un caballo y aderezar la silla y el freno; y, volviendo a lo que toca a la fidelidad de Dios y de su dama, ha de ser casto en los pensamientos, honesto en las palabras, liberal en las obras, valiente en los hechos, sufrido en los trabajos, caritativo con los necesitados, y, finalmente, mantenedor de la verdad, aunque le cueste la vida el defenderla.</p>
-                <ul class="update-list">
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                    <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariaturх.</li>
-                </ul>
-            </div>
-
-            <div class="update-block">
-                <div class="update-date">10.02.2026</div>
-                <p>“Now, what I want is, Facts. Teach these boys and girls nothing but Facts. Facts alone are wanted in life. Plant nothing else, and root out everything else. You can only form the minds of reasoning animals upon Facts: nothing else will ever be of any service to them. This is the principle on which I bring up my own children, and this is the principle on which I bring up these children. Stick to Facts, sir!” The speaker, and the schoolmaster, and the third grown person present, all backed a little, and swept with their eyes the inclined plane of little vessels then and there arranged in order, ready to have imperial gallons of facts poured into them until they were full to the brim. In this life, we want nothing but Facts, sir; nothing but Facts!” “Girl number twenty,” said Mr. Gradgrind, squarely pointing with his square forefinger, “I don’t know that girl. Who is that girl?” “Sissy Jupe, sir,” explained number twenty, blushing, rising up. “Sissy is not a name,” said Mr. Gradgrind. “Don’t call yourself Sissy. Call yourself Cecilia.” “Yes, sir,” returned the girl. “Cecilia Jupe. Let me see. What is your father?” “He belongs to the horse-riding, if you please, sir.” “Girl number twenty unable to define a horse!” said Mr. Gradgrind, for the general behoof of all present. “Girl number twenty possessed of no facts in reference to one of the commonest of animals! Some boy’s definition of a horse. Bitzer, yours.” “The quadruped, and graminivorous, Mr. Gradgrind,” replied Bitzer, “forty teeth, namely twenty-four grinders, four eye-teeth, and twelve incisive. Sheds coat in the spring; in marshy countries sheds hoofs, too. Hoofs hard, but requiring to be shod with iron. Age known by marks in mouth.” “Now girl number twenty,” said Mr. Gradgrind, “you know what a horse is.” “Yes, sir,” said Sissy Jupe. “Then define a horse.” Sissy Jupe hesitated, and looked for help, and blushed, and said nothing. “Girl number twenty unable to define a horse!” repeated Mr. Gradgrind. “Very well. Now let me ask you this. You know what a carpet is?” “Yes, sir.” “Then you know what a carpet is made of?” “Of wool, sir.” “Very well. Now suppose you were asked to describe a carpet, what would you say?” “I should say it was a thing that was made of wool, and had patterns on it, and was something to walk on.” “Why, yes. And what do you mean by patterns?” “Why, I mean flowers, and birds, and horses, and things like that.” “Not facts, girl number twenty! Not facts!”</p>
-            </div>
-
-
-        </div>
-    </div>
+    <div id="table3-id" class="table-container"></div>
 </div>
 
+<script>
+    function createRemoteTable(id, url, columns) {
+        return new Tabulator(id, {
+            ajaxURL: "data/" + url,
+            layout: "fitColumns",
+            columnDefaults: {
+            headerHozAlign: "center", // Выравнивание заголовков по центру
+            }, 
+            placeholder: "Завантаження даних...",
+            // Добавляем сопоставление для корректной работы галочек
+            dataReceiveParams: {
+            "last_page": "last_page", 
+            },
+                        dataLoaded: function(data) {
+            this.refreshFilterValues(); 
+            },
+            // --- Настройки пагинации ---
+            pagination: "local",       // Включаем локальную пагинацию
+            paginationSize: 10,        // Количество записей на одной странице
+            paginationSizeSelector: [5, 10, 20, 50], // Выбор пользователем кол-ва строк
+            paginationCounter: "rows", // Показывает счетчик строк внизу
+        // ---------------------------
+            columns: columns,
+            tooltip: function(e, cell) {
+                const data = cell.getData();
+                return data["Команда розробників"] ? data["Команда розробників"] : false;
+            }
+        });
+    }
+
+    const table1 = createRemoteTable("#table1-id", "data1.json", [
+        {title:"N", field:"id", width:70},
+        {title:"Назва", field:"Назва", frozen:true},
+        {title:"Дата випуску", field:"Дата випуску", headerTooltip: "Опис для дати випуску..."},
+        {
+        title:"Англійська", 
+        field:"Англійська мова", 
+        width:120, 
+        hozAlign:"center",
+        formatter:"tickCross", 
+        formatterParams:{
+            trueValue:"Так",  // Что считать галочкой
+            falseValue:"Ні", // Что считать крестиком
+            crossElement: "✘", // Символ крестика
+            tickElement: "✔",  // Символ галочки
+        }
+    }
+    ]);
+
+    const table2 = createRemoteTable("#table2-id", "data2.json", [
+        {title:"Тип видавця", field:"Тип видавця", headerTooltip: "шалай балай"},
+        {title:"Видавець", field:"Видавець", headerTooltip: "Бур бур ля ля"}
+    ]);
+
+    const table3 = createRemoteTable("#table3-id", "data3.json", [
+        {title:"Кількість мов", field:"Кількість мов", frozen:true},
+        {
+            title:"Загальна інформація",
+            headerHozAlign: "center",
+            columns:[
+            {title:"Дата останнього оновлення", field:"Дата останнього оновлення"},
+            {title:"Спосіб реалізації", 
+            field:"Спосіб реалізації",
+            headerFilter: "list", // В новых версиях Tabulator лучше использовать "list" вместо "select"
+            headerFilterParams: {
+            values: true, // Искать уникальные значения в колонке
+            clearable: true // Добавить крестик для сброса фильтра
+            }},],
+        },
+        {
+            title:"Інтерфейс",
+            headerHozAlign: "center",
+            columns:[
+            {title:"Мобільні пристрої", field:"Мобільні пристрої"},
+            {title:"Дата останнього оновлення", field:"Дата останнього оновлення", headerFilter: "input"},
+            {title:"URL", field:"URL"},
+            {title:"Мобільні пристрої", field:"Мобільні пристрої"},
+            {title:"Дата останнього оновлення", field:"Дата останнього оновлення"},
+            {title:"Команда розробників", field:"Команда розробників"},],
+        },
+        {
+            title:"Навігація",
+            headerHozAlign: "center",
+            columns:[  
+            {title:"Дата останнього оновлення", field:"Дата останнього оновлення"},
+            {title:"Дата останнього оновлення", field:"Дата останнього оновлення"},
+            {title:"URL", field:"URL"},
+            {title:"Англійська мова", field:"Англійська мова"},],
+        } 
+
+    ]);
+
+    function openTab(evt, tabName) {
+        const contents = document.getElementsByClassName("tab-content");
+        for (let x of contents) x.style.display = "none";
+        
+        const buttons = document.getElementsByClassName("tab-button");
+        for (let x of buttons) x.classList.remove("active");
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+        
+        if (tabName === 'tab1') table1.redraw();
+        if (tabName === 'tab2') table2.redraw();
+        if (tabName === 'tab3') table3.redraw();
+    }
+</script>
 </body>
 </html>

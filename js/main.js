@@ -340,3 +340,110 @@ function toggleFullscreen() {
     };
     document.addEventListener('keydown', escapeHandler);
 }
+
+// 6. Открытие модального окна предложений
+function openSuggestionsModal() {
+    const modal = document.getElementById("suggestions-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+// Закрытие модального окна предложений
+function closeSuggestionsModal() {
+    const modal = document.getElementById("suggestions-modal");
+    if (modal) {
+        modal.style.display = "none";
+        document.getElementById("suggestions-form").reset(); // Очищаем форму
+    }
+}
+
+// Обновление глобального перехватчика кликов на темную область вокруг окон
+window.addEventListener("click", function(event) {
+    const updatesModal = document.getElementById("updates-modal");
+    const suggestionsModal = document.getElementById("suggestions-modal");
+    
+    if (event.target === updatesModal) closeUpdatesLog();
+    if (event.target === suggestionsModal) closeSuggestionsModal();
+});
+
+// Асинхронная отправка данных формы на ваш email (Formspree API)
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("suggestions-form");
+    if (!form) return;
+
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault(); // Запрещаем перезагрузку
+        
+        const submitBtn = form.querySelector(".form-submit-btn");
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+        submitBtn.disabled = true;
+
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                alert("Thank you! Your suggestion has been successfully sent.");
+                closeSuggestionsModal();
+            } else {
+                alert("Oops! There was a problem submitting your form. Please try again.");
+            }
+        } catch (error) {
+            alert("Network error. Could not send the data.");
+        } finally {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+});
+
+let valueRowCount = 0;
+
+// Функция динамического добавления пары полей
+function addAttributeValueRow() {
+    valueRowCount++;
+    const container = document.getElementById("dynamic-values-container");
+    if (!container) return;
+
+    // Создаем обертку для строки
+    const row = document.createElement("div");
+    row.className = "form-group-row dynamic-value-row";
+    row.id = `value-row-${valueRowCount}`;
+
+    // 👇 ИСПРАВЛЕНО: Убраны атрибуты required из инпутов
+    row.innerHTML = `
+        <div class="form-group">
+            <input type="text" name="Value ${valueRowCount}" placeholder="e.g., External">
+        </div>
+        <div class="form-group">
+            <input type="text" name="Value Definition ${valueRowCount}" placeholder="Explanation of the value...">
+        </div>
+        <button type="button" class="remove-value-btn" onclick="removeAttributeValueRow(${valueRowCount})" title="Remove row">&times;</button>
+    `;
+
+    container.appendChild(row);
+}
+
+// Функция удаления конкретной строки
+function removeAttributeValueRow(id) {
+    const row = document.getElementById(`value-row-${id}`);
+    if (row) row.remove();
+}
+
+// Функция закрытия модального окна предложений
+function closeSuggestionsModal() {
+    const modal = document.getElementById("suggestions-modal");
+    if (modal) {
+        modal.style.display = "none";
+        document.getElementById("suggestions-form").reset(); 
+        
+        const container = document.getElementById("dynamic-values-container");
+        if (container) container.innerHTML = "";
+        valueRowCount = 0; 
+    }
+}

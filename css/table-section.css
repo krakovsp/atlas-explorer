@@ -1,24 +1,50 @@
-/* 3. Блок с таблицей (60%) */
+/* ============================================================
+   TABLE-SECTION.CSS — Стилі секції таблиці
+   Структура:
+     1.  Контейнер секції (.table-section)
+     2.  Навігаційна панель (.nav-tabs)
+     3.  Кнопки навігації (.tab-button, .settings-btn, .fullscreen-btn)
+     4.  Вкладки (.tab-content)
+     5.  Повноекранний режим (.fullscreen-mode)
+     6.  Спливаюче вікно вибору колонок (#column-picker)
+     7.  Чекбокси та кольорові групи (.column-item)
+     8.  Скролбар #column-picker
+     9.  Tabulator — загальні стилі
+    10.  Tabulator — хедер
+    11.  Tabulator — рядки та комірки
+    12.  Tabulator — кольори колонок по групах
+    13.  Tabulator — футер та пагінація
+    14.  Tabulator — скролбар таблиці
+    15.  Tabulator — фільтри
+    16.  Tabulator — прогрес-бар
+    17.  Tabulator — тултіп
+    18.  Tabulator — фікс overflow / popup
+    19.  Tabulator — посилання та курсор
+    20.  Кнопки прокрутки (.scroll-arrow-btn)
+    21.  Кнопка "Clear Filters"
+    22.  Значки Так / Ні
+   ============================================================ */
+
+
+/* ============================================================
+   1. КОНТЕЙНЕР СЕКЦІЇ
+   ============================================================ */
 
 .table-section {
-    position: relative; /* Додайте крапку з комою, її не було */
+    position: relative; 
     flex: 1 1 38vh;    /* Змінюємо 0 0 на 1 1 (дозволяємо ріст і стискання) */
     display: flex;
     flex-direction: column;
     min-height: 0; 
     overflow: hidden;  
 }
-.settings-group {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.5vw !important;
-    position: relative !important; /* Це залишаємо, щоб пікер позиціонувався відносно цієї групи */
-}
-/* Уніфіковані стилі іконок для всіх кнопок */
-.tab-button i, .settings-btn i, .fullscreen-btn i {
-    font-size: clamp(14px, 1.6vh, 18px);
-}
-/* Панель навигации над таблицей*/
+
+
+/* ============================================================
+   2. НАВІГАЦІЙНА ПАНЕЛЬ
+   ============================================================ */
+
+/* Панель навигации над таблицей */
 .nav-tabs {
     flex: 0 0 auto; /* Нехай висота підлаштовується під контент кнопок */
     min-height: 6vh;
@@ -31,10 +57,28 @@
     border-bottom: 1px solid #D1CBC5;
     box-sizing: border-box;
 }
-/* Кнопки навигации*/
+
+.settings-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5vw !important;
+    position: relative !important; /* Це залишаємо, щоб пікер позиціонувався відносно цієї групи */
+}
+
+
+/* ============================================================
+   3. КНОПКИ НАВІГАЦІЇ
+   ============================================================ */
+
+/* Уніфіковані стилі іконок для всіх кнопок */
+.tab-button i, .settings-btn i, .fullscreen-btn i {
+    font-size: 0.85rem !important;
+}
+
+/* Кнопки навигации */
 .tab-button {
     padding: 0.6vh 1.2vw !important; /* Пропорційні відступи */
-    font-size: clamp(12px, 1.4vh, 16px) !important;
+    font-size: 0.85rem !important;
     border-radius: 6px;
     cursor: pointer;
     background: #FAF9F6;
@@ -45,11 +89,12 @@
     transition: all 0.2s ease;
     white-space: nowrap; /* Щоб текст не розривався на два рядки */
 }
+
 .tab-button:hover {
     background: #e2e6ea;
     border-color: #adb5bd;
     color: #0078d4;
-}  
+}
 
 .tab-button.active {
     background: #ffffff;
@@ -59,12 +104,12 @@
     font-weight: bold;
 }
 
-/* Кнопка колонок*/
+/* Кнопка колонок */
 .settings-btn { 
     display: flex;
     align-items: center;
     gap: 0.5vw; /* Відстань між іконкою та текстом */
-    font-size: clamp(12px, 1.4vh, 16px);
+    font-size: 0.85rem !important;
     padding: 0.6vh 1vw;
     background: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -72,17 +117,85 @@
     color: #495057;
     transition: all 0.3s ease;
 }
+
 .settings-btn:hover {
     background: #e2e6ea;
     border-color: #adb5bd;
     color: #0078d4;
 }
+
 .settings-btn.active {
     background: #ffffff;
     color: #0078d4;
     border-bottom: 3px solid #0078d4;
     font-weight: bold;
 }
+
+/* Кнопка розгортання */
+.fullscreen-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    border-radius: 6px;
+    padding: 0.6vh 0.8vw;
+    cursor: pointer;
+    font-size:  0.9rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.fullscreen-btn:hover {
+    background: #e2e6ea;
+    color: #0078d4;
+}
+
+
+/* ============================================================
+   4. ВКЛАДКИ
+   ============================================================ */
+
+.tab-content { 
+    display: none !important; 
+    flex: 1;
+    min-height: 0;
+}
+
+/* Только активная вкладка становится видимой и занимает всё место */
+.tab-content.active {
+    display: flex !important; /* Змінено з block на flex */
+    flex-direction: column;
+    height: 100% !important;
+    flex: 1 1 auto;
+}
+
+
+/* ============================================================
+   5. ПОВНОЕКРАННИЙ РЕЖИМ
+   ============================================================ */
+
+/* Клас, який розгортає таблицю на весь екран */
+.table-section.fullscreen-mode {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 10001 !important; /* Поверх усього */
+    background: #EDEADE;
+    flex: none !important; /* Відключаємо flex-basis */
+}
+
+/* Приховуємо кнопку розгортання, коли вже на весь екран, або міняємо іконку */
+.table-section.fullscreen-mode .fullscreen-btn i::before {
+    content: "\f066"; /* Іконка стискання (fas fa-compress) */
+}
+
+
+/* ============================================================
+   6. СПЛИВАЮЧЕ ВІКНО ВИБОРУ КОЛОНОК (#column-picker)
+   ============================================================ */
 
 /* ==========================================================================
    Стили для всплывающего окна выбора колонок (Модернизированный Flexbox)
@@ -136,11 +249,16 @@
     border-bottom: 1px solid #dee2e6;
 }
 
+
+/* ============================================================
+   7. ЧЕКБОКСИ ТА КОЛЬОРОВІ ГРУПИ
+   ============================================================ */
+
 /* Окремий елемент списку (чекбокс + текст) */
 .column-item {
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(12px, 1.5vh, 15px) !important;
-    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
     color: #333 !important;
     cursor: pointer !important;
     
@@ -185,6 +303,7 @@
     background: #8E7F71 !important;
 }
 
+/* Базова галочка */
 .column-item input[type="checkbox"]:checked::after {
     content: "\f00c" !important;
     font-family: "Font Awesome 6 Free" !important;
@@ -195,6 +314,13 @@
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+}
+
+/* Корректировка значка птички (галочки) внутри цветных чекбоксов */
+/* Если фон чекбокса слишком светлый (например, желтый или светло-голубой), 
+   делаем галочку темно-коричневой/черной для максимального контраста */
+.column-item input[type="checkbox"]:checked::after {
+    color: #2B2B2B !important; 
 }
 
 /* --- Кнопка "Show All" внутри окна настроек колонок --- */
@@ -211,7 +337,7 @@
     
     padding: 6px 12px !important;
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(12px, 1.5vh, 15px) !important;
+    font-size:  0.75rem !important;
     font-weight: 600 !important;
     border-radius: 6px !important;
     cursor: pointer !important;
@@ -278,14 +404,10 @@
     background-color: #ECEAE4 !important;
 }
 
-/* Корректировка значка птички (галочки) внутри цветных чекбоксов */
-.column-item input[type="checkbox"]:checked::after {
-    /* Если фон чекбокса слишком светлый (например, желтый или светло-голубой), 
-       делаем галочку темно-коричневой/черной для максимального контраста */
-    color: #2B2B2B !important; 
-}
 
-/* --- Стилізація скроллбара для выпадающего окна настроек колонок (#column-picker) --- */
+/* ============================================================
+   8. СКРОЛБАР #column-picker
+   ============================================================ */
 
 /* Настройка размеров дорожки скроллбара (горизонтального и вертикального на всякий случай) */
 #column-picker::-webkit-scrollbar {
@@ -312,77 +434,10 @@
 }
 
 
-/* --- Настройка курсора для копирования ячеек --- */
+/* ============================================================
+   9. TABULATOR — ЗАГАЛЬНІ СТИЛІ
+   ============================================================ */
 
-/* Вся таблица по умолчанию имеет стандартный курсор */
-.tabulator .tabulator-row .tabulator-cell {
-    cursor: default !important;
-}
-
-/* Колонки, контент которых можно скопировать кликом, подсвечиваются указателем */
-.tabulator .tabulator-row .tabulator-cell:not(.title-column):not([0-field="actions"]) {
-    cursor: pointer !important;
-}
-
-.tabulator .tabulator-row .tabulator-cell:not(.title-column):not([0-field="actions"]):hover {
-    background-color: rgba(142, 127, 113, 0.15) !important; /* Мягкое выделение ячейки при наведении */
-    transition: background-color 0.15s ease;
-}
-
-/* Название атласа сохраняет приоритетный переход по ссылке */
-.tabulator .tabulator-row .tabulator-cell.title-column {
-    cursor: pointer !important;
-}
-
-/* Вкладки*/
-.tab-content { 
-    display: none !important; 
-    flex: 1;
-    min-height: 0;
-}
-/* Только активная вкладка становится видимой и занимает всё место */
-.tab-content.active {
-    display: flex !important; /* Змінено з block на flex */
-    flex-direction: column;
-    height: 100% !important;
-    flex: 1 1 auto;
-}
-/* Кнопка розгортання */
-.fullscreen-btn {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    color: #495057;
-    border-radius: 6px;
-    padding: 0.6vh 0.8vw;
-    cursor: pointer;
-    font-size: clamp(14px, 1.8vh, 18px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-.fullscreen-btn:hover {
-    background: #e2e6ea;
-    color: #0078d4;
-}
-/* Клас, який розгортає таблицю на весь екран */
-.table-section.fullscreen-mode {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 10001 !important; /* Поверх усього */
-    background: #EDEADE;
-    flex: none !important; /* Відключаємо flex-basis */
-}
-
-/* Приховуємо кнопку розгортання, коли вже на весь екран, або міняємо іконку */
-.table-section.fullscreen-mode .fullscreen-btn i::before {
-    content: "\f066"; /* Іконка стискання (fas fa-compress) */
-}
-
-/* Стили Tabulator */
 /* Общий контейнер таблицы */
 .tabulator {
     height: 100% !important; /* Важно, чтобы Tabulator видел высоту родителя */
@@ -390,16 +445,24 @@
     border: 1px solid #D1CBC5 !important;
     border-radius: 8px;
     overflow: hidden; /* Щоб кути таблиці були заокруглені */
-    font-size: clamp(13px, 1.6vh, 17px) !important;
+    font-size:  0.8rem !important;
     font-family: 'Source Sans 3';
 }
+
+/* Внутрішній контейнер таблиці:
+   flex + overflow:auto об'єднано з фіксом overflow нижче */
 .tabulator-tableholder {
     background-color: #EDEADE !important; 
     flex: 1 1 auto !important; /* Дозволяємо внутрішній частині займати весь простір */
-    /* Видаляємо жорсткий max-height: calc(...) */
     overflow-y: auto !important;
+    overflow: auto !important; /* Дополнительно предотвращаем обрезание строк самой таблицы */
     display: block;
 }
+
+
+/* ============================================================
+   10. TABULATOR — ХЕДЕР
+   ============================================================ */
 
 /* Хедер та його зміст */
 .tabulator .tabulator-header {
@@ -407,23 +470,57 @@
     color: #4A4541 !important;           /* Темно-коричневий текст замість чорного */
     border-bottom: 2px solid #D1CBC5 !important;
     font-weight: 700;
-   /* Адаптивний шрифт: мін 13px, ідеально 1.6vh, макс 18px */
-    font-size: clamp(13px, 1.6vh, 18px) !important;   
+    font-size:  0.9rem !important;
 }
+
 .tabulator .tabulator-header .tabulator-col {
     background-color: #DFD8D0 !important;
     border-right: 1px solid #D1CBC5 !important;
 }
+
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
     padding: 4px 6px !important; /* Мінімальні відступи всередині комірки хедера */
 }
 
+/* Контейнер фільтра в хедері */
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter {
+    margin-top: 2px !important;
+    line-height: 1 !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Знаходимо інпут всередині контейнера фільтра */
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input {
+    background-color: #ffffff !important; /* Колір фону */
+    color: #212529 !important;            /* Колір тексту */
+    border: 1px solid #ced4da !important; /* Рамка */
+    border-radius: 4px !important;
+    padding: 2px 6px !important; 
+    font-size: 0.75rem !important; /* Менший за основний текст */
+    height: clamp(18px, 2.2vh, 26px) !important; /* Чітко обмежена висота */
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* Стан при натисканні (фокус) */
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input:focus {
+    border-color: #0078d4 !important;
+    background-color: #fff !important;
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1) !important;
+    outline: none !important;
+}
+
+
+/* ============================================================
+   11. TABULATOR — РЯДКИ ТА КОМІРКИ
+   ============================================================ */
+
 /* Рядки */
 .tabulator-row {
     border-bottom: 1px solid #eee !important;
-    
-    
 }
+
 /* "Зебра" */
 .tabulator-row.tabulator-row-odd {
     background-color: #FFFFFF !important;
@@ -435,11 +532,12 @@
     background-color: #E5E0DB !important;
     transition: background 0.1s ease-in-out;
 }
+
 /* Окрема комірка */
 .tabulator .tabulator-cell {
     padding: 0.4vh 10px !important; 
     border-right: 1px solid #EDEADE !important;
-    font-size: clamp(12px, 1.6vh, 16px) !important;
+    font-size: 0.8rem !important;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -448,6 +546,25 @@
 .tabulator .tabulator-cell:last-child {
     border-right: none !important;
 }
+
+/* Тень-разделитель справа у frozen столбца */
+.tabulator .tabulator-frozen-right,
+.tabulator .tabulator-frozen-left {
+    box-shadow: 3px 0 6px rgba(0,0,0,0.12) !important;
+}
+
+/* --- Увеличение шрифта только для колонки Title --- */
+/* Увеличиваем текст и ссылки в обычных ячейках колонки Title */
+.tabulator-row .tabulator-cell.title-column,
+.tabulator-row .tabulator-cell.title-column a {
+    /* Меняйте значение 15px или 1.6vh под ваши нужды */
+    font-size: 0.9rem !important;
+}
+
+
+/* ============================================================
+   12. TABULATOR — КОЛЬОРИ КОЛОНОК ПО ГРУПАХ
+   ============================================================ */
 
 /* Колір для колонки "Загальна" */
 .tabulator .tabulator-header .tabulator-col.column-general {
@@ -465,38 +582,30 @@
 .tabulator .tabulator-header .tabulator-col.column-represent {
     background-color: #CAE2BF !important; 
 }
-/* Колір для колонки "Functionallity' */
+/* Колір для колонки "Functionallity" */
 .tabulator .tabulator-header .tabulator-col.column-func {
     background-color: #D6D6D6!important; 
 }
 
-/* --- Увеличение шрифта только для колонки Title --- */
-/* 1. Увеличиваем текст и ссылки в обычных ячейках колонки Title */
-.tabulator-row .tabulator-cell.title-column,
-.tabulator-row .tabulator-cell.title-column a {
-    /* Меняйте значение 15px или 1.6vh под ваши нужды */
-    font-size: clamp(13px, 1.6vh, 18px) !important; 
-}
 
-/* Тень-разделитель справа у frozen столбца */
-.tabulator .tabulator-frozen-right,
-.tabulator .tabulator-frozen-left {
-    box-shadow: 3px 0 6px rgba(0,0,0,0.12) !important;
-}
+/* ============================================================
+   13. TABULATOR — ФУТЕР ТА ПАГІНАЦІЯ
+   ============================================================ */
 
-
+/* Футер таблиці — об'єднано два блоки в один */
 .tabulator .tabulator-footer {
     display: flex !important;
     align-items: center !important;
     position: relative !important;
-    justify-content: flex-end !important;
+    justify-content: space-between !important;
     height: 5vh !important; /* Зменшено висоту */
     min-height: 35px !important;
     padding: 0 1.5vw !important;
     background-color: #EDEADE !important;
     border-top: 1px solid #D1CBC5 !important;
 }
-/* 2. Приборкуємо прихований span, який Tabulator створює всередині */
+
+/* Приборкуємо прихований span, який Tabulator створює всередині */
 .tabulator .tabulator-footer > span, 
 .tabulator-footer-contents {
     display: flex !important;
@@ -505,29 +614,32 @@
     align-items: center !important;
     justify-content: space-between !important; /* Ось тут магія рознесення в різні боки */
 }
-/* 3. Лічильник сторінок (ліворуч) */
+
+/* Лічильник сторінок (ліворуч) */
 .tabulator .tabulator-page-counter {
     margin-right: auto !important; /* Штовхає все, що справа від нього, до краю */
     white-space: nowrap !important;
 }
+
 .tabulator .tabulator-footer .tabulator-page-counter {
-        font-size: clamp(11px, 1.3vh, 14px) !important;
+    font-size: 0.75rem !important;
     color: #4A4541 !important;
 }
-/* 4. Контейнер пагінації та розміру сторінки (Завжди справа) */
+
+/* Контейнер пагінації та розміру сторінки (Завжди справа) */
 .tabulator .tabulator-footer .tabulator-paginator {
     display: flex !important;
     margin-left: auto !important; /* Подвійний контроль: штовхає сам себе вправо */
     align-items: center !important;
     justify-content: flex-end !important;
     gap: 4px !important;
-    font-size: clamp(13px, 1.3vh, 16px) !important; 
+    font-size: 0.8rem !important; 
 }
 
-/* 5. Спільні стилі для кнопок та випадаючого списку */
+/* Спільні стилі для кнопок та випадаючого списку */
 .tabulator .tabulator-footer .tabulator-page,
 .tabulator .tabulator-footer .tabulator-page-size {
-    font-size: clamp(11px, 1.3vh, 14px) !important;
+    font-size: 0.7rem !important;
     height: 3vh !important;
     min-width: 2vw !important;
     padding: 0 8px !important;
@@ -541,6 +653,7 @@
     color: #212529 !important;
     transition: all 0.2s ease;
 }
+
 /* Випадаючий список (Page Size) - фікс позиції */
 .tabulator .tabulator-footer .tabulator-page-size {
     margin-right: 1vw !important; /* Відступ від кнопок сторінок */
@@ -574,6 +687,10 @@
 }
 
 
+/* ============================================================
+   14. TABULATOR — СКРОЛБАР ТАБЛИЦІ
+   ============================================================ */
+
 /* Настроим внешний вид скроллбара, чтобы он был заметным в темной теме */
 .tabulator-tableholder::-webkit-scrollbar {
     height: 10px; /* Высота горизонтального скролла */
@@ -587,7 +704,12 @@
     background: #8E7F71; /* Цвет меняется при наведении */
 }
 
-/* Контейнер списку фільтрації колонок таблиці*/
+
+/* ============================================================
+   15. TABULATOR — СПИСОК ФІЛЬТРАЦІЇ
+   ============================================================ */
+
+/* Контейнер списку фільтрації колонок таблиці */
 .tabulator-edit-list {
     background: #ffffff !important;
     border: 1px solid #ced4da !important;
@@ -596,13 +718,15 @@
     padding: 2px 0 !important;
     border-radius: 4px !important;
 }
+
 /* Окремий пункт у списку */
 .tabulator-edit-list-item {
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(11px, 1.4vh, 14px) !important; /* Динамічний шрифт */
+    font-size: 0.75rem !important;
     padding: 4px 10px !important; /* Зменшені відступи */
     color: #212529 !important;
 }
+
 /* Ефект при наведенні на пункт */
 .tabulator-edit-list-item:hover {
     background-color: #f1f3f5 !important; /* Світло-сірий фон */
@@ -610,38 +734,16 @@
     cursor: pointer;
 }
 
-/* Контейнер фільтра в хедері */
-.tabulator .tabulator-header .tabulator-col .tabulator-header-filter {
-    margin-top: 2px !important;
-    line-height: 1 !important;
-    display: flex;
-    align-items: center;
-}
-/* Знаходимо інпут всередині контейнера фільтра */
-.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input {
-    background-color: #ffffff !important; /* Колір фону */
-    color: #212529 !important;            /* Колір тексту */
-    border: 1px solid #ced4da !important; /* Рамка */
-    border-radius: 4px !important;
-    padding: 2px 6px !important; 
-    font-size: clamp(10px, 1.3vh, 14px) !important; /* Менший за основний текст */
-    height: clamp(18px, 2.2vh, 26px) !important; /* Чітко обмежена висота */
-    
-    box-sizing: border-box !important;
-    width: 100% !important;
-}
-/* Стан при натисканні (фокус) */
-.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input:focus {
-    border-color: #0078d4 !important;
-    background-color: #fff !important;
-    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1) !important;
-    outline: none !important;
-}
+
+/* ============================================================
+   16. TABULATOR — ПРОГРЕС-БАР
+   ============================================================ */
 
 /* Стиль контейнера прогрес-бару для колонки Атласність */
 .tabulator-cell .tabulator-col-content .tabulator-arrow {
     /* Це для стрілочок, а нам треба саме прогрес: */
 }
+
 /* Налаштування самої смужки */
 .tabulator .tabulator-cell [data-format="progress"] {
     height: 18px !important;
@@ -650,62 +752,11 @@
     overflow: hidden;
     border: 1px solid #dee2e6;
 }
+
 /* Текст всередині смужки */
 .tabulator-cell .tabulator-progress-value {
     font-weight: bold;
     font-size: 11px;
-}
-
-/* Стилізація кастомного тултіпа колонок */
-.tabulator-tooltip {
-    background-color: #4A4541 !important; /* Темний колір з нашої палітри */
-    color: #F5F2F0 !important;           /* Світлий текст (кремовий) */
-    border-radius: 8px !important;
-    padding: 12px 16px !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(14px, 1.4vh, 18px) !important; /* Динамічний шрифт */
-    line-height: 1.5 !important;         /* Збільшений інтервал для 100 слів */
-    max-width: 500px !important;         /* Обмежуємо ширину, щоб текст йшов колонкою */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
-    border: 1px solid #8E7F71 !important;
-    z-index: 20000 !important;
-    word-wrap: break-word !important;    /* Перенос довгих слів */
-    white-space: normal !important;      /* Дозволяємо багаторядковість */
-}
-.tabulator-tooltip .tooltip-values-title {
-    font-weight: 700;
-    font-size: clamp(12px, 1.4vh, 16px) !important; /* Динамічний шрифт */;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #8E7F71; /* Используем акцентный беж */
-    margin-top: 8px;
-    margin-bottom: 4px;
-    border-bottom: 1px dashed #8E7F71;
-    padding-bottom: 2px;
-
-}
-
-.tabulator-tooltip .tooltip-values-list {
-    margin: 0 !important;
-    padding-left: 15px !important;
-    list-style-type: disc !important; /* Принудительно включаем маркеры точек */
-}
-
-.tabulator-tooltip .tooltip-values-list li {
-    font-size: clamp(12px, 1.4vh, 16px) !important; /* Динамічний шрифт */;
-    line-height: 1.4 !important;
-    margin-bottom: 6px !important;
-    color: #E5E0DB;
-}
-
-.tabulator-tooltip .tooltip-values-list li strong {
-    color: #FFFFFF !important; /* Выделяем само значение белым цветом */
-}
-
-
-/* Стрілочка тултіпа (якщо підтримується бібліотекою) */
-.tabulator-tooltip::after {
-    border-top-color: #4A4541 !important;
 }
 
 /* Контейнер прогрес-бару */
@@ -717,13 +768,179 @@
     overflow: hidden;
     position: relative;
 }
+
 /* Сама заповнена смужка */
 .tabulator .tabulator-cell .tabulator-progress .tabulator-progress-bar {
     border-radius: 10px !important;
     height: 100%;
 }
 
+/* Текст відсотків */
+.tabulator .tabulator-cell .tabulator-progress span {
+    color: #4A4541 !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+}
 
+
+/* ============================================================
+   17. TABULATOR — ТУЛТІП
+   ============================================================ */
+
+/* Стилізація кастомного тултіпа колонок */
+.tabulator-tooltip {
+    background-color: #4A4541 !important; /* Темний колір з нашої палітри */
+    color: #F5F2F0 !important;           /* Світлий текст (кремовий) */
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.9rem !important; /* Динамічний шрифт */
+    line-height: 1.5 !important;         /* Збільшений інтервал для 100 слів */
+    max-width: 500px !important;         /* Обмежуємо ширину, щоб текст йшов колонкою */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    border: 1px solid #8E7F71 !important;
+    z-index: 20000 !important;
+    word-wrap: break-word !important;    /* Перенос довгих слів */
+    white-space: normal !important;      /* Дозволяємо багаторядковість */
+}
+
+.tabulator-tooltip .tooltip-values-title {
+    font-weight: 700;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8E7F71; /* Используем акцентный беж */
+    margin-top: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed #8E7F71;
+    padding-bottom: 2px;
+}
+
+.tabulator-tooltip .tooltip-values-list {
+    margin: 0 !important;
+    padding-left: 15px !important;
+    list-style-type: disc !important; /* Принудительно включаем маркеры точек */
+}
+
+.tabulator-tooltip .tooltip-values-list li {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 6px !important;
+    color: #E5E0DB;
+}
+
+.tabulator-tooltip .tooltip-values-list li strong {
+    color: #FFFFFF !important; /* Выделяем само значение белым цветом */
+}
+
+/* Стрілочка тултіпа (якщо підтримується бібліотекою) */
+.tabulator-tooltip::after {
+    border-top-color: #4A4541 !important;
+}
+
+
+/* ============================================================
+   18. TABULATOR — ФІКС OVERFLOW / POPUP
+   ============================================================ */
+
+/* Разрешаем элементам шапки выходить за свои визуальные границы */
+.tabulator,
+.tabulator-header,
+.tabulator-headers,
+.tabulator-col,
+.tabulator-col-content,
+.tabulator-header-filter {
+    overflow: visible !important;
+}
+
+/* Фиксируем позиционирование кастомных попапов Tabulator */
+.tabulator-popup-container {
+    position: absolute !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+}
+
+/* Специальный фикс для режима Fullscreen:
+   Если ваш контейнер, который разворачивается на весь экран, имеет свой класс 
+   (например, #app-container или .wrapper), замените .main-fullscreen-holder на него */
+:fullscreen, :fullscreen * {
+    overflow: visible !important;
+}
+
+
+/* ============================================================
+   19. TABULATOR — ПОСИЛАННЯ ТА КУРСОР
+   ============================================================ */
+
+/* Стиль для посилань всередині таблиці */
+.tabulator-cell a {
+    color: #0078d4;
+    transition: all 0.2s ease;
+}
+
+.tabulator-cell a:hover {
+    color: #005a9e;
+    text-decoration: underline;
+}
+
+/* Колір для вже відвіданих посилань (робимо таким самим, як і звичайні) */
+.tabulator-cell a:visited {
+    color: #0078d4;
+}
+
+/* --- Стилизация ссылок в колонке Title --- */
+.tabulator-row .tabulator-cell.title-column a.table-link {
+    color: inherit; /* Ссылка принимает тот же цвет, что и обычный текст строки */
+    text-decoration: none; /* Убирает подчеркивание по умолчанию */
+}
+
+/* Эффект при наведении на название атласа (опционально, можно убрать) */
+.tabulator-row .tabulator-cell.title-column a.table-link:hover {
+    text-decoration: underline; /* Подчеркивание появится только при наведении */
+    color: #8E7F71; /* Или любой другой аккуратный цвет из вашей палитры */
+}
+
+/* --- Управление курсором мыши --- */
+
+/* ГАРАНТИРУЕМ интерактивность всех ячеек для кликов мыши */
+.tabulator .tabulator-row .tabulator-cell {
+    cursor: pointer !important;
+    pointer-events: auto !important; /* Разрешаем прохождение кликов в JS */
+}
+
+/* Исключаем только техническую колонку действий (кнопки) */
+.tabulator .tabulator-row .tabulator-cell[data-field="actions"] {
+    cursor: default !important;
+    pointer-events: auto !important;
+}
+
+/* Эффект наведения на ячейки (кроме кнопок действий) */
+.tabulator .tabulator-row .tabulator-cell:not([data-field="actions"]):hover {
+    background-color: rgba(142, 127, 113, 0.15) !important; /* Ваш фирменный цвет #8E7F71 */
+    transition: background-color 0.12s ease-in-out;
+}
+
+/* --- Настройка курсора для копирования ячеек --- */
+
+/* Колонки, контент которых можно скопировать кликом, подсвечиваются указателем */
+.tabulator .tabulator-row .tabulator-cell:not(.title-column):not([0-field="actions"]) {
+    cursor: pointer !important;
+}
+
+.tabulator .tabulator-row .tabulator-cell:not(.title-column):not([0-field="actions"]):hover {
+    background-color: rgba(142, 127, 113, 0.15) !important; /* Мягкое выделение ячейки при наведении */
+    transition: background-color 0.15s ease;
+}
+
+/* Название атласа сохраняет приоритетный переход по ссылке */
+.tabulator .tabulator-row .tabulator-cell.title-column {
+    cursor: pointer !important;
+}
+
+
+/* ============================================================
+   20. КНОПКИ ПРОКРУТКИ (.scroll-arrow-btn)
+   ============================================================ */
 
 /* Контейнер для стрелочек принудительно делает их горизонтальными */
 .custom-scroll-controls {
@@ -735,7 +952,6 @@
 }
 
 /* Кнопки-стрелки полностью наследуют стилистику верхних круглых/квадратных кнопок */
-/* Стилизация самих кнопок-стрелок */
 .scroll-arrow-btn {
     background-color: #f8f9fa !important; /* Светлый фон как у .settings-btn */
     border: 1px solid #dee2e6 !important; /* Стандартная серая рамка */
@@ -766,115 +982,11 @@
     transform: scale(0.95) !important;
 }
 
-/* Адаптация стандартного футера Tabulator, чтобы элементы не сжимались */
-.tabulator .tabulator-footer {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    background-color: #EDEADE !important; /* Родной фон футера */
-    padding: 0.5vh 1vw !important;
-}
 
+/* ============================================================
+   21. КНОПКА "CLEAR FILTERS"
+   ============================================================ */
 
-
-/* Текст відсотків */
-.tabulator .tabulator-cell .tabulator-progress span {
-    color: #4A4541 !important;
-    font-weight: 600 !important;
-    font-size: 12px !important;
-}
-
-/* Стиль для посилань всередині таблиці */
-.tabulator-cell a {
-    color: #0078d4;
-    transition: all 0.2s ease;
-}
-
-.tabulator-cell a:hover {
-    color: #005a9e;
-    text-decoration: underline;
-}
-
-/* Колір для вже відвіданих посилань (робимо таким самим, як і звичайні) */
-.tabulator-cell a:visited {
-    color: #0078d4;
-}
-
-/* --- Фикс отображения фильтров и тултипов при popupContainer: true --- */
-
-/* Разрешаем элементам шапки выходить за свои визуальные границы */
-.tabulator,
-.tabulator-header,
-.tabulator-headers,
-.tabulator-col,
-.tabulator-col-content,
-.tabulator-header-filter {
-    overflow: visible !important;
-}
-
-/* Фиксируем позиционирование кастомных попапов Tabulator */
-.tabulator-popup-container {
-    position: absolute !important;
-    z-index: 999999 !important;
-    overflow-y: auto !important;
-}
-
-/* Специальный фикс для режима Fullscreen:
-   Если ваш контейнер, который разворачивается на весь экран, имеет свой класс 
-   (например, #app-container или .wrapper), замените .main-fullscreen-holder на него */
-:fullscreen, :fullscreen * {
-    overflow: visible !important;
-}
-
-/* Дополнительно предотвращаем обрезание строк самой таблицы, 
-   но сохраняем внутренний скролл для контента */
-.tabulator-tableholder {
-    overflow: auto !important;
-}
-
-/* --- Стилизация ссылок в колонке Title --- */
-.tabulator-row .tabulator-cell.title-column a.table-link {
-    color: inherit; /* Ссылка принимает тот же цвет, что и обычный текст строки */
-    text-decoration: none; /* Убирает подчеркивание по умолчанию */
-}
-
-/* Эффект при наведении на название атласа (опционально, можно убрать) */
-.tabulator-row .tabulator-cell.title-column a.table-link:hover {
-    text-decoration: underline; /* Подчеркивание появится только при наведении */
-    color: #8E7F71; /* Или любой другой аккуратный цвет из вашей палитры */
-}
-
-/* --- Управление курсором мыши --- */
-/* 1. ГАРАНТИРУЕМ интерактивность всех ячеек для кликов мыши */
-.tabulator .tabulator-row .tabulator-cell {
-    cursor: pointer !important;
-    pointer-events: auto !important; /* Разрешаем прохождение кликов в JS */
-}
-
-/* 2. Исключаем только техническую колонку действий (кнопки) */
-.tabulator .tabulator-row .tabulator-cell[data-field="actions"] {
-    cursor: default !important;
-    pointer-events: auto !important;
-}
-
-/* 3. Эффект наведения на ячейки (кроме кнопок действий) */
-.tabulator .tabulator-row .tabulator-cell:not([data-field="actions"]):hover {
-    background-color: rgba(142, 127, 113, 0.15) !important; /* Ваш фирменный цвет #8E7F71 */
-    transition: background-color 0.12s ease-in-out;
-}
-
-/* Кольорові значки "Так" та "Ні" */
-.table-tick {
-    color: #4A7C59 !important;
-    font-weight: bold;
-}
-
-.table-cross {
-    color: #B23A22 !important;
-    font-weight: bold;
-}
-
-/* --- Кнопка "Clear Filters" в футере таблицы (Обновленное позиционирование) --- */
 .footer-clear-filters-btn {
     display: inline-flex !important;
     align-items: center !important;
@@ -889,7 +1001,7 @@
     min-height: 24px !important;
     padding: 0 10px !important;
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(11px, 1.3vh, 14px) !important;
+    font-size: 0.75rem !important;
     font-weight: 600 !important;
     border-radius: 4px !important;
     cursor: pointer !important;
@@ -913,4 +1025,19 @@
 /* Эффект нажатия */
 .footer-clear-filters-btn:active {
     transform: scale(0.97) !important;
+}
+
+
+/* ============================================================
+   22. ЗНАЧКИ "ТАК" / "НІ"
+   ============================================================ */
+
+.table-tick {
+    color: #4A7C59 !important;
+    font-weight: bold;
+}
+
+.table-cross {
+    color: #B23A22 !important;
+    font-weight: bold;
 }

@@ -1,67 +1,114 @@
+/* ============================================================
+   LAYOUT.CSS — Головні стилі сторінки
+   Структура:
+     1. Базові стилі (body)
+     2. Шапка сайту (.site-header)
+     3. Вступна секція (.intro-section)
+     4. Картки (.about-block, .criteria-block і т.д.)
+     5. Типографіка та заголовки
+     6. Виділення та посилання
+     7. Списки
+     8. Блок автора та контакти
+     9. Мета-дані (версія/дата)
+    10. Кнопка Updates Log
+    11. Модальне вікно (Update)
+    12. Модальне вікно (Suggestions)
+   ============================================================ */
+
+
+/* ============================================================
+   1. БАЗОВІ СТИЛІ
+   ============================================================ */
+:root {
+    font-size: clamp(13px, 0.78vw, 22px);
+}
+
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden; /* Запрещаем общую прокрутку страницы */
-    background-color: #f8f9fa; /* Світло-сірий фон замість чорного */
-    color: #212529;           /* Темний текст */
-    font-family: 'Source Sans 3';
+    overflow: hidden;
+    background-color: #f8f9fa;
+    color: #212529;
+    font-family: 'Source Sans 3', sans-serif;
 }
 
+
+/* ============================================================
+   2. ШАПКА САЙТУ
+   ============================================================ */
+
 .site-header {
-    flex: 0 0 12vh; 
+    flex: 0 0 12vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background:
-    linear-gradient(rgba(194,186,176,0.9), rgba(194,186,176,0.9)),
-    url(logo.png);
-    background-size: cover;
-    background-position: center;
-    
     border-bottom: 1px solid #dee2e6;
     box-sizing: border-box;
     text-align: center;
+    background:
+        linear-gradient(rgba(194,186,176,0.6), rgba(194,186,176,0.6)),
+        url(../img/header-bg.svg); /
+    background-size: cover;
+    background-position: center;
 }
 
 .site-header h1 {
     margin: 0;
-    font-size
-    font-size: clamp(26px, 2vw, 40px); /* Динамічний заголовок */
-    letter-spacing: 0.2vw;
-    color: #2B2B2B;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.8); /* Тень для лучшей читаемости */
-}
+    font-family: 'Playfair Display', serif !important;
+    font-style: italic !important;
+    font-weight: 800 !important; 
+    font-size: clamp(2.2rem, 2.8vw, 3.5rem) !important; 
+    letter-spacing: 0.05em !important; 
+    color: #4A4541 !important;
+    text-transform: none !important;
+    text-shadow: 
+        1px 1px 0px rgba(255, 255, 255, 0.9),
+        0px 0px 10px rgba(255, 255, 255, 0.5) !important;
+} 
 
-/* 2. Блок с текстом (около 20-30%) */
+
+/* ============================================================
+   3. ВСТУПНА СЕКЦІЯ
+   ============================================================ */
+
 .intro-section {
-    flex: 0 0 50vh;           /* Фіксована висота */
+    flex: 0 0 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2.5vh 2vw;
-    background-color: #F6F4F0;
-    border-bottom: 1px solid #D1CBC5;
     box-sizing: border-box;
-    overflow: hidden;         /* Заборона загальної прокрутки секції */
+    overflow: hidden;
+    border-bottom: 1px solid #D1CBC5;
+    
+    background-color: #F6F4F0;
+    background-image:
+    radial-gradient(
+    rgba(194,186,176,.35) 2px,
+    transparent 1px);
+    background-size: 22px 22px;
 }
 
 .intro-container {
     display: flex;
-    flex-direction: row;      /* Тільки в ряд */
-    flex-wrap: nowrap;        /* Заборона переносу */
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 1.5vw;
     width: 100%;
-    height: 100%;             /* Заповнює всі 40vh */
+    height: 100%;
+
 }
 
-/* --- Уніфіковані картки (Спільні стилі) --- */
 
-.about-block, 
-.criteria-block, 
-.functionality-block, 
+/* ============================================================
+   4. КАРТКИ (спільні стилі)
+   ============================================================ */
+
+.about-block,
+.criteria-block,
+.functionality-block,
 .info-block {
     background: #FFFFFF;
     border: 1px solid #D1CBC5;
@@ -71,91 +118,23 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    min-width: 0;             /* Дозволяє контенту всередині стискатися */
+    min-width: 0;
 }
 
-/* Пропорції ширини блоків */
-.main-about          { 
-    flex: 2.5 1 0; 
-    order: 2; 
-    background-color: #FCFBF7 !important; /* Дуже світлий кремовий відтінок */
-    border: 1px solid #C9C1B9 !important; /* Трохи темніша рамка для акценту */
-}
-.criteria-block      { flex: 0.8 1 0; order: 1;}
+/* Пропорції ширини карток */
+.main-about          { flex: 2.5 1 0; order: 2; background-color: #FCFBF7 !important; border: 1px solid #C9C1B9 !important; }
+.criteria-block      { flex: 0.8 1 0; order: 1; }
 .functionality-block { flex: 1.1 1 0; order: 3; }
-.info-block          { flex: 0.6 1; order: 4;  }
+.info-block          { flex: 0.6 1 0;  order: 4; }
 
 
-
-/* --- Типографіка та Заголовки --- */
-
-/* Стилизация абзацев */
-.about-section p {
-    font-size: clamp(16px, 0.8vw, 18px); /* Комфортный для чтения размер */
-    color: #333333 !important; /* Мягкий темный цвет вместо ядовито-черного */
-    margin-top: 0;
-    margin-bottom: 14px; /* Одинаковый отступ между абзацами */
-    line-height: 1.55 !important; /* Увеличенный межстрочный интервал для легкого восприятия */
-}
-
-/* Оформление ссылки на книгу */
-.about-section .afil-link {
-    color: #0078d4 !important; /* Синий интерактивный цвет */
-    text-decoration: none !important;
-    font-weight: 600;
-    transition: all 0.15s ease-in-out;
-    border-bottom: 1px dashed #0078d4; /* Пунктирное подчеркивание вместо сплошного */
-    padding-bottom: 1px;
-}
-
-/* Ховер-эффект для ссылки */
-.about-section .afil-link:hover {
-    color: #005a9e !important;
-    border-bottom-color: #005a9e;
-    background-color: rgba(0, 120, 212, 0.05); /* Легкая подсветка фона при наведении */
-}
-
-/* --- Финальный акцент в блоке About --- */
-.about-footer {
-    margin-top: 25px;
-    padding-top: 15px;
-    border-top: 2px dashed #EDEADE; /* Мягкая пунктирная линия, отделяющая финал от основного текста */
-    text-align: center; /* Центрируем весь блок */
-}
-
-/* Текст про новые атласы */
-.suggestions-text {
-    font-size: clamp(18px, 0.9vw, 20px) !important;
-    color: #555555 !important;
-    font-style: italic; /* Курсив делает фразу более элегантной */
-    margin-bottom: 15px !important;
-    text-align: center !important; /* Отменяем justify для этого абзаца */
-}
-
-/* Главное пожелание - крупно и по центру */
-.enjoy-text {
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: clamp(24px, 1.25vw, 28px) !important; /* Заметно крупнее основного текста */
-    color: #8E7F71 !important; /* Ваша фирменная благородная палитра */
-    font-weight: 700 !important;
-    letter-spacing: 0.5px; /* Слегка раздвигаем буквы для премиального вида */
-    margin: 0 !important;
-    padding: 5px 0;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.02); /* Микро-тень для глубины */
-}
-
-/* --- Стилизация выделений внутри абзацев About --- */
-
-/* 1. Жирный текст для категорий и атрибутов */
-.about-section strong {
-    color: #2B2B2B !important; /* Делаем чуть контрастнее обычного текста */
-    font-weight: 600 !important; /* Полужирный, чтобы не "кричал" */
-}
-
+/* ============================================================
+   5. ТИПОГРАФІКА ТА ЗАГОЛОВКИ
+   ============================================================ */
 
 .intro-section h2 {
     color: #4A4541;
-    font-size: clamp(24px, 1.25vw, 28px);
+    font-size: 1.4rem;
     margin: 0 0 1vh 0;
     padding-bottom: 0.5vh;
     border-bottom: 2px solid #EDEADE;
@@ -164,28 +143,131 @@ body {
 
 .intro-section h3 {
     color: #8E7F71;
-    font-size: clamp(20px, 1vw, 22px);
+    font-size: 1.2rem;
     margin: 0 0 0.8vh 0;
 }
 
-.intro-section p, 
+.intro-section p,
 .intro-section li {
-    font-size: clamp(16px, 0.8vw, 18px);
+    font-size: 0.9rem;
     line-height: 1.4;
     color: #212529;
     margin-bottom: 1vh;
 }
 
-/* --- Списки (Уніфікація) --- */
+/* Абзаци блоку About */
+.about-section p {
+    font-size: 0.9rem;
+    color: #333333 !important;
+    margin-top: 0;
+    margin-bottom: 14px;
+    line-height: 1.55 !important;
+}
 
-.criteria-list, 
+/* Жирний текст у блоці About */
+.about-section strong {
+    color: #2B2B2B !important;
+    font-weight: 600 !important;
+}
+
+/* Курсив у блоці About */
+.about-section .about-cursive {
+    font-style: italic !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Фінальний акцент у блоці About */
+.about-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 2px dashed #EDEADE;
+    text-align: center;
+}
+
+.suggestions-text {
+    font-size: 1rem !important;
+    color: #555555 !important;
+    font-style: italic;
+    margin-bottom: 15px !important;
+    text-align: center !important;
+}
+
+.enjoy-text {
+    font-size: 1.4rem !important;
+    color: #8E7F71 !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    margin: 0 !important;
+    padding: 5px 0;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.02);
+}
+
+/* Заголовок info-block вирівняний по лівому краю (без uppercase) */
+.info-block h2 {
+    text-align: left;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+
+/* ============================================================
+   6. ВИДІЛЕННЯ ТА ПОСИЛАННЯ
+   ============================================================ */
+
+/* Загальне посилання */
+.afil-link {
+    text-decoration: none !important;
+    color: #4A4541 !important;
+    transition: all 0.2s ease;
+}
+
+.afil-link.value {
+    border-bottom: 1px solid transparent;
+}
+
+/* Посилання на книгу в блоці About */
+.about-section .afil-link {
+    color: #0078d4 !important;
+    font-weight: 600;
+    border-bottom: 1px dashed #0078d4;
+    padding-bottom: 1px;
+    transition: all 0.15s ease-in-out;
+}
+
+.about-section .afil-link:hover {
+    color: #005a9e !important;
+    border-bottom-color: #005a9e;
+    background-color: rgba(0, 120, 212, 0.05);
+}
+
+.suggestions-trigger {
+    color: #0078d4;
+    font-weight: 600;
+    border-bottom: 1px dashed #0078d4;
+    padding-bottom: 1px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.suggestions-trigger:hover {
+    color: #005a9e;
+    border-bottom-color: #005a9e;
+    background-color: rgba(0, 120, 212, 0.05);
+}
+
+
+/* ============================================================
+   7. СПИСКИ
+   ============================================================ */
+
+.criteria-list,
 .functionality-list {
     margin: 0;
     padding-left: 1.2vw;
     list-style-position: outside;
 }
 
-/* Стиль для булітів у Functionality */
+/* Кастомні буліти у Functionality (замість стандартних disc) */
 .functionality-list {
     list-style: none;
     padding-left: 0;
@@ -205,64 +287,52 @@ body {
 }
 
 
-/* Секція автора */
+/* ============================================================
+   8. БЛОК АВТОРА ТА КОНТАКТИ
+   ============================================================ */
+
+/* Секція автора з нижньою лінією-розділювачем */
 .author-section {
-    margin-bottom: 2vh !important;
-    border-bottom: 1px solid #EDEADE;
-    padding-bottom: 1.5vh;
     margin-top: 1vh !important;
+    margin-bottom: 2vh !important;
+    padding-bottom: 1.5vh;
+    border-bottom: 1px solid #EDEADE;
 }
 
-.info-block h2 {
-    /* Автоматично підхоплює стилі .intro-section h2: 
-       лінія знизу, колір #4A4541, шрифт clamp(19px, 2vh, 23px) */
-    text-align: left;
-    text-transform: none; /* Відмовляємось від uppercase, як в інших блоках */
-    letter-spacing: normal;
-}
 .author-name {
     display: inline-flex;
-    align-items: center; /* Центрируем флаг строго по центру строки текста */
-    gap: 8px; /* Создаем аккуратный отступ между именем и флагом */
-    font-size: clamp(21px, 1.1vw, 24px) !important; /* Узгоджено з вашим h3 */
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem !important;
     font-weight: 700 !important;
-    color: #8E7F71 !important; /* Колір заголовків h3 у вашій системі */
+    color: #8E7F71 !important;
     margin: 0 0 0.3vh 0 !important;
 }
 
-/* Стилизация круглого флага */
+/* Кругла іконка прапора біля імені автора */
 .author-flag {
     width: 18px !important;
     height: 18px !important;
     border-radius: 50% !important;
     object-fit: cover !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* Мягкая тень, чтобы флаг выделялся */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
 }
 
 .author-position {
-    font-size: clamp(16px, 0.8vw, 18px) !important;
+    font-size: 0.9rem !important;
     color: #8E7F71 !important;
     font-style: italic;
     margin: 4px 0;
     line-height: 1.4;
 }
 
-.afil-link {
-    text-decoration: none !important;
-    color: #4A4541 !important;
-    transition: all 0.2s ease;
-}
-.afil-link.value {
-    border-bottom: 1px solid transparent;
-}
-
-/* Сітка контактів з іконками */
+/* Сітка контактів з іконками (вертикальна) */
 .contact-grid {
     display: flex;
     flex-direction: column;
     gap: 1.2vh;
-    margin: 2vh 0 !important;
+    margin: auto 0 !important;
 }
 
 .contact-link {
@@ -273,19 +343,21 @@ body {
     transition: all 0.2s ease;
 }
 
+/* Фіксована ширина іконок для рівного вирівнювання в колонку */
 .contact-link i {
-    width: 20px; /* Фіксована ширина для вирівнювання іконок в стовпчик */
+    width: 20px;
     font-size: 18px;
-    color: #8E7F71 !important;;
+    color: #8E7F71 !important;
     transition: color 0.2s;
 }
 
 .contact-link .value {
-    font-size: clamp(15px, 0.75vw, 17px) !important;
+    font-size: 0.8rem !important;
     margin-left: 8px;
     border-bottom: 1px solid transparent;
 }
 
+/* Ховер-ефект: синіють іконка та текст */
 .contact-link:hover i {
     color: #0078d4;
 }
@@ -295,11 +367,16 @@ body {
     border-bottom-color: #0078d4;
 }
 
-/* Мета-дані (версія/дата) */
+
+/* ============================================================
+   9. МЕТА-ДАНІ (версія / дата)
+   ============================================================ */
+
+/* Блок притиснутий до низу картки через margin-top: auto */
 .site-meta {
     margin-top: auto !important;
-    padding-top: 1.5vh !important; /* Отступ от контактов до штриховой линии */
-    border-top: 1px dashed #D1CBC5 !important; /* Та самая линия */
+    padding-top: 1.5vh !important;
+    border-top: 1px dashed #D1CBC5 !important;
     display: flex;
     flex-direction: column;
 }
@@ -307,7 +384,7 @@ body {
 .meta-item {
     display: flex;
     justify-content: space-between;
-    font-size: clamp(13px, 0.65vw, 15px) !important;
+    font-size: 0.75rem !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #A0968C;
@@ -318,33 +395,31 @@ body {
     font-weight: 700;
     color: #8E7F71;
 }
-/* Новая кнопка-таблетка (полный аналог вкладки таблицы) */
+
+
+/* ============================================================
+   10. КНОПКА UPDATES LOG
+   ============================================================ */
+
 .updates-log-pill-btn {
     display: block !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    
-    /* Геометрия и скругление как на скриншоте */
-    padding: 0.3vh 1vw !important; 
+    padding: 0.3vh 1vw !important;
     border-radius: 8px !important;
     border: 1px solid #ced4da !important;
-    background-color: #FAF9F6 !important; /* Светлый фон */
-    
-    /* Шрифт и текст */
+    background-color: #FAF9F6 !important;
     color: #212529 !important;
-    font-family: 'Source Sans 3'!important;
-    font-size: clamp(13px, 1.4vh, 16px) !important;
-    font-weight: 700 !important; /* Жирный текст, как в Content Indicators */
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
     text-align: center !important;
-    
-    /* Отступы и анимация */
     margin-top: 0.5vh !important;
-    margin-bottom: 1.5vh !important; /* Отступ от кнопки до полей Updated/Version */
+    margin-bottom: 1.5vh !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
 }
 
-/* Ховер-эффект (синеет при наведении, как вкладка) */
 .updates-log-pill-btn:hover {
     background-color: #ffffff !important;
     border-color: #adb5bd !important;
@@ -352,30 +427,47 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
 
-/* --- Стили для модального окна Updates Log --- */
 
-/* Затемненный фон, перекрывающий всё приложение */
-.modal-overlay {
-    display: none; /* По умолчанию скрыто */
+/* ============================================================
+   11. МОДАЛЬНЕ ВІКНО UPDATES LOG
+   ============================================================ */
+/* Базовий стиль для всіх модальних вікон — приховані за замовчуванням */
+.custom-modal {
+    display: none;
     position: fixed !important;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(74, 69, 65, 0.6) !important; /* Наш фирменный темный тон с прозрачностью */
-    backdrop-filter: blur(4px); /* Элегантное размытие интерфейса сзади */
-    z-index: 30000 !important; /* Выше таблицы и тултипов */
+    background-color: rgba(74, 69, 65, 0.6) !important;
+    backdrop-filter: blur(4px);
+    z-index: 30000 !important;
     justify-content: center;
     align-items: center;
 }
 
-/* Окно с контентом */
+/* Затемнений фон із розмиттям поверх усього інтерфейсу */
+.modal-overlay {
+    display: none;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(74, 69, 65, 0.6) !important;
+    backdrop-filter: blur(4px);
+    z-index: 30000 !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Саме вікно з контентом */
 .modal-content {
-    background-color: #FCFBF7 !important; /* Светлый крем, как у карточки About */
+    background-color: #FCFBF7 !important;
     border: 1px solid #C9C1B9 !important;
     border-radius: 12px;
     width: 90%;
-    max-width: 550px;
+    max-width: 700px;
     max-height: 75vh;
     display: flex;
     flex-direction: column;
@@ -383,23 +475,23 @@ body {
     animation: fadeInModal 0.25s ease-out;
 }
 
-/* Шапка модального окна */
+/* Шапка модального вікна */
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2vh 1.5vw;
+    padding: 1.5vh 1.5vw;
     border-bottom: 2px solid #EDEADE;
 }
 
 .modal-header h2 {
     margin: 0;
     color: #4A4541;
-    font-size: clamp(18px, 2.2vh, 24px);
+    font-size: 1.4rem;
     font-weight: 700;
 }
 
-/* Кнопка закрытия (крестик) */
+/* Кнопка закриття (хрестик) */
 .modal-close-btn {
     background: none;
     border: none;
@@ -410,43 +502,46 @@ body {
     line-height: 1;
     padding: 0;
 }
+
 .modal-close-btn:hover {
     color: #0078d4;
 }
 
-/* Скроллируемая область логов */
+/* Скрольована область із записами */
 .modal-body {
     padding: 2.5vh 1.5vw;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 3vh; /* Разнос между блоками разных дат */
+    gap: 3vh;
 }
 
-/* Блок конкретной даты */
+/* Кастомний скролбар */
+.modal-body::-webkit-scrollbar      { width: 6px; }
+.modal-body::-webkit-scrollbar-thumb { background: #C2BAB0; border-radius: 3px; }
+
+/* Блок окремої дати */
 .update-block {
     display: flex;
     flex-direction: column;
-    text-align: left !important; /* Строго по левому краю */
+    text-align: left !important;
 }
 
-/* Жирный заголовок даты */
 .update-date {
-    font-size: clamp(15px, 1.8vh, 18px);
+    font-size: 1rem;
     font-weight: 700 !important;
-    color: #8E7F71; /* Акцентный цвет заголовков */
+    color: #8E7F71;
     margin-bottom: 1vh;
 }
 
-/* Обычный текст внутри модалки */
 .modal-body p {
-    font-size: clamp(13px, 1.5vh, 15px);
+    font-size: 0.9rem;
     line-height: 1.5;
     color: #212529;
     margin: 0 0 1vh 0;
 }
 
-/* Точечный список изменений */
+/* Список змін усередині модалки */
 .update-list {
     margin: 0;
     padding-left: 1.5vw;
@@ -454,25 +549,208 @@ body {
 }
 
 .update-list li {
-    font-size: clamp(13px, 1.5vh, 15px);
+    font-size: 0.85rem;
     line-height: 1.5;
     color: #4A4541;
     margin-bottom: 0.6vh;
 }
 
-/* Кастомный скроллбар для модалки */
-.modal-body::-webkit-scrollbar {
-    width: 6px;
-}
-.modal-body::-webkit-scrollbar-thumb {
-    background: #C2BAB0;
-    border-radius: 3px;
-}
-
-/* Анимация плавного появления */
+/* Анімація плавної появи модального вікна */
 @keyframes fadeInModal {
     from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================================================
+   12. МОДАЛЬНЕ ВІКНО Suggestions
+   ============================================================ */
 
+//* ==========================================================================
+   ИЗОЛИРОВАННЫЕ СТИЛИ МОДАЛЬНОГО ОКНА ПРЕДЛОЖЕНИЙ (В ЕДИНИЦАХ REM)
+   ========================================================================== */
+
+/* Контейнер содержимого модального окна suggestions */
+.suggestions-modal-content {
+    width: 36.666rem !important; /* ~550px при базе 15px (Full HD) -> плавно растет до ~800px на 4K */
+    max-width: 92% !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #C2BAB0 !important;
+    border-radius: 0.4rem !important; /* ~6px */
+    box-shadow: 0 0.266rem 1.333rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Заголовок внутри окна */
+.suggestions-modal-content .modal-header h2 {
+    font-size: 1.333rem !important; /* ~20px */
+    color: #8E7F71 !important; /* Фирменный коричневый */
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Структура самой формы */
+#suggestions-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* ~12px внутренняя разрядка между полями */
+    padding: 1rem 1.333rem; /* ~15px верх/низ, ~20px лево/право */
+    box-sizing: border-box;
+}
+
+/* Элемент формы (label + input) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.266rem; /* ~4px отступ между лейблом и полем ввода */
+    flex: 1;
+}
+
+/* Двухколоночный ряд полей (для пар Attribute/Definition) */
+.form-group-row {
+    display: flex;
+    gap: 1rem; /* ~15px расстояние между колонками */
+}
+
+/* Стилизация текстовых меток (лейблов) */
+#suggestions-form label {
+    font-size: 0.866rem !important; /* ~13px */
+    font-weight: 600;
+    color: #8E7F71;
+}
+
+/* Оформление пометки (if available) */
+#suggestions-form label .optional {
+    font-weight: 400;
+    color: #999999;
+    font-style: italic;
+}
+
+/* Текстовые поля ввода и области textarea */
+#suggestions-form input[type="text"],
+#suggestions-form textarea {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.933rem !important; /* ~14px */
+    padding: 0.4rem 0.666rem; /* ~6px на ~10px внутренних отступов */
+    border: 1px solid #C2BAB0;
+    border-radius: 0.266rem; /* ~4px */
+    background-color: #FCFCFC;
+    color: #2B2B2B;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Состояние фокуса полей ввода */
+#suggestions-form input[type="text"]:focus,
+#suggestions-form textarea:focus {
+    border-color: #8E7F71;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0.266rem rgba(142, 127, 113, 0.25);
+}
+
+/* Кнопка отправки формы */
+.form-submit-btn {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.933rem !important; /* ~14px */
+    font-weight: 600;
+    background-color: #8E7F71 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #8E7F71 !important;
+    padding: 0.533rem 1.333rem; /* ~8px на ~20px */
+    border-radius: 0.266rem; /* ~4px */
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    width: 100%;
+}
+
+/* Ховер кнопки отправки */
+.form-submit-btn:hover {
+    background-color: #76685B !important;
+    border-color: #76685B !important;
+}
+
+/* Эффект микро-нажатия для интерактивности */
+.form-submit-btn:active {
+    transform: scale(0.995);
+}
+
+/* --- Стили для динамических полей формы suggestions --- */
+
+/* Контейнер заголовка и кнопки (+) */
+.values-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.4rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px dashed #EDEADE;
+}
+
+/* Кнопка добавления нового ряда (+) */
+.add-value-btn {
+    background-color: #FFFFFF !important;
+    color: #4A7A3B !important; /* Умеренно-зеленый академический акцент для созидательного действия */
+    border: 1px solid #4A7A3B !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+    padding: 0 !important;
+    line-height: 1;
+}
+
+.add-value-btn:hover {
+    background-color: #E2EFE0 !important;
+    transform: scale(1.08);
+}
+
+/* Контейнер для динамических строк */
+#dynamic-values-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.533rem; /* ~8px между новыми строками */
+    max-height: 12rem; /* Ограничиваем высоту скроллом, если строк станет слишком много */
+    overflow-y: auto;
+}
+
+/* Специфика динамического ряда (учитываем кнопку удаления) */
+.dynamic-value-row {
+    align-items: center;
+    gap: 0.666rem !important; /* Чуть плотнее обычных строк */
+    animation: fadeInRow 0.2s ease-in-out; /* Плавное появление строки */
+}
+
+/* Кнопка удаления строки (x) */
+.remove-value-btn {
+    background: none !important;
+    border: none !important;
+    color: #B23A22 !important; /* Ваш цвет ".table-cross" из проекта */
+    font-size: 1.333rem !important;
+    cursor: pointer;
+    padding: 0 0.2rem !important;
+    line-height: 1;
+    transition: color 0.15s ease-in-out;
+}
+
+.remove-value-btn:hover {
+    color: #8A2511 !important;
+    transform: scale(1.1);
+}
+
+/* Анимация плавного добавления */
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

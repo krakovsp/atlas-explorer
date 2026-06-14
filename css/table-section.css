@@ -71,7 +71,7 @@
    ============================================================ */
 
 /* Уніфіковані стилі іконок для всіх кнопок */
-.tab-button i, .settings-btn i, .fullscreen-btn i {
+.tab-button i, .settings-btn i, .fullscreen-btn i, .supplementary-btn i {
     font-size: 0.85rem !important;
 }
 
@@ -81,19 +81,20 @@
     font-size: 0.85rem !important;
     border-radius: 6px;
     cursor: pointer;
-    background: #FAF9F6;
-    color: black;
-    border: 1px solid #ced4da;
     margin-right: 5px;
     font-weight: 600;
     transition: all 0.2s ease;
     white-space: nowrap; /* Щоб текст не розривався на два рядки */
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
+    font-weight: 600 !important;
 }
 
 .tab-button:hover {
-    background: #e2e6ea;
-    border-color: #adb5bd;
-    color: #0078d4;
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
 
 .tab-button.active {
@@ -116,12 +117,16 @@
     border-radius: 6px;
     color: #495057;
     transition: all 0.3s ease;
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
+    font-weight: 600 !important;
 }
 
 .settings-btn:hover {
-    background: #e2e6ea;
-    border-color: #adb5bd;
-    color: #0078d4;
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
 
 .settings-btn.active {
@@ -147,10 +152,217 @@
 }
 
 .fullscreen-btn:hover {
-    background: #e2e6ea;
-    color: #0078d4;
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
 
+/* ============================================================
+   Кнопка та модальне вікно додаткових матеріалів
+   ============================================================ */
+
+.nav-tabs .supplementary-btn {
+    margin-left: 15px !important;
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
+    font-weight: 600 !important;
+}
+
+.nav-tabs .supplementary-btn:hover {
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
+}
+
+.fullscreen-mode .modal-overlay {
+    z-index: 999999 !important;
+}
+
+.modal-overlay {
+    background-color: rgba(33, 26, 22, 0.75) !important;
+}
+
+.supplementary-window,
+.material-content-window {
+    max-width: 1300px !important;
+    width: 95% !important;
+    background-color: #FCFBF7!important;
+    border: 1px solid #C9C1B9 !important;
+    border-radius: 0.4rem !important; /* ~6px */
+    box-shadow: 0 0.266rem 1.333rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.supplementary-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    max-height: 65vh !important;
+    overflow-y: auto !important;
+    padding-right: 20px !important;
+}
+
+.supplementary-item {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 24px !important;
+    padding: 16px 20px !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 4px !important;
+    background-color: #f8f9fa !important; 
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.supplementary-item:hover {
+    border-color: #ced4da !important;
+    background-color: #FFF !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+.item-text {
+    flex: 1 !important;
+    text-align: left !important;
+}
+
+/* Название материала — строго в стиле заголовков suggestions */
+.item-title {
+    margin: 0 0 6px 0 !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #212529 !important; /* Идентичный глубокий цвет */
+    transition: color 0.15s ease !important;
+}
+
+/* При наведении — академичный зеленый ховер из формы предложений */
+.supplementary-item:hover .item-title {
+    color: #8E7F71 !important;
+}
+
+/* Тип публікації (наприклад: Monograph, Article тощо) */
+.item-pub-type {
+    display: block !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.95rem !important; /* Больше, чем у даты (0.8rem) */
+    font-weight: 600 !important; /* Полужирный акцент */
+    color: #8E7F71 !important; /* Фирменный цвет кнопок/акцентов проекта */
+    margin-bottom: 2px !important; /* Минимальный отступ до даты */
+    letter-spacing: 0.5px !important;
+}
+
+/* Дата публикации мелким шрифтом */
+.item-date {
+    display: block !important;
+    font-size: 0.8rem !important;
+    color: #A39689 !important; /* Чуть более приглушенный тон для иерархии */
+    margin-bottom: 8px !important;
+    font-weight: 500 !important;
+}
+
+/* Короткое описание */
+.item-description {
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    color: #495057 !important; /* Цвет основного текста описаний */
+    line-height: 1.45 !important;
+}
+
+.item-preview-wrapper {
+    flex-shrink: 0 !important;
+    width: 150px !important;
+    height: 200px !important;
+    border: 1px #8E7F71 !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    background-color: #FFF !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+}
+
+.supplementary-item:hover .item-preview-wrapper {
+    transform: scale(1.02) !important;
+    border: 2px solid #8E7F71 !important;
+}
+
+.item-preview-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Кнопка "Назад" */
+.modal-back-btn {
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+    color: #495057 !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    padding: 6px 14px !important;
+    margin-right: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border-radius: 4px !important;
+    transition: all 0.15s ease !important;
+}
+
+.modal-back-btn:hover {
+    background-color: #e2e6ea !important;
+    color: #212529 !important;
+    border-color: #dae0e5 !important;
+}
+
+/* Кнопка закрытия окна */
+.modal-window .modal-close-btn {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 4px !important;
+    color: #495057 !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    line-height: 1 !important;
+}
+
+.modal-window .modal-close-btn:hover {
+    background-color: #dc3545 !important; /* Стандартный красный цвет для отмены/закрытия */
+    color: #FFF !important;
+    border-color: #dc3545 !important;
+}
+
+/* Внутрішній контент відкритого матеріалу */
+.material-inner-title {
+    text-align: left !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    color: #5C524A !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+}
+
+.material-inner-text {
+    text-align: left !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    color: #5C524A !important;
+    margin: 0 !important;
+}
 
 /* ============================================================
    4. ВКЛАДКИ
@@ -219,7 +431,7 @@
     /* 1. КРИТИЧЕСКИ ВАЖНО: Фиксируем высоту пикера. 
        Если высота будет резиновой, то все элементы уйдут в один бесконечный столбец вниз.
        Высота в 250px-300px — идеальна, чтобы распределить 12-16 колонок в 3-4 столбца. */
-    height: 320px !important; 
+    height: 300px !important; 
     max-height: 45vh !important;
     
     /* 2. ИЗМЕНЕНИЕ ЛОГИКИ НА СВЕРХУ ВНИЗ */
@@ -249,162 +461,101 @@
     border-bottom: 1px solid #dee2e6;
 }
 
-
 /* ============================================================
-   7. ЧЕКБОКСИ ТА КОЛЬОРОВІ ГРУПИ
+   7. ЧЕКБОКСИ ТА КОЛЬОРОВІ ГРУПИ (Варіант 1)
    ============================================================ */
 
-/* Окремий елемент списку (чекбокс + текст) */
 .column-item {
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 0.75rem !important;
+    font-size: 0.8rem !important;
     font-weight: 500 !important;
-    color: #333 !important;
+    color: #4A4541 !important;
     cursor: pointer !important;
-    
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 8px !important;
-    
-    /* ИЗМЕНЕНО: Элемент больше не растягивается по ширине контейнера. 
-       Мы задаем жесткую ширину для каждого столбца (например, 180px), 
-       чтобы текст не слипался со следующим столбцом справа */
+    gap: 12px !important;
     flex: 0 0 auto !important;
     width: 290px !important; 
-    
     white-space: nowrap !important;
     box-sizing: border-box !important;
-    transition: color 0.15s ease !important;
+    transition: all 0.15s ease !important;
 }
 
 .column-item:hover {
-    background-color: transparent !important; /* Убираем сплошной серый фон */
-    color: #2B2B2B !important; 
-    font-weight: 600 !important;
+    color: #8E7F71 !important;
 }
 
-/* Кастомная стилизация чекбоксов под дизайн проекта */
 .column-item input[type="checkbox"] {
     appearance: none !important;
     -webkit-appearance: none !important;
-    margin: 0 !important;
-    width: 16px !important;
-    height: 16px !important;
-    border: 2px solid #8E7F71 !important;
-    border-radius: 3px !important;
+    margin: 0 3px !important;
+    width: 12px !important;
+    height: 12px !important;
+    border: 1px solid #8E7F71 !important;
+    transform: rotate(45deg) !important;
     background: #FFF !important;
     cursor: pointer !important;
     position: relative !important;
     flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
 }
 
 .column-item input[type="checkbox"]:checked {
     background: #8E7F71 !important;
 }
 
-/* Базова галочка */
 .column-item input[type="checkbox"]:checked::after {
     content: "\f00c" !important;
     font-family: "Font Awesome 6 Free" !important;
     font-weight: 900 !important;
     color: #FFF !important;
-    font-size: 10px !important;
+    font-size: 8px !important;
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
 }
 
-/* Корректировка значка птички (галочки) внутри цветных чекбоксов */
-/* Если фон чекбокса слишком светлый (например, желтый или светло-голубой), 
-   делаем галочку темно-коричневой/черной для максимального контраста */
-.column-item input[type="checkbox"]:checked::after {
-    color: #2B2B2B !important; 
-}
-
-/* --- Кнопка "Show All" внутри окна настроек колонок --- */
 .picker-select-all-btn {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 6px !important;
-    
-    /* Стилизация под палитру проекта */
     background-color: #FFF !important;
     border: 1px solid #C2BAB0 !important;
-    color: #8E7F71 !important; /* Ваш базовый коричневый */
-    
-    padding: 6px 12px !important;
+    color: #8E7F71 !important;
+    padding: 5px 12px !important;
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size:  0.75rem !important;
+    font-size: 0.75rem !important;
     font-weight: 600 !important;
-    border-radius: 6px !important;
+    border-radius: 4px !important;
     cursor: pointer !important;
     transition: all 0.2s ease-in-out !important;
-    
-    /* Выравнивание в структуре flex-column */
     flex: 0 0 auto !important;
-    width: 180px !important; /* Соответствует ширине столбца .column-item */
+    width: 180px !important;
     margin-bottom: 5px !important;
-    box-sizing: border-box !important;
 }
 
-/* Эффект наведения на кнопку */
 .picker-select-all-btn:hover {
     background-color: #8E7F71 !important;
     color: #FFF !important;
-    border-color: #8E7F71 !important;
 }
 
-/* Эффект нажатия */
-.picker-select-all-btn:active {
-    transform: scale(0.97) !important;
-}
+.column-item.column-interface input[type="checkbox"] { border-color: #D6C83C !important; }
+.column-item.column-interface input[type="checkbox"]:checked { background-color: #D6C83C !important; }
 
-/* --- Динамическое окрашивание элементов в column-picker --- */
+.column-item.column-navigation input[type="checkbox"] { border-color: #7FAFD4 !important; }
+.column-item.column-navigation input[type="checkbox"]:checked { background-color: #7FAFD4 !important; }
 
-/* 1. Группа "Інтерфейс" (Мягкий пастельно-желтый / темно-золотой акцент для читаемости текста) */
-.column-item.column-interface input[type="checkbox"] {
-    border-color: #E2D96B !important;
-}
-.column-item.column-interface input[type="checkbox"]:checked {
-    background-color: #E2D96B !important;
-}
+.column-item.column-represent input[type="checkbox"] { border-color: #92C483 !important; }
+.column-item.column-represent input[type="checkbox"]:checked { background-color: #92C483 !important; }
 
-/* 2. Группа "Навігація" (Гармоничный сине-голубой) */
-.column-item.column-navigation input[type="checkbox"] {
-    border-color: #CFE2F3 !important;
-}
-.column-item.column-navigation input[type="checkbox"]:checked {
-    background-color: #CFE2F3 !important;
-}
+.column-item.column-func input[type="checkbox"] { border-color: #B0B0B0 !important; }
+.column-item.column-func input[type="checkbox"]:checked { background-color: #B0B0B0 !important; }
 
-/* 3. Группа "Representation" (Приглушенный зеленый) */
-.column-item.column-represent input[type="checkbox"] {
-    border-color: #CAE2BF !important;
-}
-.column-item.column-represent input[type="checkbox"]:checked {
-    background-color: #CAE2BF !important;
-}
-
-/* 4. Группа "Functionality" (Строгий темно-серый) */
-.column-item.column-func input[type="checkbox"] {
-    border-color: #D6D6D6 !important;
-}
-.column-item.column-func input[type="checkbox"]:checked {
-    background-color: #D6D6D6 !important;
-}
-
-/* 5. Общие паспортные колонки (Если добавили им класс column-general) */
-.column-item.column-general input[type="checkbox"] {
-    border-color: #C2BAB0 !important;
-}
-.column-item.column-general input[type="checkbox"]:checked {
-    background-color: #ECEAE4 !important;
-}
-
-
+.column-item.column-general input[type="checkbox"] { border-color: #C2BAB0 !important; }
+.column-item.column-general input[type="checkbox"]:checked { background-color: #C2BAB0 !important; }
 /* ============================================================
    8. СКРОЛБАР #column-picker
    ============================================================ */
@@ -496,6 +647,7 @@
     color: #212529 !important;            /* Колір тексту */
     border: 1px solid #ced4da !important; /* Рамка */
     border-radius: 4px !important;
+    font-family: 'Source Sans 3' !important;
     padding: 2px 6px !important; 
     font-size: 0.75rem !important; /* Менший за основний текст */
     height: clamp(18px, 2.2vh, 26px) !important; /* Чітко обмежена висота */
@@ -646,11 +798,11 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: #ffffff !important;
-    border: 1px solid #dee2e6 !important;
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
     border-radius: 4px !important;
     margin: 0 2px !important;
-    color: #212529 !important;
+    color: #5C524A !important;
     transition: all 0.2s ease;
 }
 
@@ -662,28 +814,31 @@
 
 /* Стан активної сторінки */
 .tabulator .tabulator-footer .tabulator-page.active {
-    background: #0078d4 !important;
-    color: #ffffff !important;
-    border-color: #0078d4 !important;
-    font-weight: 600;
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
+    font-weight: 600 !important;
 }
 
-/* Ефекти наведення та фокусу */
-.tabulator .tabulator-footer .tabulator-page:not(.active):hover,
-.tabulator .tabulator-footer .tabulator-page-size:hover {
-    background: #e9ecef !important;
+/* Ефект наведення на будь-яку кнопку пагінації (включаючи стрілки) */
+.tabulator .tabulator-footer .tabulator-page:not(.disabled):hover {
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
 
-.tabulator .tabulator-footer .tabulator-page-size:focus {
-    border-color: #0078d4 !important;
-    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+/* Стилізація випадаючого списку кількості рядків (Page Size chooser) */
+.tabulator .tabulator-footer select.tabulator-page-size {
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
     outline: none !important;
 }
 
-/* Неактивні кнопки */
-.tabulator .tabulator-footer .tabulator-page[disabled] {
-    opacity: 0.4;
-    cursor: not-allowed;
+.tabulator .tabulator-footer select.tabulator-page-size:focus {
+    border-color: #8E7F71 !important;
 }
 
 
@@ -972,9 +1127,9 @@
 
 /* Эффект ховера в стиле проекта */
 .scroll-arrow-btn:hover {
-    background-color: #e2e6ea !important;
-    border-color: #adb5bd !important;
-    color: #0078d4 !important; /* Синий акцент при наведении, как на вкладках */
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
 
 /* Эффект нажатия */

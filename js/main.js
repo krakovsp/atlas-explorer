@@ -65,7 +65,7 @@ function createRemoteTable(id, url, columns) {
         paginationSize: 10,        
         paginationSizeSelector: [5, 10, 20, 50, 100, true],
         langs: {
-           "default": { "pagination": { "all": "all" } }
+           "default": { "pagination": { "All": "All" } }
         }, 
         paginationCounter: "rows", 
         columns: columns
@@ -446,4 +446,86 @@ function closeSuggestionsModal() {
         if (container) container.innerHTML = "";
         valueRowCount = 0; 
     }
+}
+
+// Функция модального окна Дополнительных материалов
+function openSupplementaryModal(event) {
+    if (event) event.preventDefault();
+    const modal = document.getElementById("supplementary-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function closeSupplementaryModal() {
+    const modal = document.getElementById("supplementary-modal");
+    if (modal) modal.style.display = "none";
+}
+
+// Универсальный обработчик выбора материала
+function handleMaterialClick(element) {
+    const type = element.getAttribute("data-type");
+    const target = element.getAttribute("data-target");
+
+    if (type === "external") {
+        // Сценарий 1: Открытие стороннего сайта в новой вкладке
+        window.open(target, "_blank");
+    } else if (type === "internal") {
+        // Сценарий 2: Открытие вложенного модального окна на нашем сайте
+        openInternalMaterialModal(target);
+    }
+}
+
+// Логика отображения внутреннего контента (для будущих записей)
+function openInternalMaterialModal(materialId) {
+    closeSupplementaryModal();
+    
+    const contentBody = document.getElementById("material-content-body");
+    const contentModal = document.getElementById("material-content-modal");
+    
+    if (!contentBody || !contentModal) return;
+
+    // Сюда вы сможете добавлять новые кейсы для внутренних материалов
+    if (materialId === 'material-2') {
+        contentBody.innerHTML = `
+            <h2 class="material-inner-title">Classification Matrix Specifications</h2>
+            <p class="material-inner-text">Comprehensive lists of classification metrics used for calculating systematic trends and user experiences inside modern web-atlases...</p>
+        `;
+    }
+
+    contentModal.style.display = "flex";
+}
+
+function closeMaterialContentModal() {
+    const contentModal = document.getElementById("material-content-modal");
+    if (contentModal) contentModal.style.display = "none";
+}
+
+function backToSupplementaryModal() {
+    closeMaterialContentModal();
+    openSupplementaryModal();
+}
+
+/**
+ * Глобальний форматировщик для Tabulator.
+ * Залишає порожні ячейки чистими, для "Yes" виводить зелену галочку, для "No" — червоний хрестик.
+ */
+function tabulatorTickCrossCleanFormatter(cell) {
+    const val = cell.getValue();
+    
+    // Якщо значення відсутнє (null, undefined) або є порожнім рядком — залишаємо ячейку чистою
+    if (val === null || val === undefined || val === "") {
+        return ""; 
+    }
+    
+    // Перевірка на істинність (строка "Yes", логічне true або рядок "true")
+    if (val === "Yes" || val === true || val === "true") {
+        return "<span class='table-tick'>✔</span>";
+    }
+    
+    // Перевірка на хибність (строка "No", логічне false або рядок "false")
+    if (val === "No" || val === false || val === "false") {
+        return "<span class='table-cross'>✘</span>";
+    }
+    
+    // Якщо прийшло будь-яке інше специфічне текстове значення — виводимо як є
+    return val;
 }

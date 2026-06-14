@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="css/table-section.css">
 
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-    <script src="js/table-config.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/table-config.js"></script>
 
 </head>
 <body>
@@ -40,10 +40,10 @@
                 <h2>About</h2>
                 <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to search for atlases, explore their structure, and conduct your own comparative and trend analyses. <br>The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand knowledge about atlases and their diverse metaconcepts. </br> </p>
 
-                <p> In the current version of Atlas Explorer, electronic atlases are classified according to <strong>bibliographic</strong> (22), <strong>content</strong> (15), and <strong>media-cartographic </strong> attributes. The 75 media-cartographic attributes are grouped into the following blocks: general informotaion, interface, information architecture and navigation, content representation, and functionality. <span class="about-cursive">A description of each attribute is provided in the tooltips of the table column headers</span>.</p>
+                <p> In the current version of Atlas Explorer, electronic atlases are classified according to <span class="about-cursive">bibliographic</span>, <span class="about-cursive">content</span>, and <span class="about-cursive">media-cartographic</span> attributes. The latter comprise 75 attributes grouped into five blocks: <span class="about-cursive">general information</span>, <span class="about-cursive">interface</span>, <span class="about-cursive">information architecture and navigation</span>, <span class="about-cursive">content representation</span>, and <span class="about-cursive">functionality</span>. <strong> An explanation of each attribute is available in the tooltips of the table column headers</strong>.</p>
 
-                <p>The methodological aspects of media-cartographic analysis are covered in detail in the <a href="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf" target="_blank" rel="noopener noreferrer" class="afil-link">
-    book </a>. Unlike the standard analysis model (which takes an average of 30–50 hours), Atlas Explorer employs an express analysis with an estimated duration of 2–3 hours. This model enables the identification of integral and most important attributes, but the reliability and depth of the analysis are inferior to the standard model.</p>
+                <p> Methodological aspects of analysis are described in the <strong>Supplementary Materials section</strong>, along with other useful information. Unlike the standard analysis model, which typically requires 30–50 hours, Atlas Explorer applies an express analysis approach with an estimated duration of 2–3 hours. While this approach enables the identification of the most important and synthetic attributes, it provides lower analytical depth and reliability compared to the standard model.</p>
+
 
                <div class="about-footer">
                     <p class="suggestions-text">New atlases and attributes are forthcoming, and your <span class="suggestions-trigger" onclick="openSuggestionsModal()">suggestions</span> are welcome!</p>
@@ -58,18 +58,18 @@
             <h2>Atlas Criteria</h2>
                 <ol class="criteria-list">
                 <li>Defined theme and territory</li>
-                <li>Includes multiple thematic sections or predefined thematic maps (excluding the metaconcept of organizational mechanisms)</li>
-                <li>Includes maps or (geo)spatial visualisations</li>
+                <li>Includes multiple thematic sections or ready-made thematic maps (excluding the metaconcept of organizational mechanisms)</li>
+                <li>Includes purpose-built maps or (geo)spatial visualisations</li>
                 <li>Content is delivered either within the atlas shell or on purpose-built pages (not PDF pages)</li>
                 <li>Operational and completed product (not a beta version)</li>
-                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i>: Not a catalog geoportal, collection of dashboards, interactive map, (web)GIS or applied CIS</li>
+                <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i> Not a catalog geoportal, collection of dashboards, interactive map, (web)GIS or applied CIS</li>
             </ol>
         </div>
 
         <div class="about-block functionality-block">
             <h2>Functionality</h2>
              <ul class="functionality-list">
-        <li>Table switching is performed using the buttons on the left</li>
+        <li>To switch between tables, use the buttons on the left-hand side</li>
         <li>On the right are the buttons for horizontal table scrolling, show/hide selected columns, and full-screen mode</li>
         <li>Column widths can be adjusted</li>
         <li>All atlas titles contain hyperlinks</li>
@@ -82,7 +82,7 @@
   </div>
 
       <div class="info-block">
-    <h2>Developer Info</h2>
+    <h2>Authors</h2>
 
     <div class="author-section">
         <h3 class="author-name">Stanislav Krakovskyi <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/1x1/ua.svg" alt="UA" class="author-flag"></h3>
@@ -117,11 +117,11 @@
         </button>
         <div class="meta-item">
             <span class="meta-label">Updated:</span>
-            <span class="meta-value">31.05.2026</span>
+            <span class="meta-value">14.06.2026</span>
         </div>
         <div class="meta-item">
             <span class="meta-label">Version:</span>
-            <span class="meta-value">0.8.5</span>
+            <span class="meta-value">0.9.0</span>
         </div>
     </div>
 </div>
@@ -130,9 +130,18 @@
 <main class="table-section">
     <nav class="nav-tabs">
         <div class="tab-buttons-group">
-            <button class="tab-button active" onclick="openTab(event, 'tab1')">Bibliographic Attributes</button>
-            <button class="tab-button" onclick="openTab(event, 'tab2')">Content Attributes</button>
-            <button class="tab-button" onclick="openTab(event, 'tab3')">Media-Cartographic Attributes</button>
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">
+                   <i class="fa-solid fa-table"></i> Bibliographic Attributes
+               </button>
+               <button class="tab-button" onclick="openTab(event, 'tab2')">
+                   <i class="fa-solid fa-table"></i> Content Attributes
+               </button>
+               <button class="tab-button" onclick="openTab(event, 'tab3')">
+                   <i class="fa-solid fa-table"></i> Media-Cartographic Attributes
+               </button>
+               <button class="tab-button supplementary-btn" onclick="openSupplementaryModal(event)">
+                   <i class="fa-solid fa-book-open"></i> Supplementary Materials
+               </button>
         </div> <div class="settings-group">
             <button class="tab-button settings-btn" onclick="toggleColumnPicker()">
                 <i class="fas fa-cog"></i> Show/Hide Columns
@@ -142,6 +151,8 @@
             <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen mode">
                 <i class="fas fa-expand"></i>
             </button>
+
+           
         </div>
     </nav>
 
@@ -228,6 +239,31 @@
     </div>
 </div>
 
+<div id="supplementary-modal" class="modal-overlay" onclick="closeSupplementaryModal()">
+    <div class="modal-window supplementary-window" onclick="event.stopPropagation()">
+        
+        <div class="modal-header">
+            <h2>Supplementary Materials</h2>
+            <span class="modal-close-btn" onclick="closeSupplementaryModal()">&#x2715;</span>
+        </div>
+        
+        <div class="modal-body supplementary-list">
+            
+            <div class="supplementary-item" data-type="external" data-target="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf" onclick="handleMaterialClick(this)">
+                <div class="item-text">
+                    <h3 class="item-title">Electronic Atlases: Development Trends and Research Methodology</h3>
+                    <span class="item-pub-type">Book</span>
+                    <span class="item-date">Published: December 30, 2025</span>
+                    <p class="item-description">The book presents a periodization of electronic atlas (EA) development and identifies metaconcepts of atlas applications. It refines the classification of EAs, clarifies the concept of the EA, and outlines current research approaches and methods. The book provides a detailed characterization of four core EA components as end-user applications: interface, information architecture and navigation, content representation, and functionality. It also introduces and validates a methodology for media-cartographic analysis of EAs through empirical case studies of the European Atlas of the Seas and the Czech Historical Atlas</p>
+                </div>
+                <div class="item-preview-wrapper">
+                    <img src="../img/krak_book.png" alt="Preview" class="item-preview-img">
+                </div>
+            </div>
+
+            </div>
+    </div>
+</div>
 
 </body>
 </html>

@@ -261,7 +261,7 @@
                 return createHeaderTooltip(
                 "Type of entity responsible for publishing the EA. The publisher and the developer of the EA may not coincide",
                 [
-                { value: "Government", desc: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation within a given field" },
+                { value: "Government", desc: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation" },
                 { value: "Organization", desc: "Non-governmental non-profit organizations" },
                 { value: "Research Institution", desc: "Research institutions and universities" },
                 { value: "Private Sector", desc: "Commercial enterprises and profit-making organizations" },
@@ -318,13 +318,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Publishing institution self-identifies as international")},  
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
             {title:"Type of App Developers", 
             field:"Type of App Developers",
@@ -436,13 +431,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Availability of an English localisation. The extent to which EA content is translated is not taken into account")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
             {title:"Project Type", 
             field:"Project Type",
@@ -475,13 +465,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Availability of a paper atlas linked to the electronic version. It may be published before or after the EA release")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
                 
             {title:"Distribution", 
             field:"Distribution",
@@ -583,13 +568,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Ability to operate on mobile devices. The degree of interface adaptation is not taken into account")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
             
             {title:"Date of Analysis", 
             field:"Date of Analysis",
@@ -855,13 +835,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of any AI-generated content, regardless of its proportion")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
              {
                 title:"Regular Updates", 
@@ -876,13 +851,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("EA content is continuously updated or planned for future updates")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
             {
                 title:"Data Catalogue", 
@@ -897,13 +867,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of a local data directory or data directory separated into a distinct section. The catalogue should be in the form of an attribute table or an interactive interface, and the data should be available for download")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
              {
                 title:"Story-centred Content", 
@@ -918,13 +883,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All components of the EA serving to unfold or analyse (explicit) stories")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }}            
+                formatter: tabulatorTickCrossCleanFormatter
+                }            
         ]; 
 
         const TABLE_3_COLUMNS = [
@@ -1211,13 +1171,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Thematic content is presented in a single, uniform (template-based) screen")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Layout Pattern (Atlas Level)", 
@@ -1506,13 +1461,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Thematic content is classified according to subjective criteria (Rosenfeld et al., 2015). An objective scheme is based on alphabetical order or geographical area")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Organisational Structure (Atlas Level)", 
@@ -1598,13 +1548,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Connects related information units regardless of their position within the organizational structure of the EA. Implemented through internal, external, and inter-links")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Inter-content Navigation", 
@@ -1620,13 +1565,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Type of contextual navigation. It involves links to other related elements of the EA content (other maps, articles, etc.)")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Detached Navigation", 
@@ -1642,13 +1582,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Completely independent of content pages and provides overview and/or access to any (top-level) node in the EA. Usually placed on separate navigation pages")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Main Navigation Mechanism (Atlas Level)", 
@@ -1688,7 +1623,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip(
                 "Set of links and interface elements that provide access to information units (thematic content) within detached map/visualization sections (if available)",
-                [ { value: "Linear Wizard", desc: "Multi-step user interface that forces a user to complete sequential steps in a strictly rigid order. Usually involves selecting a number of attributes from drop-down lists" },
+                [ { value: "Slide/Scroll", desc: "Horizontal scrolling or a slider" },
+                { value: "Linear Wizard", desc: "Multi-step user interface that forces a user to complete sequential steps in a strictly rigid order. Usually involves selecting a number of attributes from drop-down lists" },
                 { value: "Hierarchical lists", desc: "Lists with one or more hierarchical levels" },
                 { value: "Tree menu", desc: "Hierarchical navigation interface with expandable/collapsible nodes and parent–child relationships that enables interactive exploration of nested content" },
                 { value: "Menu bar/Tabs", desc: "Series of aligned buttons (with drop-down menus)" },
@@ -1712,13 +1648,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Each page includes a global navigation menu showing at least two levels of hierarchy (or a top-level in cases of EAs with shallow content hierarchy). In single-page EAs, top-level content hierarchy should be accessible in every view")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Content Search", 
@@ -1734,13 +1665,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Global search across EA content or search within the table of contents")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Search on Map", 
@@ -1756,13 +1682,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Geographic or thematic search on map")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }}                
+                formatter: tabulatorTickCrossCleanFormatter
+                }                
                 ],},
 
                 {
@@ -1806,13 +1727,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Content from the associated paper atlas is used in the form of static raster images")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Scroll-based Representation", 
@@ -1828,13 +1744,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Scrollable pages are the main form of EA content presentation")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Storytelling Techniques", 
@@ -1850,13 +1761,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("At least two of the four storytelling techniques (Roth, 2021) – Mood, Attention, Metaphor and Voice – should be used. These techniques distinguish the traditional style from the narrative style")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Only Map-Linked Content", 
@@ -1872,13 +1778,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All non-cartographic content is linked exclusively to maps or to map modules")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Combination of Representation Units", 
@@ -1894,13 +1795,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Several representation units are displayed on a single screen and at the same interface level. Content in popup windows is not taken into account")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Narrative Texts", 
@@ -1916,13 +1812,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of comprehensive texts that explain and supplement the representations or are independent units. Brief formal descriptions of indicators are not counted")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Interactive Tables", 
@@ -1939,12 +1830,8 @@
                 return createHeaderTooltip("Presence of interactive tables")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Charts and Diagrams", 
@@ -1961,12 +1848,8 @@
                 return createHeaderTooltip("Presence of both static and interactive. Charts/diagrams as elements of map methods is not taken into account")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Images", 
@@ -1983,12 +1866,8 @@
                 return createHeaderTooltip("Raster static maps are not counted as images")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Audio", 
@@ -2005,12 +1884,8 @@
                 return createHeaderTooltip("Abstract sounds, soundscapes, music, speech")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Video", 
@@ -2027,12 +1902,8 @@
                 return createHeaderTooltip("Embedded YouTube videos count. Tutorial videos do not count")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Animation", 
@@ -2049,12 +1920,8 @@
                 return createHeaderTooltip("Ordered sequence of frames that is automatically and sequentially played to create the perception of movement and/or change for the user. The presence of temporal data is not sufficient")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Map Concept", 
@@ -2092,12 +1959,8 @@
                 return createHeaderTooltip("Map functions as an access mechanism to other content or to detailed information")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Map for Localisation Only", 
@@ -2113,13 +1976,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Map is used only for the localisation of objects or phenomena. Also includes EAs whose maps depict the same indicator (typically for Profiles)")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Interactive Maps", 
@@ -2155,13 +2013,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of ready-made interactive maps consisting of a set of layers with a toggle (overlay) function")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Main Style of Maps", 
@@ -2200,13 +2053,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Only Web Mercator projection is used. If the projection cannot be determined, it is not specified")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Globe", 
@@ -2222,13 +2070,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of a globe in any section and in any function")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Multi-scale Maps", 
@@ -2244,13 +2087,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of interactive maps with multiple generalization levels (scales)")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"In-house Basemap", 
@@ -2266,13 +2104,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of basemaps created by the EA authors or created in the developers’ country. <br> <b>Specified only for interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Basemap Implementation", 
@@ -2332,13 +2165,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of ready-made maps that represents two or more indicators on a single map by combining different map methods")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Monotonous Symbolisation", 
@@ -2354,13 +2182,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Fewer than five mapping methods are used. The exception is the variety of visualisations within a single method.  The mapping methods are based on the Soviet tradition (Krakovskyi, 2025), which is closely aligned with the German-speaking cartographic school (Freitag, 1992): (Proportional) Symbol Maps, Localised Diagram Maps, Line Maps, Flow Maps, Isoline Maps, Dot Density Maps, Area Maps, Qualitative Chorochromatic maps, Quantitative Chorochromatic maps, Grid maps, Area Diagram Maps, Choropleth Maps, Dasymetric Maps, Cartograms, Bivariate Maps")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Legend Adaptability", 
@@ -2445,13 +2268,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All content elements can be opened. All interactive functions work properly")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Authorization", 
@@ -2467,13 +2285,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Possibility to create an account")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Main Map-Vis Interactivity", 
@@ -2555,13 +2368,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can change the map symbology (Resymbolize operator). Changes in transparency are not included")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                  {
                 title:"Modification of Map Methods", 
@@ -2577,13 +2385,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can change the map methods (Reexpress operator)")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Content Import", 
@@ -2599,13 +2402,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can upload their own content or data")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Content Export", 
@@ -2621,13 +2419,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can download content or data")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }},
+                formatter: tabulatorTickCrossCleanFormatter
+                },
 
                 {
                 title:"Print Map", 
@@ -2643,13 +2436,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of Print Map function. The method and quality of implementation are not taken into account")}, 
                 hozAlign:"center",
-                formatter:"tickCross", 
-                formatterParams:{
-                    trueValue:"Yes", 
-                    falseValue:"No",
-                    crossElement: "<span class='table-cross'>✘</span>",
-                    tickElement: "<span class='table-tick'>✔</span>", 
-                }}    
+                formatter: tabulatorTickCrossCleanFormatter
+                }    
                 ],}  
 
         ]

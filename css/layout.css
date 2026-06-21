@@ -1,18 +1,33 @@
 /* ============================================================
    LAYOUT.CSS — Головні стилі сторінки
    Структура:
-     1. Базові стилі (body)
-     2. Шапка сайту (.site-header)
-     3. Вступна секція (.intro-section)
-     4. Картки (.about-block, .criteria-block і т.д.)
-     5. Типографіка та заголовки
-     6. Виділення та посилання
-     7. Списки
-     8. Блок автора та контакти
-     9. Мета-дані (версія/дата)
-    10. Кнопка Updates Log
-    11. Модальне вікно (Update)
-    12. Модальне вікно (Suggestions)
+     1.  Базові стилі (body)
+     2.  Шапка сайту (.site-header)
+     3.  Вступна секція (.intro-section)
+     4.  Картки (.about-block, .criteria-block і т.д.)
+     5.  Типографіка та заголовки
+     6.  Виділення та посилання
+     7.  Списки
+     8.  Блок автора та контакти
+     9.  Мета-дані (версія/дата)
+    10.  Кнопка Updates Log
+    11.  Модальне вікно (Update) — базові .custom-modal/.modal-overlay тут
+    12.  Модальне вікно (Suggestions)
+           12.1 контейнер/заголовок · 12.2 форма · 12.3 кнопка відправки
+           12.4 динамічні поля (Values)
+    13.  Модальне вікно додаткових матеріалів (Supplementary)
+           13.1 фон оверлею (перевизначення) · 13.2 геометрія вікна
+           13.3 список матеріалів · 13.4 картка матеріалу
+           13.5 текстовий блок картки · 13.6 превью-зображення
+           13.7 кнопка закриття · 13.8 типографіка вмісту матеріалу
+    14.  Модальне вікно внутрішніх матеріалів (Глосарій)
+           14.1 тіло вікна (глобальне) · 14.2 оверлей
+           14.3 геометрія контейнера · 14.4 шапка (заголовок + close)
+           14.5 тіло вікна (специфічне) · 14.6 обгортка таблиці
+    15.  Кастомна таблиця глосарію (заміна Tabulator)
+           15.1 базова структура · 15.2 типографіка комірок
+           15.3 кольорове кодування секцій · 15.4 стилістична ієрархія/ефекти
+           15.5 скролбар таблиці
    ============================================================ */
 
 
@@ -139,7 +154,7 @@ body {
 .main-about          { flex: 2.5 1 0; order: 2; background-color: #FCFBF7 !important; border: 1px solid #C9C1B9 !important; }
 .criteria-block      { flex: 0.8 1 0; order: 1; }
 .functionality-block { flex: 1.1 1 0; order: 3; }
-.info-block          { flex: 0.6 1 0;  order: 4; }
+.info-block          { flex: 0.6 1 0;  order: 4;}
 
 
 /* ============================================================
@@ -164,7 +179,7 @@ body {
 .intro-section p,
 .intro-section li {
     font-size: 0.9rem;
-    line-height: 1.4;
+    line-height: 1.5;
     color: #212529;
     margin-bottom: 1vh;
 }
@@ -173,9 +188,9 @@ body {
 .about-section p {
     font-size: 0.9rem;
     color: #333333 !important;
-    margin-top: 0;
+    margin-top: 0px !important;
     margin-bottom: 14px;
-    line-height: 1.55 !important;
+    line-height: 1.6 !important;
 }
 
 /* Жирний текст у блоці About */
@@ -192,7 +207,7 @@ body {
 
 /* Фінальний акцент у блоці About */
 .about-footer {
-    margin-top: 25px;
+    margin-top: 0px;
     padding-top: 15px;
     border-top: 2px dashed #EDEADE;
     text-align: center;
@@ -576,14 +591,10 @@ body {
 }
 
 /* ============================================================
-   12. МОДАЛЬНЕ ВІКНО Suggestions
+   12. МОДАЛЬНЕ ВІКНО SUGGESTIONS
    ============================================================ */
 
-//* ==========================================================================
-   ИЗОЛИРОВАННЫЕ СТИЛИ МОДАЛЬНОГО ОКНА ПРЕДЛОЖЕНИЙ (В ЕДИНИЦАХ REM)
-   ========================================================================== */
-
-/* Контейнер содержимого модального окна suggestions */
+/* --- 12.1 Контейнер та заголовок вікна --- */
 .suggestions-modal-content {
     width: 36.666rem !important; /* ~550px при базе 15px (Full HD) -> плавно растет до ~800px на 4K */
     max-width: 92% !important;
@@ -600,6 +611,8 @@ body {
     margin: 0;
     font-weight: 700;
 }
+
+/* --- 12.2 Структура форми --- */
 
 /* Структура самой формы */
 #suggestions-form {
@@ -662,6 +675,8 @@ body {
     box-shadow: 0 0 0.266rem rgba(142, 127, 113, 0.25);
 }
 
+/* --- 12.3 Кнопка відправки форми --- */
+
 /* Кнопка отправки формы */
 .form-submit-btn {
     font-family: 'Source Sans 3', sans-serif !important;
@@ -688,7 +703,7 @@ body {
     transform: scale(0.995);
 }
 
-/* --- Стили для динамических полей формы suggestions --- */
+/* --- 12.4 Динамічні поля форми (Values) --- */
 
 /* Контейнер заголовка и кнопки (+) */
 .values-section-header {
@@ -767,4 +782,531 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+/* ============================================================
+   13. МОДАЛЬНЕ ВІКНО ДОДАТКОВИХ МАТЕРІАЛІВ 
+   ============================================================ */
+
+/* --- 13.1 Перевизначення фону оверлею (тільки для цього вікна) ---
+   УВАГА: .modal-overlay вже описаний у секції 11 (rgba(74,69,65,0.6));
+   тут колір перевизначається на темніший варіант через однакову специфічність —
+   спрацює те правило, яке йде нижче за порядком у файлі. */
+.modal-overlay {
+    background-color: rgba(33, 26, 22, 0.75) !important;
+}
+
+/* --- 13.2 Геометрія вікна --- */
+.supplementary-window,
+.material-content-window {
+    max-width: 1300px !important;
+    width: 95% !important;
+    background-color: #FCFBF7!important;
+    border: 1px solid #C9C1B9 !important;
+    border-radius: 0.4rem !important; /* ~6px */
+    box-shadow: 0 0.266rem 1.333rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* --- 13.3 Список матеріалів (скрол-контейнер) --- */
+.supplementary-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    max-height: 65vh !important;
+    overflow-y: auto !important;
+    padding-right: 20px !important;
+}
+
+/* --- 13.4 Картка одного матеріалу --- */
+.supplementary-item {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 24px !important;
+    padding: 16px 20px !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 4px !important;
+    background-color: #f8f9fa !important; 
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.supplementary-item:hover {
+    border-color: #ced4da !important;
+    background-color: #FFF !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* --- 13.5 Текстовий блок картки (title / pub-type / date / опис) --- */
+.item-text {
+    flex: 1 !important;
+    text-align: left !important;
+}
+
+/* Название материала — строго в стиле заголовков suggestions */
+.item-title {
+    margin: 0 0 6px 0 !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #212529 !important; /* Идентичный глубокий цвет */
+    transition: color 0.15s ease !important;
+}
+
+/* При наведении — академичный зеленый ховер из формы предложений */
+.supplementary-item:hover .item-title {
+    color: #8E7F71 !important;
+}
+
+/* Тип публікації (наприклад: Monograph, Article тощо) */
+.item-pub-type {
+    display: block !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.95rem !important; /* Больше, чем у даты (0.8rem) */
+    font-weight: 600 !important; /* Полужирный акцент */
+    color: #8E7F71 !important; /* Фирменный цвет кнопок/акцентов проекта */
+    margin-bottom: 2px !important; /* Минимальный отступ до даты */
+    letter-spacing: 0.5px !important;
+}
+
+/* Дата публикации мелким шрифтом */
+.item-date {
+    display: block !important;
+    font-size: 0.8rem !important;
+    color: #A39689 !important; /* Чуть более приглушенный тон для иерархии */
+    margin-bottom: 8px !important;
+    font-weight: 500 !important;
+}
+
+/* Короткое описание */
+.item-description {
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    color: #495057 !important; /* Цвет основного текста описаний */
+    line-height: 1.45 !important;
+}
+
+/* --- 13.6 Превью-зображення картки --- */
+.item-preview-wrapper {
+    flex-shrink: 0 !important;
+    width: 150px !important;
+    height: 200px !important;
+    border: 1px #8E7F71 !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    background-color: #FFF !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+}
+
+.supplementary-item:hover .item-preview-wrapper {
+    transform: scale(1.02) !important;
+    border: 2px solid #8E7F71 !important;
+}
+
+.item-preview-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* --- 13.7 Кнопка закриття вікна --- */
+/* Кнопка закрытия окна */
+.modal-window .modal-close-btn {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 4px !important;
+    color: #495057 !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    line-height: 1 !important;
+}
+
+.modal-window .modal-close-btn:hover {
+    background-color: #dc3545 !important; /* Стандартный красный цвет для отмены/закрытия */
+    color: #FFF !important;
+    border-color: #dc3545 !important;
+}
+
+/* --- 13.8 Типографіка вмісту відкритого матеріалу --- */
+/* Внутрішній контент відкритого матеріалу */
+.material-inner-title {
+    text-align: left !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    color: #5C524A !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+}
+
+.material-inner-text {
+    text-align: left !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    color: #5C524A !important;
+    margin: 0 !important;
+}
+
+
+/* ============================================================
+   14. МОДАЛЬНЕ ВІКНО ВНУТРІШНІХ МАТЕРІАЛІВ (ГЛОСАРІЙ)
+   ============================================================ */
+
+/* --- 14.1 Тіло вікна (глобальне правило) ---
+   УВАГА: нижче, в 14.4, є більш специфічне правило
+   .custom-material-modal #material-content-body з іншими значеннями
+   (height/overflow) — воно й застосовується фактично. */
+/* Змушуємо тіло вікна займати весь залишок висоти */
+#material-content-body {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* --- 14.2 Оверлей вікна --- */
+/* Додаємо властивості перекриття та затуманення для самого контейнера модального вікна */
+#material-content-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.5) !important; /* Напівпрозорий темний фон для затуманення */
+    backdrop-filter: blur(4px) !important; /* Ефект розмиття заднього плану сайту */
+    display: none; /* Контролюється через JS (flex / none) */
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2000 !important; /* Перекриває абсолютно всі елементи сайту та попереднє модальне вікно */
+}
+
+/* --- 14.3 Геометрія головного контейнера вікна --- */
+/* Главный контейнер окна — полная синхронизация с геометрией .material-content-window */
+.custom-material-modal {
+    width: 1400px !important;
+    max-width: 95vw !important;
+    height: 1000px !important;
+    max-height: 85vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #FFFFFF !important;
+    border: 1px solid #C2BAB0 !important; /* Фирменная рамка проекта */
+    border-radius: 8px !important;
+    padding: 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    margin: auto !important; /* Автоматическое центрирование во флекс-оверлее */
+    box-sizing: border-box !important;
+}
+
+/* --- 14.4 Шапка вікна: заголовок та кнопка закриття --- */
+
+/* Шапка окна: теперь отвечает только за идеальное центрирование текста */
+.custom-material-modal .modal-header2 {
+    display: block !important;
+    position: relative !important;
+    border-bottom: 1px solid #E6E1DA !important; /* Разделительная линия */
+    padding-bottom: 14px !important;    /* Сдержанный нижний отступ */
+    margin-bottom: 16px !important;     /* Отступ до таблицы */
+    width: 100% !important;
+}
+
+/* Заголовок окна: строго по центру, без постороннего влияния */
+.custom-material-modal .modal-header2 h2 {
+    margin: 0 !important;
+    padding: 0 40px !important; /* Базовый отступ, чтобы текст не упирался в края */
+    text-align: center !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    color: #4A4541;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2 !important;
+}
+
+/* Кнопка закрытия: позиционируется строго от угла самого главного контейнера модалки */
+.custom-material-modal .modal-header2 .modal-close {
+    position: absolute !important;
+    
+    /* Привязка к верхнему правому углу контейнера с учетом внутреннего padding карточки */
+    right: 0 !important;
+    top: -4px !important; /* Смещение вверх на уровень верхнего края текста заголовка */
+    
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Аккуратные, фиксированные квадратные размеры */
+    width: 32px !important;            
+    height: 32px !important;           
+    font-size: 1.2rem !important; /* Размер значка крестика */
+    padding-bottom: 1px !important; /* Оптический фикс центровки символа "×" */
+    
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 4px !important;
+    color: #495057 !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+}
+
+/* Эффект ховера для кнопки закрытия */
+.custom-material-modal .modal-header2 .modal-close:hover {
+     background-color: #dc3545 !important; /* Стандартный красный цвет для отмены/закрытия */
+     color: #FFF !important;
+     border-color: #dc3545 !important;
+}
+
+/* --- 14.5 Тіло вікна (специфічне для .custom-material-modal) ---
+   Перевизначає 14.1 завдяки вищій специфічності селектора. */
+/* Тело модального окна — занимает весь оставшийся простор карточки */
+.custom-material-modal #material-content-body {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: calc(100% - 60px) !important; /* Учитываем высоту шапки и отступы */
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* --- 14.6 Обгортка таблиці глосарію (скрол-контейнер) --- */
+/* Обертка кастомной таблицы (скроллбар включается только тут) */
+.custom-material-modal .glossary-table-container {
+    width: 100% !important;
+    height: 100% !important;
+    flex-grow: 1 !important;
+    overflow-y: auto !important; /* Вертикальный скролл при наполнении */
+    border: 1px solid #E6E1DA !important;
+    border-radius: 6px !important;
+    background-color: #FFFFFF !important;
+}
+
+/* ============================================================
+   15 КАСТОМНА ТАБЛИЦЯ ГЛОСАРІЮ (ЗАМІСТЬ TABULATOR)
+   ============================================================ */
+
+/* --- 15.1 Базова структура таблиці (th/td, ширини колонок) --- */
+.custom-glossary-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    color: #212529 !important;
+    text-align: left !important;
+}
+
+/* Хедеры колонок таблицы */
+.custom-glossary-table th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #F4F1EA !important;
+    color: #5C5045 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    text-align: center !important;
+    padding: 14px 16px !important;
+    border-bottom: 2px solid #E6E1DA !important;
+    z-index: 10 !important;
+}
+
+.custom-glossary-table td {
+    padding: 14px 16px !important;
+    border-bottom: 1px solid #EAE6DF !important;
+    vertical-align: top !important;
+    line-height: 1.4 !important;
+    background-color: #FFFFFF !important;
+}
+
+.custom-glossary-table td:nth-child(3) {
+    text-align: center !important;
+}
+
+/* Строгие пропорции для 4 колонок */
+.custom-glossary-table th:nth-child(1), .custom-glossary-table td:nth-child(1) { width: 7% !important; }  
+.custom-glossary-table th:nth-child(2), .custom-glossary-table td:nth-child(2) { width: 20% !important; } 
+.custom-glossary-table th:nth-child(3), .custom-glossary-table td:nth-child(3) { width: 18% !important; } 
+.custom-glossary-table th:nth-child(4), .custom-glossary-table td:nth-child(4) { width: 55% !important; } 
+
+.custom-glossary-table tbody tr:hover td { background-color: #FDFDFB !important; }
+
+
+/* --- 15.2 Типографіка комірок (index / term / опис) --- */
+
+/* Новая колонка с индексом */
+.custom-glossary-table td.cell-index {
+    font-size: 0.9rem !important;
+    color: #212529 !important; 
+    font-weight: 600 !important; 
+}
+
+/* Стили заголовков Term */
+.custom-glossary-table td.cell-term {
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    color: #212529 !important;
+}
+
+/* Элементы внутри массива: шрифт чуть меньше, легкий отступ */
+.custom-glossary-table tr.glossary-group-row td.cell-term {
+    font-size: 0.88rem !important;
+    padding-left: 28px !important; 
+}
+
+/* Текст категорий (курсив) */
+.custom-glossary-table td .category-text {
+    font-style: italic !important;
+    font-size: 0.9rem !important;
+    color: #212529 !important;
+    font-weight: normal !important;
+}
+
+/* Все поля описаний */
+.custom-glossary-table td.cell-definition {
+    font-size: 0.95rem !important;
+    color: #212529 !important;
+    font-weight: normal !important;
+}
+
+
+/* --- 15.3 Правила кольорового кодування секцій (Color Palette) --- */
+
+/* 1. БАЗОВАЯ НАСТРОЙКА ЦВЕТОВ ПО УМОЛЧАНИЮ (для обычных секций, как раньше) */
+.custom-glossary-table tr {
+    --section-bg: #EFECE6; /* Тот самый исходный академический беж для обычных заголовков */
+    --row-bg: #FFFFFF;     /* Обычные одиночные строки остаются чисто белыми */
+}
+
+/* Применение базовых фонов по умолчанию */
+.custom-glossary-table tr.glossary-section-title-row td { 
+    background-color: var(--section-bg) !important; 
+}
+.custom-glossary-table tr.glossary-group-header td { 
+    background-color: #F5F1EB !important; /* Родной цвет заголовка массива в обычной секции */
+} 
+.custom-glossary-table tr.glossary-normal-row td { 
+    background-color: var(--row-bg) !important; 
+}
+/* ВНУТРЕННИЕ строки массива в ОБЫЧНОЙ секции получают свой отличающийся оттенок */
+.custom-glossary-table tr.glossary-group-row td { 
+    background-color: #FAF9F6 !important; 
+}
+
+
+/* 2. ПЕРЕОПРЕДЕЛЕНИЕ ПАЛИТРЫ ДЛЯ СКАЗАННЫХ КАСТОМНЫХ СЕКЦИЙ */
+
+/* Цвет для секции "Колір для секції "Загальна" (если вы её используете отдельно от дефолтной) */
+.custom-glossary-table tr.group-general {
+    --section-bg: #ECEAE4 !important;
+    --row-bg: #ECEAE4 !important;
+}
+/* Колір для секції "Інтерфейс" */
+.custom-glossary-table tr.group-interface {
+    --section-bg: #FFFBD2 !important;
+    --row-bg: #FFFBD2 !important;
+}
+/* Колір для секції "Навігація" */
+.custom-glossary-table tr.group-navigation {
+    --section-bg: #CFE2F3 !important;
+    --row-bg: #CFE2F3 !important;
+}
+/* Колір для секції "Representation" */
+.custom-glossary-table tr.group-representation {
+    --section-bg: #CAE2BF !important;
+    --row-bg: #CAE2BF !important;
+}
+/* Колір для секції "Functionality" */
+.custom-glossary-table tr.group-functionality {
+    --section-bg: #D6D6D6 !important;
+    --row-bg: #D6D6D6 !important;
+}
+
+/* Применение динамических кастомных фонов к ячейкам (только для измененных цветных групп) */
+.custom-glossary-table tr[class*="group-"]:not(.group-default) td {
+    background-color: var(--row-bg) !important;
+}
+/* Заголовки измененных групп принудительно берут свой кастомный цвет секции */
+.custom-glossary-table tr.glossary-section-title-row[class*="group-"]:not(.group-default) td {
+    background-color: var(--section-bg) !important;
+}
+
+
+/* --- 15.4 Стилістична ієрархія та ефекти (масиви, ховери) --- */
+
+/* Заголовки разделов (Общие правила оформления) */
+.custom-glossary-table tr.glossary-section-title-row td {
+    font-weight: 700 !important;
+    font-size: 1.05rem !important;
+    color: #212529 !important;
+    padding: 16px !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important;
+    border-top: 2px solid rgba(0, 0, 0, 0.12) !important;
+}
+.custom-glossary-table tr.glossary-section-title-row td.section-text-centered {
+    text-align: center !important;
+    padding-right: 7% !important; 
+}
+
+/* ВНУТРЕННИЕ СТРОКИ МАССИВОВ ДЛЯ КАСТОМНЫХ ГРУПП:
+   Магия изящного отбеливания на 45% поверх их кастомного основного цвета,
+   чтобы внутри цветной секции массив тоже визуально выделялся другим оттенком */
+.custom-glossary-table tr[class*="group-"]:not(.group-default).glossary-group-row td {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) !important;
+}
+
+/* Интерактивный ховер для ячеек */
+.custom-glossary-table tbody tr:hover td {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)) !important;
+}
+/* Ховер для внутренних строк кастомных массивов (смешивание слоев отбеливания и ховера) */
+.custom-glossary-table tr[class*="group-"]:not(.group-default).glossary-group-row:hover td {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)) !important;
+}
+
+/* --- 15.5 Скролбар таблиці глосарію ---
+   Доповнює правило .glossary-table-container з підсекції 14.6
+   (тут лише оформлення scrollbar, без зміни розмірів/positioning). */
+
+/* Настройка контейнера, в котором прокручивается таблица */
+.custom-material-modal .glossary-table-container {
+    scrollbar-width: thin !important; /* Для Firefox: делаем скроллбар аккуратным и тонким */
+    scrollbar-color: #C2BAB0 #F4F1EA !important; /* Для Firefox: цвет бегунка и цвет дорожки */
+}
+
+/* 1. Общая ширина вертикального скроллбара (для WebKit-браузеров) */
+.custom-material-modal .glossary-table-container::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+/* 2. Дорожка скроллбара (фон) — красим в цвет фиксированной шапки таблицы */
+.custom-material-modal .glossary-table-container::-webkit-scrollbar-track {
+    background-color: #F4F1EA !important;
+    border-left: 1px solid #E6E1DA !important; /* Тонкая разделительная линия */
+    border-radius: 0 0 6px 0 !important; /* Скругление снизу справа под контур контейнера */
+}
+
+/* 3. Бегунок (ползунок) скроллбара — красим в цвет рамок окна (академический серо-бежевый) */
+.custom-material-modal .glossary-table-container::-webkit-scrollbar-thumb {
+    background-color: #C2BAB0 !important;
+    border-radius: 4px !important;
+    border: 1px solid #F4F1EA !important; /* Внутренний отступ, чтобы бегунок выглядел изящнее */
+}
+
+/* 4. Поведение бегунка при наведении мыши (становится чуть темнее, в тон текста заголовков) */
+.custom-material-modal .glossary-table-container::-webkit-scrollbar-thumb:hover {
+    background-color: #A3998E !important;
 }

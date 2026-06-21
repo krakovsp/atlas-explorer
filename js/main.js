@@ -474,21 +474,81 @@ function handleMaterialClick(element) {
     }
 }
 
-// Логика отображения внутреннего контента (для будущих записей)
+// Логіка відображення внутрішнього контенту (Глосарій)
 function openInternalMaterialModal(materialId) {
     closeSupplementaryModal();
     
-    const contentBody = document.getElementById("material-content-body");
     const contentModal = document.getElementById("material-content-modal");
+    const tbody = document.getElementById("glossary-table-tbody");
     
-    if (!contentBody || !contentModal) return;
+    if (!contentModal || !tbody) return;
 
-    // Сюда вы сможете добавлять новые кейсы для внутренних материалов
-    if (materialId === 'material-2') {
-        contentBody.innerHTML = `
-            <h2 class="material-inner-title">Classification Matrix Specifications</h2>
-            <p class="material-inner-text">Comprehensive lists of classification metrics used for calculating systematic trends and user experiences inside modern web-atlases...</p>
-        `;
+    if (materialId === 'glossary-terms') {
+        tbody.innerHTML = "";
+        
+        // По умолчанию используется стандартная (default) группа
+        let currentGroup = "default"; 
+
+        GLOSSARY_DATA.forEach(item => {
+            
+            // ТИП 4: Заголовок секции
+            if (item.isSection) {
+                // Если group не задан, сбрасываем на default (раньше/обычный беж)
+                currentGroup = item.group || "default"; 
+
+                const row = document.createElement("tr");
+                row.className = `glossary-section-title-row group-${currentGroup}`;
+                row.innerHTML = `
+                    <td class="cell-index">${item.number || ""}</td>
+                    <td colspan="3" class="section-text-centered">${item.term}</td>
+                `;
+                tbody.appendChild(row);
+                return;
+            }
+
+            // ТИП 3: Структурированный массив (с nested элементами)
+            if (item.nested && Array.isArray(item.nested)) {
+                
+                const headerRow = document.createElement("tr");
+                headerRow.className = `glossary-group-header group-${currentGroup}`;
+                headerRow.innerHTML = `
+                    <td class="cell-index">${item.number || ""}</td>
+                    <td class="cell-term">${item.term}</td>
+                    <td><span class="category-text"></span></td>
+                    <td class="cell-definition">${item.definition}</td>
+                `;
+                tbody.appendChild(headerRow);
+
+                item.nested.forEach(subItem => {
+                    const row = document.createElement("tr");
+                    row.className = `glossary-group-row group-${currentGroup}`;
+                    row.innerHTML = `
+                        <td class="cell-index"></td>
+                        <td class="cell-term">${subItem.term}</td>
+                        <td><span class="category-text">${subItem.category || ""}</span></td>
+                        <td class="cell-definition">${subItem.definition}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+            } else {
+                // ТИП 1 и 2: Одиночные строки
+                const row = document.createElement("tr");
+                row.className = `glossary-normal-row group-${currentGroup}`;
+                
+                const categoryContent = item.category 
+                    ? `<span class="category-text">${item.category}</span>` 
+                    : `<span class="category-text"></span>`;
+
+                row.innerHTML = `
+                    <td class="cell-index">${item.number || ""}</td>
+                    <td class="cell-term">${item.term}</td>
+                    <td>${categoryContent}</td>
+                    <td class="cell-definition">${item.definition}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        });
     }
 
     contentModal.style.display = "flex";
@@ -497,11 +557,6 @@ function openInternalMaterialModal(materialId) {
 function closeMaterialContentModal() {
     const contentModal = document.getElementById("material-content-modal");
     if (contentModal) contentModal.style.display = "none";
-}
-
-function backToSupplementaryModal() {
-    closeMaterialContentModal();
-    openSupplementaryModal();
 }
 
 /**

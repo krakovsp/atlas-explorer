@@ -4,6 +4,7 @@
      1.  Контейнер секції (.table-section)
      2.  Навігаційна панель (.nav-tabs)
      3.  Кнопки навігації (.tab-button, .settings-btn, .fullscreen-btn)
+           3.1 кнопка Supplementary · 3.2 z-index фікс fullscreen-оверлею
      4.  Вкладки (.tab-content)
      5.  Повноекранний режим (.fullscreen-mode)
      6.  Спливаюче вікно вибору колонок (#column-picker)
@@ -12,6 +13,7 @@
      9.  Tabulator — загальні стилі
     10.  Tabulator — хедер
     11.  Tabulator — рядки та комірки
+           11.1 рядки (зебра/hover) · 11.2 комірки · 11.3 колонка Title
     12.  Tabulator — кольори колонок по групах
     13.  Tabulator — футер та пагінація
     14.  Tabulator — скролбар таблиці
@@ -20,6 +22,8 @@
     17.  Tabulator — тултіп
     18.  Tabulator — фікс overflow / popup
     19.  Tabulator — посилання та курсор
+           19.0 базові посилання · 19.1 посилання Title · 19.2 курсор
+           19.3 курсор копіювання
     20.  Кнопки прокрутки (.scroll-arrow-btn)
     21.  Кнопка "Clear Filters"
     22.  Значки Так / Ні
@@ -69,15 +73,28 @@
 /* ============================================================
    3. КНОПКИ НАВІГАЦІЇ
    ============================================================ */
+/* Уніфіковані розміри для всіх кнопок */
+:root {
+    --table-nav-btn-height: clamp(28px, 3vh, 36px);
+}
 
 /* Уніфіковані стилі іконок для всіх кнопок */
 .tab-button i, .settings-btn i, .fullscreen-btn i, .supplementary-btn i {
     font-size: 0.85rem !important;
 }
 
+.tab-button,
+.settings-btn,
+.fullscreen-btn,
+.supplementary-btn,
+.scroll-arrow-btn {
+    height: var(--table-nav-btn-height) !important;
+    min-height: var(--table-nav-btn-height) !important;
+}
+
 /* Кнопки навигации */
 .tab-button {
-    padding: 0.6vh 1.2vw !important; /* Пропорційні відступи */
+    padding: 0 1.2vw !important; /* Пропорційні відступи */
     font-size: 0.85rem !important;
     border-radius: 6px;
     cursor: pointer;
@@ -111,11 +128,8 @@
     align-items: center;
     gap: 0.5vw; /* Відстань між іконкою та текстом */
     font-size: 0.85rem !important;
-    padding: 0.6vh 1vw;
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
+    padding: 0 1vw !important;
     border-radius: 6px;
-    color: #495057;
     transition: all 0.3s ease;
     background-color: #FAF8F5 !important;
     border: 1px solid #C2BAB0 !important;
@@ -138,17 +152,17 @@
 
 /* Кнопка розгортання */
 .fullscreen-btn {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    color: #495057;
     border-radius: 6px;
-    padding: 0.6vh 0.8vw;
+    padding: 0 0.8vw !important;
     cursor: pointer;
-    font-size:  0.9rem !important;
+    font-size:  0.85rem !important;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
 }
 
 .fullscreen-btn:hover {
@@ -157,16 +171,16 @@
     border-color: #8E7F71 !important;
 }
 
-/* ============================================================
-   Кнопка та модальне вікно додаткових матеріалів
-   ============================================================ */
+/* --- 3.1 Кнопка "Додаткові матеріали" (Supplementary) --- */
 
 .nav-tabs .supplementary-btn {
     margin-left: 15px !important;
+    padding: 0 1vw !important;
     background-color: #FAF8F5 !important;
     border: 1px solid #C2BAB0 !important;
     color: #5C524A !important;
     font-weight: 600 !important;
+
 }
 
 .nav-tabs .supplementary-btn:hover {
@@ -175,194 +189,14 @@
     border-color: #8E7F71 !important;
 }
 
+/* --- 3.2 Фікс z-index оверлею у повноекранному режимі ---
+   Щоб модалка Supplementary не ховалась під таблицею,
+   коли .table-section перебуває у .fullscreen-mode. */
 .fullscreen-mode .modal-overlay {
     z-index: 999999 !important;
 }
 
-.modal-overlay {
-    background-color: rgba(33, 26, 22, 0.75) !important;
-}
 
-.supplementary-window,
-.material-content-window {
-    max-width: 1300px !important;
-    width: 95% !important;
-    background-color: #FCFBF7!important;
-    border: 1px solid #C9C1B9 !important;
-    border-radius: 0.4rem !important; /* ~6px */
-    box-shadow: 0 0.266rem 1.333rem rgba(0, 0, 0, 0.2) !important;
-}
-
-.supplementary-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 14px !important;
-    max-height: 65vh !important;
-    overflow-y: auto !important;
-    padding-right: 20px !important;
-}
-
-.supplementary-item {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 24px !important;
-    padding: 16px 20px !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: 4px !important;
-    background-color: #f8f9fa !important; 
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-}
-
-.supplementary-item:hover {
-    border-color: #ced4da !important;
-    background-color: #FFF !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
-.item-text {
-    flex: 1 !important;
-    text-align: left !important;
-}
-
-/* Название материала — строго в стиле заголовков suggestions */
-.item-title {
-    margin: 0 0 6px 0 !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    color: #212529 !important; /* Идентичный глубокий цвет */
-    transition: color 0.15s ease !important;
-}
-
-/* При наведении — академичный зеленый ховер из формы предложений */
-.supplementary-item:hover .item-title {
-    color: #8E7F71 !important;
-}
-
-/* Тип публікації (наприклад: Monograph, Article тощо) */
-.item-pub-type {
-    display: block !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 0.95rem !important; /* Больше, чем у даты (0.8rem) */
-    font-weight: 600 !important; /* Полужирный акцент */
-    color: #8E7F71 !important; /* Фирменный цвет кнопок/акцентов проекта */
-    margin-bottom: 2px !important; /* Минимальный отступ до даты */
-    letter-spacing: 0.5px !important;
-}
-
-/* Дата публикации мелким шрифтом */
-.item-date {
-    display: block !important;
-    font-size: 0.8rem !important;
-    color: #A39689 !important; /* Чуть более приглушенный тон для иерархии */
-    margin-bottom: 8px !important;
-    font-weight: 500 !important;
-}
-
-/* Короткое описание */
-.item-description {
-    margin: 0 !important;
-    font-size: 0.9rem !important;
-    color: #495057 !important; /* Цвет основного текста описаний */
-    line-height: 1.45 !important;
-}
-
-.item-preview-wrapper {
-    flex-shrink: 0 !important;
-    width: 150px !important;
-    height: 200px !important;
-    border: 1px #8E7F71 !important;
-    border-radius: 4px !important;
-    overflow: hidden !important;
-    background-color: #FFF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.2s ease !important;
-}
-
-.supplementary-item:hover .item-preview-wrapper {
-    transform: scale(1.02) !important;
-    border: 2px solid #8E7F71 !important;
-}
-
-.item-preview-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-}
-
-/* Кнопка "Назад" */
-.modal-back-btn {
-    background-color: #f8f9fa !important;
-    border: 1px solid #ced4da !important;
-    color: #495057 !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    padding: 6px 14px !important;
-    margin-right: 16px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    border-radius: 4px !important;
-    transition: all 0.15s ease !important;
-}
-
-.modal-back-btn:hover {
-    background-color: #e2e6ea !important;
-    color: #212529 !important;
-    border-color: #dae0e5 !important;
-}
-
-/* Кнопка закрытия окна */
-.modal-window .modal-close-btn {
-    position: static !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    background-color: #f8f9fa !important;
-    border: 1px solid #ced4da !important;
-    border-radius: 4px !important;
-    color: #495057 !important;
-    font-size: 1.2rem !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    transition: all 0.15s ease !important;
-    line-height: 1 !important;
-}
-
-.modal-window .modal-close-btn:hover {
-    background-color: #dc3545 !important; /* Стандартный красный цвет для отмены/закрытия */
-    color: #FFF !important;
-    border-color: #dc3545 !important;
-}
-
-/* Внутрішній контент відкритого матеріалу */
-.material-inner-title {
-    text-align: left !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 1.4rem !important;
-    font-weight: 600 !important;
-    color: #5C524A !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
-}
-
-.material-inner-text {
-    text-align: left !important;
-    font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
-    color: #5C524A !important;
-    margin: 0 !important;
-}
 
 /* ============================================================
    4. ВКЛАДКИ
@@ -409,12 +243,7 @@
    6. СПЛИВАЮЧЕ ВІКНО ВИБОРУ КОЛОНОК (#column-picker)
    ============================================================ */
 
-/* ==========================================================================
-   Стили для всплывающего окна выбора колонок (Модернизированный Flexbox)
-   ========================================================================== */
-
-/* Спливаюче вікно колонок (Переведено на адаптивный Flexbox без лишних квадратов) */
-/*(Заполнение сверху вниз) */
+/* Спливаюче вікно колонок (адаптивний Flexbox, заповнення зверху вниз) */
 #column-picker {
     display: none !important;
     position: absolute !important;
@@ -433,6 +262,10 @@
        Высота в 250px-300px — идеальна, чтобы распределить 12-16 колонок в 3-4 столбца. */
     height: 300px !important; 
     max-height: 45vh !important;
+    box-sizing: border-box !important; /* Гарантируем, что padding не будет раздувать эти 260px */
+    
+    /* Дополнительно предотвращаем схлопывание флекса, если он внутри другого флекс-бокса */
+    flex-shrink: 0 !important;
     
     /* 2. ИЗМЕНЕНИЕ ЛОГИКИ НА СВЕРХУ ВНИЗ */
     flex-direction: column !important; /* Выстраиваем элементы вертикально в столбик */
@@ -444,10 +277,13 @@
     /* Ширина будет автоматически расширяться вправо по мере появления новых столбцов */
     width: max-content !important; 
     max-width: 1800px !important;
+    min-width: 1000px !important;
     
     /* Скрываем вертикальный скролл, так как сетка теперь растет вбок */
     overflow-y: hidden !important; 
-    overflow-x: auto !important; 
+    overflow-x: auto !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #8E7F71 #FAF8F5 !important;
 }
 
 /* Активация сетки скриптом */
@@ -583,6 +419,10 @@
     background: #F5F2EB !important; /* Очень мягкий светлый фон для дорожки */
     border-radius: 4px;
 }
+.column-picker-list {
+    scrollbar-width: thin !important; /* Firefox */
+    scrollbar-color: #C2BAB0 #FFF !important; /* Firefox: бегунок / дорожка */
+}
 
 
 /* ============================================================
@@ -668,6 +508,8 @@
    11. TABULATOR — РЯДКИ ТА КОМІРКИ
    ============================================================ */
 
+/* --- 11.1 Рядки (зебра, hover, межі) --- */
+
 /* Рядки */
 .tabulator-row {
     border-bottom: 1px solid #eee !important;
@@ -684,6 +526,8 @@
     background-color: #E5E0DB !important;
     transition: background 0.1s ease-in-out;
 }
+
+/* --- 11.2 Комірки --- */
 
 /* Окрема комірка */
 .tabulator .tabulator-cell {
@@ -705,7 +549,7 @@
     box-shadow: 3px 0 6px rgba(0,0,0,0.12) !important;
 }
 
-/* --- Увеличение шрифта только для колонки Title --- */
+/* --- 11.3 Колонка Title (збільшений шрифт) --- */
 /* Увеличиваем текст и ссылки в обычных ячейках колонки Title */
 .tabulator-row .tabulator-cell.title-column,
 .tabulator-row .tabulator-cell.title-column a {
@@ -858,6 +702,11 @@
 .tabulator-tableholder::-webkit-scrollbar-thumb:hover {
     background: #8E7F71; /* Цвет меняется при наведении */
 }
+/* Основной контейнер прокрутки Tabulator */
+.tabulator .tabulator-tableholder {
+    scrollbar-width: thin !important; /* Firefox */
+    scrollbar-color: #C2BAB0 #FDFDFB !important; /* Firefox: бегунок / дорожка */
+}
 
 
 /* ============================================================
@@ -894,7 +743,8 @@
    16. TABULATOR — ПРОГРЕС-БАР
    ============================================================ */
 
-/* Стиль контейнера прогрес-бару для колонки Атласність */
+/* Стиль контейнера прогрес-бару для колонки Атласність
+   (порожнє правило-нотатка: автор залишив коментар, що це не той селектор) */
 .tabulator-cell .tabulator-col-content .tabulator-arrow {
     /* Це для стрілочок, а нам треба саме прогрес: */
 }
@@ -1027,6 +877,8 @@
    19. TABULATOR — ПОСИЛАННЯ ТА КУРСОР
    ============================================================ */
 
+/* --- 19.0 Базові стилі посилань у комірках --- */
+
 /* Стиль для посилань всередині таблиці */
 .tabulator-cell a {
     color: #0078d4;
@@ -1043,7 +895,7 @@
     color: #0078d4;
 }
 
-/* --- Стилизация ссылок в колонке Title --- */
+/* --- 19.1 Стилізація посилань у колонці Title --- */
 .tabulator-row .tabulator-cell.title-column a.table-link {
     color: inherit; /* Ссылка принимает тот же цвет, что и обычный текст строки */
     text-decoration: none; /* Убирает подчеркивание по умолчанию */
@@ -1055,7 +907,7 @@
     color: #8E7F71; /* Или любой другой аккуратный цвет из вашей палитры */
 }
 
-/* --- Управление курсором мыши --- */
+/* --- 19.2 Керування курсором миші --- */
 
 /* ГАРАНТИРУЕМ интерактивность всех ячеек для кликов мыши */
 .tabulator .tabulator-row .tabulator-cell {
@@ -1075,7 +927,7 @@
     transition: background-color 0.12s ease-in-out;
 }
 
-/* --- Настройка курсора для копирования ячеек --- */
+/* --- 19.3 Курсор для копіювання комірок --- */
 
 /* Колонки, контент которых можно скопировать кликом, подсвечиваются указателем */
 .tabulator .tabulator-row .tabulator-cell:not(.title-column):not([0-field="actions"]) {
@@ -1102,21 +954,22 @@
     display: flex !important;
     flex-direction: row !important; /* Выстраиваем строго слева направо */
     align-items: center !important;
+    font-size:  0.85rem !important;
     gap: 4px !important; /* Небольшой зазор между стрелками */
     flex-shrink: 0 !important; /* Запрещаем контейнеру сжиматься */
 }
 
 /* Кнопки-стрелки полностью наследуют стилистику верхних круглых/квадратных кнопок */
 .scroll-arrow-btn {
-    background-color: #f8f9fa !important; /* Светлый фон как у .settings-btn */
-    border: 1px solid #dee2e6 !important; /* Стандартная серая рамка */
-    color: #495057 !important;           /* Цвет иконки в тон соседних кнопок */
+    background-color: #FAF8F5 !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #5C524A !important;
     border-radius: 6px !important;       /* Округление 6px, как у остальных кнопок шапки */
     
-    /* Идеально выравниваем высоту со стандартными кнопками */
-    height: clamp(30px, 3.8vh, 36px) !important;
-    width: clamp(30px, 3.8vh, 36px) !important;
-    
+    width: var(--table-nav-btn-height) !important;
+    padding: 0 !important;
+    font-size:  0.85rem !important;
+
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1196,3 +1049,4 @@
     color: #B23A22 !important;
     font-weight: bold;
 }
+

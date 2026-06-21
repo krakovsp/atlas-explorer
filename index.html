@@ -25,6 +25,7 @@
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/table-config.js"></script>
+    <script src="data/glossary-data.js"></script>
 
 </head>
 <body>
@@ -38,11 +39,11 @@
         <div class="about-block main-about">
             <div class="about-section">
                 <h2>About</h2>
-                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to search for atlases, explore their structure, and conduct your own comparative and trend analyses. <br>The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand knowledge about atlases and their diverse metaconcepts. </br> </p>
+                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to search for atlases, explore their structure, and conduct your own comparative and trend analyses. The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand knowledge about atlases and their diverse metaconcepts. </p>
 
                 <p> In the current version of Atlas Explorer, electronic atlases are classified according to <span class="about-cursive">bibliographic</span>, <span class="about-cursive">content</span>, and <span class="about-cursive">media-cartographic</span> attributes. The latter comprise 75 attributes grouped into five blocks: <span class="about-cursive">general information</span>, <span class="about-cursive">interface</span>, <span class="about-cursive">information architecture and navigation</span>, <span class="about-cursive">content representation</span>, and <span class="about-cursive">functionality</span>. <strong> An explanation of each attribute is available in the tooltips of the table column headers</strong>.</p>
 
-                <p> Methodological aspects of analysis are described in the <strong>Supplementary Materials section</strong>, along with other useful information. Unlike the standard analysis model, which typically requires 30–50 hours, Atlas Explorer applies an express analysis approach with an estimated duration of 2–3 hours. While this approach enables the identification of the most important and synthetic attributes, it provides lower analytical depth and reliability compared to the standard model.</p>
+                <p> <span class="about-cursive">Methodological aspects of analysis</span>, <span class="about-cursive">glossary</span> and other useful information can be found in the <strong>Supplementary Materials section</strong>. Unlike the standard analysis model, which typically requires 30–50 hours, Atlas Explorer applies an express analysis approach with an estimated duration of 2–3 hours. While this approach enables the identification of the most important and synthetic attributes, it provides lower analytical depth and reliability compared to the standard model.</p>
 
 
                <div class="about-footer">
@@ -117,11 +118,11 @@
         </button>
         <div class="meta-item">
             <span class="meta-label">Updated:</span>
-            <span class="meta-value">14.06.2026</span>
+            <span class="meta-value">21.06.2026</span>
         </div>
         <div class="meta-item">
             <span class="meta-label">Version:</span>
-            <span class="meta-value">0.9.0</span>
+            <span class="meta-value">0.9.1</span>
         </div>
     </div>
 </div>
@@ -239,31 +240,147 @@
     </div>
 </div>
 
+<!-- ===== МОДАЛЬНОЕ ОКНО: Supplementary Materials ===== -->
 <div id="supplementary-modal" class="modal-overlay" onclick="closeSupplementaryModal()">
+    <!-- Внутреннее окно (клик по нему не закрывает оверлей) -->
     <div class="modal-window supplementary-window" onclick="event.stopPropagation()">
-        
+
+        <!-- Шапка модалки -->
         <div class="modal-header">
             <h2>Supplementary Materials</h2>
             <span class="modal-close-btn" onclick="closeSupplementaryModal()">&#x2715;</span>
         </div>
-        
+
+        <!-- Список материалов -->
         <div class="modal-body supplementary-list">
-            
-            <div class="supplementary-item" data-type="external" data-target="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf" onclick="handleMaterialClick(this)">
+
+            <!-- Элемент 1: Внутренний — Glossary of Terms -->
+            <div class="supplementary-item"
+                 data-type="internal"
+                 data-target="glossary-terms"
+                 onclick="handleMaterialClick(this)">
+
+                <!-- Текстовая часть карточки -->
                 <div class="item-text">
-                    <h3 class="item-title">Electronic Atlases: Development Trends and Research Methodology</h3>
+                    <h3 class="item-title">Glossary</h3>
+                    <span class="item-pub-type">Table</span>
+                    <span class="item-date">Published: June 21, 2026</span>
+                    <p class="item-description">
+                        The glossary contains a list of definitions of all attributes. Explanations of the attributes and their values are also provided in the headers of the attribute table columns.
+                    </p>
+                </div>
+
+                <!-- Иконка-превью -->
+                <div class="item-preview-wrapper">
+                    <img src="img/glos.jpg" alt="Preview" class="item-preview-img">
+                </div>
+
+            </div>
+            <!-- /Элемент 1 -->
+
+            <!-- Элемент 2: Внешняя ссылка — книга Electronic Atlases -->
+            <div class="supplementary-item"
+                 data-type="external"
+                 data-target="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf"
+                 onclick="handleMaterialClick(this)">
+
+                <!-- Текстовая часть карточки -->
+                <div class="item-text">
+                    <h3 class="item-title">
+                        Electronic Atlases: Development Trends and Research Methodology
+                    </h3>
                     <span class="item-pub-type">Book</span>
                     <span class="item-date">Published: December 30, 2025</span>
-                    <p class="item-description">The book presents a periodization of electronic atlas (EA) development and identifies metaconcepts of atlas applications. It refines the classification of EAs, clarifies the concept of the EA, and outlines current research approaches and methods. The book provides a detailed characterization of four core EA components as end-user applications: interface, information architecture and navigation, content representation, and functionality. It also introduces and validates a methodology for media-cartographic analysis of EAs through empirical case studies of the European Atlas of the Seas and the Czech Historical Atlas</p>
+                    <p class="item-description">
+                        The book presents a periodization of electronic atlas (EA) development
+                        and identifies metaconcepts of atlas applications. It refines the
+                        classification of EAs, clarifies the concept of the EA, and outlines
+                        current research approaches and methods. The book provides a detailed
+                        characterization of four core EA components as end-user applications:
+                        interface, information architecture and navigation, content
+                        representation, and functionality. It also introduces and validates
+                        a methodology for media-cartographic analysis of EAs through empirical
+                        case studies of the European Atlas of the Seas and the Czech
+                        Historical Atlas.
+                    </p>
                 </div>
+
+                <!-- Картинка-превью -->
                 <div class="item-preview-wrapper">
                     <img src="img/krak_book.png" alt="Preview" class="item-preview-img">
                 </div>
-            </div>
 
             </div>
+            <!-- /Элемент 2 -->
+            <!-- Элемент 3: Внешняя ссылка —  статья -->
+            <div class="supplementary-item"
+                 data-type="external"
+                 data-target="https://doi.org/10.1080/23729333.2026.2682461"
+                 onclick="handleMaterialClick(this)">
+
+                <!-- Текстовая часть карточки -->
+                <div class="item-text">
+                    <h3 class="item-title">
+                        Revisiting the Electronic Atlas Concept: From Theoretical Model to Metaconcepts of Atlas Applications
+                    </h3>
+                    <span class="item-pub-type">Article</span>
+                    <span class="item-date">Published: June 15, 2026</span>
+                    <p class="item-description">
+                        In the article, the term ‘metaconcept’ is introduced and a framework for describing the metaconcepts of electronic atlases is proposed. Based on a media-cartographic analysis of 100 electronic atlases, a typology of nine metaconcepts is developed and a matrix of 17 three-state and 11 categorical indicators is designed and tested for their identification.
+
+                    </p>
+                </div>
+
+                <!-- Картинка-превью -->
+                <div class="item-preview-wrapper">
+                    <img src="img/IJC.jpg" alt="Preview" class="item-preview-img">
+                </div>
+
+                </div>
+            <!-- /Элемент 3 -->
+
+        </div>
+        <!-- /Список материалов -->
+
+    </div>
+    <!-- /Внутреннее окно -->
+
+</div>
+<!-- ===== /МОДАЛЬНОЕ ОКНО: Supplementary Materials ===== -->
+
+
+<!-- ===== МОДАЛЬНОЕ ОКНО: Material Content (вложенный контент глоссария и др.) ===== -->
+<div id="material-content-modal" class="modal" style="display: none;">
+
+    <!-- Внутреннее окно модалки -->
+    <div class="modal-content custom-material-modal">
+
+        <!-- Шапка с заголовком и кнопкой закрытия -->
+        <div class="modal-header2">
+            <h2>Glossary of Terms</h2>
+            <span class="modal-close" onclick="closeMaterialContentModal()">&times;</span>
+        </div>
+
+        <!-- Тело модалки: наполняется динамически через JS -->
+       <div id="material-content-body" class="modal-body">
+            <div class="glossary-table-container">
+                <table class="custom-glossary-table">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Attribute</th>
+                            <th>Predefined Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="glossary-table-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 </div>
+<!-- ===== /МОДАЛЬНОЕ ОКНО: Material Content ===== -->
 
 </body>
 </html>

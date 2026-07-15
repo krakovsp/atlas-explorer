@@ -1,9 +1,34 @@
 
         const TABLE_1_COLUMNS = [
-            {title:"id", field:"id", width:60, headerFilter: "input"},
+           {
+                title: "ID", 
+                field: "id", 
+                width: "7%",       
+                minWidth: 100, 
+                headerFilter: "list", 
+                // Кастомная функция: преобразует значения в строки, чтобы избежать конфликта "число vs строка"
+                headerFilterFunc: function(headerValue, rowValue, rowData, filterParams){
+                    // Если ничего не выбрано, показываем строку
+                    if(!headerValue || headerValue.length === 0) return true;
+                    
+                    // Переводим текущее значение ID строки в строку
+                    const currentId = String(rowValue).trim();
+                    
+                    // Проверяем, есть ли текущий ID среди выбранных в массиве элементов
+                    return headerValue.map(v => String(v).trim()).includes(currentId);
+                },
+                headerFilterPlaceholder: "Select multiple...",
+                headerFilterParams: { 
+                    valuesLookup: "data", 
+                    sort: "asc",          
+                    clearable: true,      
+                    multiselect: true     
+                }
+            },
             {title:"Title", 
             field:"Title",
-            width:350,
+            width: "16%",       
+            minWidth: 100,
             cssClass: "title-column", 
             frozen: true, 
             headerFilter: "input",
@@ -17,12 +42,37 @@
             return `<a href="${url}" target="_blank" class="table-link">${name}</a>`;
         } else {
             return name;
-        }}
+        }},
+        headerFilterPlaceholder: "Enter keyword...",
         },
               
+            {title:"Status", 
+            field:"Status",
+            width: "7%", 
+            minWidth: 100,
+            headerFilter: "list",
+                        headerFilterParams: { 
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
+                            clearable: true
+                            },
+                headerTooltip: function() {
+                return createHeaderTooltip(
+                "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+                [
+                { value: "Active", desc: "EA is fully functional and is actively maintained and updated" },
+                { value: "Archived", desc: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+                { value: "Inactive", desc: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+                { value: "Replaced", desc: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+                ]);
+
+            }, headerFilterPlaceholder: "Select value..."
+        },
+
             {title:"Publication Date", 
             field:"Publication Date",
-            width:200, 
+            width: "9%", 
+            minWidth: 100, 
             headerTooltip: function() {
             return createHeaderTooltip(
             "Date of the first launch of the EA by the same publisher using the same distribution method. The website address may have changed since then. This information was identified through the EA description, publications, Google Search, and the Wayback Machine",
@@ -80,7 +130,8 @@
 
             {title:"Last Update", 
             field:"Last Update",
-            width:200, 
+            width: "9%", 
+            minWidth: 100, 
             headerTooltip: function() {
             return createHeaderTooltip("Date of the most recent EA update. An update is defined as any change to the content or to the media-cartographic components of the EA, as determined from author",
                 [
@@ -136,7 +187,8 @@
 
             {title:"Major Updates", 
             field:"Major Updates",
-            width:200, 
+            width: "8%", 
+            minWidth: 100, 
             headerTooltip: function() {
             return createHeaderTooltip("Number of major updates, each involving substantial changes to the interface, navigation, etc. This information was identified through the EA description, publications, Google Search, and the Wayback Machine",
                 [
@@ -193,7 +245,8 @@
 
             {title:"Last Major Update", 
             field:"Last Major Update",
-            width:200, 
+            width: "9%", 
+            minWidth: 100, 
             headerTooltip: function() {
             return createHeaderTooltip("Date of the most recent major update. This information was identified through the EA description, publications, Google Search, and the Wayback Machine",
                 [
@@ -250,7 +303,8 @@
 
             {title:"Publisher Type", 
             field:"Publisher Type",
-            width:200,
+            width: "10%", 
+            minWidth: 100,
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -263,22 +317,29 @@
                 [
                 { value: "Government", desc: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation" },
                 { value: "Organization", desc: "Non-governmental non-profit organizations" },
-                { value: "Research Institution", desc: "Research institutions and universities" },
+                { value: "Research Institution", desc: "Universities, research institutes or laboratories, that assume institutional responsibility for EA development and maintenance" },
                 { value: "Private Sector", desc: "Commercial enterprises and profit-making organizations" },
-                { value: "Volunteers", desc: "Individuals or groups of individuals" }
+                { value: "Volunteer Community", desc: "EAs developed and maintained primarily by volunteer contributors or open communities rather than by formally established organizations" },
+                { value: "Individual", desc: "Individual or a small, informal group without institutional support" }
                 ]);
-            }},            
+            }, headerFilterPlaceholder: "Select value..."
+        },            
 
             {title:"Publisher", 
             field:"Publisher",
-            width:300, 
+            width: "13%", 
+            minWidth: 100, 
             headerTooltip: function() {
             return createHeaderTooltip("Official name of the EA publisher. If published by a consortium, only the coordinating institution or the first few institutions are listed")},
-            headerFilter: "input"},
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+
+        },
 
             {title:"Region of Publication", 
             field:"Region of Publication",
-            width:240,  
+            width: "11%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -296,19 +357,24 @@
                 { value: "Europe", desc: "" },
                 { value: "Oceania", desc: "" }
                 ]);
-            }},                 
+            }, headerFilterPlaceholder: "Select value..."
+        },                 
 
             {title:"Place of Publication", 
             field:"Place of Publication",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,  
             headerTooltip: function() {
             return createHeaderTooltip("Based on the location of the publisher’s headquarters. If no headquarters can be identified (e.g., for international organizations), the cell is left blank")},
-            headerFilter: "input"},
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        },
 
             {
                 title:"International Publisher", 
                 field:"International Publisher", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -318,12 +384,14 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Publishing institution self-identifies as international")},  
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
             {title:"Type of App Developers", 
             field:"Type of App Developers",
-            width:220,  
+            width: "11%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -336,22 +404,28 @@
                 [
                 { value: "Government", desc: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation within a given field" },
                 { value: "Organization", desc: "Non-governmental non-profit organizations" },
-                { value: "Research Institution", desc: "Research institutions and universities" },
+                { value: "Research Institution", desc: "Universities, research institutes or laboratories, that assume institutional responsibility for EA development and maintenance" },
                 { value: "Private Sector", desc: "Commercial enterprises and profit-making organizations" },
-                { value: "Volunteers", desc: "Individuals or groups of individuals" }
+                { value: "Volunteer Community", desc: "Development is carried out by an open volunteer community, where anyone can contribute and no central research organization coordinates the project" },
+                { value: "Individual", desc: "Application is developed primarily by a single individual or a small independent team" }
                 ]);
-            }},                            
+            }, headerFilterPlaceholder: "Select value..."
+        },                            
                             
             {title:"App Developers", 
             field:"App Developers",
-            width:300,  
+            width: "12%", 
+            minWidth: 100,  
             headerTooltip: function() {
                 return createHeaderTooltip("Developers of the application or cartographic component. If the developer is not specified, the publishing entity is provided instead")}, 
-            headerFilter: "input"},
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        },
             
             {title:"Main Language", 
             field:"Main Language",
-            width:180, 
+            width: "8%", 
+            minWidth: 100, 
             headerTooltip: function() {
                 return createHeaderTooltip("Primary interface language of the EA. The extent to which EA content is translated is not taken into account")},
             headerFilter: "list",
@@ -359,11 +433,14 @@
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
                             sort: "asc",          // Сортировать список по алфавиту
                             clearable: true
-                            }},
+                            },
+                            headerFilterPlaceholder: "Select value..."
+                        },
 
             {title:"Number of Languages", 
             field:"Number of Languages",
-            width:200, 
+            width: "8%", 
+            minWidth: 100, 
             headerTooltip: function() {
                 return createHeaderTooltip("Number of the EA interface languages.The extent to which EA content is translated is not taken into account",
                  [
@@ -421,7 +498,8 @@
             {
                 title:"English", 
                 field:"English", 
-                width:130,
+                width: "7%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -431,12 +509,14 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Availability of an English localisation. The extent to which EA content is translated is not taken into account")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
             {title:"Project Type", 
             field:"Project Type",
-            width:200, 
+            width: "8%", 
+            minWidth: 100, 
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -450,12 +530,14 @@
                 { value: "Standalone", desc: "EA only" },
                 { value: "Dual", desc: "Both paper and electronic versions" }
                 ]);
-            }},                         
+            }, headerFilterPlaceholder: "Select value..."
+        },                         
 
             {
                 title:"Paper Version", 
                 field:"Paper Version", 
-                width:150,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -465,12 +547,14 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Availability of a paper atlas linked to the electronic version. It may be published before or after the EA release")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
                 
             {title:"Distribution", 
             field:"Distribution",
-            width:200, 
+            width: "8%", 
+            minWidth: 100, 
             headerTooltip: "coment",
             headerFilter: "list",
                         headerFilterParams: { 
@@ -486,11 +570,13 @@
                 { value: "Hybrid", desc: "EA requires installation on the user’s computer or mobile device. However, part of its data is stored in the cloud and requires a continuous internet connection" },
                 { value: "Dual", desc: "EA is available only via a web browser" }
                 ]);
-            }},                        
+            }, headerFilterPlaceholder: "Select value..."
+        },                        
                             
             {title:"Access", 
             field:"Access",
-            width:200,  
+            width: "8%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -507,11 +593,13 @@
                 { value: "Public (Registered)", desc: "Access to EA content is free but requires registration" },
                 { value: "Restricted", desc: "Access is restricted" }
                 ]);
-            }},                 
+            }, headerFilterPlaceholder: "Select value..."
+        },                 
                             
             {title:"Technology Type", 
             field:"Technology Type",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -527,18 +615,23 @@
                 { value: "App-oriented", desc: "Platform, framework or solution intended for creating ready-made applications in the field of cartography and geovisualisation but not specifically designed for producing EAs" },
                 { value: "Atlas platform/framework", desc: "Platform or framework specifically designed for the repeated creation of EAs. The platform/framework may be determined at your discretion if there are several identical atlas applications that differ only in terms of content" }
                 ]);
-            }},                          
+            }, headerFilterPlaceholder: "Select value..."
+        },                          
                             
             {title:"Technology", 
             field:"Technology",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,  
             headerTooltip: function() {
                 return createHeaderTooltip("Name of the technology used. Determined based on information from the developers, its visual appearance and the source code")},
-            headerFilter: "input"},
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        },
             
             {title:"Implementation Method", 
             field:"Implementation Method",
-            width:200,  
+            width: "10%", 
+            minWidth: 100, 
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -553,41 +646,80 @@
                 { value: "Embedded", desc: "EA is embedded within a website or geoportal. The main page corresponds to the website or geoportal homepage" },
                 { value: "Separated", desc: "EA sections are navigationally isolated and open on separate pages without a unified global navigation system" }
                 ]);
-            }},                       
+            }, headerFilterPlaceholder: "Select value..."
+        },                       
 
             {
                 title:"Mobile Devices", 
                 field:"Mobile Devices", 
-                width:170,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
                             sort: "asc",          // Сортировать список по алфавиту
                             clearable: true
-                        },
-                headerTooltip: function() {
-                return createHeaderTooltip("Ability to operate on mobile devices. The degree of interface adaptation is not taken into account")}, 
-                hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
-                },
+                            },
+            headerTooltip: function() {
+                return createHeaderTooltip(
+                "Ability to operate on mobile devices. The degree of interface adaptation is not taken into account",
+                [
+                { value: "None", desc: "EA does not open on mobile devices" },
+                { value: "Limited", desc: "EA operates on mobile devices but is not adapted for convenient use" },
+                { value: "Partial", desc: "Only part of the EA functionality is available on mobile devices" },
+                { value: "Full", desc: "All functionality is retained on mobile devices" }
+                ]);
+            }, headerFilterPlaceholder: "Select value..."
+        },      
             
             {title:"Date of Analysis", 
             field:"Date of Analysis",
-            width:180,  
-            headerFilter: "input"},
+            width: "9%", 
+            minWidth: 100,  
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        },
 
             {title:"URL", 
             field:"URL", 
-            width:300, 
-            headerFilter: "input"}                                                                                             
+            width: "10%", 
+            minWidth: 100,
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        }                                                                                             
 
         ];
 
             const TABLE_2_COLUMNS = [
-            {title:"id", field:"id", width:60, headerFilter: "input"},
+            {
+                title: "ID", 
+                field: "id", 
+                width: "7%", 
+                minWidth: 100,  
+                headerFilter: "list", 
+                // Кастомная функция: преобразует значения в строки, чтобы избежать конфликта "число vs строка"
+                headerFilterFunc: function(headerValue, rowValue, rowData, filterParams){
+                    // Если ничего не выбрано, показываем строку
+                    if(!headerValue || headerValue.length === 0) return true;
+                    
+                    // Переводим текущее значение ID строки в строку
+                    const currentId = String(rowValue).trim();
+                    
+                    // Проверяем, есть ли текущий ID среди выбранных в массиве элементов
+                    return headerValue.map(v => String(v).trim()).includes(currentId);
+                },
+                headerFilterPlaceholder: "Select multiple...",
+                headerFilterParams: { 
+                    valuesLookup: "data", 
+                    sort: "asc",          
+                    clearable: true,      
+                    multiselect: true     
+                }
+            },
             {title:"Title", 
             field:"Title",
-            width:350, 
+            width: "16%", 
+            minWidth: 100,  
             cssClass: "title-column",
             frozen: true, 
             headerFilter: "input",
@@ -601,12 +733,36 @@
             return `<a href="${url}" target="_blank" class="table-link">${name}</a>`;
         } else {
             return name;
-        }}
+        }},
+        headerFilterPlaceholder: "Enter keyword..."
+        },
+
+            {title:"Status", 
+            field:"Status",
+            width: "7%", 
+            minWidth: 100, 
+            headerFilter: "list",
+                        headerFilterParams: { 
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
+                            clearable: true
+                            },
+                headerTooltip: function() {
+                return createHeaderTooltip(
+                "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+                [
+                { value: "Active", desc: "EA is fully functional and is actively maintained and updated" },
+                { value: "Archived", desc: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+                { value: "Inactive", desc: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+                { value: "Replaced", desc: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+                ]);
+            }, headerFilterPlaceholder: "Select value..."
         },
 
             {title:"Content Type", 
             field:"Content Type",
-            width:150,  
+            width: "9%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -620,11 +776,13 @@
                 { value: "Statistical", desc: "EA representing statistical data and typically complying with specific requirements (Schulz, 2014)" },
                 { value: "National", desc: "Official national atlas, typically characterized by complex thematic coverage" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Thematic Coverage", 
             field:"Thematic Coverage",
-            width:200,  
+            width: "9%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -638,11 +796,13 @@
                 { value: "Polythematic", desc: "Two or more topics are represented. History is not counted as a separate topic" },
                 { value: "Complex", desc: "Comprehensive representation of a theme or territory according to the interpretation of Konstantin Salichtchev (1976). The level of detail is not considered. The EA must include at least Human Geography, Environment, Physical Geography, and Economics" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Topic 1", 
             field:"Topic 1",
-            width:200,  
+            width: "9%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -658,13 +818,16 @@
                 { value: "History", desc: "Historical atlases. History is commonly combined with other topics" },
                 { value: "Human geography", desc: "Population Geography, Political Geography, Cultural Geography, and Social Geography" },
                 { value: "Physical geography", desc: "Geomorphology, Hydrology, Climatology, etc." },
+                { value: "Transport & Infrastructure", desc: "Transport, Communication Network, Technical Infrastructure (e.g., Water supply, Electricity etc.)" },
                 { value: "Other", desc: "Media & Journalism, Literature, Sport, etc." }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
              {title:"Topic 2", 
             field:"Topic 2",
-            width:200,  
+            width: "9%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -680,13 +843,16 @@
                 { value: "History", desc: "Historical atlases. History is commonly combined with other topics" },
                 { value: "Human geography", desc: "Population Geography, Political Geography, Cultural Geography, and Social Geography" },
                 { value: "Physical geography", desc: "Geomorphology, Hydrology, Climatology, etc." },
+                { value: "Transport & Infrastructure", desc: "Transport, Communication Network, Technical Infrastructure (e.g., Water supply, Electricity etc.)" },
                 { value: "Other", desc: "Media & Journalism, Literature, Sport, etc." }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Topic 3", 
             field:"Topic 3",
-            width:200,  
+            width: "9%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -702,20 +868,26 @@
                 { value: "History", desc: "Historical atlases. History is commonly combined with other topics" },
                 { value: "Human geography", desc: "Population Geography, Political Geography, Cultural Geography, and Social Geography" },
                 { value: "Physical geography", desc: "Geomorphology, Hydrology, Climatology, etc." },
+                { value: "Transport & Infrastructure", desc: "Transport, Communication Network, Technical Infrastructure (e.g., Water supply, Electricity etc.)" },
                 { value: "Other", desc: "Media & Journalism, Literature, Sport, etc." }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Theme", 
             field:"Theme",
-            width:200,  
+            width: "11%", 
+            minWidth: 100,   
             headerTooltip: function() {
-                return createHeaderTooltip("Specific theme of the EA. It is always narrower than a topic and may relate to multiple topics simultaneously")},
-            headerFilter: "input"},
+                return createHeaderTooltip("Specific theme of the EA. It is usually narrower than a topic and may relate to multiple topics simultaneously. For complex EAs that characterise a territory across all major topics, the name of the territory should be specified")},
+            headerFilter: "input",
+            headerFilterPlaceholder: "Enter keyword..."
+        },
 
             {title:"Spatial Ontology of Objects", 
             field:"Spatial Ontology of Objects",
-            width:250,  
+            width: "11%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -728,13 +900,33 @@
                 [{ value: "Earth Objects & Phenomena", desc: "Real-world Earth objects and phenomena" },
                 { value: "Space Objects & Phenomena", desc: "Real-world space (extraterrestrial) objects and phenomena" },
                 { value: "Fictional World Objects & Phenomena", desc: "Objects and phenomena belonging to fictional worlds" },
+                { value: "Fictional Objects & Phenomena of the Real World", desc: "Fictional objects and phenomena georeferenced to real-world geography" },
                 { value: "Abstract Concepts", desc: "Abstract and non-material ideas and concepts" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
+
+            {title:"Geospatial Reference", 
+            field:"Geospatial Reference",
+            width: "9%", 
+            minWidth: 100, 
+            headerFilter: "list",
+                        headerFilterParams: { 
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
+                            clearable: true
+                            },  
+            headerTooltip: function() {
+                return createHeaderTooltip("Source data used to create the EA representations and visualizations are geospatially referenced")},
+                hozAlign:"center",
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
+            },
 
             {title:"Spatial Coverage", 
             field:"Spatial Coverage",
-            width:200,  
+            width: "9%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -752,11 +944,13 @@
                 { value: "Local", desc: "Provinces and districts of countries (NUTS-2 and NUTS-3)" },
                 { value: "Municipal/Site-specific", desc: "Individual cities and agglomerations, and all other smaller objects" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Region", 
             field:"Region",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -780,11 +974,13 @@
                 { value: "Pacific Ocean", desc: "" },
                 { value: "Southern Ocean", desc: "" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Content Spatiality", 
             field:"Content Spatiality",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -793,17 +989,19 @@
                             },
             headerTooltip: function() {
                 return createHeaderTooltip(
-                "Spatial characteristics of the EA content",
-                [{ value: "Cartographic", desc: "Maps are the primary type of content representation" },
-                { value: "Geospatial", desc: "Mixed geolocated content predominates, which is neither cartographic nor visualizational" },
-                { value: "Spatial", desc: "Spatial visualisations (constructed information space) are the primary type of content representation" },
-                { value: "Visualisation", desc: "Non-spatial visualisations (charts and diagrams) prevail" }
+                "Classification of EAs based on the combination of the Geospatial Reference attribute and the predominant form (unit) of content representation",
+                [{ value: "Cartographic", desc: "Maps and map-like representations constitute the primary content of the EA and are based on geospatially referenced data" },
+                { value: "Geospatial", desc: "Mixed georeferenced content predominates, which is neither cartographic nor graphical" },
+                { value: "Spatial", desc: "Maps and spatial visualizations constitute the primary content of the EA but are based on non-spatial data ('non-geographic constructed spaces' (Kinberger, 2010))" },
+                { value: "Graphical", desc: "Graphical content (e.g., charts and diagrams) predominates in the atlas. The geospatial reference of the underlying data is not taken into account" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
-            {title:"Temporal scope", 
+            {title:"Temporal Scope", 
             field:"Temporal scope",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,   
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -820,12 +1018,14 @@
                 { value: "Current & Forecast", desc: "Combination of current and forecast data" },
                 { value: "Multi-temporal", desc: "Includes all three temporal dimensions" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {
                 title:"AI-generated Content", 
                 field:"AI-generated Content", 
-                width:200,
+                width: "9%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -835,13 +1035,15 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of any AI-generated content, regardless of its proportion")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
              {
                 title:"Regular Updates", 
                 field:"Regular Updates", 
-                width:180,
+                width: "9%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -851,13 +1053,15 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("EA content is continuously updated or planned for future updates")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
             {
                 title:"Data Catalogue", 
                 field:"Data Catalogue", 
-                width:180,
+                width: "9%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -867,13 +1071,15 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of a local data directory or data directory separated into a distinct section. The catalogue should be in the form of an attribute table or an interactive interface, and the data should be available for download")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
              {
                 title:"Story-centred Content", 
                 field:"Story-centred Content", 
-                width:250,
+                width: "9%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -883,15 +1089,41 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All components of the EA serving to unfold or analyse (explicit) stories")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 }            
         ]; 
 
         const TABLE_3_COLUMNS = [
-            {title:"id", field:"id", width:60, headerFilter: "input"},
+            {
+                title: "ID", 
+                field: "id", 
+                width: "7%", 
+                minWidth: 100, 
+                headerFilter: "list", 
+                // Кастомная функция: преобразует значения в строки, чтобы избежать конфликта "число vs строка"
+                headerFilterFunc: function(headerValue, rowValue, rowData, filterParams){
+                    // Если ничего не выбрано, показываем строку
+                    if(!headerValue || headerValue.length === 0) return true;
+                    
+                    // Переводим текущее значение ID строки в строку
+                    const currentId = String(rowValue).trim();
+                    
+                    // Проверяем, есть ли текущий ID среди выбранных в массиве элементов
+                    return headerValue.map(v => String(v).trim()).includes(currentId);
+                },
+                headerFilterPlaceholder: "Select multiple...",
+                headerFilterParams: { 
+                    valuesLookup: "data", 
+                    sort: "asc",          
+                    clearable: true,      
+                    multiselect: true     
+                }
+            },
             {title:"Title", 
             field:"Title",
-            width:350, 
+            width: "16%", 
+            minWidth: 100, 
             cssClass: "title-column",
             frozen: true, 
             headerFilter: "input",
@@ -905,17 +1137,42 @@
             return `<a href="${url}" target="_blank" class="table-link">${name}</a>`;
         } else {
             return name;
-        }}
+        }},
+        headerFilterPlaceholder: "Enter keyword..."
         },
 
         {
                 title:"General Information", cssClass: "column-general",
                 columns:[
 
+        {title:"Status", 
+            field:"Status",
+            cssClass: "column-general",
+            width: "7%", 
+            minWidth: 100,
+            headerFilter: "list",
+                        headerFilterParams: { 
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
+                            clearable: true
+                            },
+                headerTooltip: function() {
+                return createHeaderTooltip(
+                "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+                [
+                { value: "Active", desc: "EA is fully functional and is actively maintained and updated" },
+                { value: "Archived", desc: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+                { value: "Inactive", desc: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+                { value: "Replaced", desc: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+                ]);
+            }, headerFilterPlaceholder: "Select value..."
+        },
+
         {title:"Metaconcept", 
             field:"Metaconcept",
             cssClass: "column-general",
-            width:250,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -935,12 +1192,14 @@
                 { value: "Geoportal", desc: "Collections of tools and services designed for the rapid search, viewing, download, and management of geospatial (meta)data" },
                 { value: "Map viewer", desc: "Single-page applications with a single map-based interface designed for user-driven search, viewing, and combining layers to “produce maps”" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Metaconcept Type", 
             field:"Metaconcept Type",
             cssClass: "column-general",
-            width:250,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -962,12 +1221,14 @@
                 { value: "Storypedia", desc: "Multi-page applications that feature a sequential scroller-based structure to explore each theme through a combination of text with maps or infographics. Storypaedias are distinguished by their embedded layout, the non-mandatory presence of maps, longform page presentation, and storytelling techniques" },
                 { value: "Directory", desc: "Websites designed for browsing a hierarchy, searching, and retrieving metadata or summary information about objects or phenomena of a given class (i.e., instances of the EA’s primary object). The retrieved objects are characterised by profiles with brief technical descriptions, classification tables, and maps used solely for localisation" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Metaconcept 2", 
             field:"Metaconcept 2",
             cssClass: "column-general",
-            width:250,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -987,12 +1248,14 @@
                 { value: "Geoportal", desc: "Collections of tools and services designed for the rapid search, viewing, download, and management of geospatial (meta)data" },
                 { value: "Map viewer", desc: "Single-page applications with a single map-based interface designed for user-driven search, viewing, and combining layers to “produce maps”" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
              {title:"Metaconcept 2 Type", 
             field:"Metaconcept 2 Type",
             cssClass: "column-general",
-            width:250,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1014,12 +1277,14 @@
                 { value: "Storypedia", desc: "Multi-page applications that feature a sequential scroller-based structure to explore each theme through a combination of text with maps or infographics. Storypaedias are distinguished by their embedded layout, the non-mandatory presence of maps, longform page presentation, and storytelling techniques" },
                 { value: "Directory", desc: "Websites designed for browsing a hierarchy, searching, and retrieving metadata or summary information about objects or phenomena of a given class (i.e., instances of the EA’s primary object). The retrieved objects are characterised by profiles with brief technical descriptions, classification tables, and maps used solely for localisation" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Method of Page Presentation", 
             field:"Method of Page Presentation",
             cssClass: "column-general",
-            width:250,  
+            width: "11%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1033,12 +1298,14 @@
                 { value: "Pseudo-single-page", desc: "EAs may comprise multiple screens and pages; however, EAs still display the core thematic content within a single screen. In addition, single-screen EAs whose pages reload" },
                 { value: "Multi-page", desc: "Multi-page EAs distribute content across distinct pages, a characteristic they share with paper atlases" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Map-Vis Section Implementation", 
             field:"Map-Vis Section Implementation",
             cssClass: "column-general",
-            width:250,  
+            width: "11%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1048,18 +1315,20 @@
             headerTooltip: function() {
                 return createHeaderTooltip(
                 "Classification of EAs by the composition of non-cartographic and map-based/visualisation sections",
-                [{ value: "Map-Vis Section", desc: "EA consists of a single map-based or visualisation interface, or a set of pages containing maps, map modules, or visualisations" },
+                [{ value: "Map-Vis Section", desc: "EA consists of a single map-based or visualisation interface, or a set of uniform pages containing maps, map modules, or visualisations" },
                 { value: "Several Map-Vis Sections", desc: "EA consists of multiple map-based/visualisation interfaces (screens)" },
                 { value: "Non-Map Sections", desc: "EA consists of pages in which maps or visualisations are not the dominant type of representation (embedded map layout only)" },
                 { value: "Non-Map Sections+One Map-Vis Section", desc: "EA combines pages in which maps or visualisations are not the dominant type of representation with a single map-based/visualisation section" },
                 { value: "Non-Map Sections+Several Map-Vis Sections", desc: "EA combines pages in which maps or visualisations are not the dominant type of representation with multiple map-based/visualisation sections" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Atlas Focus", 
             field:"Atlas Focus",
             cssClass: "column-general",
-            width:150,  
+            width: "8%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1072,12 +1341,14 @@
                 [{ value: "Data", desc: "Data analysis and/or the provision of statistical information are central to the EA. Maps and visualisations serve an instrumental role by simplifying the understanding of key patterns in data distribution or acting as an interface to the data and supplementary visualisations" },
                 { value: "Theme", desc: "EA is focused on representation and on complex thematic plots, emphasizing the explanation of facts, memorable visual imagery, storytelling, a synthesis of topography and thematic content, and multimedia. Attribute information plays a supporting role" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Usage style", 
             field:"Usage style",
             cssClass: "column-general",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1091,12 +1362,14 @@
                 { value: "Viewing & Comparison", desc: "Spatial component (maps) is the main focus. EAs of this type are designed for the visual analysis and comparison of maps and geovisualisations without advanced interactive functions" },
                 { value: "Interaction & Analysis", desc: "These EAs involve more active user participation in manipulating the content by selecting attributes, applying filters, and changing the symbolisation" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Target Audience", 
             field:"Target Audience",
             cssClass: "column-general",
-            width:200,  
+            width: "10%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1111,12 +1384,14 @@
                 { value: "Domain Specialists", desc: "Specialists in the thematic domain without substantial GIS knowledge" },
                 { value: "Domain Specialists with GIS Skills", desc: "Specialists in the thematic domain with advanced GIS skills" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {title:"Inclusiveness", 
             field:"Inclusiveness",
             cssClass: "column-general",
-            width:150,  
+            width: "8%", 
+            minWidth: 100,  
             headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1130,7 +1405,31 @@
                 { value: "Partial", desc: "EA includes certain inclusive options" },
                 { value: "Full", desc: "EA supports users with visual impairments and physical disabilities" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
+
+            {title:"User Guidance", 
+            field:"User Guidance",
+            cssClass: "column-general",
+            width: "9%", 
+            minWidth: 100,  
+            headerFilter: "list",
+                        headerFilterParams: { 
+                            valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
+                            sort: "asc",          // Сортировать список по алфавиту
+                            clearable: true
+                            },
+            headerTooltip: function() {
+                return createHeaderTooltip(
+                "Availability of materials and tools that help users learn how to use the EA. EA descriptions and methodological materials are not counted",
+                [{ value: "None", desc: "No help or guidance materials" },
+                { value: "Help Document", desc: "Help in the form of a separate article or document, which may contain illustrations" },
+                { value: "Video Tutorials", desc: "One or a series of instructional videos" },
+                { value: "Guided Tour", desc: "Interactive introduction to the interface and its main functions" },
+                { value: "Hybrid", desc: "Combination of two or more help and guidance methods" }
+                ]);
+            }, headerFilterPlaceholder: "Select value..."
+        },
             ],},
 
             {
@@ -1141,7 +1440,8 @@
                 title:"Interface Responsiveness", 
                 field:"Interface Responsiveness",
                 cssClass: "column-interface",
-                width:200,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1150,18 +1450,20 @@
                         },
                 headerTooltip: function() {
                 return createHeaderTooltip(
-                "Adaptation of the EA interface and functionality to mobile devices",
-                [{ value: "None", desc: "EA operates on mobile devices but is not adapted for convenient use" },
-                { value: "Partial", desc: "Interface or functionality is partially adapted; however, full use remains difficult" },
-                { value: "Full", desc: "Layout is adapted and the core EA functionality is supported, allowing convenient use" }
+                "Adaptation of the EA interface to mobile devices and various screen sizes",
+                [{ value: "None", desc: "Not adapted for convenient use" },
+                { value: "Partial", desc: "Some interface elements or pages are adapted, but the layout remains inconvenient on certain screens or sections" },
+                { value: "Full", desc: "Layout and interface elements are fully adapted for mobile devices, providing a convenient user experience across screen sizes" }
                 ]);
-            }},
+            }, headerFilterPlaceholder: "Select value..."
+        },
 
             {
-                title:"Single Layout Template", 
-                field:"Single Layout Template",
+                title:"Layout Template", 
+                field:"Layout Template",
                 cssClass: "column-interface", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1171,14 +1473,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Thematic content is presented in a single, uniform (template-based) screen")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Layout Pattern (Atlas Level)", 
                 field:"Layout Pattern (Atlas Level)",
                 cssClass: "column-interface",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1194,13 +1498,15 @@
                 { value: "Fragmented floating", desc: "Screen is divided into frames/windows. The boundaries of the areas are blurred" },
                 { value: "Embedded map", desc: "Map is embedded in the page. It does not dominate the interface, and its functionality is limited" }
                 ]);
-                }},
+               }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Layout Pattern (Map-Vis Level)", 
                 field:"Layout Pattern (Map-Vis Level)",
                 cssClass: "column-interface",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1215,13 +1521,15 @@
                 { value: "Fragmented floating", desc: "Screen is divided into frames/windows. The boundaries of the areas are blurred" },
                 { value: "Embedded map", desc: "Map is embedded in the page. It does not dominate the interface, and its functionality is limited" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Map Area Ratio (Atlas Level)", 
                 field:"Map Area Ratio (Atlas Level)",
                 cssClass: "column-interface",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1237,13 +1545,15 @@
                 { value: "Substantial", desc: "Map occupies 61-90% of the screen" },
                 { value: "Full", desc: "Map occupies more than 90% of the screen" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Map Area Ratio (Map-Vis Level)", 
                 field:"Map Area Ratio (Map-Vis Level)",
                 cssClass: "column-interface",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1258,13 +1568,15 @@
                 { value: "Substantial", desc: "Map occupies 61-90% of the screen" },
                 { value: "Full", desc: "Map occupies more than 90% of the screen" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Layout Flexibility", 
                 field:"Layout Flexibility",
                 cssClass: "column-interface",
-                width:200,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1280,13 +1592,15 @@
                 { value: "Advanced", desc: "Full layout recomposition is possible, including moving and locking all interface elements, as well as adding or removing windows" },
                 { value: "Full", desc: "Every interface element can be customized" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Thematic Design", 
                 field:"Thematic Design",
                 cssClass: "column-interface",
-                width:200,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1300,7 +1614,8 @@
                 { value: "Partial", desc: "Color palette, header, and background elements are adapted to the EA theme" },
                 { value: "Full", desc: "Specially designed interface with thematic stylization applied to most interface elements" }
                 ]);
-                }}
+                }, headerFilterPlaceholder: "Select value..."
+        },
                 ],
             },
 
@@ -1312,7 +1627,8 @@
                 title:"Main Information Unit", 
                 field:"Main Information Unit",
                 cssClass: "column-navigation",
-                width:200,  
+                width: "10%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1326,13 +1642,15 @@
                 { value: "Map-Vis", desc: "Single-page interface presenting ready-made maps/visualizations, or a multi-page atlas in which all thematic pages are occupied by ready-made maps/visualizations" },
                 { value: "Page", desc: "EA consists of multiple pages with diverse content" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Number of Content Pages", 
                 field:"Number of Content Pages",
                 cssClass: "column-navigation",
-                width:200,  
+                width: "10%", 
+                minWidth: 100,  
                 headerTooltip: function() {
             return createHeaderTooltip(
             "Navigational and landing or introductory pages are not included",
@@ -1392,7 +1710,8 @@
                 title:"Content Hierarchy (Atlas Level)", 
                 field:"Content Hierarchy (Atlas Level)",
                 cssClass: "column-navigation",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1405,13 +1724,15 @@
                 [ { value: "Shallow", desc: "1-2 levels" },
                 { value: "Deep", desc: "More than 2 levels" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Content Hierarchy (Map-Vis Level)", 
                 field:"Content Hierarchy (Map-Vis Level)",
                 cssClass: "column-navigation",
-                width:200,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1424,13 +1745,15 @@
                 [ { value: "Shallow", desc: "1-2 levels" },
                 { value: "Deep", desc: "More than 2 levels" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Content Classifications", 
                 field:"Content Classifications",
                 cssClass: "column-navigation",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1445,13 +1768,15 @@
                 { value: "Several Classifications", desc: "Multiple classification for organizing the same content are used" },
                 { value: "Several Classifications+Filter", desc: "Multiple content classifications supplemented with sorting and/or filtering functions" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Subjective Organisation Scheme", 
                 field:"Subjective Organisation Scheme",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1461,14 +1786,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Thematic content is classified according to subjective criteria (Rosenfeld et al., 2015). An objective scheme is based on alphabetical order or geographical area")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Organisational Structure (Atlas Level)", 
                 field:"Organisational Structure (Atlas Level)",
                 cssClass: "column-navigation",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1487,13 +1814,15 @@
                 { value: "Network", desc: "Set of interconnected nodes without fixed levels or sequence. Each node may have any number of connections" },
                 { value: "Hybrid", desc: "Combination of several organizational structures in which identifying a primary structure is not achievable" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Organisational Structure (Map-Vis Level)", 
                 field:"Organisational Structure (Map-Vis Level)",
                 cssClass: "column-navigation",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1512,13 +1841,15 @@
                 { value: "Network", desc: "Set of interconnected nodes without fixed levels or sequence. Each node may have any number of connections" },
                 { value: "Hybrid", desc: "Combination of several organizational structures in which identifying a primary structure is not achievable" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Navigation Metamodel", 
                 field:"Navigation Metamodel",
                 cssClass: "column-navigation",
-                width:220,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1532,13 +1863,15 @@
                 { value: "Author-driven (Linear)", desc: "Transitions between information units (content) is exclusively linear, with the sequence determined by the EA authors" },
                 { value: "Hybrid", desc: "Combination of both navigation metamodels" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Contextual Navigation", 
                 field:"Contextual Navigation",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1548,14 +1881,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Connects related information units regardless of their position within the organizational structure of the EA. Implemented through internal, external, and inter-links")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Inter-content Navigation", 
                 field:"Inter-content Navigation",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1565,14 +1900,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Type of contextual navigation. It involves links to other related elements of the EA content (other maps, articles, etc.)")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Detached Navigation", 
                 field:"Detached Navigation",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1582,14 +1919,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Completely independent of content pages and provides overview and/or access to any (top-level) node in the EA. Usually placed on separate navigation pages")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Main Navigation Mechanism (Atlas Level)", 
                 field:"Main Navigation Mechanism (Atlas Level)",
                 cssClass: "column-navigation",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1599,21 +1938,25 @@
                 headerTooltip: function() {
                 return createHeaderTooltip(
                 "Set of links and interface elements that provide access to information units (thematic content)",
-                [ { value: "Linear Wizard", desc: "Multi-step user interface that forces a user to complete sequential steps in a strictly rigid order. Usually involves selecting a number of attributes from drop-down lists" },
+                [ { value: "Slide/Scroll", desc: "Horizontal scrolling or a slider" },
+                { value: "Linear Wizard", desc: "Multi-step user interface that forces a user to complete sequential steps in a strictly rigid order. Usually involves selecting a number of attributes from drop-down lists" },
                 { value: "Hierarchical lists", desc: "Lists with one or more hierarchical levels" },
                 { value: "Tree menu", desc: "Hierarchical navigation interface with expandable/collapsible nodes and parent–child relationships that enables interactive exploration of nested content" },
                 { value: "Menu bar/Tabs", desc: "Series of aligned buttons (with drop-down menus)" },
                 { value: "Site map", desc: "Visual scheme and/or structured list of all sections and subsections of the EA, providing an overview of its full content organization" },
                 { value: "Graphic menu", desc: "Interactive access interface where the EA content is represented as a graphical visualization (e.g., sunburst, circular treemap, etc.)" },
+                { value: "Map", desc: "Map functions as the primary gateway to the content" },
                 { value: "Image grid", desc: "Grid-based collection of image thumbnails with captions, where each item provides access to a specific information unit (content element)" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
-                 {
+            {
                 title:"Main Navigation Mechanism (Map-Vis Level)", 
                 field:"Main Navigation Mechanism (Map-Vis Level)",
                 cssClass: "column-navigation",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1630,15 +1973,18 @@
                 { value: "Menu bar/Tabs", desc: "Series of aligned buttons (with drop-down menus)" },
                 { value: "Site map", desc: "Visual scheme and/or structured list of all sections and subsections of the EA, providing an overview of its full content organization" },
                 { value: "Graphic menu", desc: "Interactive access interface where the EA content is represented as a graphical visualization (e.g., sunburst, circular treemap, etc.)" },
+                { value: "Map", desc: "Map functions as the primary gateway to the content" },
                 { value: "Image grid", desc: "Grid-based collection of image thumbnails with captions, where each item provides access to a specific information unit (content element)" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Structure Overview on Any Screen", 
                 field:"Structure Overview on Any Screen",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1648,14 +1994,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Each page includes a global navigation menu showing at least two levels of hierarchy (or a top-level in cases of EAs with shallow content hierarchy). In single-page EAs, top-level content hierarchy should be accessible in every view")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Content Search", 
                 field:"Content Search",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1665,14 +2013,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Global search across EA content or search within the table of contents")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Search on Map", 
                 field:"Search on Map",
                 cssClass: "column-navigation", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1682,7 +2032,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Geographic or thematic search on map")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 }                
                 ],},
 
@@ -1694,7 +2045,8 @@
                 title:"Main Representation Type", 
                 field:"Main Representation Type",
                 cssClass: "column-represent",
-                width:250,  
+                width: "11%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1711,13 +2063,15 @@
                 { value: "Profiles", desc: "All profiles are uniform in their layout, structure, and content representation. They repeatedly characterise different territories or atlas main objects according to fixed indicators" },
                 { value: "Multimedia Collections", desc: "Content largely includes images, audio, and video" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+        },
 
                 {
                 title:"Static Paper Atlas Content", 
                 field:"Static Paper Atlas Content",
                 cssClass: "column-represent", 
-                width:200,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1727,14 +2081,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Content from the associated paper atlas is used in the form of static raster images")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Scroll-based Representation", 
                 field:"Scroll-based Representation",
                 cssClass: "column-represent", 
-                width:200,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1744,14 +2100,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Scrollable pages are the main form of EA content presentation")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Storytelling Techniques", 
                 field:"Storytelling Techniques",
                 cssClass: "column-represent", 
-                width:200,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1761,14 +2119,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("At least two of the four storytelling techniques (Roth, 2021) – Mood, Attention, Metaphor and Voice – should be used. These techniques distinguish the traditional style from the narrative style")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Only Map-Linked Content", 
                 field:"Only Map-Linked Content",
                 cssClass: "column-represent", 
-                width:200,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1778,14 +2138,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All non-cartographic content is linked exclusively to maps or to map modules")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Combination of Representation Units", 
                 field:"Combination of Representation Units",
                 cssClass: "column-represent", 
-                width:250,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1795,14 +2157,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Several representation units are displayed on a single screen and at the same interface level. Content in popup windows is not taken into account")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Narrative Texts", 
                 field:"Narrative Texts",
                 cssClass: "column-represent", 
-                width:200,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1812,14 +2176,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of comprehensive texts that explain and supplement the representations or are independent units. Brief formal descriptions of indicators are not counted")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Interactive Tables", 
                 field:"Interactive Tables",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1830,14 +2196,16 @@
                 return createHeaderTooltip("Presence of interactive tables")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Charts and Diagrams", 
                 field:"Charts and Diagrams",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1848,14 +2216,16 @@
                 return createHeaderTooltip("Presence of both static and interactive. Charts/diagrams as elements of map methods is not taken into account")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Images", 
                 field:"Images",
                 cssClass: "column-represent", 
-                width:120,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1866,14 +2236,16 @@
                 return createHeaderTooltip("Raster static maps are not counted as images")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Audio", 
                 field:"Audio",
                 cssClass: "column-represent", 
-                width:120,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1884,14 +2256,16 @@
                 return createHeaderTooltip("Abstract sounds, soundscapes, music, speech")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Video", 
                 field:"Video",
                 cssClass: "column-represent", 
-                width:120,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1902,14 +2276,16 @@
                 return createHeaderTooltip("Embedded YouTube videos count. Tutorial videos do not count")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Animation", 
                 field:"Animation",
                 cssClass: "column-represent", 
-                width:150,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1917,17 +2293,19 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Ordered sequence of frames that is automatically and sequentially played to create the perception of movement and/or change for the user. The presence of temporal data is not sufficient")}, 
+                return createHeaderTooltip("Ordered sequence of frames that is automatically and sequentially played to create the perception of movement and/or change for the user. Decorative animation іs not taken into account")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Map Concept", 
                 field:"Map Concept",
                 cssClass: "column-represent",
-                width:200,  
+                width: "9%", 
+                minWidth: 100, 
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1942,13 +2320,15 @@
                 { value: "Flexible", desc: "Cartographic information is organised into layers that can be combined and superimposed in any number on a shared basemap" },
                 { value: "Hybrid", desc: "Separate set of maps and a separate set of layers are provided" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Map as Interface", 
                 field:"Map as Interface",
                 cssClass: "column-represent", 
-                width:200,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1959,14 +2339,16 @@
                 return createHeaderTooltip("Map functions as an access mechanism to other content or to detailed information")}, 
                 hozAlign:"center",
                 formatter:"tickCross", 
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Map for Localisation Only", 
                 field:"Map for Localisation Only",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1976,14 +2358,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Map is used only for the localisation of objects or phenomena. Also includes EAs whose maps depict the same indicator (typically for Profiles)")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Interactive Maps", 
                 field:"Interactive Maps",
                 cssClass: "column-represent",
-                width:200,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -1997,13 +2381,15 @@
                 { value: "Partial", desc: "Interactive maps are combined with static maps" },
                 { value: "Full", desc: "All maps are interactive" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Multi-layer Maps", 
                 field:"Multi-layer Maps",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2011,16 +2397,18 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Presence of ready-made interactive maps consisting of a set of layers with a toggle (overlay) function")}, 
+                return createHeaderTooltip("Presence of ready-made interactive maps consisting of a set of layers with a toggle (overlay) function. <br> <b> Left blank for non-interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Main Style of Maps", 
                 field:"Main Style of Maps",
                 cssClass: "column-represent",
-                width:200,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2037,13 +2425,15 @@
                 { value: "Antique", desc: "Style of ancient maps or the direct use of old maps" },
                 { value: "Artistic", desc: "Original authorial expression. High level of decorativeness" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Web Mercator Projection Only", 
                 field:"Web Mercator Projection Only",
                 cssClass: "column-represent", 
-                width:250,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2053,14 +2443,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Only Web Mercator projection is used. If the projection cannot be determined, it is not specified")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Globe", 
                 field:"Globe",
                 cssClass: "column-represent", 
-                width:120,
+                width: "7%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2070,14 +2462,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of a globe in any section and in any function")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Multi-scale Maps", 
                 field:"Multi-scale Maps",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2085,16 +2479,18 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Presence of interactive maps with multiple generalization levels (scales)")}, 
+                return createHeaderTooltip("Presence of interactive maps with multiple generalization levels (scales). <br> <b> Left blank for non-interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"In-house Basemap", 
                 field:"In-house Basemap",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2102,16 +2498,18 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Presence of basemaps created by the EA authors or created in the developers’ country. <br> <b>Specified only for interactive maps </b> </br>")}, 
+                return createHeaderTooltip("Presence of basemaps created by the EA authors or created in the developers’ country. <br> <b> Left blank for non-interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Basemap Implementation", 
                 field:"Basemap Implementation",
                 cssClass: "column-represent",
-                width:250,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2120,19 +2518,21 @@
                         },
                 headerTooltip: function() {
                 return createHeaderTooltip(
-                "Method of implementing the EA basemaps. <br> <b>Specified only for interactive maps </b> </br>",
+                "Method of implementing the EA basemaps. <br> <b> Left blank for non-interactive maps </b> </br>",
                 [ { value: "None", desc: "No basemap is used" },
                 { value: "Basemap only", desc: "Basemap consists exclusively of ready-made basemaps" },
                 { value: "Baselayers only", desc: "Basemap consists of individual base layers that the user can overlay" },
                 { value: "Hybrid", desc: "Combination of ready-made basemaps and individual base layers" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Main Basemap Content", 
                 field:"Main Basemap Content",
                 cssClass: "column-represent",
-                width:250,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2149,13 +2549,15 @@
                 { value: "Topographic map", desc: "" },
                 { value: "Satellite Imagery", desc: "" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Multivariate Maps", 
                 field:"Multivariate Maps",
                 cssClass: "column-represent", 
-                width:200,
+                width: "9%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2165,14 +2567,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of ready-made maps that represents two or more indicators on a single map by combining different map methods")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Monotonous Symbolisation", 
                 field:"Monotonous Symbolisation",
                 cssClass: "column-represent", 
-                width:250,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2182,14 +2586,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Fewer than five mapping methods are used. The exception is the variety of visualisations within a single method.  The mapping methods are based on the Soviet tradition (Krakovskyi, 2025), which is closely aligned with the German-speaking cartographic school (Freitag, 1992): (Proportional) Symbol Maps, Localised Diagram Maps, Line Maps, Flow Maps, Isoline Maps, Dot Density Maps, Area Maps, Qualitative Chorochromatic maps, Quantitative Chorochromatic maps, Grid maps, Area Diagram Maps, Choropleth Maps, Dasymetric Maps, Cartograms, Bivariate Maps")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Legend Adaptability", 
                 field:"Legend Adaptability",
                 cssClass: "column-represent",
-                width:200,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2198,19 +2604,21 @@
                         },
                 headerTooltip: function() {
                 return createHeaderTooltip(
-                "Legends whose content is automatically updated by the system to match the current map view",
+                "Legend content is automatically updated by the system to match the current map view. <br> <b> Left blank for non-interactive maps </b> </br>",
                 [ { value: "None", desc: "Static legend" },
                 { value: "Quantitative", desc: "Number of legend indicators automatically changes according to the current map view" },
                 { value: "Graphical", desc: "Graphical properties of legend symbols (e.g., transparency, size) automatically change according to the current map view" },
                 { value: "Hybrid", desc: "Combination of quantitative and graphical adaptability" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Map Labels", 
                 field:"Map Labels",
                 cssClass: "column-represent",
-                width:220,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2219,19 +2627,21 @@
                         },
                 headerTooltip: function() {
                 return createHeaderTooltip(
-                "Presence of map labels. Labels that appear as a result of interactions are not counted. <br> <b>Specified only for interactive maps </b> </br>",
+                "Presence of map labels. Labels that appear as a result of interactions are not counted. <br> <b> Left blank for non-interactive maps </b> </br>",
                 [ { value: "None", desc: "No labels are present" },
                 { value: "Embedded in the Basemap", desc: "Labels are embedded in the ready-made basemap" },
                 { value: "Individual layers", desc: "Labels are presented as separate layers that users can overlay" },
                 { value: "Hybrid", desc: "Combination of embedded labels and individual layers" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Map Comparison", 
                 field:"Map Comparison",
                 cssClass: "column-represent",
-                width:250,  
+                width: "9%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2243,11 +2653,15 @@
                 "Available methods of map comparison",
                 [ { value: "None", desc: "Map comparison is not available" },
                 { value: "Internal", desc: "Comparison of maps/layers within a single map (single visualization window) using overlay and transparency and/or vertical or horizontal sliders" },
-                { value: "External", desc: "Comparison of separate maps placed side by side in the table of contents and updated asynchronously, simulating an animation effect" },
-                { value: "External (Separate windows)", desc: "Comparison of separate maps displayed in different visualization windows on the same screen" },
-                { value: "Hybrid", desc: "Combination of internal and external comparison methods" }
+                { value: "External", desc: "Comparison of separate maps placed side by side in the table of contents and updated asynchronously, simulating an animation effect. Animation also falls into this category" },
+                { value: "Separate Windows", desc: "Comparison of separate maps displayed in different visualization windows on the same screen" },
+                { value: "Internal & External", desc: "Combination of internal and external comparison methods" },
+                { value: "Internal & Separate Windows", desc: "Combination of internal comparison methods and separate windows mode" },
+                { value: "External & Separate Windows", desc: "Combination of external comparison methods and separate windows mode" },
+                { value: "Hybrid", desc: "Combination of all three comparison methods" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
                 ],},
 
                 {
@@ -2258,7 +2672,8 @@
                 title:"Fully Functional", 
                 field:"Fully Functional",
                 cssClass: "column-func", 
-                width:200,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2268,14 +2683,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("All content elements can be opened. All interactive functions work properly")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Authorization", 
                 field:"Authorization",
                 cssClass: "column-func", 
-                width:150,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2285,14 +2702,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Possibility to create an account")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Main Map-Vis Interactivity", 
                 field:"Main Map-Vis Interactivity",
                 cssClass: "column-func",
-                width:250,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2308,13 +2727,15 @@
                 { value: "Advanced", desc: "8-11 operators (5-8 for interactive visualisations)" },
                 { value: "Full", desc: "12-13 operators (8-10 for interactive visualisations)" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Max Map-Vis Interactivity", 
                 field:"Max Map-Vis Interactivity",
                 cssClass: "column-func",
-                width:250,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2330,13 +2751,15 @@
                 { value: "Advanced", desc: "8-11 operators (5-8 for interactive visualisations)" },
                 { value: "Full", desc: "12-13 operators (8-10 for interactive visualisations)" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Map Legend Interactivity", 
                 field:"Map Legend Interactivity",
                 cssClass: "column-func",
-                width:220,  
+                width: "10%", 
+                minWidth: 100,  
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2345,20 +2768,22 @@
                         },
                 headerTooltip: function() {
                 return createHeaderTooltip(
-                "Type of legend interactivity ",
+                "Type of legend interactivity. <br> <b> Left blank for non-interactive maps </b> </br> ",
                 [ { value: "None", desc: "All legends are non-interactive" },
                 { value: "Internal", desc: "Interactivity within the legend window (e.g., tooltips)" },
                 { value: "External Unidirectional", desc: "Results of actions (e.g., filtering) in the legend are reflected on the map" },
                 { value: "External Bidirectional", desc: "Interaction with map objects changes the legend display (e.g., highlighting the corresponding indicator class in the legend)" },
                 { value: "Hybrid", desc: "Combination of several types of interactivity" }
                 ]);
-                }},
+                }, headerFilterPlaceholder: "Select value..."
+            },
 
                 {
                 title:"Modification of Map Symbolization", 
                 field:"Modification of Map Symbolization",
                 cssClass: "column-func", 
-                width:270,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2366,16 +2791,18 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Users can change the map symbology (Resymbolize operator). Changes in transparency are not included")}, 
+                return createHeaderTooltip("Users can change the map symbology (Resymbolize operator). Changes in transparency are not included. <br> <b> Left blank for non-interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                  {
                 title:"Modification of Map Methods", 
                 field:"Modification of Map Methods",
                 cssClass: "column-func", 
-                width:270,
+                width: "10%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2383,16 +2810,18 @@
                             clearable: true
                         },
                 headerTooltip: function() {
-                return createHeaderTooltip("Users can change the map methods (Reexpress operator)")}, 
+                return createHeaderTooltip("Users can change the map methods (Reexpress operator). <br> <b> Left blank for non-interactive maps </b> </br>")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Content Import", 
                 field:"Content Import",
                 cssClass: "column-func", 
-                width:180,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2402,14 +2831,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can upload their own content or data")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Content Export", 
                 field:"Content Export",
                 cssClass: "column-func", 
-                width:180,
+                width: "8%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2419,14 +2850,16 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Users can download content or data")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 },
 
                 {
                 title:"Print Map", 
                 field:"Print Map",
                 cssClass: "column-func", 
-                width:150,
+                width: "7%", 
+                minWidth: 100,
                 headerFilter: "list",
                         headerFilterParams: { 
                             valuesLookup: "data", // Просканировать все данные для поиска уникальных строк
@@ -2436,7 +2869,8 @@
                 headerTooltip: function() {
                 return createHeaderTooltip("Presence of Print Map function. The method and quality of implementation are not taken into account")}, 
                 hozAlign:"center",
-                formatter: tabulatorTickCrossCleanFormatter
+                formatter: tabulatorTickCrossCleanFormatter,
+                headerFilterPlaceholder: "Select value..."
                 }    
                 ],}  
 

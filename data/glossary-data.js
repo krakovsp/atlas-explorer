@@ -5,43 +5,56 @@ const GLOSSARY_DATA = [
     // ТИП 1 и 2: Одиночные строки (номер пишется вручную)
     { 
         number: "1.1",
+        term: "Status",
+        definition: "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+        nested: [
+            { term: "", category: "Active", definition: "EA is fully functional and is actively maintained and updated" },
+            { term: "", category: "Archived", definition: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+            { term: "", category: "Inactive", definition: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+            { term: "", category: "Replaced", definition: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+        ] 
+    },
+
+    { 
+        number: "1.2",
         term: "Publication Date", 
         definition: "Date of the first launch of the EA by the same publisher using the same distribution method. The website address may have changed since then. This information was identified through the EA description, publications, Google Search, and the Wayback Machine" 
     },
     { 
-        number: "1.2",
+        number: "1.3",
         term: "Last Update", 
         definition: "Date of the most recent EA update. An update is defined as any change to the content or to the media-cartographic components of the EA, as determined from author statements and the dating of content elements" 
     },
     { 
-        number: "1.3",
+        number: "1.4",
         term: "Major Updates", 
         definition: "Number of major updates, each involving substantial changes to the interface, navigation, etc. This information was identified through the EA description, publications, Google Search, and the Wayback Machine" 
     },
     { 
-        number: "1.4",
+        number: "1.5",
         term: "Last Major Update", 
         definition: "Date of the most recent major update. This information was identified through the EA description, publications, Google Search, and the Wayback Machine" 
     },
     { 
-        number: "1.5",
+        number: "1.6",
         term: "Publisher Type",
         definition: "Type of entity responsible for publishing the EA. The publisher and the developer of the EA may not coincide",
         nested: [
             { term: "", category: "Government", definition: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation within a given field" },
             { term: "", category: "Organization", definition: "Non-governmental non-profit organizations" },
-            { term: "", category: "Research Institution", definition: "Research institutions and universities" },
+            { term: "", category: "Research Institution", definition: "Universities, research institutes or laboratories, that assume institutional responsibility for EA development and maintenance" },
             { term: "", category: "Private Sector", definition: "Commercial enterprises and profit-making organizations" },
-            { term: "", category: "Volunteers", definition: "Individuals or groups of individuals" }
+            { term: "", category: "Volunteer Community", definition: "EAs developed and maintained primarily by volunteer contributors or open communities rather than by formally established organizations" },
+            { term: "", category: "Individual", definition: "Individual or a small, informal group without institutional support" }
         ] 
     },
     { 
-        number: "1.6",
+        number: "1.7",
         term: "Publisher", 
         definition: "Official name of the EA publisher. If published by a consortium, only the coordinating institution or the first few institutions are listed" 
     },
     { 
-        number: "1.7",
+        number: "1.8",
         term: "Region of Publication",
         definition: "Based on the location of the publisher’s headquarters. If no headquarters can be identified (e.g., for international organizations), the cell is left blank. Classification of regions and countries according to the UNSD Standard Country or Area Codes for Statistical Use (M49)",
         nested: [
@@ -54,51 +67,52 @@ const GLOSSARY_DATA = [
         ] 
     },
      { 
-        number: "1.8",
+        number: "1.9",
         term: "Place of Publication", 
         definition: "Based on the location of the publisher’s headquarters. If no headquarters can be identified (e.g., for international organizations), the cell is left blank" 
     },
      { 
-        number: "1.9",
+        number: "1.10",
         term: "International Publisher",
         category: "Yes/No", 
         definition: "Publishing institution self-identifies as international" 
     },
     { 
-        number: "1.10",
+        number: "1.11",
         term: "Type of App Developers",
         definition: "Developers of the application or cartographic component. If individual authors are listed but affiliated with a specific entity, that entity type is indicated. If the developer is not specified, the type of the publishing entity is provided instead",
         nested: [
             { term: "", category: "Government", definition: "Entities affiliated with government departments, including research institutes whose institutional functions involve policy regulation within a given field" },
             { term: "", category: "Organization", definition: "Non-governmental non-profit organizations" },
-            { term: "", category: "Research Institution", definition: "Research institutions and universities" },
+            { term: "", category: "Research Institution", definition: "Universities, research institutes or laboratories, that assume institutional responsibility for EA development and maintenance" },
             { term: "", category: "Private Sector", definition: "Commercial enterprises and profit-making organizations" },
-            { term: "", category: "Volunteers", definition: "Individuals or groups of individuals" }
+            { term: "", category: "Volunteer Community", definition: "Development is carried out by an open volunteer community, where anyone can contribute and no central research organization coordinates the project" },
+            { term: "", category: "Individual", definition: "Application is developed primarily by a single individual or a small independent team" }
         ] 
     },
      { 
-        number: "1.11",
+        number: "1.12",
         term: "App Developers", 
         definition: "Developers of the application or cartographic component. If the developer is not specified, the publishing entity is provided instead" 
     },
     { 
-        number: "1.12",
+        number: "1.13",
         term: "Main Language", 
         definition: "Primary interface language of the EA. The extent to which EA content is translated is not taken into account" 
     },
     { 
-        number: "1.13",
+        number: "1.14",
         term: "Number of Languages", 
         definition: "Number of the EA interface languages.The extent to which EA content is translated is not taken into account" 
     },
     { 
-        number: "1.14",
+        number: "1.15",
         term: "English", 
         category: "Yes/No",
         definition: "Availability of an English localisation. The extent to which EA content is translated is not taken into account" 
     },
     { 
-        number: "1.15",
+        number: "1.16",
         term: "Project Type",
         definition: "Project involves the creation and maintenance of two versions of the atlas",
         nested: [
@@ -107,13 +121,13 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "1.16",
+        number: "1.17",
         term: "Paper Version", 
         category: "Yes/No",
         definition: "Availability of a paper atlas linked to the electronic version. It may be published before or after the EA release" 
     },
     { 
-        number: "1.17",
+        number: "1.18",
         term: "Distribution",
         definition: "Method of EA distribution or type of client–server scenario",
         nested: [
@@ -123,7 +137,7 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "1.18",
+        number: "1.19",
         term: "Access",
         definition: "Access conditions for EA content",
         nested: [
@@ -135,7 +149,7 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "1.19",
+        number: "1.20",
         term: "Technology Type",
         definition: "Type of technology used to implement the entire atlas application or cartographic representation. The technology must be suitable for repeated use. Software solutions for implementing other content elements should not be taken into account. Solutions at a higher level in the hierarchy should be specified",
         nested: [
@@ -146,12 +160,12 @@ const GLOSSARY_DATA = [
         ] 
     },
      { 
-        number: "1.20",
+        number: "1.21",
         term: "Technology",
         definition: "Name of the technology used. Determined based on information from the developers, its visual appearance and the source code"
     },
       { 
-        number: "1.21",
+        number: "1.22",
         term: "Implementation Method",
         definition: "Method of EA implementation from the perspective of navigational integrity",
         nested: [
@@ -161,26 +175,43 @@ const GLOSSARY_DATA = [
         ] 
     },
      { 
-        number: "1.22",
+        number: "1.23",
         term: "Mobile Devices", 
-        category: "Yes/No",
-        definition: "Ability to operate on mobile devices. The degree of interface adaptation is not taken into account" 
+        definition: "Ability to operate on mobile devices. The degree of interface adaptation is not taken into account",
+        nested: [
+            { term: "", category: "None", definition: "EA does not open on mobile devices" },
+            { term: "", category: "Limited", definition: "EA operates on mobile devices but is not adapted for convenient use" },
+            { term: "", category: "Partial", definition: "Only part of the EA functionality is available on mobile devices" },
+            { term: "", category: "Full", definition: "All functionality is retained on mobile devices" }
+        ] 
     },
      { 
-        number: "1.23",
+        number: "1.24",
         term: "Date of Analysis",
         definition: "Date of analysis"
     },
     { 
-        number: "1.24",
+        number: "1.25",
         term: "URL",
         definition: "Web address of the online atlas or the official website of the desktop EA and its developers"
     },
 
-    { number: "2", term: "Content Attributes", isSection: true },
+    { number: "2", term: "Content Attributes", isSection: true, group: "content" },
 
     { 
         number: "2.1",
+        term: "Status",
+        definition: "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+        nested: [
+            { term: "", category: "Active", definition: "EA is fully functional and is actively maintained and updated" },
+            { term: "", category: "Archived", definition: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+            { term: "", category: "Inactive", definition: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+            { term: "", category: "Replaced", definition: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+        ] 
+    },
+
+    { 
+        number: "2.2",
         term: "Content Type",
         definition: "Each type implies specific requirements for both EA content and implementation. The type is recorded only if explicitly stated by the developers in the EA title or description",
         nested: [
@@ -191,7 +222,7 @@ const GLOSSARY_DATA = [
     },
 
     { 
-        number: "2.2",
+        number: "2.3",
         term: "Thematic Coverage",
         definition: "Number and diversity of topics represented in the EA",
         nested: [
@@ -201,7 +232,7 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "2.3",
+        number: "2.4",
         term: "Topic",
         definition: "Generalized EA themes. The most common topics were selected",
         nested: [
@@ -211,42 +242,49 @@ const GLOSSARY_DATA = [
             { term: "", category: "History", definition: "Historical atlases. History is commonly combined with other topics" },
             { term: "", category: "Human geography", definition: "Population Geography, Political Geography, Cultural Geography, and Social Geography" },
             { term: "", category: "Physical geography", definition: "Geomorphology, Hydrology, Climatology, etc." },
+            { term: "", category: "Transport & Infrastructure", definition: "Transport, Communication Network, Technical Infrastructure (e.g., Water supply, Electricity etc.)" },
             { term: "", category: "Other", definition: "Media & Journalism, Literature, Sport, etc." }
         ] 
     },
     { 
-        number: "2.3",
+        number: "2.5",
         term: "Topic 1",
         definition: "Main topic (80% of the content or more) or one of the main topics"
     },
     { 
-        number: "2.4",
+        number: "2.6",
         term: "Topic 2",
         definition: "Secondary or equally important topic"
     },
     { 
-        number: "2.5",
+        number: "2.7",
         term: "Topic 3",
         definition: "Third or equally important topic"
     },
     { 
-        number: "2.6",
+        number: "2.8",
         term: "Theme",
-        definition: "Specific theme of the EA. It is always narrower than a topic and may relate to multiple topics simultaneously"
+        definition: "Specific theme of the EA. It is usually narrower than a topic and may relate to multiple topics simultaneously. For complex EAs that characterise a territory across all major topics, the name of the territory should be specified"
     },
     { 
-        number: "2.7",
+        number: "2.9",
         term: "Spatial Ontology of Objects",
         definition: "Origin and nature of the objects and phenomena constituting the EA's main content",
         nested: [
             { term: "", category: "Earth Objects & Phenomena", definition: "Real-world Earth objects and phenomena" },
             { term: "", category: "Space Objects & Phenomena", definition: "Real-world space (extraterrestrial) objects and phenomena" },
             { term: "", category: "Fictional World Objects & Phenomena", definition: "Objects and phenomena belonging to fictional worlds" },
+            { term: "", category: "Fictional Objects & Phenomena of the Real World", definition: "Fictional objects and phenomena georeferenced to real-world geography" },
             { term: "", category: "Abstract Concepts", definition: "Abstract and non-material ideas and concepts" }
         ] 
     },
+    { 
+        number: "2.10",
+        term: "Geospatial Reference",
+        definition: "Source data used to create the EA representations and visualizations are geospatially referenced"
+    },
      { 
-        number: "2.8",
+        number: "2.11",
         term: "Spatial Coverage",
         definition: "Spatial coverage level of the EA thematic content. For countries and their administrative units, classification is based on political boundaries rather than area size. This field is only used for Earth Objects & Phenomena",
         nested: [
@@ -260,7 +298,7 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "2.9",
+        number: "2.12",
         term: "Region",
         definition: "Spatial coverage of the EA thematic content. This field is only used for Earth Objects & Phenomena",
         nested: [
@@ -280,19 +318,19 @@ const GLOSSARY_DATA = [
         ] 
     },
       { 
-        number: "2.10",
+        number: "2.13",
         term: "Content Spatiality",
-        definition: "Spatial characteristics of the EA content",
+        definition: "Classification of EAs based on the combination of the Geospatial Reference attribute and the predominant form (unit) of content representation",
         nested: [
-            { term: "", category: "Cartographic", definition: "Maps are the primary type of content representation" },
-            { term: "", category: "Geospatial", definition: "Mixed geolocated content predominates, which is neither cartographic nor visualizational" },
-            { term: "", category: "Spatial", definition: "Spatial visualisations (constructed information space) are the primary type of content representation" },
-            { term: "", category: "Visualisation", definition: "Non-spatial visualisations (charts and diagrams) prevail" }
+            { term: "", category: "Cartographic", definition: "Maps and map-like representations constitute the primary content of the EA and are based on geospatially referenced data" },
+            { term: "", category: "Geospatial", definition: "Mixed georeferenced content predominates, which is neither cartographic nor graphical" },
+            { term: "", category: "Spatial", definition: "Maps and spatial visualizations constitute the primary content of the EA but are based on non-spatial data ('non-geographic constructed spaces' (Kinberger, 2010))" },
+            { term: "", category: "Graphical", definition: "Graphical content (e.g., charts and diagrams) predominates in the atlas. The geospatial reference of the underlying data is not taken into account" }
         ] 
     },
     { 
-        number: "2.11",
-        term: "Temporal scope",
+        number: "2.14",
+        term: "Temporal Scope",
         definition: "Temporal scope of the EA content",
         nested: [
             { term: "", category: "Current", definition: "Data for 2000–2025 only" },
@@ -304,25 +342,25 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "2.12",
+        number: "2.15",
         term: "AI-generated Content",
         category: "Yes/No",
         definition: "Presence of any AI-generated content, regardless of its proportion"
     },
     { 
-        number: "2.13",
+        number: "2.16",
         term: "Regular Updates",
         category: "Yes/No",
         definition: "EA content is continuously updated or planned for future updates"
     },
     { 
-        number: "2.14",
+        number: "2.17",
         term: "Data Catalogue",
         category: "Yes/No",
         definition: "Presence of a local data directory or data directory separated into a distinct section. The catalogue should be in the form of an attribute table or an interactive interface, and the data should be available for download"
     },
     { 
-        number: "2.15",
+        number: "2.18",
         term: "Story-centred Content",
         category: "Yes/No",
         definition: "All components of the EA serving to unfold or analyse (explicit) stories"
@@ -333,6 +371,18 @@ const GLOSSARY_DATA = [
 
     { 
         number: "3.1.1",
+        term: "Status",
+        definition: "Current operational status of the EA, indicating whether it is actively maintained, archived, or no longer functional",
+        nested: [
+            { term: "", category: "Active", definition: "EA is fully functional and is actively maintained and updated" },
+            { term: "", category: "Archived", definition: "EA remains fully or partially functional but is no longer the current version and is no longer maintained or updated" },
+            { term: "", category: "Inactive", definition: "EA has ceased to exist. A desktop application no longer runs on modern operating systems, or the website of an online atlas has been removed and is no longer accessible" },
+            { term: "", category: "Replaced", definition: "Older version of the atlas that has been replaced by a newer version of the website, which remains active" }
+        ] 
+    },
+
+    { 
+        number: "3.1.2",
         term: "Metaconcept ",
         definition: "Name of the EA metaconcept. A metaconcept is defined by one or more characteristics or functions that, together with a specific implementation of the interface, navigation, content representation, and functionality, form the distinctive overall appearance of EAs and their usage style",
         nested: [
@@ -349,7 +399,7 @@ const GLOSSARY_DATA = [
     },
 
     { 
-        number: "3.1.2",
+        number: "3.1.3",
         term: "Metaconcept Type",
         definition: "Type of the EA within a specific metaconcept. A metaconcept is defined by one or more characteristics or functions that, together with a specific implementation of the interface, navigation, content representation, and functionality, form the distinctive overall appearance of EAs and their usage style",
         nested: [
@@ -368,17 +418,17 @@ const GLOSSARY_DATA = [
     },
 
      { 
-        number: "3.1.3",
+        number: "3.1.4",
         term: "Metaconcept 2",
         definition: "Name of the second metaconcept. The second metaconcept can be identified within multi-page EAs comprising various sections "
     },
     { 
-        number: "3.1.4",
+        number: "3.1.5",
         term: "Metaconcept 2 Type",
         definition: "Type of the EA within the second metaconcept"
     },
     { 
-        number: "3.1.5",
+        number: "3.1.6",
         term: "Method of Page Presentation",
         definition: "Method of page presentation (Krakovskyi & Kurach, 2025)",
         nested: [
@@ -388,11 +438,11 @@ const GLOSSARY_DATA = [
         ] 
     },
      { 
-        number: "3.1.6",
+        number: "3.1.7",
         term: "Map-Vis Section Implementation",
         definition: "Classification of EAs by the composition of non-cartographic and map-based/visualisation sections",
         nested: [
-            { term: "", category: "Map-Vis Section", definition: "EA consists of a single map-based or visualisation interface, or a set of pages containing maps, map modules, or visualisations" },
+            { term: "", category: "Map-Vis Section", definition: "EA consists of a single map-based or visualisation interface, or a set of uniform pages containing maps, map modules, or visualisations" },
             { term: "", category: "Several Map-Vis Sections", definition: "EA consists of multiple map-based/visualisation interfaces (screens)" },
             { term: "", category: "Non-Map Sections", definition: "EA consists of pages in which maps or visualisations are not the dominant type of representation" },
             { term: "", category: "Non-Map Sections+One Map-Vis Section", definition: "EA combines pages in which maps or visualisations are not the dominant type of representation with a single map-based/visualisation section" },
@@ -400,7 +450,7 @@ const GLOSSARY_DATA = [
         ] 
     },
     { 
-        number: "3.1.7",
+        number: "3.1.8",
         term: "Atlas Focus",
         definition: "Central focus of the EA, which influences the design of all other components",
         nested: [
@@ -410,7 +460,7 @@ const GLOSSARY_DATA = [
     },
 
     { 
-        number: "3.1.8",
+        number: "3.1.9",
         term: "Usage Style",
         definition: "Characteristic manner by which the EA is intended to be employed, reflecting patterns of interaction",
         nested: [
@@ -421,7 +471,7 @@ const GLOSSARY_DATA = [
     },
 
     { 
-        number: "3.1.9",
+        number: "3.1.10",
         term: "Target Audience",
         definition: "Determined according to the maximum functionality provided, as each EA may potentially target multiple user groups. Thematic complexity is assessed based on the complexity of the theme, the terminology used, and the depth of thematic coverage",
         nested: [
@@ -433,7 +483,7 @@ const GLOSSARY_DATA = [
     },
 
     { 
-        number: "3.1.10",
+        number: "3.1.11",
         term: "Inclusiveness",
         definition: "Degree of EA support for users with disabilities",
         nested: [
@@ -443,16 +493,29 @@ const GLOSSARY_DATA = [
         ] 
     },
 
+    { 
+        number: "3.1.12",
+        term: "User Guidance",
+        definition: "Availability of materials and tools that help users learn how to use the EA. EA descriptions and methodological materials are not counted",
+        nested: [
+            { term: "", category: "None", definition: "No help or guidance materials" },
+            { term: "", category: "Help Document", definition: "Help in the form of a separate article or document, which may contain illustrations" },
+            { term: "", category: "Video Tutorials", definition: "One or a series of instructional videos" },
+            { term: "", category: "Guided Tour", definition: "Interactive introduction to the interface and its main functions" },
+            { term: "", category: "Hybrid", definition: "Combination of two or more help and guidance methods"}
+        ] 
+    },
+
     { number: "3.2", term: "Interface", isSection: true, group: "interface" },
 
     { 
         number: "3.2.1",
         term: "Interface Responsiveness",
-        definition: "Adaptation of the EA interface and functionality to mobile devices",
+        definition: "Adaptation of the EA interface to mobile devices and various screen sizes",
         nested: [
-            { term: "", category: "None", definition: "EA operates on mobile devices but is not adapted for convenient use" },
-            { term: "", category: "Partial", definition: "Interface or functionality is partially adapted; however, full use remains difficult" },
-            { term: "", category: "Full", definition: "Layout is adapted and the core EA functionality is supported, allowing convenient use"}
+            { term: "", category: "None", definition: "Not adapted for convenient use" },
+            { term: "", category: "Partial", definition: "Some interface elements or pages are adapted, but the layout remains inconvenient on certain screens or sections" },
+            { term: "", category: "Full", definition: "Layout and interface elements are fully adapted for mobile devices, providing a convenient user experience across screen sizes"}
         ] 
     },
 
@@ -657,6 +720,7 @@ const GLOSSARY_DATA = [
             { term: "", category: "Menu bar/Tabs", definition: "Series of aligned buttons (with drop-down menus)" },
             { term: "", category: "Site map", definition: "Visual scheme and/or structured list of all sections and subsections of the EA, providing an overview of its full content organization" },
             { term: "", category: "Graphic menu", definition: "Interactive access interface where the EA content is represented as a graphical visualization (e.g., sunburst, circular treemap, etc.)" },
+            { term: "", category: "Map", definition: "Map functions as the primary gateway to the content" },
             { term: "", category: "Image grid", definition: "Grid-based collection of image thumbnails with captions, where each item provides access to a specific information unit (content element)" }
         ] 
     },
@@ -672,6 +736,7 @@ const GLOSSARY_DATA = [
             { term: "", category: "Menu bar/Tabs", definition: "Series of aligned buttons (with drop-down menus)" },
             { term: "", category: "Site map", definition: "Visual scheme and/or structured list of all sections and subsections of the EA, providing an overview of its full content organization" },
             { term: "", category: "Graphic menu", definition: "Interactive access interface where the EA content is represented as a graphical visualization (e.g., sunburst, circular treemap, etc.)" },
+            { term: "", category: "Map", definition: "Map functions as the primary gateway to the content" },
             { term: "", category: "Image grid", definition: "Grid-based collection of image thumbnails with captions, where each item provides access to a specific information unit (content element)" }
         ] 
     },
@@ -779,7 +844,7 @@ const GLOSSARY_DATA = [
         number: "3.4.13",
         term: "Animation",
         category: "Yes/No",
-        definition: "Ordered sequence of frames that is automatically and sequentially played to create the perception of movement and/or change for the user. The presence of temporal data is not sufficient"
+        definition: "Ordered sequence of frames that is automatically and sequentially played to create the perception of movement and/or change for the user. Decorative animation іs not taken into account"
     },
     { 
         number: "3.4.14",
@@ -824,7 +889,7 @@ const GLOSSARY_DATA = [
         number: "3.4.18",
         term: "Multi-layer Maps",
         category: "Yes/No",
-        definition: "Presence of ready-made interactive maps consisting of a set of layers with a toggle (overlay) function"
+        definition: "Presence of ready-made interactive maps consisting of a set of layers with a toggle (overlay) function. Left blank for non-interactive maps"
     },
     { 
         number: "3.4.19",
@@ -855,18 +920,18 @@ const GLOSSARY_DATA = [
         number: "3.4.22",
         term: "Multi-scale Maps",
         category: "Yes/No",
-        definition: "Presence of interactive maps with multiple generalization levels (scales)"
+        definition: "Presence of interactive maps with multiple generalization levels (scales). Left blank for non-interactive maps"
     },
     { 
         number: "3.4.23",
         term: "In-house Basemap",
         category: "Yes/No",
-        definition: "Presence of basemaps created by the EA authors or created in the developers’ country. Specified only for interactive maps"
+        definition: "Presence of basemaps created by the EA authors or created in the developers’ country. Left blank for non-interactive maps"
     },
     { 
         number: "3.4.24",
         term: "Basemap Implementation",
-        definition: "Method of implementing the EA basemaps. Specified only for interactive maps",
+        definition: "Method of implementing the EA basemaps. Left blank for non-interactive maps",
         nested: [
             { term: "", category: "None", definition: "No basemap is used" },
             { term: "", category: "Basemap only", definition: "Basemap consists exclusively of ready-made basemaps" },
@@ -902,7 +967,7 @@ const GLOSSARY_DATA = [
     { 
         number: "3.4.28",
         term: "Legend Adaptability",
-        definition: "Legends whose content is automatically updated by the system to match the current map view",
+        definition: "Legend content is automatically updated by the system to match the current map view. Left blank for non-interactive maps",
         nested: [
             { term: "", category: "None", definition: "Static legend" },
             { term: "", category: "Quantitative", definition: "Number of legend indicators automatically changes according to the current map view" },
@@ -913,7 +978,7 @@ const GLOSSARY_DATA = [
     { 
         number: "3.4.29",
         term: "Map Labels",
-        definition: "Presence of map labels. Labels that appear as a result of interactions are not counted. Specified only for interactive maps",
+        definition: "Presence of map labels. Labels that appear as a result of interactions are not counted. Left blank for non-interactive maps",
         nested: [
             { term: "", category: "None", definition: "No labels are present" },
             { term: "", category: "Embedded in the Basemap", definition: "Labels are embedded in the ready-made basemap" },
@@ -928,11 +993,15 @@ const GLOSSARY_DATA = [
         nested: [
             { term: "", category: "None", definition: "Map comparison is not available" },
             { term: "", category: "Internal", definition: "Comparison of maps/layers within a single map (single visualization window) using overlay and transparency and/or vertical or horizontal sliders" },
-            { term: "", category: "External", definition: "Comparison of separate maps placed side by side in the table of contents and updated asynchronously, simulating an animation effect" },
-            { term: "", category: "External (Separate windows)", definition: "Comparison of separate maps displayed in different visualization windows on the same screen" },
-            { term: "", category: "Hybrid", definition: "Combination of internal and external comparison methods"}
+            { term: "", category: "External", definition: "Comparison of separate maps placed side by side in the table of contents and updated asynchronously, simulating an animation effect. Animation also falls into this category" },
+            { term: "", category: "Separate Windows", definition: "Comparison of separate maps displayed in different visualization windows on the same screen" },
+            { term: "", category: "Internal & External", definition: "Combination of internal and external comparison methods" },
+            { term: "", category: "Internal & Separate Windows", definition: "Combination of internal comparison methods and separate windows mode" },
+            { term: "", category: "External & Separate Windows", definition: "Combination of external comparison methods and separate windows mode" },
+            { term: "", category: "Hybrid", definition: "Combination of all three comparison methods"}
         ] 
     },
+
 
     { number: "3.5", term: "Functionality", isSection: true, group: "functionality"  },
 
@@ -975,7 +1044,7 @@ const GLOSSARY_DATA = [
     { 
         number: "3.5.5",
         term: "Map Legend Interactivity",
-        definition: "Type of legend interactivity ",
+        definition: "Type of legend interactivity. Left blank for non-interactive maps",
         nested: [
             { term: "", category: "None", definition: "All legends are non-interactive" },
             { term: "", category: "Internal", definition: "Interactivity within the legend window (e.g., tooltips)" },
@@ -986,13 +1055,13 @@ const GLOSSARY_DATA = [
     },
     { 
         number: "3.5.6",
-        term: "Modification of Map Symbolization",
+        term: "Modification of Map Symbolization. Left blank for non-interactive maps",
         category: "Yes/No",
         definition: "Users can change the map symbology (Resymbolize operator). Changes in transparency are not included"
     },
     { 
         number: "3.5.7",
-        term: "Modification of Map Methods",
+        term: "Modification of Map Methods. Left blank for non-interactive maps",
         category: "Yes/No",
         definition: "Users can change the map methods (Reexpress operator)"
     },

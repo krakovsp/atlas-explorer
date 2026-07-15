@@ -1,4 +1,13 @@
+// ==========================================
+// ГЛОБАЛЬНОЕ СОСТОЯНИЕ
+// ==========================================
 let activeTable;
+let valueRowCount = 0;
+
+
+// ==========================================
+// ТУЛТИПЫ ЗАГОЛОВКОВ ТАБЛИЦЫ
+// ==========================================
 
 // 0. Функция-генератор для сложных структурированных тултипов
 function createHeaderTooltip(definition, featuresList = [], listTitle = "Values") {
@@ -21,30 +30,10 @@ function createHeaderTooltip(definition, featuresList = [], listTitle = "Values"
     return html;
 }
 
-// 0.1 Функция открытия модального окна
-function openUpdatesLog(event) {
-    if (event) event.preventDefault();
-    const modal = document.getElementById("updates-modal");
-    if (modal) {
-        modal.style.display = "flex";
-    }
-}
 
-// Функция закрытия модального окна
-function closeUpdatesLog() {
-    const modal = document.getElementById("updates-modal");
-    if (modal) {
-        modal.style.display = "none";
-    }
-}
-
-// Закрытие окна при клике на темную область вокруг него
-window.addEventListener("click", function(event) {
-    const modal = document.getElementById("updates-modal");
-    if (event.target === modal) {
-        closeUpdatesLog();
-    }
-});
+// ==========================================
+// ТАБЛИЦА (TABULATOR): СОЗДАНИЕ, КОПИРОВАНИЕ, СКРОЛЛ, ФИЛЬТРЫ, ФОРМАТТЕРЫ
+// ==========================================
 
 // 1. Функция создания таблицы
 function createRemoteTable(id, url, columns) {
@@ -52,17 +41,14 @@ function createRemoteTable(id, url, columns) {
         ajaxURL: "data/" + url,
         layout: "fitColumns",
         height: "100%",
-        popupContainer: function(element) {
-            const container = element.closest(".tabulator");
-            return container ? container : document.body; 
-        },
+        popupContainer: "body",
         columnDefaults: {
             headerHozAlign: "center",
             hozAlign: "left",
             minWidth: 60,
         }, 
         pagination: "local",       
-        paginationSize: 10,        
+        paginationSize: 20,        
         paginationSizeSelector: [5, 10, 20, 50, 100, true],
         langs: {
            "default": { "pagination": { "All": "All" } }
@@ -71,7 +57,7 @@ function createRemoteTable(id, url, columns) {
         columns: columns
     }); 
 
-    // 👇 НАДЕЖНЫЙ МЕТОД КОПИРОВАНИЯ ЯЧЕЕК (РАБОТАЕТ ЧЕРЕЗ API ДАННЫХ TABULATOR)
+    // МЕТОД КОПИРОВАНИЯ ЯЧЕЕК (РАБОТАЕТ ЧЕРЕЗ API ДАННЫХ TABULATOR)
     table.on("cellClick", function(e, cell) {
         const column = cell.getColumn();
         const fieldAttr = column.getField();
@@ -101,7 +87,7 @@ function createRemoteTable(id, url, columns) {
         document.body.removeChild(textArea);
     });
 
-    // ДОБАВЛЕНИЕ КНОПОК ГОРИЗОНТАЛЬНОГО СКРОЛЛА
+     // ДОБАВЛЕНИЕ КНОПОК ГОРИЗОНТАЛЬНОГО СКРОЛЛА
     table.on("tableBuilt", function() {
         const tableElement = document.querySelector(id);
         if (!tableElement) return;
@@ -155,8 +141,9 @@ function createRemoteTable(id, url, columns) {
             }
         });
     });
+  
 
-    // ДОБАВЛЕНИЕ КНОПКИ "CLEAR FILTERS" В ФУТЕР
+// ДОБАВЛЕНИЕ ЭЛЕМЕНТОВ В ФУТЕР (CLEAR FILTERS И QUICK JUMP ДЛЯ ТАБЛИЦЫ 3)
     table.on("tableBuilt", function() {
         const tableElement = document.querySelector(id);
         if (!tableElement) return;
@@ -165,25 +152,75 @@ function createRemoteTable(id, url, columns) {
         const paginator = tableElement.querySelector(".tabulator-paginator");
         if (!footerContents || !paginator) return;
 
-        if (footerContents.querySelector(".footer-clear-filters-btn")) return;
+        // 1. Создаем кнопку Clear Filters (если её еще нет)
+        let clearFiltersBtn = paginator.querySelector(".footer-clear-filters-btn");
+        if (!clearFiltersBtn) {
+            clearFiltersBtn = document.createElement("button");
+            clearFiltersBtn.className = "footer-clear-filters-btn";
+            clearFiltersBtn.innerHTML = "<i class='fa-solid fa-filter-circle-xmark'></i> Clear Filters";
+            clearFiltersBtn.title = "Clear all column filters";
 
-        const clearFiltersBtn = document.createElement("button");
-        clearFiltersBtn.className = "footer-clear-filters-btn";
-        clearFiltersBtn.innerHTML = "<i class='fa-solid fa-filter-circle-xmark'></i> Clear Filters";
-        clearFiltersBtn.title = "Clear all column filters";
+            clearFiltersBtn.onclick = function() {
+                if (activeTable) {
+                    activeTable.clearFilter(true);
+                }
+            };
 
-        clearFiltersBtn.onclick = function() {
-            if (activeTable) {
-                activeTable.clearFilter(true);
+            paginator.insertBefore(clearFiltersBtn, paginator.firstChild);
+        }
+
+        // 2. ДЛЯ ТРЕТЬЕЙ ТАБЛИЦЫ: Создаем и вставляем панель Quick Jump слева от Clear Filters
+        if (id === "#table3-id" && !paginator.querySelector(".table3-anchors-bar")) {
+            const anchorsBar = document.createElement("div");
+            anchorsBar.className = "table3-anchors-bar footer-anchors-bar";
+            anchorsBar.innerHTML = `
+                <span class="anchors-label"><i class="fa-solid fa-arrows-left-right"></i> Quick Jump:</span>
+                <div class="anchor-dots-group">
+                    <button class="anchor-dot dot-general" data-column="Status" title="General Information">
+                        <span class="dot-tooltip">General</span>
+                    </button>
+                    <button class="anchor-dot dot-interface" data-column="Inclusiveness" title="Interface">
+                        <span class="dot-tooltip">Interface</span>
+                    </button>
+                    <button class="anchor-dot dot-navigation" data-column="Layout Flexibility" title="IA & Navigation">
+                        <span class="dot-tooltip">Navigation</span>
+                    </button>
+                    <button class="anchor-dot dot-representation" data-column="Content Search" title="Content Representation">
+                        <span class="dot-tooltip">Representation</span>
+                    </button>
+                    <button class="anchor-dot dot-functionality" data-column="Map Labels" title="Functionality">
+                        <span class="dot-tooltip">Functionality</span>
+                    </button>
+                </div>
+            `;
+
+            // Вешаем обработчик клика на точки навигации
+            const dotsGroup = anchorsBar.querySelector('.anchor-dots-group');
+            if (dotsGroup) {
+                dotsGroup.addEventListener('click', (event) => {
+                    const button = event.target.closest('.anchor-dot');
+                    if (!button) return;
+
+                    const columnName = button.getAttribute('data-column');
+                    if (columnName && typeof scrollToTable3Column === 'function') {
+                        scrollToTable3Column(columnName);
+                    }
+                });
             }
-        };
 
-        paginator.insertBefore(clearFiltersBtn, paginator.firstChild);
+            // Вставляем панель Quick Jump в пагинатор строго перед кнопкой Clear Filters
+            paginator.insertBefore(anchorsBar, clearFiltersBtn);
+        }
 
-        // 🔥 КРИТИЧЕСКИЙ ФИКС: Принудительно заставляем Tabulator 
-        // пересчитать геометрию замороженных слоев ПУТЕМ ОБНОВЛЕНИЯ РАЗМЕРОВ
         setTimeout(() => {
-            table.redraw(true);
+            const holder = tableElement.querySelector(".tabulator-tableholder");
+            const currentScrollLeft = holder ? holder.scrollLeft : 0; 
+            
+            table.redraw();
+            
+            if (holder && currentScrollLeft > 0) {
+                holder.scrollLeft = currentScrollLeft;
+            }
         }, 60);
     });
 
@@ -220,11 +257,39 @@ function showNativeToast(e, text) {
     }, 700);
 }
 
-// 2. Инициализация после загрузки DOM
+/**
+ * Глобальний форматировщик для Tabulator.
+ * Залишає порожні ячейки чистими, для "Yes" виводить зелену галочку, для "No" — червоний хрестик.
+ */
+function tabulatorTickCrossCleanFormatter(cell) {
+    const val = cell.getValue();
+    
+    // Якщо значення відсутнє (null, undefined) або є порожнім рядком — залишаємо ячейку чистою
+    if (val === null || val === undefined || val === "") {
+        return ""; 
+    }
+    
+    // Перевірка на істинність (строка "Yes", логічне true або рядок "true")
+    if (val === "Yes" || val === true || val === "true") {
+        return "<span class='table-tick'>✔</span>";
+    }
+    
+    // Перевірка на хибність (строка "No", логічне false або рядок "false")
+    if (val === "No" || val === false || val === "false") {
+        return "<span class='table-cross'>✘</span>";
+    }
+    
+    // Якщо прийшло будь-яке інше специфічне текстове значення — виводимо як є
+    return val;
+}
+
+// 2. Ініціалізація після завантаження DOM
 document.addEventListener("DOMContentLoaded", function() {
+    // table2 і table3 НЕ будуємо тут — їх вкладка прихована (.tab-content{display:none}),
+    // і Tabulator з layout:"fitColumns" порахує % ширини колонок по нульовій ширині
+    // контейнера. Їх створення перенесено в openTab() — там вони будуються ліниво,
+    // в момент першого відкриття відповідної вкладки, коли контейнер уже видимий.
     window.table1 = createRemoteTable("#table1-id", "data1.json", TABLE_1_COLUMNS);
-    window.table2 = createRemoteTable("#table2-id", "data2.json", TABLE_2_COLUMNS);
-    window.table3 = createRemoteTable("#table3-id", "data3.json", TABLE_3_COLUMNS);
 
     activeTable = window.table1;
 
@@ -233,11 +298,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 100);
 });
 
+
+// ==========================================
+// УПРАВЛІННЯ КОЛОНКАМИ ТАБЛИЦІ
+// ==========================================
+
 // 3. Управління колонками
 function toggleColumnPicker() {
     const picker = document.getElementById("column-picker");
     const btn = document.querySelector(".settings-btn");
     if (!picker || !activeTable) return;
+
+    // ДОБАВЛЕНО: Закрываем Help при открытии пикера колонок
+    const helpMenu = document.getElementById('help-accordion-menu');
+    if (helpMenu && helpMenu.classList.contains('show')) {
+        helpMenu.classList.remove('show');
+    }
 
     if (picker.classList.contains("show")) {
         picker.classList.remove("show");
@@ -247,23 +323,63 @@ function toggleColumnPicker() {
         picker.classList.add("show");
         btn.classList.add("active");
 
+        // Создаем контейнер-шапку для кнопок управления
+        const controlsContainer = document.createElement("div");
+        controlsContainer.className = "picker-controls";
+
+        // КНОПКА: SHOW ALL
         const selectAllBtn = document.createElement("button");
         selectAllBtn.className = "picker-select-all-btn";
-        selectAllBtn.innerHTML = "Show All";
+        selectAllBtn.innerHTML = "<i class='fa-solid fa-eye'></i> Show All";
         selectAllBtn.onclick = function() {
-            activeTable.getColumns().forEach(column => {
-                const def = column.getDefinition();
-                if (def.columns) {
-                    def.columns.forEach(subCol => activeTable.getColumn(subCol.field).show());
-                } else if (def.field) {
-                    column.show();
+    activeTable.getColumns().forEach(column => {
+        const def = column.getDefinition();
+        if (def.columns) {
+            def.columns.forEach(subCol => activeTable.getColumn(subCol.field).show());
+        } else if (def.field) {
+            column.show();
+        }
+    });
+    activeTable.redraw(true); // <--- Пересчитываем геометрию сетки
+    toggleColumnPicker(); 
+    toggleColumnPicker(); 
+        };
+
+        // КНОПКА: CLEAR ALL
+        const clearAllBtn = document.createElement("button");
+        clearAllBtn.className = "picker-clear-all-btn";
+        clearAllBtn.innerHTML = "<i class='fa-solid fa-eye-slash'></i> Clear All";
+        clearAllBtn.onclick = function() {
+    activeTable.getColumns().forEach(column => {
+        const def = column.getDefinition();
+        if (def.columns) {
+            def.columns.forEach(subCol => {
+                const subColumnInstance = activeTable.getColumn(subCol.field);
+                if (subCol.field !== "id" && subCol.field !== "Title") {
+                    subColumnInstance.hide();
+                } else {
+                    subColumnInstance.show();
                 }
             });
-            toggleColumnPicker(); 
-            toggleColumnPicker(); 
-        };
-        picker.appendChild(selectAllBtn);
+        } else if (def.field) {
+            if (def.field !== "id" && def.field !== "Title") {
+                column.hide();
+            } else {
+                column.show();
+            }
+        }
+    });
+    activeTable.redraw(true); // <--- Пересчитываем геометрию сетки
+    toggleColumnPicker(); 
+    toggleColumnPicker(); 
+      };
 
+        // Добавляем кнопки в контейнер управления, а сам контейнер — в пикер
+        controlsContainer.appendChild(selectAllBtn);
+        controlsContainer.appendChild(clearAllBtn);
+        picker.appendChild(controlsContainer);
+
+        // ГЕНЕРАЦИЯ СПИСКА ЧЕКБОКСОВ (остается без изменений)
         activeTable.getColumns().forEach(column => {
             const def = column.getDefinition();
             if (def.columns) {
@@ -284,13 +400,38 @@ function toggleColumnPicker() {
         const chk = document.createElement("input");
         chk.type = "checkbox";
         chk.checked = col.isVisible();
-        chk.onchange = () => col.toggle();
+        
+        // Отключаем возможность снять галочку вручную для обязательных полей
+        if (def.field === "id" || def.field === "Title") {
+            chk.disabled = true;
+            label.style.setProperty('color', '#7A3535', 'important');
+            label.style.cursor = "not-allowed";
+        }
+        
+        chk.onchange = () => {
+    col.toggle();
+    
+    // Двойной requestAnimationFrame гарантирует, что браузер успел 
+    // обновить colspan групповых заголовков в DOM перед тем, как Tabulator начнет расчет widths
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            if (activeTable) {
+                activeTable.redraw(true);
+            }
+        });
+    });
+};
         
         label.appendChild(chk);
         label.appendChild(document.createTextNode(def.title));
         container.appendChild(label);
     }
 }
+
+
+// ==========================================
+// ВКЛАДКИ ТА ПОВНОЕКРАННИЙ РЕЖИМ
+// ==========================================
 
 // 4. Переключення вкладок
 function openTab(evt, tabName) {
@@ -309,15 +450,34 @@ function openTab(evt, tabName) {
     const btn = document.querySelector(".settings-btn");
     if (btn) btn.classList.remove("active");
 
-    if (tabName === 'tab1') activeTable = window.table1;
-    if (tabName === 'tab2') activeTable = window.table2;
-    if (tabName === 'tab3') activeTable = window.table3;
-
-    setTimeout(() => {
-    if (activeTable) {
-        activeTable.redraw(true); // Параметр true полностью пересчитывает размеры замороженных слоев
+    // Класс .active уже применён (строка выше) — контейнер вкладки видим,
+    // поэтому таблицу для tab2/tab3 безопасно строить именно сейчас, при первом
+    // открытии: Tabulator посчитает fitColumns по реальной, а не нулевой ширине.
+    if (tabName === 'tab1') {
+        activeTable = window.table1;
     }
-}, 80);
+    if (tabName === 'tab2') {
+        if (!window.table2) {
+            window.table2 = createRemoteTable("#table2-id", "data2.json", TABLE_2_COLUMNS);
+        }
+        activeTable = window.table2;
+    }
+    if (tabName === 'tab3') {
+        if (!window.table3) {
+            window.table3 = createRemoteTable("#table3-id", "data3.json", TABLE_3_COLUMNS);
+        }
+        activeTable = window.table3;
+    }
+
+    // Страховка на случай, если таблица уже существовала (повторное открытие вкладки)
+    // и вдруг успела "сжаться" — досчитываем размеры после отрисовки кадра.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            if (activeTable) {
+                activeTable.redraw(true); // Параметр true полностью пересчитывает размеры замороженных слоев
+            }
+        });
+    });
 }
 
 // 5. Повноекранний режим
@@ -341,29 +501,51 @@ function toggleFullscreen() {
     document.addEventListener('keydown', escapeHandler);
 }
 
+
+// ==========================================
+// МОДАЛЬНЕ ВІКНО "UPDATES LOG"
+// ==========================================
+
+// 0.1 Функция открытия модального окна
+function openUpdatesLog(event) {
+    if (event) event.preventDefault();
+    const modal = document.getElementById("updates-modal");
+    if (modal) {
+        modal.style.display = "flex";
+    }
+}
+
+// Функция закрытия модального окна
+function closeUpdatesLog() {
+    const modal = document.getElementById("updates-modal");
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+// ==========================================
+// МОДАЛЬНЕ ВІКНО "SUGGESTIONS" (ФОРМА ПРОПОЗИЦІЙ)
+// ==========================================
+
 // 6. Открытие модального окна предложений
 function openSuggestionsModal() {
     const modal = document.getElementById("suggestions-modal");
     if (modal) modal.style.display = "flex";
 }
 
-// Закрытие модального окна предложений
+// Функция закрытия модального окна предложений
 function closeSuggestionsModal() {
     const modal = document.getElementById("suggestions-modal");
     if (modal) {
         modal.style.display = "none";
-        document.getElementById("suggestions-form").reset(); // Очищаем форму
+        document.getElementById("suggestions-form").reset(); 
+        
+        const container = document.getElementById("dynamic-values-container");
+        if (container) container.innerHTML = "";
+        valueRowCount = 0; 
     }
 }
-
-// Обновление глобального перехватчика кликов на темную область вокруг окон
-window.addEventListener("click", function(event) {
-    const updatesModal = document.getElementById("updates-modal");
-    const suggestionsModal = document.getElementById("suggestions-modal");
-    
-    if (event.target === updatesModal) closeUpdatesLog();
-    if (event.target === suggestionsModal) closeSuggestionsModal();
-});
 
 // Асинхронная отправка данных формы на ваш email (Formspree API)
 document.addEventListener("DOMContentLoaded", function() {
@@ -402,8 +584,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-let valueRowCount = 0;
-
 // Функция динамического добавления пары полей
 function addAttributeValueRow() {
     valueRowCount++;
@@ -435,18 +615,10 @@ function removeAttributeValueRow(id) {
     if (row) row.remove();
 }
 
-// Функция закрытия модального окна предложений
-function closeSuggestionsModal() {
-    const modal = document.getElementById("suggestions-modal");
-    if (modal) {
-        modal.style.display = "none";
-        document.getElementById("suggestions-form").reset(); 
-        
-        const container = document.getElementById("dynamic-values-container");
-        if (container) container.innerHTML = "";
-        valueRowCount = 0; 
-    }
-}
+
+// ==========================================
+// МОДАЛЬНІ ВІКНА "SUPPLEMENTARY MATERIALS" ТА "MATERIAL CONTENT" (ГЛОСАРІЙ)
+// ==========================================
 
 // Функция модального окна Дополнительных материалов
 function openSupplementaryModal(event) {
@@ -498,6 +670,10 @@ function openInternalMaterialModal(materialId) {
 
                 const row = document.createElement("tr");
                 row.className = `glossary-section-title-row group-${currentGroup}`;
+                
+                // 👇 ДИНАМІЧНО ДОДАЄМО ID ДЛЯ ПРАВИЛЬНОЇ НАВІГАЦІЇ
+                row.id = `sec-${currentGroup}`; 
+                
                 row.innerHTML = `
                     <td class="cell-index">${item.number || ""}</td>
                     <td colspan="3" class="section-text-centered">${item.term}</td>
@@ -559,28 +735,123 @@ function closeMaterialContentModal() {
     if (contentModal) contentModal.style.display = "none";
 }
 
+// Функція повернення назад до модального вікна Supplementary
+function goBackToSupplementary() {
+    closeMaterialContentModal(); // Закриваємо поточне вікно (Глосарій)
+    openSupplementaryModal();    // Відкриваємо попереднє модальне вікно
+}
+
+
+// ==========================================
+// ЗАКРИТТЯ МОДАЛЬНИХ ВІКОН КЛІКОМ ПО ТЕМНІЙ ОБЛАСТІ
+// ==========================================
+
+// Закрытие окна при клике на темную область вокруг него
+window.addEventListener("click", function(event) {
+    const updatesModal = document.getElementById("updates-modal");
+    const suggestionsModal = document.getElementById("suggestions-modal");
+    
+    if (event.target === updatesModal) closeUpdatesLog();
+    if (event.target === suggestionsModal) closeSuggestionsModal();
+});
+
+
+// ==========================================
+// ЛОГИКА ДЛЯ HELP-АККОРДЕОНА (ИЗ HTML)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const helpBtn = document.getElementById('help-trigger-btn');
+    const helpMenu = document.getElementById('help-accordion-menu');
+    
+    if (!helpBtn || !helpMenu) return;
+
+    // Открыть / Закрыть меню Help
+    helpBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Закрываем picker колонок, если он открыт
+        const picker = document.getElementById("column-picker");
+        const settingsBtn = document.querySelector(".settings-btn");
+        if (picker && picker.classList.contains("show")) {
+            picker.classList.remove("show");
+            if (settingsBtn) settingsBtn.classList.remove("active");
+        }
+
+        helpMenu.classList.toggle('show');
+    });
+
+    // Клик по рубрикам внутри аккордеона
+    const headers = helpMenu.querySelectorAll('.help-accordion-header');
+    headers.forEach(header => {
+        header.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            const currentItem = header.parentElement;
+            const currentContent = currentItem.querySelector('.help-accordion-content');
+            const isOpen = currentItem.classList.contains('open');
+
+            // Закрываем остальные открытые рубрики
+            helpMenu.querySelectorAll('.help-accordion-item').forEach(item => {
+                item.classList.remove('open');
+                item.querySelector('.help-accordion-content').style.maxHeight = null;
+            });
+
+            // Открываем текущую рубрику
+            if (!isOpen) {
+                currentItem.classList.add('open');
+                currentContent.style.maxHeight = currentContent.scrollHeight + "px";
+            }
+        });
+    });
+
+    // Глобальный клик "мимо" для закрытия всего меню (включая Fullscreen)
+    document.addEventListener('click', (event) => {
+        const helpContainer = document.querySelector('.help-container');
+        if (helpMenu.classList.contains('show') && helpContainer && !helpContainer.contains(event.target)) {
+            helpMenu.classList.remove('show');
+            
+            helpMenu.querySelectorAll('.help-accordion-item').forEach(item => {
+                item.classList.remove('open');
+                item.querySelector('.help-accordion-content').style.maxHeight = null;
+            });
+        }
+    });
+});
+
+
+// ==========================================
+// НАВІГАЦІЯ ПО ЯКОРЯХ ГЛОСАРІЮ
+// ==========================================
+document.querySelectorAll('.glossary-nav-menu a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
 /**
- * Глобальний форматировщик для Tabulator.
- * Залишає порожні ячейки чистими, для "Yes" виводить зелену галочку, для "No" — червоний хрестик.
+ * Плавно прокручивает третью таблицу (table3) к указанной колонке по её field name.
+ * @param {string} columnField - Название поля колонки (field), к которой нужно скроллить.
  */
-function tabulatorTickCrossCleanFormatter(cell) {
-    const val = cell.getValue();
-    
-    // Якщо значення відсутнє (null, undefined) або є порожнім рядком — залишаємо ячейку чистою
-    if (val === null || val === undefined || val === "") {
-        return ""; 
+function scrollToTable3Column(columnField) {
+    // 1. Проверяем, инициализирована ли таблица 3 и активна ли она
+    if (window.table3) {
+        // 2. Метод Tabulator scrollToColumn возвращает Promise и плавно скроллит к колонке.
+        // Передаем true во второй параметр для выравнивания по левому краю (left) и "smooth" для анимации.
+        window.table3.scrollToColumn(columnField, "left", true)
+            .catch(err => {
+                console.warn(`Не удалось прокрутить к колонке "${columnField}":`, err);
+            });
+    } else {
+        console.warn("Таблица table3 еще не инициализирована. Скроллинг невозможен.");
     }
-    
-    // Перевірка на істинність (строка "Yes", логічне true або рядок "true")
-    if (val === "Yes" || val === true || val === "true") {
-        return "<span class='table-tick'>✔</span>";
-    }
-    
-    // Перевірка на хибність (строка "No", логічне false або рядок "false")
-    if (val === "No" || val === false || val === "false") {
-        return "<span class='table-cross'>✘</span>";
-    }
-    
-    // Якщо прийшло будь-яке інше специфічне текстове значення — виводимо як є
-    return val;
 }

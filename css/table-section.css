@@ -55,11 +55,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #EDEADE;
-    padding: 0.5vh 1.5vw;
-    border-top: 1px solid #D1CBC5;
-    border-bottom: 1px solid #D1CBC5;
-    box-sizing: border-box;
+    padding: 0.2vh 1.5vw;
+    background: #f3efe7;
+    border: 1px solid #d2c7b8;
+    box-shadow: 0 1px 4px rgba(80,70,50,0.08);
 }
 
 .settings-group {
@@ -79,7 +78,7 @@
 }
 
 /* Уніфіковані стилі іконок для всіх кнопок */
-.tab-button i, .settings-btn i, .fullscreen-btn i, .supplementary-btn i {
+.tab-button i, .settings-btn i, .fullscreen-btn i, .supplementary-btn i, .help-btn i {
     font-size: 0.85rem !important;
 }
 
@@ -87,70 +86,75 @@
 .settings-btn,
 .fullscreen-btn,
 .supplementary-btn,
-.scroll-arrow-btn {
+.scroll-arrow-btn,
+.help-btn {
     height: var(--table-nav-btn-height) !important;
     min-height: var(--table-nav-btn-height) !important;
 }
 
-/* Кнопки навигации */
+/* 3.1 Перші три кнопки навігації (Базові вкладки) */
 .tab-button {
     padding: 0 1.2vw !important; /* Пропорційні відступи */
     font-size: 0.85rem !important;
     border-radius: 6px;
     cursor: pointer;
     margin-right: 5px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    white-space: nowrap; /* Щоб текст не розривався на два рядки */
-    background-color: #FAF8F5 !important;
-    border: 1px solid #C2BAB0 !important;
-    color: #5C524A !important;
     font-weight: 600 !important;
+    white-space: nowrap; 
+    color: #5C524A !important;
+    background-color: #FAF8F5 !important; /* Колір світлого пергаменту */
+    border: 1px solid #C2BAB0 !important; /* М'яка базова рамка */
+    box-shadow: 0 1px 3px rgba(74, 64, 54, 0.05) !important;
+    transition: all 0.15s ease-in-out !important;
 }
-
+ 
 .tab-button:hover {
     background-color: #8E7F71 !important;
     color: #FFF !important;
     border-color: #8E7F71 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
-
+ 
+/* ІСПРАВЛЕНО: Стиль активної кнопки для перших трьох вкладок */
 .tab-button.active {
-    background: #ffffff;
-    color: #0078d4;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    border-bottom: 3px solid #0078d4;
-    font-weight: bold;
+    background-color: #8E7F71 !important; /* Повна заливка кольором футера */
+    color: #FFFFFF !important;            /* Контрастний білий текст */
+    box-shadow: 0 2px 5px rgba(74, 64, 54, 0.2) !important;
+    font-weight: 700 !important;
 }
+ 
 
-/* Кнопка колонок */
+/* 3.3 Нейтральна кнопка вибору колонок (Show/Hide) */
 .settings-btn { 
     display: flex;
     align-items: center;
-    gap: 0.5vw; /* Відстань між іконкою та текстом */
+    gap: 0.5vw; 
     font-size: 0.85rem !important;
     padding: 0 1vw !important;
     border-radius: 6px;
-    transition: all 0.3s ease;
-    background-color: #FAF8F5 !important;
-    border: 1px solid #C2BAB0 !important;
-    color: #5C524A !important;
     font-weight: 600 !important;
+    background-color: #FAF8F5 !important; /* Абсолютно нейтральна без фону */
+    border: 1px solid #DCD5C5 !important;      /* Бліда акуратна рамка */
+    color: #5C524A !important;                /* Приглушений колір сепії */
+    transition: all 0.15s ease-in-out !important;
 }
-
+ 
 .settings-btn:hover {
     background-color: #8E7F71 !important;
     color: #FFF !important;
     border-color: #8E7F71 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
-
+ 
+/* ІСПРАВЛЕНО: Нейтральний активний стан для вибору колонок */
 .settings-btn.active {
-    background: #ffffff;
-    color: #0078d4;
-    border-bottom: 3px solid #0078d4;
-    font-weight: bold;
+    background-color: #E6E1DA !important;
+    color: #4A4036 !important;
+    border-color: #8E7F71 !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Кнопка розгортання */
+/* 3.4 Кнопка розгортання (Full Screen) — Максимальне виділення інверсією */
 .fullscreen-btn {
     border-radius: 6px;
     padding: 0 0.8vw !important;
@@ -159,35 +163,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
-    background-color: #FAF8F5 !important;
-    border: 1px solid #C2BAB0 !important;
-    color: #5C524A !important;
+    background-color: #8E7F71 !important; /* Повна заливка кольором футера */
+    border: 1px solid #8E7F71 !important; 
+    color: #FFFFFF !important;            /* Контрастний білий колір */
+    box-shadow: 0 1px 4px rgba(74, 64, 54, 0.15) !important;
+    transition: all 0.15s ease-in-out !important;
 }
 
 .fullscreen-btn:hover {
-    background-color: #8E7F71 !important;
-    color: #FFF !important;
-    border-color: #8E7F71 !important;
+    background-color: #5C524A !important; /* Пом'якшення тону при ховері */
+    border-color: #5C524A !important;
+    color: #FFFFFF !important;
 }
 
-/* --- 3.1 Кнопка "Додаткові матеріали" (Supplementary) --- */
-
+/* 3.2 Кнопка "Додаткові матеріали" (Supplementary) — Виділення кольором */
 .nav-tabs .supplementary-btn {
-    margin-left: 15px !important;
+    margin-left: 2.5vw !important;
     padding: 0 1vw !important;
-    background-color: #FAF8F5 !important;
-    border: 1px solid #C2BAB0 !important;
-    color: #5C524A !important;
+    font-size: 0.85rem !important;
+    border-radius: 6px;
+    cursor: pointer;
     font-weight: 600 !important;
-
+    white-space: nowrap;
+    background-color: #4A6572 !important; /* Колір світлого пергаменту */
+    border: 1px solid #344955 !important; /* М'яка базова рамка */
+    box-shadow: 0 1px 3px rgba(74, 64, 54, 0.05) !important;
+    color: #FAF8F5 !important;
+    transition: all 0.15s ease-in-out !important;
 }
-
+ 
 .nav-tabs .supplementary-btn:hover {
-    background-color: #8E7F71 !important;
-    color: #FFF !important;
-    border-color: #8E7F71 !important;
+    background-color: #344955 !important; /* Чуть темнее при наведении */
+    color: #FFFFFF !important;
 }
+ 
 
 /* --- 3.2 Фікс z-index оверлею у повноекранному режимі ---
    Щоб модалка Supplementary не ховалась під таблицею,
@@ -195,8 +204,6 @@
 .fullscreen-mode .modal-overlay {
     z-index: 999999 !important;
 }
-
-
 
 /* ============================================================
    4. ВКЛАДКИ
@@ -229,7 +236,7 @@
     width: 100vw !important;
     height: 100vh !important;
     z-index: 10001 !important; /* Поверх усього */
-    background: #EDEADE;
+    background: #EDEADE !important;
     flex: none !important; /* Відключаємо flex-basis */
 }
 
@@ -250,40 +257,42 @@
     top: calc(100% + 5px) !important;
     right: 0 !important;
     
-    background-color: #EDEADE !important;
+    background-color: #E6E1DA !important;
     border: 1px solid #C2BAB0 !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
     z-index: 99999 !important;
     border-radius: 4px !important;
     padding: 15px !important;
-    
-    /* 1. КРИТИЧЕСКИ ВАЖНО: Фиксируем высоту пикера. 
-       Если высота будет резиновой, то все элементы уйдут в один бесконечный столбец вниз.
-       Высота в 250px-300px — идеальна, чтобы распределить 12-16 колонок в 3-4 столбца. */
-    height: 300px !important; 
-    max-height: 45vh !important;
-    box-sizing: border-box !important; /* Гарантируем, что padding не будет раздувать эти 260px */
-    
-    /* Дополнительно предотвращаем схлопывание флекса, если он внутри другого флекс-бокса */
+    box-sizing: border-box !important;
     flex-shrink: 0 !important;
     
-    /* 2. ИЗМЕНЕНИЕ ЛОГИКИ НА СВЕРХУ ВНИЗ */
-    flex-direction: column !important; /* Выстраиваем элементы вертикально в столбик */
-    flex-wrap: wrap !important;        /* Разрешаем перенос столбцов вправо, когда не хватает высоты */
+    /* ЛОГИКА ЗАПОЛНЕНИЯ: СВЕРХУ ВНИЗ С ПЕРЕНОСОМ ВБОК */
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
     
-    /* Отступы: 10px между элементами в столбце, 30px между самими столбцами */
-    gap: 10px 30px !important; 
+    /* Расстояния: 8px между чекбоксами в столбце, 24px между столбцами */
+    gap: 8px clamp(16px, 1.5vw, 40px) !important; 
     
-    /* Ширина будет автоматически расширяться вправо по мере появления новых столбцов */
-    width: max-content !important; 
-    max-width: 1800px !important;
-    min-width: 1000px !important;
+    /* ============================================================
+       СТАБИЛИЗАЦИЯ ГЕОМЕТРИИ (Адаптация под любые экраны)
+       ============================================================ */
     
-    /* Скрываем вертикальный скролл, так как сетка теперь растет вбок */
+    /* ВЫСОТА: Фиксируем через vh. Окно займет ровно треть высоты любого экрана.
+       Это гарантирует, что количество строк в одном столбце везде будет одинаковым */
+    height: 30vh !important; 
+    min-height: 200px !important; /* Защита от полного схлопывания на очень низких экранах */
+    max-height: 400px !important; /* Ограничение сверху для огромных 4K мониторов */
+
+    /* ШИРИНА: Автоматически подстраивается под контент, но имеет жесткие рамки */
+    width: max-content !important;
+    min-width: 60vw !important;    /* На вашем экране займет не менее 60% ширины */
+    max-width: 80vw !important;    /* Не выйдет за пределы экрана */
+
+    /* СКРОЛЛБАРЫ: Если столбцов слишком много, окно аккуратно скроллится вбок */
     overflow-y: hidden !important; 
     overflow-x: auto !important;
     scrollbar-width: thin !important;
-    scrollbar-color: #8E7F71 #FAF8F5 !important;
+    scrollbar-color: #8E7F71 #EDEADE !important;
 }
 
 /* Активация сетки скриптом */
@@ -305,7 +314,7 @@
     font-family: 'Source Sans 3', sans-serif !important;
     font-size: 0.8rem !important;
     font-weight: 500 !important;
-    color: #4A4541 !important;
+    color: #4A423A !important;
     cursor: pointer !important;
     display: flex !important;
     flex-direction: row !important;
@@ -326,8 +335,8 @@
     appearance: none !important;
     -webkit-appearance: none !important;
     margin: 0 3px !important;
-    width: 12px !important;
-    height: 12px !important;
+    width: 0.75rem !important;
+    height: 0.75rem !important;
     border: 1px solid #8E7F71 !important;
     transform: rotate(45deg) !important;
     background: #FFF !important;
@@ -353,30 +362,58 @@
     transform: translate(-50%, -50%) rotate(-45deg) !important;
 }
 
-.picker-select-all-btn {
+/* Контейнер для кнопок управления внутри пикера */
+.picker-controls {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    height: 100% !important; /* Занимает всю высоту первой колонки */
+    width: 180px !important;  /* Фиксированная ширина блока управления */
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    padding-right: 20px !important;
+    /* Создаем красивую разделительную черту справа от кнопок */
+    border-right: 1px solid #C2BAB0 !important; 
+    /* Выравниваем контейнер по центру вертикали */
+    justify-content: center !important; 
+}
+
+/* Общие стили для кнопок управления */
+.picker-select-all-btn,
+.picker-clear-all-btn {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 8px !important;
     background-color: #FFF !important;
     border: 1px solid #C2BAB0 !important;
     color: #8E7F71 !important;
-    padding: 5px 12px !important;
+    padding: 7px 14px !important; /* Слегка увеличили внутренние отступы для кликабельности */
     font-family: 'Source Sans 3', sans-serif !important;
-    font-size: 0.75rem !important;
+    font-size: 0.78rem !important;
     font-weight: 600 !important;
     border-radius: 4px !important;
     cursor: pointer !important;
-    transition: all 0.2s ease-in-out !important;
-    flex: 0 0 auto !important;
-    width: 180px !important;
-    margin-bottom: 5px !important;
+    transition: all 0.15s ease-in-out !important;
+    width: 100% !important; /* Занимают всю ширину контейнера .picker-controls */
+    box-sizing: border-box !important;
+    margin: 0 !important; /* Сбрасываем старые маргины */
 }
 
+/* Ховер для Show All */
 .picker-select-all-btn:hover {
     background-color: #8E7F71 !important;
     color: #FFF !important;
+    border-color: #8E7F71 !important;
 }
+
+/* Ховер для Clear All */
+.picker-clear-all-btn:hover {
+    background-color: #d9534f !important; /* Приглушенный красный */
+    color: #FFF !important;
+    border-color: #d9534f !important;
+}
+
 
 .column-item.column-interface input[type="checkbox"] { border-color: #D6C83C !important; }
 .column-item.column-interface input[type="checkbox"]:checked { background-color: #D6C83C !important; }
@@ -398,8 +435,8 @@
 
 /* Настройка размеров дорожки скроллбара (горизонтального и вертикального на всякий случай) */
 #column-picker::-webkit-scrollbar {
-    height: 8px; /* Чуть тоньше, чтобы смотрелось элегантно в маленьком меню */
-    width: 8px;
+    height: 0.45rem !important;
+    width: 0.45rem !important;
 }
 
 /* Настройка бегунка (ползунка) */
@@ -433,6 +470,7 @@
 .tabulator {
     height: 100% !important; /* Важно, чтобы Tabulator видел высоту родителя */
     background-color: #EDEADE !important;
+    border-top: none;
     border: 1px solid #D1CBC5 !important;
     border-radius: 8px;
     overflow: hidden; /* Щоб кути таблиці були заокруглені */
@@ -451,22 +489,23 @@
 }
 
 
+
 /* ============================================================
    10. TABULATOR — ХЕДЕР
    ============================================================ */
 
 /* Хедер та його зміст */
 .tabulator .tabulator-header {
-    background-color: #DFD8D0 !important; /* Більш глибокий беж */
-    color: #4A4541 !important;           /* Темно-коричневий текст замість чорного */
-    border-bottom: 2px solid #D1CBC5 !important;
+    border: none !important; /* Полное удаление рамок в шапке */
+    color: #4A423A !important;           /* Темно-коричневий текст замість чорного */
     font-weight: 700;
     font-size:  0.9rem !important;
+    border-bottom: 2px solid #C2BAB0 !important;
 }
 
 .tabulator .tabulator-header .tabulator-col {
-    background-color: #DFD8D0 !important;
-    border-right: 1px solid #D1CBC5 !important;
+    background-color: #E6E1DA !important; /* Цвет футера */
+    border-right: 1px solid #C2BAB0 !important;
 }
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
@@ -483,9 +522,9 @@
 
 /* Знаходимо інпут всередині контейнера фільтра */
 .tabulator .tabulator-header .tabulator-col .tabulator-header-filter input {
-    background-color: #ffffff !important; /* Колір фону */
-    color: #212529 !important;            /* Колір тексту */
-    border: 1px solid #ced4da !important; /* Рамка */
+    color: #4A423A !important;            /* ИСПРАВЛЕНО: Глубокий цвет сепии для текста */
+    background-color: #FAF8F5 !important; /* ИСПРАВЛЕНО: Мягкий цвет пергамента вместо прозрачного белого */
+    border: 1px solid #D9D2C9 !important; /* ИСПРАВЛЕНО: Аккуратная кофейно-серая граница */
     border-radius: 4px !important;
     font-family: 'Source Sans 3' !important;
     padding: 2px 6px !important; 
@@ -493,13 +532,21 @@
     height: clamp(18px, 2.2vh, 26px) !important; /* Чітко обмежена висота */
     box-sizing: border-box !important;
     width: 100% !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+/* ИСПРАВЛЕНО: Цвет плейсхолдера ("Enter condition..."), хорошо читаемый на светлом фоне */
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input::placeholder {
+    color: #8E7F71 !important; /* Приглушенный кофейный оттенок */
+    opacity: 0.7 !important;
 }
 
 /* Стан при натисканні (фокус) */
 .tabulator .tabulator-header .tabulator-col .tabulator-header-filter input:focus {
-    border-color: #0078d4 !important;
-    background-color: #fff !important;
-    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1) !important;
+    color: #4A4036 !important; 
+    background-color: #FFFFFF !important;  /* ИСПРАВЛЕНО: Чистый белый при фокусе для максимального удобства ввода */
+    border-color: #8E7F71 !important;      /* Мягкий коричневый акцент */
+    box-shadow: 0 0 0 2px rgba(142, 127, 113, 0.2) !important; /* Легкое свечение в тон сепии */
     outline: none !important;
 }
 
@@ -515,15 +562,19 @@
     border-bottom: 1px solid #eee !important;
 }
 
-/* "Зебра" */
+/* "Зебра" — Нечетные строки */
 .tabulator-row.tabulator-row-odd {
     background-color: #FFFFFF !important;
 }
+
+/* "Зебра" — Четные строки */
 .tabulator-row.tabulator-row-even {
-    background-color: #F5F2F0 !important; /* Світло-бежева зебра */
+    background-color: #F5F2F0!important; /* ИСПРАВЛЕНО: На грани восприятия, без грязного серого оттенка */
 }
+
+/* Эффект наведения на строку */
 .tabulator-row:hover {
-    background-color: #E5E0DB !important;
+    background-color: #E5E0DB !important; /* ИСПРАВЛЕНО: Элегантный ховер в тон нового бэкграунда сайта */
     transition: background 0.1s ease-in-out;
 }
 
@@ -532,21 +583,21 @@
 /* Окрема комірка */
 .tabulator .tabulator-cell {
     padding: 0.4vh 10px !important; 
-    border-right: 1px solid #EDEADE !important;
+    border-right: 1px solid #EDEADE !important; /* ИСПРАВЛЕНО: Полностью удаляем вертикальные рамки (было #EDEADE) */
     font-size: 0.8rem !important;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Прибираємо останню вертикальну лінію справа */
+/* Прибираємо останню вертикальну лінію справа (оставляем для безопасности) */
 .tabulator .tabulator-cell:last-child {
     border-right: none !important;
 }
 
-/* Тень-разделитель справа у frozen столбца */
+/* Тень-разделитель справа у frozen столбца — делаем её мягче в тон сепии */
 .tabulator .tabulator-frozen-right,
 .tabulator .tabulator-frozen-left {
-    box-shadow: 3px 0 6px rgba(0,0,0,0.12) !important;
+    box-shadow: 4px 0 10px rgba(74, 64, 54, 0.08) !important; /* ИСПРАВЛЕНО: Мягкая коричневатая тень вместо жесткой черной */
 }
 
 /* --- 11.3 Колонка Title (збільшений шрифт) --- */
@@ -564,23 +615,23 @@
 
 /* Колір для колонки "Загальна" */
 .tabulator .tabulator-header .tabulator-col.column-general {
-    background-color: #ECEAE4!important; 
+    background-color: #E2DDD3 !important;
 }
 /* Колір для колонки "Інтерфейс" */
 .tabulator .tabulator-header .tabulator-col.column-interface {
-    background-color: #fffbd2!important; 
+    background-color: #EADCB9 !important; 
 }
 /* Колір для колонки "Навігація" */
 .tabulator .tabulator-header .tabulator-col.column-navigation {
-    background-color: #CFE2F3 !important; 
+    background-color: #BDCEDC !important; 
 }
 /* Колір для колонки "Representation" */
 .tabulator .tabulator-header .tabulator-col.column-represent {
-    background-color: #CAE2BF !important; 
+    background-color: #B9CBB2 !important; 
 }
 /* Колір для колонки "Functionallity" */
 .tabulator .tabulator-header .tabulator-col.column-func {
-    background-color: #D6D6D6!important; 
+    background-color: #D3D3D0 !important; 
 }
 
 
@@ -690,22 +741,51 @@
    14. TABULATOR — СКРОЛБАР ТАБЛИЦІ
    ============================================================ */
 
-/* Настроим внешний вид скроллбара, чтобы он был заметным в темной теме */
-.tabulator-tableholder::-webkit-scrollbar {
-    height: 10px; /* Высота горизонтального скролла */
-    width: 10px;
-}
-.tabulator-tableholder::-webkit-scrollbar-thumb {
-    background: #C2BAB0; 
-    border-radius: 5px;
-}
-.tabulator-tableholder::-webkit-scrollbar-thumb:hover {
-    background: #8E7F71; /* Цвет меняется при наведении */
-}
-/* Основной контейнер прокрутки Tabulator */
+/* --- 14.1 Головний контейнер прокрутки Tabulator --- */
 .tabulator .tabulator-tableholder {
-    scrollbar-width: thin !important; /* Firefox */
-    scrollbar-color: #C2BAB0 #FDFDFB !important; /* Firefox: бегунок / дорожка */
+    /* Підтримка Firefox */
+    scrollbar-width: auto !important; /* Повертаємо стандартну товщину в Firefox, щоб він був товстішим */
+    scrollbar-color: #C2BAB0 #FCFBF7 !important; 
+
+    /* Адаптивність та плавність для мобільних та тач-скринів */
+    -webkit-overflow-scrolling: touch !important; 
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable; 
+}
+
+/* --- 14.2 Webkit-браузери (Chrome, Safari, Edge, Opera, iOS, Android) --- */
+
+/* Збільшуємо загальну ширину та висоту скролбару для легкого захоплення */
+.tabulator-tableholder::-webkit-scrollbar {
+    height: 10px !important;  /* Було 8px -> Стало 11px (горизонтальний) */
+    width: 10px !important;   /* Було 8px -> Стало 11px (вертикальний) */
+}
+
+/* Доріжка, по якій рухається повзунок */
+.tabulator-tableholder::-webkit-scrollbar-track {
+    background: #FCFBF7 !important; 
+    border-radius: 6px !important;
+    cursor: pointer !important; /* Курсор-вказівник при наведенні на доріжку */
+}
+
+/* Повзунок (бігунок) скролбару */
+.tabulator-tableholder::-webkit-scrollbar-thumb {
+    background-color: #C2BAB0 !important; 
+    border-radius: 9px !important; 
+    
+    /* Збільшуємо товщину самого повзунка, залишаючи естетичний зазор */
+    border: 2px solid #FCFBF7 !important; 
+    
+    /* Зміна курсору на "ручку" при наведенні на повзунок */
+    cursor: pointer !important; 
+    
+    transition: background-color 0.2s ease-in-out !important;
+}
+
+/* Повзунок при наведенні */
+.tabulator-tableholder::-webkit-scrollbar-thumb:hover {
+    background-color: #8E7F71 !important; /* Темніша сепія */
+    cursor: pointer !important; /* Примусовий дубляж курсору для стабільності на ховері */
 }
 
 
@@ -715,12 +795,14 @@
 
 /* Контейнер списку фільтрації колонок таблиці */
 .tabulator-edit-list {
-    background: #ffffff !important;
-    border: 1px solid #ced4da !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
-    z-index: 10000 !important;
-    padding: 2px 0 !important;
-    border-radius: 4px !important;
+    background-color: #FBF9F6 !important; /* Наш фирменный светлый беж */
+    border: 1px solid #E6E1DA !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(74, 69, 65, 0.15) !important;
+    padding: 4px 0 !important;
+    max-height: 250px !important;
+    overflow-y: auto !important;     
+    z-index: 100000 !important;
 }
 
 /* Окремий пункт у списку */
@@ -728,15 +810,48 @@
     font-family: 'Source Sans 3', sans-serif !important;
     font-size: 0.75rem !important;
     padding: 4px 10px !important; /* Зменшені відступи */
-    color: #212529 !important;
+    color: #4A4541 !important; /* Графитово-коричневый текст */
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: background-color 0.15s ease-in-out;
 }
 
 /* Ефект при наведенні на пункт */
 .tabulator-edit-list-item:hover {
-    background-color: #f1f3f5 !important; /* Світло-сірий фон */
-    color: #0078d4 !important; /* Синій текст при наведенні */
+    background-color: #EDEADE !important; /* Мягкий бежевый тон при наведении */
+    color: #2B2B2B !important;
     cursor: pointer;
 }
+
+/* Активный/выбранный пункт списка */
+.tabulator-edit-list-item.active {
+    background-color: #E6E1D3 !important;
+    font-weight: 600;
+}
+
+/* ===========================================================
+   КАСТОМНЫЙ СКРОЛЛБАР ДЛЯ СПИСКА ВЫБОРА
+   =========================================================== */
+.tabulator-edit-list::-webkit-scrollbar {
+    width: 6px !important;
+    display: block !important;
+}
+
+.tabulator-edit-list::-webkit-scrollbar-track {
+    background: #FBF9F6 !important;
+    border-radius: 0 6px 6px 0;
+}
+
+.tabulator-edit-list::-webkit-scrollbar-thumb {
+    background: #E6E1DA !important;
+    border-radius: 3px !important;
+}
+
+.tabulator-edit-list::-webkit-scrollbar-thumb:hover {
+    background: #C2BAB0 !important;
+}
+
 
 
 /* ============================================================
@@ -961,7 +1076,7 @@
 
 /* Кнопки-стрелки полностью наследуют стилистику верхних круглых/квадратных кнопок */
 .scroll-arrow-btn {
-    background-color: #FAF8F5 !important;
+    background-color: #FAF8F5 !important;;
     border: 1px solid #C2BAB0 !important;
     color: #5C524A !important;
     border-radius: 6px !important;       /* Округление 6px, как у остальных кнопок шапки */
@@ -983,11 +1098,15 @@
     background-color: #8E7F71 !important;
     color: #FFF !important;
     border-color: #8E7F71 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
 
 /* Эффект нажатия */
 .scroll-arrow-btn:active {
-    transform: scale(0.95) !important;
+    background-color: #EDEADE !important;
+    color: #4A4036 !important;
+    border-color: #8E7F71 !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 
@@ -1035,6 +1154,48 @@
     transform: scale(0.97) !important;
 }
 
+/* Общие стили для новых кнопок управления строками в футере */
+.footer-row-control-btn {
+    background: #FFF !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #8E7F71 !important;
+    padding: 3px 8px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease-in-out !important;
+    margin-right: 5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+/* Эффект наведения для кнопки изоляции строк */
+.footer-isolate-btn:hover {
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
+}
+
+/* Эффект наведения для кнопки сброса фильтра строк (приглушенный красный) */
+.footer-reset-btn:hover {
+    background-color: #d9534f !important;
+    color: #FFF !important;
+    border-color: #d9534f !important;
+}
+
+/* Стилизация строки, выбранной двойным кликом (остается без изменений) */
+.tabulator-row.tabulator-selected {
+    background-color: #EDEADE !important; 
+    color: #4A4541 !important;            
+    border-bottom: 1px dashed #C2BAB0 !important;
+}
+
+.tabulator-row.tabulator-selected:hover {
+    background-color: #E6E1D3 !important; 
+}
 
 /* ============================================================
    22. ЗНАЧКИ "ТАК" / "НІ"
@@ -1050,3 +1211,283 @@
     font-weight: bold;
 }
 
+/* ============================================================
+   23. КНОПКА И КОНТЕЙНЕР HELP
+   ============================================================ */
+
+/* Контейнер для изоляции позиционирования меню */
+/* Контейнер для ізоляції позиціонування меню */
+.help-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* ІСПРАВЛЕНО: Кнопка Help (Бордовий відтенок старої печатки) */
+.help-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 0.85rem !important;
+    padding: 0 0.8vw !important;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    cursor: pointer;
+    background-color: #9E4747 !important;; /* Той самий фон, що й у tab-button */
+    border: 1px solid #7D3838 !important; /* Та сама рамка */
+    color: #FAF8F5 !important;            /* Глибокий бордо — тільки в тексті */
+    transition: all 0.15s ease-in-out !important;
+}
+ 
+.help-btn:hover {
+    background-color: #7D3838 !important;
+    color: #FFFFFF !important;
+}
+ 
+.help-btn.active {
+    background-color: #7D3838 !important; /* Глубокий винный (соответствует hover-состоянию базовой кнопки) */
+    color: #FAF8F5 !important;            /* Кремовый светлый текст вместо жесткого белого */
+    border-color: #612B2B !important;     /* Тёмный аккуратный контур для объема */
+    font-weight: 700 !important;
+    
+    /* Дополнительно: небольшая внутренняя тень, чтобы кнопка выглядела "нажатой" */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+/* Главный контейнер выпадающего окна — полная синхронизация с #column-picker */
+.help-accordion-menu {
+    display: none !important; /* Управляется скриптом через класс .show */
+    position: absolute !important;
+    top: calc(100% + 5px) !important; /* Тот же зазор, что и у пикера колонок */
+    right: 0 !important; /* Выравнивание по правому краю кнопки */
+    
+
+    width: max-content !important;
+    min-width: 15vw !important;    /* На вашем экране займет не менее 60% ширины */
+    max-width: 25vw !important;    /* Не выйдет за пределы экрана */
+    
+    background-color: #E6E1DA !important; /* Фирменный бежевый фон */
+    border: 1px solid #C2BAB0 !important; /* Академическая рамка проекта */
+    border-radius: 4px !important; /* Единый радиус скругления */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    z-index: 99999 !important; /* На уровне с #column-picker, поверх таблиц */
+    padding: 10px !important;
+    box-sizing: border-box !important;
+}
+/* Ноутбуки 1536 и меньше */
+@media (max-width: 1536px) {
+    .help-accordion-menu {
+        min-width: 35vw !important;
+    }
+}
+
+/* Отображение при активации */
+.help-accordion-menu.show {
+    display: block !important;
+}
+
+/* Элементы аккордеона */
+.help-accordion-item {
+    border-bottom: 1px solid #C2BAB0 !important; /* Разделитель в тон рамок */
+}
+.help-accordion-item:last-child {
+    border-bottom: none !important;
+}
+
+/* Заголовки рубрик — стилизация под кнопки навигации (.tab-button) */
+.help-accordion-header {
+    width: 100% !important;
+    background: none !important;
+    border: none !important;
+    text-align: left !important;
+    padding: 10px 8px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.9rem !important; /* Унифицированный размер шрифта кнопок */
+    font-weight: 600 !important;
+    color: #4A423A !important; /* Фирменный цвет сепии текста */
+    cursor: pointer !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    outline: none !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+/* Эффект наведения — наследует академический ховер проекта */
+.help-accordion-header:hover {
+    background-color: #FAF8F5 !important; /* Оттенок отбеливания */
+    color: #8E7F71 !important; /* Акцентный коричневый */
+}
+
+/* Иконка стрелочки-индикатора FontAwesome */
+.help-accordion-header::after {
+    content: '\f107' !important; /* Перевернутая стрелка FontAwesome */
+    font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', sans-serif !important;
+    font-weight: 900 !important;
+    font-size: 12px !important;
+    transition: transform 0.2s ease !important;
+    color: #8E7F71 !important; /* В тон основным акцентам */
+}
+
+/* Поворот стрелочки при открытии вкладки */
+.help-accordion-item.open .help-accordion-header::after {
+    transform: rotate(180deg) !important;
+}
+
+/* Контент рубрики (анимация развертывания) */
+.help-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease-out;
+    background-color: #E6E1DA !important;
+    
+}
+
+/* ------------------------------------------------------------------
+   СПЕЦИАЛЬНЫЙ СТИЛЬ ТОЛЬКО ДЛЯ ПОСЛЕДНЕЙ РУБРИКИ (Sorting and Filtering)
+   ------------------------------------------------------------------ */
+
+/* Когда ПОСЛЕДНЯЯ вкладка открыта, ограничиваем её высоту и включаем скролл */
+.help-accordion-item:last-child.open .help-accordion-content {
+    max-height: 100px !important; /* Высота, при которой внутри начнется прокрутка */
+    overflow-y: auto !important;   /* Включаем вертикальный скролл */
+}
+
+/* Кастомный скроллбар только для последней вкладки */
+.help-accordion-item:last-child .help-accordion-content::-webkit-scrollbar {
+    width: 5px !important;
+}
+.help-accordion-item:last-child .help-accordion-content::-webkit-scrollbar-track {
+    background: #E6E1DA !important;
+}
+.help-accordion-item:last-child .help-accordion-content::-webkit-scrollbar-thumb {
+    background: #C2BAB0 !important;
+    border-radius: 3px !important;
+}
+.help-accordion-item:last-child .help-accordion-content::-webkit-scrollbar-thumb:hover {
+    background: #8E7F71 !important;
+}
+.help-accordion-item:last-child .help-accordion-content {
+    scrollbar-width: thin !important;
+    scrollbar-color: #C2BAB0 #E6E1DA !important;
+}
+
+/* Списки с описанием внутри контента */
+.help-accordion-content ul {
+    margin: 0 !important;
+    padding: 10px 12px 12px 24px !important;
+    list-style-type: disc !important;
+}
+.help-accordion-content li {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+    color: #4A423A !important;
+    margin-bottom: 6px !important;
+}
+.help-accordion-content li:last-child {
+    margin-bottom: 0 !important;
+}
+/* Выделение ключевых слов внутри контента помощи */
+.help-accordion-content li strong {
+    color: #2E2721 !important; /* Более глубокий, контрастный кофейный цвет */
+    font-weight: 700 !important; /* Четкое выделение */
+}
+
+/* ------------------------------------------------------------------
+   НАВИГАЦИЯ ДЛЯ ТРЕТЬЕЙ ТАБЛИЦЫ
+   ------------------------------------------------------------------ */
+
+/* Контейнер панели переходов */
+.table3-anchors-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Адаптивный отступ между подписью и точками */
+    background-color: transparent !important; /* Убираем белый фон, чтобы сливался с футером */
+    padding: 0.25rem 0.5rem; /* Минимальные паддинги для встраивания */
+    border: none !important; /* Убираем рамки, так как панель теперь внутри футера */
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+/* Подпись */
+.anchors-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem); /* Шрифт плавно масштабируется в зависимости от экрана */
+    font-weight: 700;
+    color: #5C524A;
+    display: flex;
+    align-items: center;
+    gap: 0.4em; /* Иконка масштабируется пропорционально тексту */
+    white-space: nowrap; /* Запрещаем перенос самого слова Quick Jump */
+}
+
+/* Группа точек */
+.anchor-dots-group {
+    display: flex;
+    gap: clamp(8px, 1.2vw, 12px); /* Точки сближаются на маленьких экранах */
+}
+
+/* Базовый стиль точки-кнопки */
+.anchor-dot {
+    position: relative;
+    /* 0.73vw дает идеальный плавный переход: 10px на 1368px и 14px на 1920px */
+    width: clamp(10px, 0.73vw, 14px);  
+    height: clamp(10px, 0.73vw, 14px); /* Сохраняем пропорции идеального круга */
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    flex-shrink: 0; /* Точки сохраняют форму при любом сжатии */
+}
+
+.anchor-dot:hover {
+    transform: scale(1.3);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Цвета для 5 секций (согласно вашей палитре) */
+.anchor-dot.dot-general        { background-color: #E2DDD3; } /* Серый беж */
+.anchor-dot.dot-interface      { background-color: #EADCB9; } /* Охра/Песочный */
+.anchor-dot.dot-navigation     { background-color: #BDCEDC; } /* Голубой */
+.anchor-dot.dot-representation { background-color: #B9CBB2; } /* Светло-серый */
+.anchor-dot.dot-functionality  { background-color: #D3D3D0; } /* Темный беж */
+
+/* Всплывающие подсказки при наведении */
+.anchor-dot .dot-tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 180%; /* Чуть приподняли, чтобы на маленьких экранах тултип не перекрывал точку */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Стилизация под палитру сайта */
+    background-color: #5C524A; /* Благородный темно-коричневый из вашей палитры (цвет текста подписи) */
+    color: #FFF;
+    text-align: center;
+    padding: 0.35em 0.7em; /* Сбалансированные внутренние отступы */
+    border-radius: 4px;
+    
+    /* Адаптивный размер шрифта под экраны от 1368px до 1920px (10px - 11px) */
+    font-size: clamp(10px, 0.57vw, 11px); 
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600; /* Делаем текст чуть более читабельным при мелком шрифте */
+    white-space: nowrap;
+    
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    
+    /* Мягкая тень в стиле элементов сайта */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    z-index: 999; 
+}
+
+/* Эффект плавного появления с легким приподниманием (микроанимация) */
+.anchor-dot:hover .dot-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}

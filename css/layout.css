@@ -1,0 +1,5109 @@
+/* ============================================================
+   LAYOUT.CSS — Головні стилі сторінки
+   Структура:
+     0. Локальні шрифти
+     1. Базова система сторінки
+     2. Шапка сайту
+     3. Вступна секція
+     4. Картки та адаптивність Criteria
+     5. Типографіка About та Info
+     6. Посилання й текстові тригери
+     7. Картка автора, контакти та метадані
+     8. Кнопка Updates Log
+     9. Модальне вікно Updates Log
+    10. Модальне вікно Suggestions
+    11. Модальне вікно Supplementary Materials
+    12. Модальне вікно внутрішніх матеріалів
+    13. Таблиця та навігація глосарію
+   ============================================================ */
+
+/* ============================================================
+   1. БАЗОВА СИСТЕМА: ШРИФТИ, VIEWPORT І BOX MODEL
+   ============================================================ */
+
+:root {
+  /* Шрифтові сімейства — глобальні токени проєкту. */
+  --font-primary:
+    "Source Sans 3",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  --font-display:
+    "Playfair Display",
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  /* Єдина глобальна шкала шрифту. */
+ --root-font-size: clamp(14px, calc(10px + 0.6vmin), 21px);
+
+  font-size: var(--root-font-size);
+
+  color-scheme: light;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  /* Вертикальная структура: 10% + intro не более 60% + таблица */
+  --header-height: 10dvh;
+  --intro-height: min(60dvh, 42rem);
+
+  /* Общая геометрия intro */
+  --intro-padding-block: clamp(18px, 2.2dvh, 40px);
+  --intro-padding-inline: clamp(20px, 2vw, 64px);
+  --intro-card-gap: clamp(22px, 2.35vw, 64px);
+
+  --intro-max-width: 2800px;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background-color: #faf8f5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-primary);
+  color: #2d2924;
+  background-color: #faf8f5;
+}
+
+/* ============================================================
+   2. ШАПКА САЙТА
+   ============================================================ */
+
+.site-header {
+  --header-image-filter:
+    saturate(0.62)
+    sepia(0.08)
+    contrast(1.08)
+    brightness(0.9);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  flex: 0 0 var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: var(--header-height);
+  min-height: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  text-align: center;
+
+  /* Резервный фон до загрузки изображений */
+  background-color: #82735f;
+
+  border-top: 1px solid rgba(244, 237, 224, 0.3);
+  border-bottom: 1px solid rgba(65, 53, 43, 0.55);
+
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 250, 240, 0.18),
+    0 3px 12px rgba(46, 38, 31, 0.2);
+}
+
+
+/* ============================================================
+   2.1 БОКОВЫЕ ПОВТОРЯЮЩИЕСЯ ИЗОБРАЖЕНИЯ
+   ============================================================ */
+
+.site-header::before,
+.site-header::after {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 50%;
+
+  background-image:
+    linear-gradient(
+      rgba(70, 60, 49, 0.12),
+      rgba(70, 60, 49, 0.2)
+    ),
+    url("../img/ai_1.png");
+
+  /*
+   * Сохраняем пропорции изображения.
+   * На широком экране получается примерно 2–3 повторения
+   * с каждой стороны без растягивания картинки.
+   */
+  background-size: clamp(300px, 26vw, 560px) auto;
+  background-position: center 52%;
+  background-repeat: repeat-x;
+  background-blend-mode: multiply;
+
+  filter: var(--header-image-filter);
+
+  pointer-events: none;
+}
+
+.site-header::before {
+  left: 0;
+}
+
+.site-header::after {
+  right: 0;
+
+  /* Зеркально отражаем правую сторону */
+  transform: scaleX(-1);
+}
+
+
+/* ============================================================
+   2.2 ЦЕНТРАЛЬНЫЙ БЛОК С НАЗВАНИЕМ
+   ============================================================ */
+
+.site-header h1 {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  overflow: hidden;
+
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: clamp(500px, 44vw, 920px);
+  max-width: 78vw;
+  min-width: 0;
+
+  margin: 0;
+  padding: 0.08em 1em 0.14em;
+
+  box-sizing: border-box;
+
+  /*
+   * Лёгкие границы отделяют центральную панель,
+   * но не создают эффект отдельной тяжёлой карточки.
+   */
+  border-right: 1px solid rgba(68, 55, 44, 0.22);
+  border-left: 1px solid rgba(68, 55, 44, 0.22);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 248, 232, 0.1),
+    inset 0 0 34px rgba(255, 244, 219, 0.16),
+    0 0 20px rgba(48, 39, 31, 0.16);
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.6rem, 3.7vw, 5rem);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+
+  letter-spacing: 0.045em;
+
+  color: #2c2723;
+
+  /*
+   * Светлая тень отделяет буквы от изображения,
+   * тёмная создаёт глубину без «клякс».
+   */
+  text-shadow:
+    0 1px 0 rgba(255, 248, 232, 0.72),
+    0 3px 7px rgba(52, 41, 32, 0.22);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ============================================================
+   2.3 ФОН ЦЕНТРАЛЬНОГО БЛОКА
+   ============================================================ */
+
+.site-header h1::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(72, 60, 47, 0.12),
+      rgba(72, 60, 47, 0.18)
+    ),
+    url("../img/ai.png");
+
+  background-size: cover;
+  background-position: center 48%;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+
+  /*
+   * Тот же фильтр, что и у ai_1:
+   * обе части шапки получают единую температуру цвета.
+   */
+  filter: var(--header-image-filter);
+
+  transform: scale(1.01);
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   2.4 АДАПТАЦИЯ ШАПКИ
+   ============================================================ */
+
+@media (max-width: 1600px) {
+  .site-header::before,
+  .site-header::after {
+    background-size: clamp(260px, 28vw, 440px) auto;
+  }
+
+  .site-header h1 {
+    width: clamp(440px, 46vw, 700px);
+    max-width: 76vw;
+
+    font-size: clamp(2.5rem, 4vw, 4.2rem);
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 1368px) {
+  .site-header::before,
+  .site-header::after {
+    background-size: clamp(230px, 30vw, 380px) auto;
+  }
+
+  .site-header h1 {
+    width: clamp(400px, 48vw, 620px);
+    max-width: 74vw;
+
+    padding-inline: 0.7em;
+
+    font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+    letter-spacing: 0.035em;
+  }
+}
+
+/* ============================================================
+   3. ВСТУПНА СЕКЦІЯ
+   ============================================================ */
+
+.intro-section {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex: 0 0 auto;
+
+  width: 100%;
+  height: auto;
+  min-height: var(--intro-height);
+
+  align-items: stretch;
+  justify-content: center;
+
+  padding:
+    var(--intro-padding-block)
+    var(--intro-padding-inline);
+
+ background-color: #e5dccf;
+
+  background-image:
+    /* Свет в центральной рабочей области */
+    radial-gradient(
+      ellipse at 50% 44%,
+      rgba(255, 253, 248, 0.72) 0%,
+      rgba(249, 245, 237, 0.38) 48%,
+      transparent 78%
+    ),
+
+    /* Очень деликатные цветовые акценты интерфейса */
+    radial-gradient(
+      circle at 13% 25%,
+      rgba(67, 99, 82, 0.055) 0%,
+      transparent 31%
+    ),
+
+    radial-gradient(
+      circle at 87% 73%,
+      rgba(115, 88, 62, 0.06) 0%,
+      transparent 34%
+    ),
+
+    /* Тонкая координатная сетка */
+    linear-gradient(
+      rgba(91, 78, 63, 0.026) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(91, 78, 63, 0.026) 1px,
+      transparent 1px
+    ),
+
+    /* Основная тёплая поверхность */
+    linear-gradient(
+      135deg,
+      #eee8de 0%,
+      #e4dbce 52%,
+      #d8ccbc 100%
+    );
+
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    38px 38px,
+    38px 38px,
+    100% 100%;
+
+  background-position: center;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    repeat,
+    repeat,
+    no-repeat;
+
+  border-bottom: 1px solid rgba(105, 88, 69, 0.24);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 9px 20px rgba(66, 54, 43, 0.035),
+    inset 0 -8px 18px rgba(66, 54, 43, 0.05);
+}
+
+.intro-container {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.7fr)
+    minmax(0, 1.7fr)
+    minmax(0, 0.4fr);
+
+  grid-template-areas:
+    "criteria about info";
+
+  grid-template-rows: auto;
+  align-items: stretch;
+
+  width: min(100%, var(--intro-max-width));
+  height: auto;
+
+  min-width: 0;
+  min-height: calc(
+    var(--intro-height)
+    - var(--intro-padding-block)
+    - var(--intro-padding-block)
+  );
+
+  margin-inline: auto;
+  gap: var(--intro-card-gap);
+}
+
+/* ============================================================
+   3.1 ТАБЛИЦА ЗАНИМАЕТ ОСТАТОК VIEWPORT
+   ============================================================ */
+
+body > .table-section {
+  flex: 1 0 30dvh;
+
+  height: auto;
+  min-height: 30dvh;
+
+  overflow: hidden;
+}
+
+/* ============================================================
+   4. КАРТОЧКИ
+   ============================================================ */
+/* ============================================================
+   4.1 ОБЩИЕ СТИЛИ КАРТОЧЕК
+   ============================================================ */
+
+.about-block,
+.criteria-block,
+.info-block {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  height: auto;
+  align-self: stretch;
+
+  padding: clamp(16px, 1.15rem, 28px) clamp(16px, 1.25vw, 36px);
+
+  background-color: #f6f3ed;
+  background-image: radial-gradient(
+    circle,
+    rgba(140, 120, 100, 0.06) 1px,
+    transparent 1px
+  );
+
+  background-size: 8px 8px;
+  border: 1px solid #bcafa0;
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 6px rgba(140, 127, 114, 0.04),
+    0 15px 35px rgba(140, 127, 114, 0.1);
+
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.3s ease;
+}
+
+/* ============================================================
+   4.2 СОСТОЯНИЯ КАРТОЧЕК
+   ============================================================ */
+.about-block:focus-within,
+.criteria-block:focus-within,
+.info-block:focus-within {
+  z-index: 10;
+  border-color: #8e7f71;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    z-index: 10;
+
+    transform: translateY(-3px);
+
+    border-color: #8e7f71;
+
+    box-shadow:
+      0 20px 38px rgba(107, 95, 83, 0.15),
+      0 6px 12px rgba(107, 95, 83, 0.05);
+  }
+}
+
+/* ============================================================
+   4.3 ПРОПОРЦИИ И ПОРЯДОК КАРТОЧЕК
+   ============================================================ */
+
+.main-about {
+  grid-area: about;
+
+  background-color: #f6f3ed;
+  background-image: radial-gradient(
+    circle,
+    rgba(140, 120, 100, 0.06) 1px,
+    transparent 1px
+  );
+
+  background-size: 8px 8px;
+} 
+
+.criteria-block {
+  grid-area: criteria;
+
+  padding:
+    clamp(12px, calc(6px + 0.95vmin), 26px)
+    clamp(14px, 1.1vw, 32px);
+}
+
+.info-block {
+  grid-area: info;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  align-self: stretch;
+}
+
+/* Верхняя информация не растягивается */
+.info-block > h2,
+.author-profile {
+  flex: 0 0 auto;
+}
+
+
+/* ============================================================
+   4.4 ЕДИНЫЕ АДАПТИВНЫЕ РЕЖИМЫ СТРАНИЦЫ
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Компактный desktop:
+   1300–1599px либо небольшая доступная высота
+   ------------------------------------------------------------ */
+
+@media screen and (min-width: 1300px) and (max-width: 1599px),
+       screen and (min-width: 1300px) and (max-height: 999px) {
+  :root {
+    --intro-height: min(60dvh, 36rem);
+
+    --intro-padding-block: clamp(14px, 1.7dvh, 20px);
+    --intro-padding-inline: clamp(16px, 1.7vw, 30px);
+    --intro-card-gap: clamp(16px, 1.8vw, 30px);
+  }
+  body > .table-section {
+    flex: 1 1 0;
+    min-height: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   Просторный desktop:
+   реальный большой CSS viewport, а не просто ширина 2000px
+   ------------------------------------------------------------ */
+
+@media screen and (min-width: 2400px) and (min-height: 1250px) {
+  :root {
+    /*
+     * На больших viewport intro занимает меньшую часть экрана.
+     * Карточки не растягиваются вслед за всей высотой монитора.
+     */
+    --intro-height: min(50dvh, 40rem);
+
+    --intro-padding-block: clamp(28px, 2.4dvh, 48px);
+    --intro-padding-inline: clamp(32px, 2.2vw, 72px);
+    --intro-card-gap: clamp(36px, 2.4vw, 72px);
+
+  }
+}
+
+/* Средние и большие desktop с достаточной высотой */
+
+@media screen and
+       (min-width: 1600px) and
+       (max-width: 2399px) and
+       (min-height: 1000px) {
+  :root {
+    --intro-height: min(55dvh, 36rem);
+  }
+}
+
+/* ------------------------------------------------------------
+   Ограниченный режим:
+   менее 1300px либо высота менее 760px
+   ------------------------------------------------------------ */
+
+@media screen and (max-width: 1299px),
+       screen and (max-height: 759px) {
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body {
+    height: auto;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .intro-section {
+    flex: 0 0 auto;
+
+    height: auto;
+    min-height: 0;
+
+    align-items: stretch;
+
+    padding:
+      clamp(20px, 5dvh, 40px)
+      clamp(16px, 4vw, 32px);
+  }
+
+  .intro-container {
+  grid-template-columns: minmax(0, 1fr);
+
+  grid-template-areas:
+    "about"
+    "criteria"
+    "info";
+
+  grid-template-rows:
+    auto
+    auto
+    auto;
+
+  width: 100%;
+  height: auto;
+  max-height: none;
+
+  gap: clamp(18px, 4vw, 32px);
+}
+
+.main-about,
+.criteria-block,
+.info-block {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
+
+  body > .table-section {
+    display: none !important;
+  }
+
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   4.5 КАРТОЧКА CRITERIA: ЗАГОЛОВОК І СПИСОК
+   ============================================================ */
+
+.intro-section .criteria-block h2 {
+  margin: 0;
+  padding-bottom: 0.3rem;
+
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.criteria-list {
+  display: grid;
+  flex: 1 1 auto;
+
+  /*
+   * Каждый пункт получает равную вертикальную область.
+   * Свободное пространство распределяется внутри строк,
+   * а не превращается в огромные промежутки.
+   */
+  grid-auto-rows: minmax(min-content, 1fr);
+  align-items: center;
+
+  width: 100%;
+  min-height: 0;
+
+  margin: 0 0 0.3rem;
+  padding: 0;
+
+  row-gap: clamp(0.3rem, 0.45vmin, 0.55rem);
+
+  list-style: none;
+  counter-reset: criteria-counter;
+}
+
+.criteria-list > li {
+  position: relative;
+
+  margin: 0;
+  padding-left: 1.8em;
+
+  font-size: 1rem;
+  line-height: 1.43;
+
+  color: #212529;
+
+  counter-increment: criteria-counter;
+}
+
+.criteria-list > li::before {
+  content: counter(criteria-counter);
+
+  position: absolute;
+  top: 0.16em;
+  left: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5em;
+  height: 1.5em;
+
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+
+  color: #ffffff;
+  background-color: #7d6e61;
+
+  border: 1px solid #7d6e61;
+  border-radius: 50%;
+
+  box-shadow: 0 2px 5px rgba(125, 110, 97, 0.3);
+}
+
+
+/* ============================================================
+   4.5 КАРТОЧКА CRITERIA: ФУТЕР З ВИЗНАЧЕННЯМИ
+   ============================================================ */
+
+.criteria-footer {
+  position: relative;
+
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  margin-top: 0;
+  padding:
+    clamp(0.55rem, 0.7vmin, 0.7rem)
+    0
+    clamp(0.2rem, 0.25vmin, 0.25rem);
+
+  text-align: center;
+
+  border-top: 2px dashed rgba(97, 60, 36, 0.2);
+}
+
+.definition-popover-wrapper {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 100%;
+}
+
+/* Центральная кнопка футера */
+
+.definition-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  padding: 0.32rem 0.8rem;
+  gap: 0.38rem;
+
+  font-family: var(--font-primary);
+  font-size: clamp(
+    0.94rem,
+    calc(0.76rem + 0.22vw),
+    1.08rem
+  );
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+
+  color: #42634c;
+  background-color: rgba(250, 248, 245, 0.86);
+
+  border: 1px solid rgba(142, 127, 113, 0.48);
+  border-radius: 7px;
+
+  box-shadow:
+    0 2px 5px rgba(77, 68, 60, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.definition-trigger i {
+  flex: 0 0 auto;
+
+  font-size: 0.95em;
+  color: currentColor;
+}
+
+.definition-trigger:hover,
+.definition-trigger[aria-expanded="true"] {
+  color: #35543f;
+  background-color: #f3f4ef;
+  border-color: rgba(74, 107, 83, 0.62);
+
+  box-shadow:
+    0 4px 10px rgba(77, 68, 60, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.definition-trigger:active {
+  transform: translateY(1px);
+}
+
+.definition-trigger:focus-visible {
+  outline: 2px solid rgba(74, 107, 83, 0.45);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   4.6 СТРУКТУРИРОВАННОЕ ОКНО ОПРЕДЕЛЕНИЙ
+   ============================================================ */
+
+.definition-popover {
+  position: absolute;
+  z-index: 120;
+
+  bottom: calc(100% + 0.8rem);
+  left: 50%;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  width: min(46rem, calc(100vw - 3rem));
+  overflow: visible;
+
+  padding: 1px;
+  gap: 1px;
+
+  text-align: left;
+
+  background-color: rgba(164, 151, 137, 0.48);
+
+  border: 1px solid rgba(142, 127, 113, 0.62);
+  border-radius: 10px;
+
+  box-shadow:
+    0 18px 42px rgba(43, 37, 33, 0.2),
+    0 5px 14px rgba(43, 37, 33, 0.11);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-15%, 0.45rem) scale(0.985);
+  transform-origin: 15% bottom;
+
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease,
+    transform 0.18s ease;
+}
+
+/* Стрелка окна */
+
+.definition-popover::after {
+  content: "";
+
+  position: absolute;
+  bottom: -8px;
+  left: 15%;
+
+  width: 14px;
+  height: 14px;
+
+  background-color: #f4f1eb;
+
+  border-right: 1px solid rgba(142, 127, 113, 0.62);
+  border-bottom: 1px solid rgba(142, 127, 113, 0.62);
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Секции определений */
+
+.definition-panel {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.definition-panel--conceptual {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(160, 132, 105, 0.06),
+      transparent 65%
+    ),
+    #f8f5f0;
+
+  border-radius: 9px 0 0 9px;
+}
+
+.definition-panel--operational {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(74, 107, 83, 0.07),
+      transparent 65%
+    ),
+    #f3f5f1;
+
+  border-radius: 0 9px 9px 0;
+}
+
+.definition-panel h3 {
+  margin: 0 1.5rem 0.65rem 0;
+  padding: 0;
+
+  font-family: var(--font-primary);
+  font-size: clamp(0.78rem, 0.72rem + 0.07vw, 0.88rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+
+  border: 0;
+}
+
+.definition-panel--conceptual h3 {
+  color: #765b47;
+}
+
+.definition-panel--operational h3 {
+  color: #42634c;
+}
+
+.definition-panel p {
+  margin: 0;
+
+  font-family: var(--font-primary);
+  font-size: clamp(0.86rem, 0.8rem + 0.08vw, 0.96rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.003em;
+
+  color: #48423d;
+}
+
+/* Кнопка закрытия */
+
+.definition-popover-close {
+  position: absolute;
+  z-index: 3;
+  top: 0.55rem;
+  right: 0.55rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.65rem;
+  height: 1.65rem;
+  padding: 0;
+
+  font-size: 0.82rem;
+
+  color: #74685f;
+  background-color: rgba(255, 255, 255, 0.64);
+
+  border: 1px solid rgba(142, 127, 113, 0.32);
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.definition-popover-close:hover {
+  color: #433c37;
+  background-color: #ffffff;
+  border-color: rgba(142, 127, 113, 0.58);
+}
+
+.definition-popover-close:focus-visible {
+  outline: 2px solid rgba(74, 107, 83, 0.45);
+  outline-offset: 2px;
+}
+
+/* Открытое состояние */
+
+.definition-popover-wrapper.is-open .definition-popover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(-15%, 0) scale(1);
+}
+
+
+/* ============================================================
+   4.7 АДАПТИВНОСТЬ ОКНА ОПРЕДЕЛЕНИЙ
+   ============================================================ */
+
+/* Кнопка определений: 2K и 4K */
+
+@media screen and (min-width: 2000px) {
+  .definition-trigger {
+    padding: 0.38rem 0.95rem;
+    gap: 0.42rem;
+
+    font-size: 1.14rem;
+  }
+}
+
+@media screen and (max-width: 1599px) {
+  .definition-popover {
+    width: min(42rem, calc(100vw - 2.5rem));
+  }
+
+  .definition-panel {
+    padding: 0.85rem 0.9rem 0.9rem;
+  }
+
+  .definition-panel h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .definition-panel p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+}
+
+@media screen and (max-width: 1299px) {
+  .definition-popover {
+    left: 50%;
+
+    grid-template-columns: minmax(0, 1fr);
+
+    width: calc(100vw - 4rem);
+    max-width: 42rem;
+
+    transform: translate(-50%, 0.45rem) scale(0.985);
+    transform-origin: center bottom;
+  }
+
+.definition-popover-wrapper.is-open .definition-popover {
+  transform: translate(-50%, 0) scale(1);
+}
+
+  .definition-panel--conceptual {
+    border-radius: 9px 9px 0 0;
+  }
+
+  .definition-panel--operational {
+    border-radius: 0 0 9px 9px;
+  }
+
+  .definition-popover::after {
+    left: 50%;
+  }
+
+  .definition-trigger {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .definition-popover {
+    width: calc(100vw - 2rem);
+  }
+
+  .definition-panel {
+    padding: 0.8rem;
+  }
+
+  .definition-panel h3 {
+    padding-right: 1.5rem;
+    font-size: 0.76rem;
+  }
+
+  .definition-panel p {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+}
+
+
+/* Скрытый заголовок для экранных дикторов */
+
+.visually-hidden {
+  position: absolute !important;
+
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+
+  padding: 0 !important;
+  margin: -1px !important;
+
+  white-space: nowrap !important;
+
+  border: 0 !important;
+
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+}
+
+
+/* Отключение анимации */
+
+@media (prefers-reduced-motion: reduce) {
+  .definition-trigger,
+  .definition-popover,
+  .definition-popover-close {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   4.10 ОБМЕЖЕНИЙ РЕЖИМ НИЖЧЕ 1368 × 768
+   Картки стають вертикальними, таблиця приховується.
+   ============================================================ */
+
+@media screen and (max-width: 1299px),
+       screen and (max-height: 759px) {
+  :root {
+    font-size: clamp(14px, 1.1vw, 18px);
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body {
+    height: auto;
+  }
+
+  .intro-section {
+    flex: 0 0 auto;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .intro-container {
+    flex-direction: column;
+
+    height: auto;
+    max-height: none;
+    gap: clamp(18px, 4vw, 32px);
+  }
+
+  .about-block,
+  .criteria-block,
+  .info-block {
+    flex: 0 0 auto;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    padding: clamp(18px, 4vw, 30px);
+  }
+
+  .intro-section .criteria-block h2 {
+    font-size: 1.35rem;
+  }
+
+.criteria-list {
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+  .criteria-list > li {
+    padding-left: 2rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .table-section {
+    display: none;
+  }
+
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   4.11 MOBILE ATLAS EXPLORER
+   ============================================================ */
+
+
+/*
+ * По умолчанию мобильный каталог полностью отсутствует
+ * в desktop-композиции.
+ */
+.mobile-explorer {
+    display: none;
+}
+
+
+
+/* ============================================================
+   LIMITED / MOBILE MODE
+   ============================================================ */
+
+@media screen and (max-width: 1299px),
+       screen and (max-height: 759px) {
+
+
+    /* --------------------------------------------------------
+       Основная секция
+       -------------------------------------------------------- */
+
+    .mobile-explorer {
+        display: block;
+
+        width: 100%;
+
+        padding:
+            clamp(8px, 2.5dvh, 22px)
+            clamp(16px, 4vw, 32px)
+            clamp(32px, 6dvh, 56px);
+
+        background-color: #e5dccf;
+
+        background-image:
+            radial-gradient(
+                circle at 15% 10%,
+                rgba(67, 99, 82, 0.045),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 85% 75%,
+                rgba(115, 88, 62, 0.05),
+                transparent 32%
+            ),
+            linear-gradient(
+                180deg,
+                #e4dbce 0%,
+                #eee8de 100%
+            );
+
+        border-top:
+            1px solid rgba(105, 88, 69, 0.18);
+
+        box-sizing: border-box;
+    }
+
+
+    .mobile-explorer-inner {
+        width: min(100%, 48rem);
+
+        margin-inline: auto;
+    }
+
+
+
+    /* ========================================================
+       БЫСТРЫЕ ДЕЙСТВИЯ
+       ======================================================== */
+
+    .mobile-explorer-actions {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        gap: 0.75rem;
+
+        width: 100%;
+
+        margin-bottom:
+            clamp(1.6rem, 5dvh, 2.8rem);
+    }
+
+
+    .mobile-explorer-action {
+        display: grid;
+
+        grid-template-columns:
+            auto
+            minmax(0, 1fr)
+            auto;
+
+        align-items: center;
+
+        gap: 0.85rem;
+
+        width: 100%;
+
+        min-height: 3.6rem;
+
+        padding:
+            0.75rem
+            0.95rem;
+
+        box-sizing: border-box;
+
+
+        font-family:
+            var(--font-primary);
+
+        text-align: left;
+        text-decoration: none;
+
+
+        color: #4a4541;
+
+        background:
+            rgba(248, 245, 240, 0.92);
+
+        border:
+            1px solid rgba(142, 127, 113, 0.48);
+
+        border-radius: 9px;
+
+        box-shadow:
+            0 3px 8px rgba(77, 68, 60, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.72);
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+
+    button.mobile-explorer-action {
+        appearance: none;
+    }
+
+
+    .mobile-explorer-action > i:first-child {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 2rem;
+        height: 2rem;
+
+        font-size: 1rem;
+
+        color: #42634c;
+
+        background:
+            rgba(66, 99, 76, 0.075);
+
+        border-radius: 50%;
+    }
+
+
+    .mobile-explorer-action > span {
+        display: flex;
+
+        flex-direction: column;
+
+        min-width: 0;
+
+        gap: 0.08rem;
+    }
+
+
+    .mobile-explorer-action strong {
+        font-size: 1rem;
+        font-weight: 750;
+        line-height: 1.2;
+
+        color: #433c37;
+    }
+
+
+    .mobile-explorer-action small {
+        font-size: 0.82rem;
+        font-weight: 400;
+        line-height: 1.25;
+
+        color: #81766d;
+    }
+
+
+    .mobile-explorer-action-arrow {
+        font-size: 0.75rem;
+
+        color: #8e7f71;
+    }
+
+
+    .mobile-explorer-action:active {
+        background-color: #f2eee7;
+
+        transform: translateY(1px);
+    }
+
+
+
+    /* ========================================================
+       КАТАЛОГ — ОСНОВНАЯ КАРТОЧКА
+       ======================================================== */
+
+    .mobile-atlas-catalogue {
+        scroll-margin-top: 1rem;
+
+        overflow: hidden;
+
+        width: 100%;
+
+        background-color: #f6f3ed;
+
+        background-image:
+            radial-gradient(
+                circle,
+                rgba(140, 120, 100, 0.055) 1px,
+                transparent 1px
+            );
+
+        background-size: 8px 8px;
+
+        border:
+            1px solid #bcafa0;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 5px 10px rgba(140, 127, 114, 0.05),
+            0 16px 34px rgba(140, 127, 114, 0.09);
+    }
+
+
+
+    /* ========================================================
+       HEADER КАТАЛОГА
+       ======================================================== */
+
+    .mobile-catalogue-header {
+        padding:
+            1.15rem
+            1rem
+            0.9rem;
+
+        border-bottom:
+            1px solid rgba(142, 127, 113, 0.25);
+    }
+
+
+    .mobile-catalogue-heading {
+        display: flex;
+
+        align-items: flex-end;
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        margin-bottom: 0.95rem;
+    }
+
+
+    .mobile-catalogue-eyebrow {
+        display: block;
+
+        margin-bottom: 0.12rem;
+
+        font-size: 0.68rem;
+        font-weight: 750;
+
+        line-height: 1;
+
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        color: #8e7f71;
+    }
+
+
+    .mobile-catalogue-heading h2 {
+        margin: 0;
+
+        font-family: var(--font-primary);
+
+        font-size: clamp(
+            1.45rem,
+            5vw,
+            1.75rem
+        );
+
+        font-weight: 780;
+        line-height: 1.12;
+
+        color: #433c37;
+    }
+
+
+    .mobile-catalogue-count {
+        flex: 0 0 auto;
+
+        padding:
+            0.28rem
+            0.55rem;
+
+        font-size: 0.76rem;
+        font-weight: 650;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+        color: #6e645b;
+
+        background:
+            rgba(230, 225, 218, 0.7);
+
+        border-radius: 999px;
+    }
+
+
+
+    /* ========================================================
+       SEARCH
+       ======================================================== */
+
+    .mobile-catalogue-search {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+    }
+
+
+    .mobile-catalogue-search > i {
+        position: absolute;
+
+        z-index: 2;
+
+        left: 0.82rem;
+
+        font-size: 0.82rem;
+
+        color: #8e7f71;
+
+        pointer-events: none;
+    }
+
+
+    .mobile-catalogue-search input {
+        width: 100%;
+
+        height: 2.8rem;
+
+        padding:
+            0
+            2.7rem
+            0
+            2.35rem;
+
+        box-sizing: border-box;
+
+
+        font-family: var(--font-primary);
+
+        font-size: 0.95rem;
+
+        color: #433c37;
+
+        background-color: #fcfaf6;
+
+        border:
+            1px solid #d6cec4;
+
+        border-radius: 8px;
+
+        outline: none;
+    }
+
+    /* Убираем системный крестик input[type="search"] */
+.mobile-catalogue-search input[type="search"]::-webkit-search-cancel-button,
+.mobile-catalogue-search input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.mobile-catalogue-search input[type="search"]::-ms-clear,
+.mobile-catalogue-search input[type="search"]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+
+    .mobile-catalogue-search input::placeholder {
+        color: #978d84;
+        opacity: 1;
+    }
+
+
+    .mobile-catalogue-search input:focus {
+        border-color: #8e7f71;
+
+        box-shadow:
+            0 0 0 2px
+            rgba(142, 127, 113, 0.13);
+    }
+
+
+    .mobile-catalogue-search-clear {
+        position: absolute;
+
+        z-index: 3;
+
+        right: 0.55rem;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 1.8rem;
+        height: 1.8rem;
+
+        padding: 0;
+
+        color: #786e65;
+
+        background: transparent;
+
+        border: 0;
+
+        border-radius: 50%;
+
+        cursor: pointer;
+    }
+
+
+
+    /* ========================================================
+       ATTRIBUTE TABS
+       ======================================================== */
+
+    .mobile-catalogue-tabs {
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        gap: 0.35rem;
+
+        width: 100%;
+
+        padding:
+            0.75rem
+            0.8rem;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scrollbar-width: none;
+
+        border-bottom:
+            1px solid rgba(142, 127, 113, 0.22);
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .mobile-catalogue-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .mobile-catalogue-tab {
+        flex: 0 0 auto;
+
+        min-height: 2.2rem;
+
+        padding:
+            0.4rem
+            0.75rem;
+
+        font-family: var(--font-primary);
+
+        font-size: 0.82rem;
+        font-weight: 650;
+
+        line-height: 1.1;
+
+        white-space: nowrap;
+
+
+        color: #62584f;
+
+        background-color: #faf8f5;
+
+        border:
+            1px solid #d9d1c8;
+
+        border-radius: 6px;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+
+    .mobile-catalogue-tab.active {
+        color: #ffffff;
+
+        background-color: #8e7f71;
+
+        border-color: #8e7f71;
+    }
+
+
+
+    /* ========================================================
+       СПИСОК АТЛАСОВ
+       ======================================================== */
+
+    .mobile-atlas-list {
+        display: grid;
+
+        gap: 0.8rem;
+
+        padding:
+            0.9rem
+            0.8rem;
+    }
+
+
+
+    /* ========================================================
+       КАРТОЧКА АТЛАСА
+       ======================================================== */
+
+    .mobile-atlas-card {
+        overflow: hidden;
+
+        background:
+            rgba(252, 251, 248, 0.96);
+
+        border:
+            1px solid #d8d0c6;
+
+        border-radius: 9px;
+
+        box-shadow:
+            0 2px 5px rgba(74, 64, 54, 0.045);
+    }
+
+
+    .mobile-atlas-card.expanded {
+        border-color:
+            rgba(66, 99, 76, 0.45);
+
+        box-shadow:
+            0 5px 14px
+            rgba(66, 99, 76, 0.08);
+    }
+
+
+    .mobile-atlas-card-header {
+        padding:
+            0.85rem
+            0.9rem
+            0.55rem;
+    }
+
+
+    .mobile-atlas-id {
+        margin-bottom: 0.2rem;
+
+        font-size: 0.68rem;
+        font-weight: 750;
+
+        line-height: 1;
+
+        letter-spacing: 0.075em;
+        text-transform: uppercase;
+
+        color: #8e7f71;
+    }
+
+
+    .mobile-atlas-title {
+        margin: 0;
+
+        font-size: 1.05rem;
+        font-weight: 750;
+        line-height: 1.28;
+
+        color: #35483d;
+    }
+
+
+    .mobile-atlas-title-link,
+    .mobile-atlas-title-text {
+        color: inherit;
+
+        text-decoration: none;
+    }
+
+
+    .mobile-atlas-title-link i {
+        margin-left: 0.25rem;
+
+        font-size: 0.62em;
+
+        color: #8e7f71;
+    }
+
+
+
+    /* ========================================================
+       КРАТКАЯ ИНФОРМАЦИЯ
+       ======================================================== */
+
+    .mobile-atlas-summary {
+        display: grid;
+
+        gap: 0;
+
+        margin: 0;
+
+        padding:
+            0
+            0.9rem
+            0.65rem;
+    }
+
+
+    .mobile-atlas-summary-row {
+        display: grid;
+
+        grid-template-columns:
+            minmax(7rem, 0.85fr)
+            minmax(0, 1.15fr);
+
+        gap: 0.7rem;
+
+        padding:
+            0.3rem
+            0;
+
+        border-bottom:
+            1px solid rgba(142, 127, 113, 0.12);
+    }
+
+
+    .mobile-atlas-summary-row:last-child {
+        border-bottom: 0;
+    }
+
+
+    .mobile-atlas-summary dt,
+    .mobile-atlas-summary dd {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.35;
+    }
+
+
+    .mobile-atlas-summary dt {
+        font-weight: 600;
+
+        color: #82776e;
+    }
+
+
+    .mobile-atlas-summary dd {
+        min-width: 0;
+
+        font-weight: 550;
+
+        color: #48423d;
+
+        overflow-wrap: anywhere;
+    }
+
+
+
+    /* ========================================================
+       VIEW DETAILS
+       ======================================================== */
+
+    .mobile-atlas-details-trigger {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
+        min-height: 2.6rem;
+
+        padding:
+            0.55rem
+            0.9rem;
+
+        font-family: var(--font-primary);
+
+        font-size: 0.84rem;
+        font-weight: 700;
+
+        text-align: left;
+
+
+        color: #42634c;
+
+        background:
+            rgba(66, 99, 76, 0.035);
+
+        border: 0;
+
+        border-top:
+            1px solid rgba(142, 127, 113, 0.16);
+
+        cursor: pointer;
+    }
+
+
+    .mobile-atlas-details-trigger i {
+        font-size: 0.72rem;
+
+        transition:
+            transform 0.18s ease;
+    }
+
+
+    .mobile-atlas-card.expanded
+    .mobile-atlas-details-trigger i {
+        transform: rotate(180deg);
+    }
+
+
+
+    /* ========================================================
+       РАСКРЫТЫЕ АТРИБУТЫ
+       ======================================================== */
+
+    .mobile-atlas-details {
+        padding:
+            0
+            0.9rem
+            0.95rem;
+
+        background-color:
+            rgba(248, 245, 240, 0.62);
+
+        border-top:
+            1px solid rgba(142, 127, 113, 0.16);
+    }
+
+
+    .mobile-atlas-details-heading {
+        padding:
+            0.8rem
+            0
+            0.55rem;
+
+        font-size: 0.76rem;
+        font-weight: 800;
+
+        line-height: 1.2;
+
+        letter-spacing: 0.06em;
+
+        text-transform: uppercase;
+
+        color: #42634c;
+    }
+
+
+    .mobile-atlas-attributes {
+        margin: 0;
+    }
+
+
+    .mobile-atlas-attribute-row {
+        display: grid;
+
+        grid-template-columns:
+            minmax(7.5rem, 0.9fr)
+            minmax(0, 1.1fr);
+
+        gap: 0.75rem;
+
+        padding:
+            0.55rem
+            0;
+
+        border-bottom:
+            1px solid
+            rgba(142, 127, 113, 0.16);
+    }
+
+
+    .mobile-atlas-attribute-row:last-child {
+        border-bottom: 0;
+    }
+
+
+    .mobile-atlas-attribute-row dt,
+    .mobile-atlas-attribute-row dd {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.42;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .mobile-atlas-attribute-row dt {
+        font-weight: 650;
+
+        color: #665c54;
+    }
+
+
+    .mobile-atlas-attribute-row dd {
+        color: #48423d;
+    }
+
+
+    .mobile-atlas-empty {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.45;
+
+        color: #80766d;
+    }
+
+
+
+    /* ========================================================
+       SHOW MORE
+       ======================================================== */
+
+    .mobile-atlas-load-more {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 0.55rem;
+
+        width: calc(100% - 1.6rem);
+
+        min-height: 2.8rem;
+
+        margin:
+            0
+            0.8rem
+            0.9rem;
+
+        padding:
+            0.55rem
+            1rem;
+
+
+        font-family: var(--font-primary);
+
+        font-size: 0.86rem;
+        font-weight: 700;
+
+
+        color: #5c524a;
+
+        background-color: #faf8f5;
+
+        border:
+            1px solid #cfc6bc;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+    }
+
+
+    .mobile-atlas-load-more[hidden] {
+        display: none !important;
+    }
+
+
+    .mobile-atlas-load-more i {
+        font-size: 0.7rem;
+
+        color: #8e7f71;
+    }
+
+
+
+    /* ========================================================
+       LOAD / EMPTY / ERROR
+       ======================================================== */
+
+    .mobile-catalogue-loading,
+    .mobile-catalogue-message {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 0.7rem;
+
+        min-height: 7rem;
+
+        padding: 1rem;
+
+        text-align: center;
+
+        color: #776c63;
+    }
+
+
+    .mobile-catalogue-message > div {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 0.15rem;
+    }
+
+
+    .mobile-catalogue-message strong {
+        color: #48423d;
+    }
+
+
+    .mobile-catalogue-message span {
+        font-size: 0.84rem;
+    }
+
+
+    /* --------------------------------------------------------
+       Очень узкие телефоны
+       -------------------------------------------------------- */
+
+    @media screen and (max-width: 430px) {
+
+        .mobile-atlas-summary-row,
+        .mobile-atlas-attribute-row {
+            grid-template-columns:
+                minmax(6.5rem, 0.82fr)
+                minmax(0, 1.18fr);
+
+            gap: 0.55rem;
+        }
+
+    }
+
+}
+
+/* ============================================================
+   4.11 ОБМЕЖЕННЯ АНІМАЦІЇ
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-block,
+  .criteria-block,
+  .info-block
+   {
+    transition: none
+  }
+}
+
+/* ============================================================
+   5. ТИПОГРАФІКА ТА ЗАГОЛОВКИ
+   ============================================================ */
+
+.intro-section h2 {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.4rem;
+
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  color: #4a3e3d;
+
+  border-bottom: 2px solid rgba(97, 60, 36, 0.25);
+}
+
+.intro-section h3 {
+  margin: 0 0 0.5rem;
+
+  font-size: 1.2rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+
+  color: #4a3e3d;
+}
+
+/* ============================================================
+   5.1 ТЕКСТ КАРТОЧКИ ABOUT
+   ============================================================ */
+
+.about-section {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 0;
+}
+
+/* Только три основных абзаца — футер не затрагивается */
+.about-section > p {
+  position: relative;
+  display: block;
+  align-self: flex-start;
+
+  /* Небольшое ограничение справа */
+  width: calc(100% - clamp(0.5rem, 0.9vw, 1.4rem));
+
+  margin: 0;
+
+  /* Увеличен интервал между названием и текстом */
+  padding:
+    clamp(0.58rem, 1.1vh, 0.85rem)
+    clamp(0.65rem, 0.8vw, 1rem)
+    clamp(0.58rem, 1.1vh, 0.85rem)
+    clamp(7.8rem, 9vw, 10rem);
+
+  font-size: 1rem;
+  line-height: 1.55;
+
+  color: #4a4641;
+
+  border-radius: 6px;
+}
+
+.about-section > p + p {
+  border-top: 0;
+}
+
+/* Названия смысловых блоков */
+.about-section > p::before {
+  position: absolute;
+  top: clamp(0.58rem, 1.1vh, 0.85rem);
+  left: 0.7rem;
+
+  display: block;
+  width: 6.4rem;
+
+  padding-top: 0.15em;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-section > p:nth-of-type(1) {
+  background-color: rgba(142, 127, 113, 0.065);
+}
+
+.about-section > p:nth-of-type(1)::before {
+  content: "Purpose";
+  color: #7d6e61;
+}
+
+.about-section > p:nth-of-type(2) {
+  background-color: rgba(73, 103, 120, 0.055);
+}
+
+.about-section > p:nth-of-type(2)::before {
+  content: "Classification";
+  color: #496878;
+}
+
+.about-section > p:nth-of-type(3) {
+  background-color: rgba(74, 107, 83, 0.06);
+}
+.about-section > p:nth-of-type(3)::before {
+  content: "Methodology";
+  color: #4a6b53;
+}
+
+.about-section > p strong {
+  padding: 0;
+
+  font-weight: 650;
+  letter-spacing: -0.005em;
+
+  background: none;
+
+  -webkit-box-decoration-break: initial;
+  box-decoration-break: initial;
+}
+
+/* Purpose — тёплый коричневый */
+.about-section > p:nth-of-type(1) strong {
+  color: #6f6054;
+}
+
+/* Classification — приглушённый синий */
+.about-section > p:nth-of-type(2) strong {
+  color: #3f6070;
+}
+
+/* Methodology — глубокий зелёный */
+.about-section > p:nth-of-type(3) strong {
+  color: #3f624a;
+}
+
+.about-section .about-cursive {
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   5.2 ПОДВАЛ КАРТОЧКИ ABOUT
+   ============================================================ */
+
+.about-footer {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  row-gap: clamp(0.7rem, 1.1dvh, 1.05rem);
+
+  margin-top: auto;
+  padding:
+    clamp(0.5rem, 0.9dvh, 0.75rem)
+    0.3rem
+    clamp(0.3rem, 0.55dvh, 0.45rem);
+
+  border-top: 3px dashed rgba(97, 60, 36, 0.2) !important;
+  text-align: center;
+}
+
+
+/* Нейтральный текст предложения */
+.about-footer .suggestions-text {
+  margin: 0;
+
+  font-size: 1.16rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+
+  color: #625c56;
+}
+
+/* Выделенная интерактивная ссылка */
+.about-footer .suggestions-trigger {
+  padding-inline: 0.08em;
+
+  font-weight: 700;
+
+  color: #3f624a !important;
+
+  text-decoration-line: underline;
+  text-decoration-color: rgba(63, 98, 74, 0.45);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.about-footer .suggestions-trigger:hover {
+  color: #2f543b !important;
+  background-color: rgba(74, 107, 83, 0.07);
+  text-decoration-color: #2f543b;
+}
+
+/* Финальное пожелание */
+.about-footer .enjoy-text {
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+
+  color: #3b5340 !important;
+}
+
+/* ============================================================
+   ABOUT — КОМПАКТНЫЙ РЕЖИМ, БЛИЗКИЙ К 1368 × 768
+   ============================================================ */
+
+@media screen and (max-width: 1299px),
+       screen and (max-height: 759px) {
+.about-section {
+    gap: 0.45rem;
+  }
+
+  .about-section > p {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  .about-section > p::before {
+    position: static;
+
+    width: auto;
+    margin-bottom: 0.35rem;
+    padding-top: 0;
+  }
+}
+
+/* ABOUT — увеличенные интервалы на 2K и 4K */
+
+@media screen and (min-width: 2000px) and (min-height: 1100px) {
+  .about-section {
+    gap: 0.3rem;
+  }
+
+  .about-section > p {
+    padding-block: clamp(0.8rem, 1.15vh, 1rem);
+
+    /* Размер шрифта не меняем */
+    line-height: 1.62;
+  }
+}
+
+/* ============================================================
+   5.3 ЗАГОЛОВОК INFO-КАРТОЧКИ
+   ============================================================ */
+
+.info-block h2 {
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ============================================================
+   6. ВИДІЛЕННЯ ТА ПОСИЛАННЯ
+   ============================================================ */
+
+/* Загальне посилання */
+.afil-link {
+  text-decoration: none !important;
+  color: #4a4541 !important;
+  transition: all 0.2s ease;
+}
+
+.afil-link.value {
+  border-bottom: 1px solid transparent;
+}
+
+/* Состояние покоя для ссылки-триггера */
+.suggestions-trigger {
+  color: #4a6b53 !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 107, 83, 0.3);
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Эффект при наведении */
+.suggestions-trigger:hover {
+  color: #5b8566 !important;
+  text-decoration-color: #5b8566;
+  letter-spacing: 0.2px;
+}
+
+/* ============================================================
+   7. КАРТОЧКА АВТОРА: КОНТАКТИ ТА МЕТАДАНІ
+   ============================================================ */
+
+/* Секція автора з нижньою лінією-розділювачем */
+.author-section {
+  margin-top: 1vh !important;
+  margin-bottom: 2vh !important;
+  padding-bottom: 1.5vh;
+  border-bottom: 1px solid #edeade;
+
+}
+
+.author-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #8e7f71 !important;
+  margin: 0 0 0.3vh 0 !important;
+}
+
+/* Кругла іконка прапора біля імені автора */
+.author-flag {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.author-position {
+  font-size: 0.9rem !important;
+  color: #8e7f71 !important;
+  font-style: italic;
+  margin: 4px 0;
+  line-height: 1.4;
+  font-weight: 600 !important;
+}
+
+.institution-panel {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 0;
+
+  margin: clamp(0.65rem, 1.4vh, 1.1rem) 0;
+  padding:
+    clamp(0.9rem, 1.6vh, 1.25rem)
+    clamp(0.45rem, 0.7vw, 0.75rem);
+
+  text-align: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba(73, 103, 120, 0.025),
+    rgba(74, 107, 83, 0.045)
+  );
+
+  border: 1px solid rgba(142, 127, 113, 0.16);
+  border-radius: 8px;
+}
+
+/* Ссылка занимает всю ширину и точно центрирует изображение */
+.institution-logo-link {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  margin: 0;
+
+  text-decoration: none;
+
+  transition: transform 0.2s ease;
+}
+
+.institution-large-logo {
+  display: block;
+
+  /*
+   * Ограничение одновременно шириной панели и rem-размером.
+   * На 2K/4K логотип станет заметно крупнее.
+   */
+  width: min(94%, 11rem);
+  height: auto;
+  margin-inline: auto;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter: grayscale(15%) opacity(0.92);
+
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.institution-name {
+  width: 100%;
+  margin:
+    clamp(0.55rem, 1vh, 0.8rem)
+    auto
+    0;
+
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+
+  color: #5c524a;
+}
+
+.institution-name span {
+  display: block;
+
+  margin-top: 0.12rem;
+
+  font-size: 0.92em;
+  font-weight: 500;
+  line-height: 1.3;
+
+  color: #8e7f71;
+}
+
+.institution-logo-link:hover {
+  transform: translateY(-1px);
+}
+
+.institution-logo-link:hover .institution-large-logo {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.025);
+}
+
+/* --- Новая разводка нижних экшенов (кнопок) --- */
+.author-actions-container {
+  position: relative;
+
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+
+  width: 100%;
+  margin-top: 0;
+
+  gap: clamp(0.4rem, 0.7vh, 0.6rem);
+}
+
+/* Убираем старые внешние отступы второй кнопки */
+.author-actions-container .updates-log-pill-btn {
+  margin: 0 !important;
+}
+
+/* Стилизация новой кнопки Contact Author под общую палитру */
+.btn-author-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.3vh 1vw;
+  border-radius: 8px;
+  background-color: #faf8f5;
+  border: 1px solid #c2bab0;
+  color: #5c524a;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-author-action:hover {
+  background-color: #8e7f71 !important;
+  color: #fff !important;
+  border-color: #8e7f71 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Изменение состояния кнопки при открытом мини-окне */
+.contact-toggle-checkbox:checked + .btn-contact {
+  background-color: #8e7f71 !important;
+  color: #fff !important;
+  border-color: #8e7f71 !important;
+}
+
+/* --- ИНТЕРАКТИВНОЕ МИНИ-ОКНО КОНТАКТОВ (ПОПОВЕР) --- */
+.contact-popover-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.contact-toggle-checkbox {
+  display: none; /* Скрытый системный чекбокс */
+}
+
+.contact-mini-popover {
+  position: absolute;
+  bottom: 130%; /* Появление строго над кнопкой */
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 100%;
+  max-width: 250px;
+  background: #ffffff;
+  border: 1px solid #c9c1b9;
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 25px rgba(74, 69, 65, 0.15);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Стрелочка поповера */
+.popover-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+.popover-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #c9c1b9 transparent transparent transparent;
+  z-index: -1;
+}
+
+/* Активация окна по клику */
+.contact-toggle-checkbox:checked ~ .contact-mini-popover {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Список элементов внутри окна */
+.popover-contacts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popover-contacts-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #faf8f5;
+}
+
+.popover-contacts-list li:last-child {
+  border-bottom: none;
+}
+
+.popover-contacts-list i {
+  color: #8e7f71;
+  width: 16px;
+  text-align: center;
+}
+
+.popover-contacts-list a {
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.popover-contacts-list a:hover {
+  color: #0078d4;
+}
+
+
+/* Футер располагается сразу после кнопок */
+.author-card-footer {
+  flex: 0 0 auto;
+
+  width: 100%;
+
+  margin-top: clamp(0.8rem, 1.5vh, 1.2rem) !important;
+  padding-top: clamp(0.65rem, 1.2vh, 1rem) !important;
+
+  border-top: 2px dashed #edeade;
+}
+
+.author-card-footer .footer-row:last-child {
+  margin-bottom: 0;
+}
+
+.author-card-footer .footer-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: #a0968c;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600 !important;
+}
+
+/* ============================================================
+   УВЕЛИЧЕННЫЙ ШРИФТ: 2K И 4K CSS-VIEWPORT
+   Примерно +2px относительно основной шкалы
+   ============================================================ */
+
+@media screen and (min-width: 2000px) and (min-height: 1000px) {
+  :root {
+    --root-font-size: clamp(18px, calc(12px + 0.6vmin), 23px);
+  }
+}
+
+/* ============================================================
+   8. КНОПКА UPDATES LOG
+   ============================================================ */
+
+.updates-log-pill-btn {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0.3vh 1vw !important;
+  border-radius: 8px !important;
+  background-color: #faf8f5 !important;
+  border: 1px solid #c2bab0 !important;
+  color: #5c524a !important;
+  font-family: var(--font-primary) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-top: 0.5vh !important;
+  margin-bottom: 1.5vh !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.updates-log-pill-btn:hover {
+  background-color: #8e7f71 !important;
+  color: #fff !important;
+  border-color: #8e7f71 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ============================================================
+   8.2 AUTHORS — АДАПТИВНАЯ ТИПОГРАФИКА ДО 2000px
+   2000px+ сохраняет текущие базовые размеры
+   ============================================================ */
+
+@media screen and (max-width: 1999px) {
+
+  /* Имя автора */
+  .author-name {
+    gap: clamp(0.3rem, 0.45vw, 0.5rem);
+
+    font-size:
+      clamp(
+        0.98rem,
+        calc(0.72rem + 0.4vw),
+        1.15rem
+      ) !important;
+
+    line-height: 1.18;
+  }
+
+  /* Флаг следует за размером имени */
+  .author-flag {
+    width: clamp(14px, 1.05em, 18px) !important;
+    height: clamp(14px, 1.05em, 18px) !important;
+  }
+
+  /* Научная степень */
+  .author-position {
+    font-size:
+      clamp(
+        0.76rem,
+        calc(0.62rem + 0.18vw),
+        0.88rem
+      ) !important;
+
+    line-height: 1.35;
+  }
+
+  /* Название учреждения */
+  .institution-name {
+    font-size:
+      clamp(
+        0.68rem,
+        calc(0.56rem + 0.14vw),
+        0.78rem
+      );
+
+    line-height: 1.28;
+  }
+
+  .institution-name span {
+    font-size: 0.92em;
+    line-height: 1.3;
+  }
+
+  /* Кнопки */
+  .btn-author-action,
+.updates-log-pill-btn {
+  min-height: 0;
+
+  padding: 0.3vh 1vw !important;
+
+  font-size:
+    clamp(
+      0.72rem,
+      calc(0.6rem + 0.16vw),
+      0.84rem
+    ) !important;
+
+  line-height: normal;
+}
+
+  /* Системные метаданные */
+  .author-card-footer .footer-row {
+    gap: 0.4rem;
+
+    font-size:
+      clamp(
+        0.64rem,
+        calc(0.54rem + 0.12vw),
+        0.75rem
+      );
+
+    line-height: 1.25;
+    letter-spacing: clamp(0.02em, 0.04vw, 0.055em);
+  }
+
+.contact-mini-popover {
+    bottom: calc(100% + clamp(0.5rem, 0.9vh, 0.75rem));
+
+    width:
+      min(
+        calc(100vw - 2rem),
+        clamp(12.5rem, 16vw, 15rem)
+      );
+
+    max-width: none;
+
+    padding:
+      clamp(0.5rem, 0.8vh, 0.7rem)
+      clamp(0.6rem, 0.75vw, 0.85rem);
+  }
+
+  .popover-contacts-list li {
+    min-width: 0;
+
+    gap: clamp(0.4rem, 0.5vw, 0.65rem);
+    padding: clamp(0.32rem, 0.55vh, 0.48rem) 0;
+
+    font-size:
+      clamp(
+        0.72rem,
+        calc(0.6rem + 0.17vw),
+        0.84rem
+      );
+
+    line-height: 1.28;
+  }
+
+  .popover-contacts-list i {
+    flex: 0 0 1rem;
+
+    width: 1rem;
+
+    font-size: 0.95em;
+  }
+
+  .popover-contacts-list a {
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+  }  
+}
+
+/* ============================================================
+   9. МОДАЛЬНЕ ВІКНО UPDATES LOG
+   ============================================================ */
+/* Базовий стиль для всіх модальних вікон — приховані за замовчуванням */
+.custom-modal {
+  display: none;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(
+    43,
+    37,
+    33,
+    0.6
+  ) !important; /* Темний дуб замість сірого */
+  backdrop-filter: blur(5px); /* Трішки збільшено розмиття для глибини */
+  z-index: 30000 !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Спільний затемнений фон для всіх модальних вікон. */
+.modal-overlay {
+  display: none;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(43, 37, 33, 0.7) !important;
+  backdrop-filter: blur(5px) !important;
+  z-index: 30000 !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Саме вікно з контентом */
+.modal-content {
+  position: relative !important;
+  background-color: #fcfbf7 !important;
+  border: 0.0625rem solid #c9c1b9 !important; /* 1px */
+  border-radius: 0.75rem; /* 12px */
+  width: 90%;
+  max-width: 43.75rem; /* 700px */
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0.9375rem 2.8125rem rgba(58, 50, 45, 0.15);
+  animation: fadeInModal 0.25s ease-out;
+}
+
+/* Шапка модального вікна */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.375rem clamp(1.25rem, 4vw, 2.25rem) !important;
+  border-bottom: 0.0625rem solid #edeade;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #2d2924; /* М'який сажевий */
+  font-family: var(--font-primary) !important;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Кнопка закриття (хрестик) — Повна синхронізація з рештою модалок */
+.modal-content .modal-close-btn {
+  position: absolute !important;
+  right: clamp(1.25rem, 4vw, 2.25rem) !important;
+  top: 1.25rem !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 2rem !important; /* 32px */
+  height: 2rem !important; /* 32px */
+  font-size: 1.45rem !important; /* Великий красивий хрестик */
+  font-weight: 500 !important;
+  padding-bottom: 3px !important; /* Оптичний фікс центрування */
+
+  background-color: #faf8f5 !important;
+  border: 1px solid #c2bab0 !important;
+  border-radius: 50% !important;
+  color: #8e7f71 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+
+/* Заміна синього ховеру на шляхетний оберт та зміну кольору */
+.modal-content .modal-close-btn:hover {
+  background-color: #8e7f71 !important;
+  color: #ffffff !important;
+  border-color: #8e7f71 !important;
+  transform: rotate(90deg);
+}
+
+/* --- 9.1 Скрольована область та адаптивний скролбар --- */
+.modal-body {
+  padding: 1.5rem clamp(1.25rem, 4vw, 2.25rem) !important;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem !important; /* 20px */
+
+  /* 1. Підтримка Firefox (Делікатний тонкий скролбар) */
+  scrollbar-width: thin !important;
+  scrollbar-color: #c2bab0 #fcfbf7 !important;
+
+  /* 2. Інерційний плавних скрол на мобільних пристроях */
+  -webkit-overflow-scrolling: touch !important;
+  scroll-behavior: smooth;
+}
+
+/* Webkit-браузери (Chrome, Safari, Edge, iOS, Android) */
+
+/* Робимо скролбар тексту трохи тоншим за табличний (8px замість 11px) для вишуканості */
+.modal-body::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+/* Доріжка */
+.modal-body::-webkit-scrollbar-track {
+  background: #fcfbf7 !important;
+  border-radius: 4px !important;
+}
+
+/* Повзунок */
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #c2bab0 !important;
+  border-radius: 10px !important;
+  border: 2px solid #fcfbf7 !important; /* Зазор, щоб повзунок виглядав акуратно */
+  transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Повзунок при наведенні (активний темний відгук) */
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: #7a6b5c !important;
+}
+
+/* Дата оновлення (наприклад, "12.04.2026") */
+.update-date {
+  font-size: 1.05rem;
+  font-weight: 700 !important;
+  color: #8e7f71; /* Наша фірмова сепія */
+  margin-bottom: 0.5rem !important; /* Стабільний відступ замість 1vh */
+  font-family: var(--font-primary) !important;
+}
+
+/* Абзаци опису всередині тіла модалки */
+.modal-body p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #2d2924; /* Теплий сажевий замість холодного дефолтного #212529 */
+  margin: 0 0 0.625rem 0 !important;
+}
+
+/* Список змін (маркований список) */
+.update-list {
+  margin: 0;
+  padding-left: 1.25rem !important; /* ~20px */
+  list-style-type: disc !important;
+}
+
+/* Елементи списку (конкретні пункти оновлень) */
+.update-list li {
+  font-size: 0.9rem; /* Злегка збільшено для кращої читабельності */
+  line-height: 1.5;
+  color: #4a4541; /* М'який темно-сірий */
+  margin-bottom: 0.375rem !important; /* ~6px */
+}
+
+/* --- 9.2 Анімація плавної появи модального вікна --- */
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Елегантний мікро-зсув зверху вниз */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   10. МОДАЛЬНЕ ВІКНО SUGGESTIONS
+   ============================================================ */
+
+/* --- 10.1 Контейнер та заголовок вікна --- */
+.suggestions-modal-content {
+  width: clamp(20rem, 90vw, 43.75rem) !important; /* Від 320px до 700px */
+  background-color: #fcfbf7 !important; /* Шляхетний теплий крем */
+  border: 0.0625rem solid #c9c1b9 !important; /* 1px фірмова тепла рамка */
+  border-radius: 0.75rem !important; /* 12px (узгоджено з іншими вікнами) */
+  box-shadow: 0 0.9375rem 2.8125rem rgba(58, 50, 45, 0.15) !important; /* Глибока тінь проєкту */
+  overflow: hidden !important;
+}
+
+/* Заголовок внутри окна */
+.suggestions-modal-content .modal-header h2 {
+  font-size: 1.4rem !important;
+  color: #2d2924 !important; /* Чіткий та м'який сажевий */
+  margin: 0;
+  font-weight: 700;
+}
+
+/* --- 10.2 Структура форми --- */
+
+/* Структура самой формы */
+#suggestions-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* ~16px внутрішня розрядка між блоками */
+  /* Адаптивні поля форми: плавно стискаються на мобільних і розширюються на ПК */
+  padding: 1.5rem clamp(1.25rem, 4vw, 2.25rem) !important;
+  box-sizing: border-box;
+}
+
+/* Элемент формы (label + input) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+/* Двухколоночный ряд полей (для пар Attribute/Definition) */
+.form-group-row {
+  display: flex;
+  gap: 1.25rem;
+}
+
+/* Стилизация текстовых меток (лейблов) */
+#suggestions-form label {
+  font-size: 0.875rem !important; /* ~14px */
+  font-weight: 700;
+  color: #8e7f71; /* Шляхетна сепія */
+  font-family: var(--font-primary) !important;
+}
+
+/* Оформление пометки (if available) */
+#suggestions-form label .optional {
+  font-weight: 400;
+  color: #a39689; /* Трішки світліша м'яка сепія */
+  font-style: italic;
+  font-size: 0.8rem !important;
+}
+
+/* Текстовые поля ввода и области textarea */
+#suggestions-form input[type="text"],
+#suggestions-form textarea {
+  font-family: var(--font-primary) !important;
+  font-size: 0.95rem !important;
+  padding: 0.5rem 0.75rem; /* Оптимальні відступи для зручного набору */
+  border: 0.0625rem solid #c2bab0;
+  border-radius: 0.375rem; /* 6px */
+  background-color: #faf8f5; /* Світла кремова підкладка */
+  color: #2d2924; /* Сажевий колір тексту */
+  outline: none;
+  transition: all 0.15s ease-in-out;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Состояние фокуса полей ввода */
+#suggestions-form input[type="text"]:focus,
+#suggestions-form textarea:focus {
+  border-color: #8e7f71;
+  background-color: #ffffff; /* Світлішає при фокусі */
+  box-shadow: 0 0 0.3125rem rgba(142, 127, 113, 0.3);
+}
+
+/* --- 10.3 Кнопка відправки форми --- */
+
+/* Кнопка отправки формы */
+.form-submit-btn {
+  font-family: var(--font-primary) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700;
+  background-color: #8e7f71 !important;
+  color: #ffffff !important;
+  border: 0.0625rem solid #8e7f71 !important;
+  padding: 0.625rem 1.5rem; /* ~10px на 24px */
+  border-radius: 0.375rem; /* 6px */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+/* Ховер кнопки отправки */
+.form-submit-btn:hover {
+  background-color: #726457 !important; /* Глибокий тон темної сепії */
+  border-color: #726457 !important;
+}
+
+/* Эффект микро-нажатия для интерактивности */
+.form-submit-btn:active {
+  transform: scale(0.985);
+}
+
+/* --- 10.4 Динамічні поля форми (Values) --- */
+
+/* Контейнер заголовка и кнопки (+) */
+.values-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px dashed #c2bab0; /* Більш контрастний роздільник */
+}
+
+/* Кнопка добавления нового ряда (+) */
+.add-value-btn {
+  background-color: #fcfbf7 !important;
+  color: #4a7a3b !important; /* Академічний зелений */
+  border: 0.0625rem solid #4a7a3b !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  padding: 0 !important;
+  line-height: 1;
+}
+
+.add-value-btn:hover {
+  background-color: #e2efe0 !important;
+  transform: scale(1.08) rotate(90deg); /* Стильний мікро-оберт при наведенні */
+}
+
+/* Контейнер для динамических строк */
+#dynamic-values-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem; /* ~10px */
+  max-height: 12.5rem;
+  overflow-y: auto;
+  padding-right: 0.25rem; /* Невеликий зазор під скролбар */
+
+  /* Тонкий адаптивний скролбар */
+  scrollbar-width: thin !important;
+  scrollbar-color: #c2bab0 #fcfbf7 !important;
+}
+
+/* Webkit-стилі для скролбару динамічних рядків */
+#dynamic-values-container::-webkit-scrollbar {
+  width: 6px !important;
+}
+#dynamic-values-container::-webkit-scrollbar-track {
+  background: #fcfbf7 !important;
+}
+#dynamic-values-container::-webkit-scrollbar-thumb {
+  background-color: #c2bab0 !important;
+  border-radius: 10px !important;
+}
+
+/* Специфика динамического ряда (учитываем кнопку удаления) */
+.dynamic-value-row {
+  align-items: center;
+  gap: 0.75rem !important;
+  animation: fadeInRow 0.2s ease-in-out;
+}
+
+/* Кнопка видалення рядка (x) */
+.remove-value-btn {
+  background: none !important;
+  border: none !important;
+  color: #b23a22 !important; /* Фірмовий теракотово-червоний */
+  font-size: 1.45rem !important;
+  cursor: pointer;
+  padding: 0 0.25rem !important;
+  line-height: 1;
+  transition: all 0.15s ease-in-out;
+}
+
+.remove-value-btn:hover {
+  color: #8a2511 !important;
+  transform: scale(1.1) rotate(90deg); /* Поворот для ефекту інтерактивності */
+}
+
+/* Анимация плавного добавления */
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ============================================================
+   11. МОДАЛЬНЕ ВІКНО ДОДАТКОВИХ МАТЕРІАЛІВ
+   ============================================================ */
+
+/* --- 11.1 Геометрія вікна --- */
+.supplementary-window,
+.material-content-window,
+.modal-window {
+  position: relative !important;
+  max-width: 1200px !important;
+  width: 92% !important;
+  background-color: #fcfbf7 !important; /* Наш благородный крем */
+  border: 1px solid #c4b9ac !important; /* В тон рамок карточек на главной */
+  border-radius: 12px !important; /* Синхронизировано с .about-block (12px) */
+  box-shadow: 0 15px 45px rgba(58, 50, 45, 0.2) !important; /* Фирменная глубокая тень */
+  box-sizing: border-box !important;
+  padding: 12px 20px 24px 24px !important;
+}
+
+/* --- 11.2 Список матеріалів (скрол-контейнер) --- */
+.supplementary-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important; /* Слегка увеличили зазор */
+  max-height: 65vh !important;
+  overflow-y: auto !important;
+  padding-right: 12px !important;
+  box-sizing: border-box !important;
+}
+
+/* Настройка аккуратного скроллбара списка */
+.supplementary-list::-webkit-scrollbar {
+  width: 6px !important;
+}
+.supplementary-list::-webkit-scrollbar-track {
+  background-color: #fcfbf7 !important;
+}
+.supplementary-list::-webkit-scrollbar-thumb {
+  background-color: #c2bab0 !important;
+  border-radius: 3px !important;
+}
+
+/* --- 11.3 Картка одного матеріалу --- */
+.supplementary-item {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 18px 24px !important;
+  border: 1px solid #e6e1da !important; /* Мягкий теплый серый */
+  border-radius: 8px !important; /* Чуть мягче скругление */
+  background-color: #ffffff !important; /* Чистый белый, чтобы сиял на кремовом фоне */
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+
+  /* Дорогая многослойная микро-тень в покое */
+  box-shadow:
+    0 2px 5px rgba(140, 127, 114, 0.03),
+    0 8px 20px rgba(140, 127, 114, 0.05) !important;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.supplementary-item:hover {
+  border-color: #8e7f71 !important;
+  background-color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(107, 95, 83, 0.12) !important;
+}
+
+/* --- 11.4 Текстовий блок картки (title / pub-type / date / опис) --- */
+.item-text {
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+/* Название материала — строго в стиле заголовков suggestions */
+.item-title {
+  margin: 0 0 6px 0 !important;
+  font-family: var(--font-primary) !important;
+  font-size: clamp(1.04rem, calc(0.96rem + 0.12vw), 1.18rem) !important;
+  line-height: 1.3 !important;
+  font-weight: 700 !important;
+  color: #2d2924 !important; /* Мягкий сажевый */
+  transition: color 0.2s ease !important;
+}
+
+/* При наведении — академичный зеленый ховер из формы предложений */
+.supplementary-item:hover .item-title {
+  color: #4a6b53 !important; /* Тот самый зеленый .suggestions-trigger */
+}
+
+.item-pub-type,
+.item-date {
+  font-size: clamp(0.78rem, calc(0.74rem + 0.05vw), 0.84rem) !important;
+}
+
+/* Тип публікації (наприклад: Monograph, Article тощо) */
+.item-pub-type {
+  display: inline-block !important;
+  font-family: var(--font-primary) !important;
+  font-weight: 700 !important;
+  color: #7d6e61 !important; /* Насыщенная сепия (как цифры в списках) */
+  background-color: #f4f1ea !important; /* Легкая плашка-подложка */
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+  margin-bottom: 6px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase;
+}
+
+/* Дата публикации мелким шрифтом */
+.item-date {
+  display: block !important;
+  color: #a39689 !important;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+}
+
+/* Короткое описание */
+.item-description {
+  margin: 0 !important;
+  font-size: clamp(0.90rem, calc(0.86rem + 0.05vw), 0.96rem) !important;
+  line-height: 1.5 !important;
+  color: #4a4641 !important;
+}
+
+/* --- 11.5 Превью-зображення картки --- */
+.item-preview-wrapper {
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  flex-basis: 110px !important;
+  width: 110px !important;
+  max-width: 110px !important;
+  aspect-ratio: 3 / 4 !important;
+  max-height: 146px !important;
+
+  border: 1px solid #edeade !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  background-color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+
+  /* Мягкая тень для объема самой обложки */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.25s ease !important;
+}
+
+/* Эффект ховера на превью */
+.supplementary-item:hover .item-preview-wrapper {
+  transform: scale(1.03) rotate(1deg) !important; /* Легкий игровой наклон книги */
+  border-color: #8e7f71 !important;
+  box-shadow: 0 6px 15px rgba(142, 127, 113, 0.25) !important;
+}
+
+/* Изображение внутри контейнера */
+.item-preview-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* --- 11.6 Кнопка закриття вікна --- */
+/* Кнопка закрытия окна */
+.modal-window .modal-close-btn {
+  position: absolute !important; /* Вывели из потока в угол окна */
+  top: 1.25rem !important;
+  right: 1.25rem !important; /* ~20px */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background-color: #faf8f5 !important;
+  border: 0.0625rem solid #c2bab0 !important; /* 1px */
+  border-radius: 50% !important; /* Круглая кнопка выглядит значительно аккуратнее */
+  color: #8e7f71 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+
+  /* Рятує від можливих конфліктів накладання шарів */
+  z-index: 10 !important;
+}
+
+/* Налаштування векторної іконки хрестика всередині */
+.supplementary-window .modal-close-btn i,
+.modal-window .modal-close-btn i {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  display: block !important;
+}
+
+/* Вместо ядовито-красного — благородный глубокий «вишнево-бордовый» или спокойный темный ховер */
+.modal-window .modal-close-btn:hover {
+  background-color: #8e7f71 !important;
+  color: #ffffff !important;
+  border-color: #8e7f71 !important;
+  transform: rotate(90deg);
+}
+
+/* --- 11.7 Типографіка вмісту відкритого матеріалу --- */
+/* Внутрішній контент відкритого матеріалу */
+.material-inner-title {
+  text-align: left !important;
+  font-family: var(--font-primary) !important;
+  font-size: clamp(1.25rem, calc(1.15rem + 0.15vw), 1.42rem);
+  line-height: 1.25;
+  font-weight: 600 !important;
+  color: #5c524a !important;
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+.material-inner-text {
+  text-align: left !important;
+  font-family: var(--font-primary) !important;
+  font-size: clamp(0.90rem, calc(0.86rem + 0.05vw), 0.96rem);
+  line-height: 1.55;
+  color: #5c524a !important;
+  margin: 0 !important;
+}
+
+/* ============================================================
+   11.8 АДАПТИВНАЯ ГЕОМЕТРИЯ SUPPLEMENTARY MATERIALS
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Базовая адаптивная модель окна: 1368–4K
+   ------------------------------------------------------------ */
+
+.supplementary-window {
+  --supplementary-preview-width: clamp(6rem, 6vw, 7rem);
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  width: min(92vw, 75rem) !important;
+  max-width: 75rem !important;
+
+  max-height: 88vh !important;
+  max-height: 88dvh !important;
+
+  padding:
+    clamp(0.65rem, 0.8vmin, 0.85rem)
+    clamp(1rem, 1.2vw, 1.25rem)
+    clamp(1rem, 1.5vmin, 1.5rem)
+    clamp(1rem, 1.4vw, 1.5rem) !important;
+
+  overflow: hidden !important;
+}
+
+/* Шапка всегда остаётся видимой */
+.supplementary-window .modal-header {
+  flex: 0 0 auto;
+
+  min-width: 0;
+  padding:
+    clamp(1rem, 1.35vh, 1.375rem)
+    clamp(3.25rem, 4vw, 4rem)
+    clamp(0.85rem, 1.2vh, 1.2rem)
+    clamp(1rem, 2vw, 1.5rem) !important;
+}
+
+.supplementary-window .modal-header h2 {
+  min-width: 0;
+  margin: 0;
+
+  font-size: clamp(1.22rem, calc(1.12rem + 0.18vw), 1.48rem);
+
+  overflow-wrap: anywhere;
+}
+
+/* Скролл получает оставшуюся высоту окна */
+.supplementary-list {
+  flex: 1 1 auto !important;
+
+  min-height: 0;
+  max-height: none !important;
+
+  gap: clamp(0.75rem, 1.2vh, 1rem) !important;
+
+  padding:
+    clamp(0.8rem, 1.2vh, 1.25rem)
+    clamp(0.55rem, 0.8vw, 0.75rem)
+    clamp(0.8rem, 1.2vh, 1.25rem)
+    clamp(0.75rem, 1.4vw, 1.25rem) !important;
+
+  overscroll-behavior: contain;
+}
+
+/* ------------------------------------------------------------
+   Адаптивная геометрия карточек материалов
+   ------------------------------------------------------------ */
+
+.supplementary-item {
+  gap: clamp(0.9rem, 1.5vw, 1.5rem) !important;
+
+  padding:
+    clamp(0.85rem, 1.3vh, 1.15rem)
+    clamp(0.9rem, 1.4vw, 1.5rem) !important;
+}
+
+.item-text {
+  min-width: 0;
+}
+
+.item-title {
+  overflow-wrap: anywhere;
+}
+
+/* Превью зависит от размеров окна и базового шрифта */
+.item-preview-wrapper {
+  flex: 0 0 var(--supplementary-preview-width) !important;
+
+  width: var(--supplementary-preview-width) !important;
+  max-width: var(--supplementary-preview-width) !important;
+  max-height: none !important;
+
+  aspect-ratio: 3 / 4 !important;
+}
+
+/* ------------------------------------------------------------
+   Кнопка закрытия
+   ------------------------------------------------------------ */
+
+.supplementary-window .modal-close-btn {
+  top: clamp(0.8rem, 1.2vh, 1.25rem) !important;
+  right: clamp(0.8rem, 1.2vw, 1.25rem) !important;
+
+  width: clamp(1.8rem, 2vw, 2rem) !important;
+  height: clamp(1.8rem, 2vw, 2rem) !important;
+}
+
+/* ============================================================
+   11.9 БОЛЬШИЕ ЭКРАНЫ: 2K И 4K
+   ============================================================ */
+
+@media screen and (min-width: 2000px) and (min-height: 1000px) {
+  .supplementary-window {
+    --supplementary-preview-width: clamp(6.5rem, 4.8vw, 7.5rem);
+
+    width: min(86vw, 78rem) !important;
+    max-width: 78rem !important;
+
+    max-height: 84vh !important;
+    max-height: 84dvh !important;
+  }
+
+  .supplementary-list {
+    gap: clamp(0.9rem, 1.1vh, 1.2rem) !important;
+  }
+
+  .supplementary-item {
+    padding:
+      clamp(1rem, 1.25vh, 1.3rem)
+      clamp(1.15rem, 1.25vw, 1.65rem) !important;
+  }
+}
+
+/* ============================================================
+   11.10 КОМПАКТНЫЙ РЕЖИМ: 1368–1599 И НЕВЫСОКИЕ ЭКРАНЫ
+   ============================================================ */
+
+@media screen and (min-width: 1024px) and (max-width: 1599px),
+       screen and (min-width: 1024px) and (max-height: 900px) {
+  .supplementary-window {
+    --supplementary-preview-width: clamp(4.8rem, 6vw, 5.5rem);
+
+    width: calc(100vw - 2rem) !important;
+    max-width: 72rem !important;
+
+    max-height: calc(100vh - 1.5rem) !important;
+    max-height: calc(100dvh - 1.5rem) !important;
+
+    padding: 0.55rem 0.7rem 0.7rem !important;
+  }
+
+  .supplementary-window .modal-header {
+    padding:
+      0.75rem
+      3rem
+      0.65rem
+      0.8rem !important;
+  }
+
+  .supplementary-list {
+    gap: 0.65rem !important;
+    padding: 0.65rem 0.4rem 0.65rem 0.5rem !important;
+  }
+
+  .supplementary-item {
+    gap: 0.85rem !important;
+    padding: 0.7rem 0.85rem !important;
+  }
+
+  .item-title {
+    margin-bottom: 0.3rem !important;
+  }
+
+  .item-pub-type {
+    margin-bottom: 0.3rem !important;
+  }
+
+  .item-date {
+    margin-bottom: 0.4rem !important;
+  }
+
+  .supplementary-window .modal-close-btn {
+    top: 0.65rem !important;
+    right: 0.7rem !important;
+
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+  }
+}
+
+/* ============================================================
+   11.11 ЭКРАНЫ НИЖЕ ОСНОВНОГО ПОРОГА
+   ============================================================ */
+
+@media screen and (max-width: 1023px) {
+  #supplementary-modal {
+    padding: 0.5rem;
+
+    align-items: center;
+  }
+
+  .supplementary-window {
+    --supplementary-preview-width: clamp(4.5rem, 18vw, 5.5rem);
+
+    width: calc(100vw - 1rem) !important;
+    max-width: none !important;
+
+    max-height: calc(100vh - 1rem) !important;
+    max-height: calc(100dvh - 1rem) !important;
+
+    padding: 0.5rem !important;
+
+    border-radius: 10px !important;
+  }
+
+  .supplementary-window .modal-header {
+    padding:
+      0.75rem
+      2.8rem
+      0.65rem
+      0.65rem !important;
+  }
+
+  .supplementary-list {
+    gap: 0.65rem !important;
+    padding: 0.6rem 0.3rem !important;
+  }
+
+  .supplementary-item {
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    gap: 0.75rem !important;
+    padding: 0.8rem !important;
+  }
+
+  .item-preview-wrapper {
+    order: -1;
+
+    align-self: center;
+  }
+
+  .supplementary-window .modal-close-btn {
+    top: 0.6rem !important;
+    right: 0.6rem !important;
+  }
+}
+
+/* ============================================================
+   11.12 ОГРАНИЧЕНИЕ АНИМАЦИИ
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .supplementary-item,
+  .item-preview-wrapper,
+  .modal-window .modal-close-btn {
+    transition: none !important;
+  }
+
+  .supplementary-item:hover,
+  .supplementary-item:hover .item-preview-wrapper {
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   12. МОДАЛЬНЕ ВІКНО ВНУТРІШНІХ МАТЕРІАЛІВ (ГЛОСАРІЙ)
+   ============================================================ */
+
+/* --- 12.1 Тіло вікна (глобальне правило) ---
+   УВАГА: нижче, в 14.4, є більш специфічне правило
+   .custom-material-modal #material-content-body з іншими значеннями
+   (height/overflow) — воно й застосовується фактично. */
+/* Змушуємо тіло вікна займати весь залишок висоти */
+#material-content-body {
+  flex-grow: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* --- 12.2 Оверлей вікна --- */
+#material-content-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(
+    43,
+    37,
+    33,
+    0.7
+  ) !important; /* Фірмовий темний дуб замість чистого чорного */
+  backdrop-filter: blur(
+    5px
+  ) !important; /* Покращений ефект розмиття заднього плану */
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2000000 !important;
+}
+
+/* --- 12.3 Геометрія головного контейнера вікна --- */
+/* Главный контейнер окна — полная синхронизация с геометрией .material-content-window */
+.custom-material-modal {
+  width: 1200px !important;
+  min-width: 60vw !important;
+  max-width: 90vw !important;
+  height: 1000px !important;
+  max-height: 85vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: #fcfbf7 !important; /* Шляхетний кремовий колір тла, як у supplementary */
+  border: 1px solid #c4b9ac !important; /* Фірмова тепла рамка проєкту */
+  border-radius: 12px !important; /* Повна синхронізація з геометрією сайту (12px) */
+  padding: 24px !important;
+  box-shadow: 0 15px 45px rgba(58, 50, 45, 0.2) !important; /* Глибока фірмова тінь */
+  margin: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* --- 12.4 Шапка вікна: заголовок та кнопка закриття --- */
+
+/* Шапка окна: теперь отвечает только за идеальное центрирование текста */
+.custom-material-modal .modal-header2 {
+  display: block !important;
+  position: relative !important;
+  border-bottom: 1px solid #e6e1da !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 16px !important;
+  width: 100% !important;
+}
+
+/* Заголовок вікна */
+.custom-material-modal .modal-header2 h2 {
+  margin: 0 !important;
+  padding: 0 45px !important;
+  text-align: center !important;
+  font-family: var(--font-primary) !important;
+  color: #2d2924 !important; /* М'який сажевий колір для кращої читабельності */
+  font-size: clamp(1.24rem, calc(1.16rem + 0.12vw), 1.38rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* --- 12.5 Кнопки шапки --- */
+
+/* Спільний базовий клас для обох круглик кнопок */
+.custom-material-modal .modal-header2 .modal-close,
+.custom-material-modal .modal-header2 .modal-back {
+  position: absolute !important;
+  top: -0.15rem !important; /* Адаптивне вирівнювання по висоті відносно h2 */
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* Адаптивний розмір кнопок: ~38px при базі 16px, плавно масштабується */
+  width: 2rem !important;
+  height: 2rem !important;
+
+  background-color: #faf8f5 !important;
+  border: 0.0625rem solid #c2bab0 !important; /* 1px */
+  border-radius: 50% !important;
+  color: #8e7f71 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+}
+
+/* --- КНОПКА ЗАКРИТТЯ (Праворуч) --- */
+.custom-material-modal .modal-header2 .modal-close {
+  right: 0 !important;
+}
+
+/* Окремо налаштовуємо адаптивний розмір іконки хрестика всередині */
+.custom-material-modal .modal-header2 .modal-close i {
+  font-size: 1.1rem !important; /* Хрестик тепер виразний та адаптивний */
+  font-weight: 700 !important;
+  display: block;
+}
+
+.custom-material-modal .modal-header2 .modal-close:hover {
+  background-color: #8e7f71 !important;
+  color: #ffffff !important;
+  border-color: #8e7f71 !important;
+  transform: rotate(90deg); /* Фірмовий плавний оберт */
+}
+
+/* --- КНОПКА НАЗАД (Ліворуч) --- */
+.custom-material-modal .modal-header2 .modal-back {
+  left: 0 !important;
+}
+
+/* Окремо налаштовуємо адаптивний розмір іконки шеврона всередині */
+.custom-material-modal .modal-header2 .modal-back i {
+  font-size: 1.05rem !important; /* Пропорційний розмір шеврона */
+  font-weight: 800 !important;
+  display: block;
+  /* Невеликий оптичний зсув вліво, щоб шеврон візуально стояв чітко по центру круга */
+  transform: translateX(-1px);
+}
+
+.custom-material-modal .modal-header2 .modal-back:hover {
+  background-color: #8e7f71 !important;
+  color: #ffffff !important;
+  border-color: #8e7f71 !important;
+  transform: translateX(-3px); /* Фірмовий мікро-зсув ліворуч */
+}
+
+/* Ховер-ефект для іконки назад при зсуві всієї кнопки, щоб уникнути конфлікту трансформацій */
+.custom-material-modal .modal-header2 .modal-back:hover i {
+  transform: translateX(-1px); /* Зберігаємо внутрішній оптичний центр іконки */
+}
+
+/* --- 12.6 Тіло вікна (специфічне для .custom-material-modal) ---
+   Перевизначає 12.1 завдяки вищій специфічності селектора. */
+/* Тело модального окна — занимает весь оставшийся простор карточки */
+.custom-material-modal #material-content-body {
+  flex-grow: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: calc(100% - 60px) !important; /* Учитываем высоту шапки и отступы */
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* --- 12.7 Обгортка таблиці глосарію (скрол-контейнер) --- */
+/* Обертка кастомной таблицы (скроллбар включается только тут) */
+.custom-material-modal .glossary-table-container {
+  width: 100% !important;
+  height: 100% !important;
+  flex-grow: 1 !important;
+  overflow-y: auto !important;
+  border: 1px solid #e6e1da !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+
+  scrollbar-width: thin !important;
+  scrollbar-color: #c2bab0 #f4f1ea !important;
+}
+
+/* Скролбар таблиці глосарію. */
+.custom-material-modal .glossary-table-container::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.custom-material-modal .glossary-table-container::-webkit-scrollbar-track {
+  background-color: #f4f1ea !important;
+  border-left: 1px solid #e6e1da !important;
+  border-radius: 0 0 6px 0 !important;
+}
+
+.custom-material-modal .glossary-table-container::-webkit-scrollbar-thumb {
+  background-color: #c2bab0 !important;
+  border: 1px solid #f4f1ea !important;
+  border-radius: 4px !important;
+}
+
+.custom-material-modal
+  .glossary-table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #a3998e !important;
+}
+
+/* ============================================================
+   13. КАСТОМНА ТАБЛИЦЯ ГЛОСАРІЮ
+   ============================================================ */
+
+/* --- 13.1 Базова структура таблиці --- */
+.custom-glossary-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-family: var(--font-primary) !important;
+  color: #3a3530 !important;
+  text-align: left !important;
+}
+
+/* Хедеры колонок таблицы */
+.custom-glossary-table th {
+  position: sticky !important;
+  top: 0 !important;
+  background-color: #5c5045 !important; /* Шляхетний темний колір з вашої палітри */
+  color: #faf8f5 !important; /* Контрастний світлий текст */
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  text-transform: uppercase !important; /* Робимо заголовки акуратними та строгими */
+  letter-spacing: 0.8px !important;
+  text-align: center !important;
+  padding: 16px 18px !important;
+  border-bottom: 3px solid #4a3e33 !important;
+  z-index: 10 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Вирівнювання тексту в конкретних заголовках шапки */
+.custom-glossary-table th:nth-child(1) {
+  text-align: center !important;
+}
+.custom-glossary-table th:nth-child(2) {
+  text-align: left !important;
+}
+.custom-glossary-table th:nth-child(3) {
+  text-align: center !important;
+}
+.custom-glossary-table th:nth-child(4) {
+  text-align: left !important;
+}
+
+.custom-glossary-table td {
+  padding: 14px 18px !important;
+  border-bottom: 1px solid #edeae4 !important; /* М'яка межа */
+  vertical-align: top !important;
+  line-height: 1.5 !important;
+  background-color: #ffffff !important;
+  font-size: 0.92rem !important;
+}
+
+.custom-glossary-table td:nth-child(3) {
+  text-align: center !important;
+}
+
+/* Строгие пропорции для 4 колонок */
+.custom-glossary-table th:nth-child(1),
+.custom-glossary-table td:nth-child(1) {
+  width: 7% !important;
+}
+.custom-glossary-table th:nth-child(2),
+.custom-glossary-table td:nth-child(2) {
+  width: 20% !important;
+}
+.custom-glossary-table th:nth-child(3),
+.custom-glossary-table td:nth-child(3) {
+  width: 18% !important;
+}
+.custom-glossary-table th:nth-child(4),
+.custom-glossary-table td:nth-child(4) {
+  width: 55% !important;
+}
+
+/* --- 13.2 Типографіка комірок --- */
+
+/* Новая колонка с индексом */
+.custom-glossary-table td.cell-index {
+  font-size: 0.90rem !important;
+  color: #7d6e61 !important; /* Тепла сепія */
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+.custom-glossary-table .cell-term {
+  font-size: 0.98rem !important;
+}
+
+/* Стили заголовков Term */
+.custom-glossary-table td.cell-term {
+  font-weight: 700 !important;
+  color: #2d2924 !important; /* Максимально чистий темний */
+}
+
+/* Элементы внутри массива: шрифт чуть меньше, легкий отступ */
+.custom-glossary-table tr.glossary-group-row td.cell-term {
+  font-family: var(--font-primary) !important;
+  font-size: 0.90rem !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+  color: #4a6b53 !important; /* Академічний зелений колір сайту */
+  padding-left: 32px !important; /* Створює чітку ліву лесенку відносно батька */
+  position: relative;
+}
+
+/* Елегантна мікро-стрілочка Г-подібної форми перед вкладеним елементом */
+.custom-glossary-table tr.glossary-group-row td.cell-term::before {
+  content: "↳" !important;
+  position: absolute !important;
+  left: 14px !important;
+  color: #a39689 !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+}
+
+/* Текст категорий (курсив) */
+.custom-glossary-table td .category-text {
+  font-family: var(--font-primary) !important;
+  font-size: 0.88rem !important;
+  font-style: italic !important;
+  font-weight: 600 !important;
+  color: #4a6b53 !important; /* Академічний зелений колір сайту */
+  padding-left: 32px !important; /* Створює чітку ліву лесенку відносно батька */
+  position: relative;
+}
+
+/* Все поля описаний */
+.custom-glossary-table td.cell-definition {
+  font-size: 0.95rem !important;
+  color: #4a4641 !important; /* Приємний для читання темний колір */
+  font-weight: normal !important;
+}
+
+/* --- 13.3 Кольорове кодування секцій --- */
+
+/* 1. БАЗОВА НАСТРОЙКА КОЛЬОРІВ ЗА ЗАМОВЧУВАННЯМ */
+.custom-glossary-table tr {
+  /* Рівень 1 (наприклад, "1 Bibliographic Attributes") — шляхетний теплий крафт */
+  --section-bg: #dfd9ce;
+
+  /* Рівень 2 (заголовки характеристик 1.1, 1.2...) — м'який кремовий олив-опал */
+  --group-header-bg: #eae4d9;
+
+  /* Рівень 3 (вкладені рядки масивів) — чистий алебастровий папір */
+  --row-bg: #fcfaf5;
+}
+
+/* [Рівень 2] ВСІ заголовки характеристик */
+.custom-glossary-table tr.glossary-group-header td,
+.custom-glossary-table tr.glossary-normal-row td {
+  background-color: var(--group-header-bg) !important;
+}
+
+/* [Рівень 3] Тільки вкладені клітинки-значення (Active, Archived...) */
+.custom-glossary-table tr.glossary-group-row td {
+  background-color: var(--row-bg) !important;
+}
+
+/* 2. ПЕРЕВИЗНАЧЕННЯ ПАЛІТРИ ДЛЯ КАСТОМНИХ СЕКЦІЙ (Калібровані відтінки) */
+
+/* Секція "Загальна" — глибокий, злегка припилений колір сухої глини */
+.custom-glossary-table tr.group-general {
+  --section-bg: #d8d1c1 !important;
+  --row-bg: #ece7dc !important;
+}
+
+/* Секція "Інтерфейс" — античне золото / шляхетний пергамент */
+.custom-glossary-table tr.group-interface {
+  --section-bg: #e5d3a2 !important;
+  --row-bg: #f3ead3 !important;
+}
+
+/* Секція "Навігація" — глибокий пилово-синій (колір старовинних морських мап) */
+.custom-glossary-table tr.group-navigation {
+  --section-bg: #adc2d1 !important;
+  --row-bg: #dbe4eb !important;
+}
+
+/* Секція "Representation" — вишуканий сизо-зелений патинований відтінок */
+.custom-glossary-table tr.group-representation {
+  --section-bg: #b1c5a1 !important; /* Ніжний салатово-оливковий (шавлія) — тепер він точно зелений! */
+  --row-bg: #e9efe3 !important; /* Світла, чиста пастельно-фісташкова підкладка */
+}
+
+/* Секція "Functionality" — теплий камінь / шляхетний вапняк */
+.custom-glossary-table tr.group-functionality {
+  --section-bg: #c7c7c0 !important;
+  --row-bg: #e6e6e1 !important;
+}
+
+/* --- Застосування динамічних фонів --- */
+
+/* Принесення м'яких відтінків до звичайних рядків */
+.custom-glossary-table tr[class*="group-"]:not(.group-default) td {
+  background-color: var(--row-bg) !important;
+}
+
+/* Принесення насиченіших тонів до головних розділів */
+.custom-glossary-table
+  tr.glossary-section-title-row[class*="group-"]:not(.group-default)
+  td {
+  background-color: var(--section-bg) !important;
+}
+
+/* --- 13.4 Стилістична ієрархія та ефекти --- */
+
+/* Заголовки розділів (Общие правила оформления — Академічний стиль) */
+.custom-glossary-table tr.glossary-section-title-row td {
+  background-color: var(--section-bg) !important;
+  font-weight: 700 !important; /* Чистий та чіткий напівжирний */
+  font-size: 0.98rem !important; /* Оптимальний розмір для капсу */
+  text-transform: uppercase !important; /* Стиль преміального друкованого атласу */
+  letter-spacing: 1.2px !important; /* Шляхетна розрядка літер */
+  color: #2b2521 !important; /* Глибокий колір темного дуба з шапки */
+  padding: 16px 18px !important; /* Збалансовані, акуратні відступи */
+}
+
+.custom-glossary-table tr.glossary-section-title-row td.section-text-centered {
+  text-align: center !important;
+  padding-right: 7% !important;
+}
+
+/* Відбілювання внутрішніх рядків масивів */
+.custom-glossary-table
+  tr[class*="group-"]:not(.group-default).glossary-group-row
+  td {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  ) !important;
+}
+
+/* ============================================================
+   13.5 НАВІГАЦІЙНЕ МЕНЮ ГЛОСАРІЮ
+   ============================================================ */
+
+/* Контейнер меню */
+.glossary-nav-menu {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  padding: 0.2em 24px !important; /* Пропорційні відступи */
+  background-color: transparent !important;
+  border-bottom: none !important;
+
+  /* Розумні вертикальні відступи: на великих екранах більше, на малих — автоматично менше */
+  margin-top: clamp(10px, 2vh, 20px) !important;
+  margin-bottom: 2px !important;
+  gap: 0.8em !important;
+}
+
+/* Назва "Jump to" */
+.nav-menu-label {
+  margin-right: 0.5em !important;
+  font-family: var(--font-primary) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important; /* Розрядка в em для масштабування */
+  color: #8e7f71 !important;
+}
+
+/* Гнучкий контейнер для кнопок */
+.nav-menu-items {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 0.5em !important;
+}
+
+/* Стиль для груп */
+.nav-group-basics,
+.nav-group-main {
+  display: flex !important;
+  gap: 0.5em !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+/* Відступ між групами (відокремлюємо Basics від Main) */
+.nav-group-main {
+  margin-left: 1.8em !important;
+}
+
+/* Базовий стиль для кнопок-навігаторів */
+.nav-item {.item-description 
+  font-family: var(--font-primary) !important;
+  font-size: 0.85rem !important; /* Чудово читабельний, крупніший шрифт */
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  padding: 0.4em 0.9em !important; /* Паддінги адаптуються під розмір тексту */
+  border-radius: 1.5em !important; /* Ідеальний радіус закруглення при будь-якому масштабі */
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+  box-sizing: border-box !important;
+  display: inline-block !important;
+}
+/* 1. Оптимізація під ноутбуки (екран <= 1366px АБО невисокі екрани, де модалка стиснута) */
+@media (max-width: 1400px), (max-height: 900px) {
+  .glossary-nav-menu {
+    padding: 0.3em 1em !important;
+  }
+
+  .nav-item {
+    padding: 0.35em 0.8em !important;
+    font-size: 0.88rem !important;
+  }
+
+  .nav-group-main {
+    margin-left: 1em !important;
+  }
+}
+
+/* Індивідуальне кольорове кодування відповідно до секцій */
+
+/* Кнопка "Bibliographic" (Базовий теплий крафт) */
+.nav-default {
+  background-color: #eae4d9 !important;
+  color: #5c5045 !important;
+  border-color: #dfd9ce !important;
+}
+.nav-default:hover {
+  background-color: #dfd9ce !important;
+  box-shadow: 0 2px 6px rgba(92, 80, 69, 0.15) !important;
+}
+
+/* Кнопка "Content" (Аналогічний базовий стиль) */
+.nav-content {
+  background-color: #eae4d9 !important;
+  color: #5c5045 !important;
+  border-color: #dfd9ce !important;
+}
+.nav-content:hover {
+  background-color: #dfd9ce !important;
+  box-shadow: 0 2px 6px rgba(92, 80, 69, 0.15) !important;
+}
+
+.nav-general {
+  background-color: #ece7dc !important;
+  color: #5c5446 !important;
+  border-color: #d8d1c1 !important;
+}
+.nav-general:hover {
+  background-color: #d8d1c1 !important;
+  box-shadow: 0 2px 6px rgba(125, 110, 97, 0.15) !important;
+}
+
+.nav-interface {
+  background-color: #f3ead3 !important;
+  color: #6b592c !important;
+  border-color: #e5d3a2 !important;
+}
+.nav-interface:hover {
+  background-color: #e5d3a2 !important;
+  box-shadow: 0 2px 6px rgba(107, 89, 44, 0.15) !important;
+}
+
+.nav-navigation {
+  background-color: #dbe4eb !important;
+  color: #3b4f5e !important;
+  border-color: #adc2d1 !important;
+}
+.nav-navigation:hover {
+  background-color: #adc2d1 !important;
+  box-shadow: 0 2px 6px rgba(59, 79, 94, 0.15) !important;
+}
+
+.nav-representation {
+  background-color: #e9efe3 !important;
+  color: #445438 !important;
+  border-color: #b1c5a1 !important;
+}
+.nav-representation:hover {
+  background-color: #b1c5a1 !important;
+  box-shadow: 0 2px 6px rgba(68, 84, 56, 0.15) !important;
+}
+
+.nav-functionality {
+  background-color: #e6e6e1 !important;
+  color: #4f4f4a !important;
+  border-color: #c7c7c0 !important;
+}
+.nav-functionality:hover {
+  background-color: #c7c7c0 !important;
+  box-shadow: 0 2px 6px rgba(79, 79, 74, 0.15) !important;
+}
+
+/* --- Розумний відступ при переході по якорю ---
+   Враховує висоту зафіксованої шапки таблиці, щоб заголовок не заїжджав ПІД неї */
+.custom-glossary-table tr.glossary-section-title-row {
+  scroll-margin-top: 52px !important; /* Висота вашої th-шапки + мікро-зазор */
+}
+
+/* ============================================================
+   13.6 МОБИЛЬНАЯ АДАПТАЦИЯ ГЛОССАРИЯ
+   Десктопная версия не затрагивается
+   ============================================================ */
+
+@media screen and (max-width: 767px),
+       screen and (max-width: 1024px) and (max-height: 600px) {
+
+  /* ----------------------------------------------------------
+     Полноэкранная геометрия модального окна
+     ---------------------------------------------------------- */
+
+  #material-content-modal {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    padding: 0.5rem !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box;
+  }
+
+  .custom-material-modal {
+    width: calc(100vw - 1rem) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+
+    height: calc(100vh - 1rem) !important;
+    height: calc(100dvh - 1rem) !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    padding: 0.65rem !important;
+
+    border-radius: 10px !important;
+
+    overflow: hidden !important;
+  }
+
+  /* ----------------------------------------------------------
+     Компактная шапка
+     ---------------------------------------------------------- */
+
+  .custom-material-modal .modal-header2 {
+    flex: 0 0 auto;
+
+    margin-bottom: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+  }
+
+  .custom-material-modal .modal-header2 h2 {
+    min-height: 2rem;
+
+    padding: 0.2rem 2.7rem !important;
+
+    line-height: 1.25 !important;
+
+    overflow-wrap: anywhere;
+  }
+
+  /* Кнопки назад и закрытия */
+  .custom-material-modal .modal-header2 .modal-close,
+  .custom-material-modal .modal-header2 .modal-back {
+    top: 0 !important;
+
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  /* На сенсорных экранах убираем смещающий hover */
+  .custom-material-modal .modal-header2 .modal-back:hover,
+  .custom-material-modal .modal-header2 .modal-close:hover {
+    transform: none;
+  }
+
+  /* ----------------------------------------------------------
+     Мобильная навигация по разделам
+     Горизонтально прокручивается и не занимает много высоты
+     ---------------------------------------------------------- */
+
+  .glossary-nav-menu {
+    display: block !important;
+
+    width: 100%;
+    margin: 0.55rem 0 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden;
+  }
+
+  .nav-menu-label {
+    display: block;
+
+    margin: 0 0 0.35rem !important;
+
+    line-height: 1.2;
+  }
+
+  .nav-menu-items {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 0.4rem !important;
+
+    width: 100%;
+    padding: 0 0 0.35rem;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #c2bab0 transparent;
+
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-menu-items::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .nav-menu-items::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .nav-menu-items::-webkit-scrollbar-thumb {
+    background-color: #c2bab0;
+    border-radius: 4px;
+  }
+
+  .nav-group-basics,
+  .nav-group-main {
+    display: flex !important;
+    flex: 0 0 auto;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 0.4rem !important;
+  }
+
+  .nav-group-main {
+    margin-left: 0 !important;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+
+    padding: 0.35rem 0.65rem !important;
+
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* ----------------------------------------------------------
+     Тело окна
+     ---------------------------------------------------------- */
+
+  .custom-material-modal #material-content-body {
+    flex: 1 1 auto !important;
+
+    min-height: 0;
+    height: auto !important;
+
+    overflow: hidden !important;
+  }
+
+  /* ----------------------------------------------------------
+     Таблица сохраняет четыре колонки.
+     На мобильном используется горизонтальный скролл.
+     ---------------------------------------------------------- */
+
+  .custom-material-modal .glossary-table-container {
+    flex: 1 1 auto !important;
+
+    width: 100% !important;
+    min-height: 0;
+    height: auto !important;
+
+    overflow: auto !important;
+
+    border-radius: 6px !important;
+
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .custom-glossary-table {
+    width: 100% !important;
+    min-width: 46rem !important;
+
+    table-layout: fixed;
+  }
+
+  /* Компактная закреплённая шапка таблицы */
+  .custom-glossary-table th {
+    padding: 0.65rem 0.7rem !important;
+
+    line-height: 1.25;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* Ячейки таблицы */
+  .custom-glossary-table td {
+    padding: 0.65rem 0.7rem !important;
+    line-height: 1.4 !important;
+  }
+
+
+  /* Уменьшаем отступ вложенных терминов */
+  .custom-glossary-table tr.glossary-group-row td.cell-term,
+  .custom-glossary-table td .category-text {
+    padding-left: 1.5rem !important;
+  }
+
+  .custom-glossary-table tr.glossary-group-row td.cell-term::before {
+    left: 0.55rem !important;
+  }
+
+  /* Заголовки цветовых разделов */
+  .custom-glossary-table tr.glossary-section-title-row td {
+    padding: 0.7rem !important;
+
+    line-height: 1.3;
+    letter-spacing: 0.07em !important;
+  }
+
+  .custom-glossary-table tr.glossary-section-title-row {
+    scroll-margin-top: 2.8rem !important;
+  }
+}
+
+/* ============================================================
+   ПРЕДУПРЕЖДЕНИЕ ДЛЯ ЭКРАНОВ МЕНЬШЕ 1300px
+   ============================================================ */
+
+.device-warning[hidden] {
+  display: none !important;
+}
+
+.device-warning {
+  position: fixed;
+  z-index: 3000000;
+
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: clamp(1rem, 4vw, 2rem);
+
+  background-color: rgba(43, 37, 33, 0.76);
+
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Блокируем прокрутку фона */
+body.device-warning-open {
+  overflow: hidden !important;
+}
+
+/* Окно предупреждения */
+.device-warning__dialog {
+  width: min(100%, 34rem);
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+
+  padding:
+    clamp(1.5rem, 5vw, 2.25rem)
+    clamp(1.25rem, 5vw, 2.5rem);
+
+  overflow-y: auto;
+
+  font-family: var(--font-primary);
+  text-align: center;
+
+  color: #4a4541;
+  background:
+    radial-gradient(
+      rgba(140, 120, 100, 0.035) 1px,
+      transparent 1px
+    ),
+    #fcfbf7;
+
+  background-size: 8px 8px;
+
+  border: 1px solid #c4b9ac;
+  border-radius: 12px;
+
+  box-shadow:
+    0 24px 60px rgba(43, 37, 33, 0.3),
+    0 8px 20px rgba(43, 37, 33, 0.14);
+
+  animation: device-warning-enter 0.25s ease-out;
+}
+
+/* Иконка компьютера */
+.device-warning__icon {
+  display: grid;
+  place-items: center;
+
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0 auto 1rem;
+
+  font-size: 1.55rem;
+
+  color: #f7f3ed;
+  background-color: #5c5045;
+
+  border: 1px solid #8e7f71;
+  border-radius: 50%;
+
+  box-shadow: 0 5px 14px rgba(43, 37, 33, 0.15);
+}
+
+/* Заголовок */
+.device-warning__dialog h2 {
+  margin: 0 0 0.9rem;
+
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+  font-weight: 750;
+  line-height: 1.2;
+
+  color: #3f3833;
+}
+
+/* Основной текст */
+.device-warning__text {
+  margin: 0;
+
+  font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+  line-height: 1.55;
+
+  color: #4a4641;
+}
+
+/* Рекомендованное разрешение */
+.device-warning__recommendation {
+  margin: 1rem 0 1.4rem;
+  padding: 0.8rem 0.9rem;
+
+  font-size: clamp(0.9rem, 3.4vw, 1rem);
+  line-height: 1.5;
+
+  color: #625c56;
+  background-color: rgba(142, 127, 113, 0.07);
+
+  border-left: 3px solid #8e7f71;
+  border-radius: 5px;
+}
+
+.device-warning__recommendation strong {
+  color: #3f624a;
+}
+
+/* Кнопка продолжения */
+.device-warning__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.2rem;
+
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  color: #f7f3ed;
+  background-color: #5c5045;
+
+  border: 1px solid #5c5045;
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.device-warning__button:hover {
+  background-color: #4a6b53;
+  border-color: #4a6b53;
+
+  box-shadow: 0 5px 14px rgba(74, 107, 83, 0.2);
+
+  transform: translateY(-1px);
+}
+
+.device-warning__button:focus-visible {
+  outline: 3px solid rgba(74, 107, 83, 0.35);
+  outline-offset: 3px;
+}
+
+@keyframes device-warning-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-warning__dialog {
+    animation: none;
+  }
+
+  .device-warning__button {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   МОДАЛЬНОЕ ОКНО ПРОСМОТРА PDF
+   ============================================================ */
+
+.pdf-viewer-modal {
+    padding: clamp(10px, 1.4vw, 28px);
+}
+
+.pdf-viewer-window {
+    width: min(94vw, 1800px) !important;
+    height: min(90dvh, 1100px) !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #f7f4ee !important;
+    border: 1px solid #c4b9ac !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 22px 60px rgba(43, 37, 33, 0.28),
+        0 5px 15px rgba(43, 37, 33, 0.12);
+}
+
+.pdf-viewer-header {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+}
+
+.pdf-viewer-header h2 {
+    margin: 0;
+
+    font-family: var(--font-primary);
+    font-size: clamp(1.1rem, 0.7rem + 0.5vw, 1.5rem);
+    font-weight: 750;
+
+    color: #4a3e3d;
+}
+
+.pdf-viewer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pdf-viewer-external-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.45em;
+
+    min-height: 34px;
+    padding: 5px 12px;
+
+    font-family: var(--font-primary);
+    font-size: clamp(0.84rem, 0.76rem + 0.12vw, 0.96rem);
+    font-weight: 700;
+    line-height: 1;
+
+    color: #4f6655;
+    background: #faf8f5;
+
+    border: 1px solid #c4b9ac;
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.pdf-viewer-external-link:hover {
+    color: #3f5746;
+    background: #f2eee7;
+    border-color: #9f9183;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(74, 62, 61, 0.1);
+}
+
+.pdf-viewer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+
+    padding: clamp(8px, 0.8vw, 14px);
+
+    background: #e8e2d8;
+    border-top: 1px solid #d4cbc0;
+}
+
+.pdf-viewer-frame {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid #c8beb2;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+
+/* ============================================================
+   АДАПТАЦИЯ PDF-ПРОСМОТРА
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .pdf-viewer-modal {
+        padding: 8px;
+    }
+
+    .pdf-viewer-window {
+        width: calc(100vw - 16px) !important;
+        height: calc(100dvh - 16px) !important;
+
+        border-radius: 10px !important;
+    }
+
+    .pdf-viewer-external-link {
+        width: 34px;
+        min-width: 34px;
+        padding-inline: 0;
+    }
+
+    .pdf-viewer-external-link span {
+        display: none;
+    }
+
+    .pdf-viewer-body {
+        padding: 6px;
+    }
+}

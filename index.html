@@ -16,24 +16,29 @@
 
     <link rel="icon" type="image/png" href="img/globe6.png">
     
+
     <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <!-- Онлайн-шрифты -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/table-section.css">
 
+
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/table-config.js"></script>
-    <script src="data/glossary-data.js"></script>
+
+    <script defer src="js/fragment-loader.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/table-config.js"></script>
+    <script defer src="data/glossary-data.js"></script>
 
 </head>
 <body>
 
 <header class="site-header">
-    <i class="fa-solid fa-earth-americas header-icon left-icon"></i>
     <h1>Atlas Explorer</h1>
-    <i class="fa-solid fa-map header-icon right-icon"></i>
 </header>
 
 <section class="intro-section">
@@ -41,12 +46,12 @@
         <div class="about-block main-about">
             <div class="about-section">
                 <h2>About</h2>
-                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to search for atlases, explore their structure, and conduct your own comparative and trend analyses. The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand knowledge about atlases and their diverse metaconcepts. </p>
+                <p><strong>Atlas Explorer</strong> is an interactive web catalog of electronic atlases that enables you to search for atlases, explore their structure, and conduct your own comparative and trend analyses. The <strong>aim of the Atlas Explorer project</strong> is to identify, analyze, classify, and archive electronic atlases in order to preserve, systematize, and expand knowledge about atlases and their diverse metaconcepts</p>
 
-                <p>Atlas Explorer classifies electronic atlases by <span class="about-cursive">bibliographic</span>, <span class="about-cursive">content</span>, and <span class="about-cursive">media-cartographic</span> attributes organised into five blocks: general information, interface, information architecture (IA) and navigation, content representation, and functionality. <strong>Definitions of all attributes are available in the table header tooltips</strong>.</p>
+                <p>Atlas Explorer classifies electronic atlases by <span class="about-cursive">bibliographic</span>, <span class="about-cursive">content</span>, and <span class="about-cursive">media-cartographic</span> attributes organised into five blocks: general information, interface, information architecture (IA) and navigation, content representation, and functionality. <strong>Definitions of all attributes are available in the table header tooltips</strong></p>
 
 
-                <p> <span class="about-cursive">Methodological aspects of analysis</span>, <span class="about-cursive">glossary</span> and other useful information can be found in the <strong>Supplementary Materials section</strong>. Unlike the time-consuming standard analysis model, Atlas Explorer employs an express analysis approach that usually takes 2–3 hours. While this approach enables the identification of the most important and synthetic attributes, it provides lower analytical depth and reliability compared to the standard model.</p>
+                <p> <span class="about-cursive">The analysis guide,</span> <span class="about-cursive">glossary</span> and other useful information can be found in the <strong>Supplementary Materials section.</strong> Atlas Explorer employs an express analysis approach that usually takes 2–3 hours. While this approach enables the identification of the synthetic attributes, it provides lower analytical depth and reliability compared to the standard model</p>
 
 
                <div class="about-footer">
@@ -62,26 +67,68 @@
             <h2>Atlas Criteria</h2>
                 <ol class="criteria-list">
                 <li>Defined theme and territory</li>
-                <li>Includes multiple thematic sections or ready-made thematic maps (excluding the metaconcept of organizational mechanisms)</li>
-                <li>Includes purpose-built maps or (geo)spatial visualisations</li>
+                <li>Includes multiple thematic sections (excluding the metaconcept of organizational mechanism)</li>
+                <li>Includes purpose-built maps or (geo)spatial visualizations</li>
                 <li>Content is delivered either within the atlas shell or on purpose-built pages (not PDF pages)</li>
                 <li>Operational and completed product (not a beta version)</li>
                 <li><i class="fa-solid fa-ban fa-lg" style="color: #990000;"></i> Not a catalog geoportal, collection of dashboards, interactive map, (web)GIS or applied CIS</li>
             </ol>
+
             <div class="criteria-footer">
-        <div class="definition-badge" data-tooltip=" Website or application that contains interrelated and coherent visual and geospatially referenced multimedia content organised in a logical structure within a specific topic and spatiotemporal frame to create an environment for (1) knowledge acquisition, (2) making comparisons and establishing relationships, (3) presenting research findings, (4) supporting decision-making, or (5) storytelling ">
-            <i class="fa-regular fa-circle-question"></i>
-            <span>Atlas Definition (long)</span>
-        </div>
-        <div class="definition-badge" data-tooltip=" Website or application that structures and/or unfolds a specific theme with a focus on spatiotemporal aspects ">
-            <i class="fa-regular fa-circle-question"></i>
-            <span>Atlas Definition (short)</span>
-        </div>
-        </div>
+  <div class="definition-popover-wrapper">
+
+    <button
+      type="button"
+      class="definition-trigger"
+      aria-expanded="false"
+      aria-controls="atlas-definitions-popover"
+    >
+      <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+      <span>Atlas Definition</span>
+    </button>
+
+    <section
+      id="atlas-definitions-popover"
+      class="definition-popover"
+      role="dialog"
+      aria-labelledby="atlas-definitions-title"
+      aria-hidden="true"
+    >
+      <h3 id="atlas-definitions-title" class="visually-hidden">
+        Atlas Definition
+      </h3>
+
+      <button
+        type="button"
+        class="definition-popover-close"
+        aria-label="Close definitions"
+      >
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <article class="definition-panel definition-panel--conceptual">
+        <h3>Conceptual Definition</h3>
+
+        <p>
+          Website or application that contains interrelated and coherent visual and geospatially referenced multimedia content organised in a logical structure within a specific topic and spatiotemporal frame to create an environment for (1) knowledge acquisition, (2) making comparisons and establishing relationships, (3) presenting research findings, (4) supporting decision-making, or (5) storytelling
+        </p>
+      </article>
+
+      <article class="definition-panel definition-panel--operational">
+        <h3>Operational Definition</h3>
+
+        <p>
+          Website or application that structures and/or unfolds a specific theme with a focus on spatiotemporal aspects
+        </p>
+      </article>
+
+    </section>
+  </div>
+</div>
     </div>
 
     <div class="info-block">
-    <h2>Authors</h2>
+    <h2>Author</h2>
 
     <div class="author-profile">
         <div class="author-name-zone">
@@ -90,9 +137,24 @@
         <p class="author-position">PhD in Geography</p>
     </div>
 
-    <a href="https://igu.org.ua/" target="_blank" rel="noopener noreferrer" class="institution-logo-link" title="Institute of Geography of the NAS of Ukraine">
-        <img src="img/igu-logo.png" alt="IGU NAS of Ukraine Logo" class="institution-large-logo">
+    <div class="institution-panel">
+
+    <a href="https://igu.org.ua/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="institution-logo-link"
+       title="Institute of Geography of the NAS of Ukraine">
+
+        <img src="img/igu-logo_2.png"
+             alt="Institute of Geography of the NAS of Ukraine"
+             class="institution-large-logo">
     </a>
+
+    <p class="institution-name">
+        Institute of Geography<br>
+        <span>National Academy of Sciences of Ukraine</span>
+    </p>
+</div>
 
     <!-- 2. НОВЫЙ ДВУХКНОПОЧНЫЙ КОНТЕЙНЕР ДЛЯ СОХРАНЕНИЯ ГЕОМЕТРИИ -->
     <div class="author-actions-container">
@@ -125,19 +187,206 @@
             </div>
         </div>
 
-        <!-- КНОПКА ОБНОВЛЕНИЙ (Оставлена БЕЗ изменений параметров, ID и классов, чтобы не нарушать работу JS) -->
-        <button class="updates-log-pill-btn" onclick="document.getElementById('updates-modal').style.display='flex'">
-            <i class="fa-solid fa-history"></i> Update History
-        </button>
+        <!-- КНОПКА ОБНОВЛЕНИЙ -->
+              <button type="button" class="updates-log-pill-btn" onclick="openUpdatesLog(event)">
+        <i class="fa-solid fa-history" aria-hidden="true"></i>
+        <span>Update History</span>
+      </button>
         
     </div>
 
     <!-- Обновленный системный подвал карточки -->
     <div class="author-card-footer">
-        <div class="footer-row"><span>UPDATED:</span> <strong>15.07.2026</strong></div>
-        <div class="footer-row"><span>VERSION:</span> <strong>0.9.5</strong></div>
+        <div class="footer-row"><span>UPDATED:</span> <strong>16.08.2026</strong></div>
+        <div class="footer-row"><span>VERSION:</span> <strong>0.9.6</strong></div>
     </div>
 </div>
+</section>
+
+<!-- =========================================================
+     MOBILE EXPLORER
+     ========================================================= -->
+
+<section class="mobile-explorer" id="mobile-explorer">
+
+    <div class="mobile-explorer-inner">
+
+        <!-- Быстрый доступ к главным разделам -->
+        <nav class="mobile-explorer-actions"
+             aria-label="Atlas Explorer mobile navigation">
+
+            <a
+                href="#mobile-atlas-catalogue"
+                class="mobile-explorer-action mobile-explorer-action--catalogue"
+            >
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+
+                <span>
+                    <strong>Atlas Catalog</strong>
+                    <small>Browse Atlases</small>
+                </span>
+
+                <i class="fa-solid fa-chevron-down mobile-explorer-action-arrow"
+                   aria-hidden="true"></i>
+            </a>
+
+
+            <button
+                type="button"
+                class="mobile-explorer-action mobile-explorer-action--materials"
+                onclick="openSupplementaryModal(event)"
+                aria-haspopup="dialog"
+                aria-controls="supplementary-modal"
+            >
+                <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+
+                <span>
+                    <strong>Supplementary Materials</strong>
+                    <small>Guide, glossary and other materials</small>
+                </span>
+
+                <i class="fa-solid fa-arrow-up-right-from-square mobile-explorer-action-arrow"
+                   aria-hidden="true"></i>
+            </button>
+
+        </nav>
+
+
+        <!-- ==================================================
+             MOBILE ATLAS CATALOGUE
+             ================================================== -->
+
+        <section
+            class="mobile-atlas-catalogue"
+            id="mobile-atlas-catalogue"
+            aria-labelledby="mobile-atlas-catalogue-title"
+        >
+
+            <header class="mobile-catalogue-header">
+
+                <div class="mobile-catalogue-heading">
+
+                    <div>
+                        <span class="mobile-catalogue-eyebrow">
+                            Atlas Explorer
+                        </span>
+
+                        <h2 id="mobile-atlas-catalogue-title">
+                            Atlas Catalog
+                        </h2>
+                    </div>
+
+                    <span
+                        class="mobile-catalogue-count"
+                        id="mobile-catalogue-count"
+                        aria-live="polite"
+                    >
+                    </span>
+
+                </div>
+
+
+                <!-- Поиск -->
+                <label class="mobile-catalogue-search">
+
+                    <i class="fa-solid fa-magnifying-glass"
+                       aria-hidden="true"></i>
+
+                    <input
+                        type="search"
+                        id="mobile-atlas-search"
+                        placeholder="Search atlases and attributes..."
+                        autocomplete="off"
+                        aria-label="Search atlases"
+                    >
+
+                    <button
+                        type="button"
+                        id="mobile-atlas-search-clear"
+                        class="mobile-catalogue-search-clear"
+                        aria-label="Clear search"
+                        hidden
+                    >
+                        <i class="fa-solid fa-xmark"
+                           aria-hidden="true"></i>
+                    </button>
+
+                </label>
+
+            </header>
+
+
+            <!-- Переключение трёх групп атрибутов -->
+            <div
+                class="mobile-catalogue-tabs"
+                role="tablist"
+                aria-label="Attribute groups"
+            >
+
+                <button
+                    type="button"
+                    class="mobile-catalogue-tab active"
+                    data-mobile-view="bibliographic"
+                    role="tab"
+                    aria-selected="true"
+                >
+                    Bibliographic
+                </button>
+
+                <button
+                    type="button"
+                    class="mobile-catalogue-tab"
+                    data-mobile-view="content"
+                    role="tab"
+                    aria-selected="false"
+                >
+                    Content
+                </button>
+
+                <button
+                    type="button"
+                    class="mobile-catalogue-tab"
+                    data-mobile-view="media"
+                    role="tab"
+                    aria-selected="false"
+                >
+                    Media-Cartographic
+                </button>
+
+            </div>
+
+
+            <!-- JS генерирует сюда карточки -->
+            <div
+                id="mobile-atlas-list"
+                class="mobile-atlas-list"
+                aria-live="polite"
+            >
+                <div class="mobile-catalogue-loading">
+                    <i class="fa-solid fa-circle-notch fa-spin"
+                       aria-hidden="true"></i>
+
+                    <span>Loading Atlases...</span>
+                </div>
+            </div>
+
+
+            <!-- Постепенная загрузка карточек -->
+            <button
+                type="button"
+                id="mobile-atlas-load-more"
+                class="mobile-atlas-load-more"
+                hidden
+            >
+                <span>Show more Atlases</span>
+                <i class="fa-solid fa-chevron-down"
+                   aria-hidden="true"></i>
+            </button>
+
+        </section>
+
+    </div>
+
 </section>
 
 <main class="table-section">
@@ -152,111 +401,143 @@
                <button class="tab-button" onclick="openTab(event, 'tab3')">
                    <i class="fa-solid fa-table"></i> Media-Cartographic Attributes
                </button>
-               <button class="tab-button supplementary-btn" onclick="openSupplementaryModal(event)">
-                   <i class="fa-solid fa-book-open"></i> Supplementary Materials
-               </button>
-        </div> 
+               </div> 
+
+               <button
+              type="button"
+              class="tab-button supplementary-btn"
+              onclick="openSupplementaryModal(event)"
+              aria-haspopup="dialog"
+              aria-controls="supplementary-modal">
+              <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+              <span>Supplementary Materials</span>
+            </button>
+
         <div class="settings-group">
     <button class="tab-button settings-btn" onclick="toggleColumnPicker()">
         <i class="fas fa-cog"></i> Show/Hide Columns
     </button>
     <div id="column-picker" class="column-picker-container"></div>
-    <!-- Кнопка "? Help" и выпадающий аккордеон -->
-    <div class="help-container">
-        <button class="tab-button help-btn" id="help-trigger-btn">
-            <i class="fa-solid fa-circle-question"></i> Help
-        </button>
-        
-        <div id="help-accordion-menu" class="help-accordion-menu">
-            <!-- Рубрика 1 -->
-            <div class="help-accordion-item">
-                <button type="button" class="help-accordion-header" onclick="toggleAccordionItem(this)">
-                    Navigation
-                </button>
-                <div class="help-accordion-content">
-                    <ul>
-                        <li>To switch between tables, use the <strong>buttons on the left-hand side</strong></li>
-                        <li>On the right are the buttons for <strong>horizontal table scrolling</strong>, <strong>show/hide selected columns</strong>, and <strong>full-screen mode</strong></li>
-                        <li>To quickly <strong>jump between the Media-Cartographic Attributes (Table 3)</strong>, use the <strong>navigation panel at the bottom</strong>, next to the ‘Clear Filters’ button</li>
-                        <li>Use the <strong>‘Page Size’ dropdown</strong> in the pagination menu at the bottom to <strong>set the number of atlases</strong> displayed</li>
-                    </ul>
-                </div>
+    <!-- HELP -->
+<div class="help-container">
+
+    <button
+        type="button"
+        class="tab-button help-btn"
+        id="help-trigger-btn"
+        aria-expanded="false"
+        aria-controls="help-accordion-menu"
+    >
+        <i class="fa-solid fa-circle-question"></i>
+        Help
+    </button>
+
+    <div
+        id="help-accordion-menu"
+        class="help-accordion-menu"
+        aria-hidden="true"
+    >    
+
+        <!-- 1. Navigation -->
+        <div class="help-accordion-item">
+
+            <button
+                type="button"
+                class="help-accordion-header"
+                aria-expanded="false"
+            >
+                Navigation
+            </button>
+
+            <div class="help-accordion-content">
+                <ul>
+                    <li>To switch between tables, use the <strong>buttons on the left-hand side</strong></li>
+
+                    <li>On the right are the buttons for <strong>horizontal table scrolling</strong>, <strong>show/hide selected columns</strong>, and <strong>full-screen mode</strong></li>
+
+                    <li>To quickly <strong>jump between the Media-Cartographic Attributes</strong> (Table 3), use the <strong>navigation panel at the bottom</strong>, next to the ‘Clear Filters’ button</li>
+
+                    <li>Use the <strong>‘Page Size’ dropdown</strong> in the pagination menu at the bottom to <strong>set the number of atlases</strong> displayed</li>
+
+                    <li>When switching between tables, your <strong>position</strong> in each table and any active <strong>filters are preserved</strong></li>
+                </ul>
             </div>
-            
-            <!-- Рубрика 2 -->
-            <div class="help-accordion-item">
-                <button type="button" class="help-accordion-header" onclick="toggleAccordionItem(this)">
-                   Table Interaction
-                </button>
-                <div class="help-accordion-content">
-                    <ul>
-                        <li>All <strong>atlas titles</strong> contain hyperlinks</li>
-                        <li><strong>Column widths</strong> can be adjusted</li>
-                        <li>Clicking any table cell <strong>copies</strong> its content</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Рубрика 3 -->
-            <div class="help-accordion-item">
-                <button type="button" class="help-accordion-header" onclick="toggleAccordionItem(this)">
-                    Sorting and Filtering
-                </button>
-                <div class="help-accordion-content">
-                    <ul>
-                        <li>Columns can be <strong>sorted</strong> (ascending/descending)</li>
-                        <li>Columns can be <strong>filtered</strong> using: <strong>keywords</strong>, <strong>list selection</strong>, or <strong>expressions</strong> for numeric columns</li>
-                        <li>To <strong>compare atlases</strong>, select their <strong>IDs</strong> in the corresponding column</li>
-                        <li>Table <strong>filters can be reset</strong> using the <strong>‘Clear Filters’ button</strong> located at the bottom, next to the pagination menu</li>
-                    </ul>
-                </div>
-            </div>
+
         </div>
-    </div>    
+
+
+        <!-- 2. Table Interaction -->
+        <div class="help-accordion-item">
+
+            <button
+                type="button"
+                class="help-accordion-header"
+                aria-expanded="false"
+            >
+                Table Interaction
+            </button>
+
+            <div class="help-accordion-content">
+                <ul>
+                    <li>All <strong>atlas titles</strong> contain hyperlinks</li>
+
+                    <li>To learn more about an attribute, <strong>hover</strong> your cursor over the <strong>attribute's label</strong></li>
+
+                    <li><strong>Column widths</strong> can be adjusted</li>
+
+                    <li>Clicking any table cell <strong>copies</strong> its content</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- 3. Sorting and Filtering -->
+        <div class="help-accordion-item">
+
+            <button
+                type="button"
+                class="help-accordion-header"
+                aria-expanded="false"
+            >
+                Sorting and Filtering
+            </button>
+
+            <div class="help-accordion-content">
+                <ul>
+
+                    <li>To <strong>select and compare atlases</strong>, use the <strong>Select Rows</strong> menu. In the column that appears on the left, select the atlases you want to work with and click <strong>Apply Selection</strong>. Attribute filtering will apply only to this selection until you click <strong>Reset Selection</strong></li>
+
+                    <li>To select the attributes (columns) to be displayed in the table, use the <strong>Show/Hide Columns menu.</strong> You can <strong>move</strong> and <strong>resize</strong> the menu window</li>
+
+                    <li>Columns can be <strong>sorted</strong> (ascending/descending)</li>
+
+                    <li>Columns can be <strong>filtered</strong> using: <strong>keywords</strong>, <strong>list selection</strong>, <strong>list multiselection</strong> or <strong>expressions</strong> for numeric columns</li>
+
+                    <li>The <strong>filtering system is synchronized</strong> across all tables; all <strong>filters</strong> for each table <strong>remain active</strong> when switching to another table</li>
+
+                    <li>Table <strong>filters can be reset</strong> using the <strong>‘Clear Filters’ button</strong> located at the bottom, next to the pagination menu</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</div>    
     <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen mode">
         <i class="fas fa-expand"></i>
     </button>
 </div>
     </nav>
 
-<div id="tab1" class="tab-content active">
-    <div id="table1-id"></div>
-</div>
-<div id="tab2" class="tab-content">
-    <div id="table2-id"></div>
-</div>
-<div id="tab3" class="tab-content">
-    <div id="table3-id"></div>
-</div>
+<div id="table1-id"></div>
 </main>
 
 
-<div id="updates-modal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Update History</h2>
-            <button class="modal-close-btn" onclick="closeUpdatesLog()">&times;</button>
-        </div>
-        <div class="modal-body">
-            
-            <div class="update-block">
-                <div class="update-date">18.03.2026</div>
-                <p>Es una ciencia —replicó don Quijote— que encierra en sí todas o las más ciencias del mundo, a causa que el que la profesa ha de ser jurisperito, y saber las leyes de la justicia distributiva y commutativa, para dar a cada uno lo que es suyo y lo que le conviene; ha de ser teólogo, para saber dar razón de la cristiana ley que profesa, clara y distintamente, dondequiera que le fuere pedido; ha de ser médico, y principalmente herbolario, para conocer en mitad de los despoblados y desiertos las yerbas que tienen virtud de sanar las heridas, que no ha de andar el caballero andante a cada triquete buscando quien se las cure; ha de ser astrólogo, para conocer por las estrellas cuántas horas son pasadas de la noche, y en qué parte y en qué clima del mundo se halla; ha de saber las matemáticas, porque a cada paso se le ofrecerá tener necesidad dellas... Ha de estar adornado de todas las virtudes teologales y cardinales; rescendiendo a otras menudencias, digo que ha de saber nadar... ha de saber herrar un caballo y aderezar la silla y el freno; y, volviendo a lo que toca a la fidelidad de Dios y de su dama, ha de ser casto en los pensamientos, honesto en las palabras, liberal en las obras, valiente en los hechos, sufrido en los trabajos, caritativo con los necesitados, y, finalmente, mantenedor de la verdad, aunque le cueste la vida el defenderla.</p>
-                <ul class="update-list">
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                    <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariaturх.</li>
-                </ul>
-            </div>
-
-            <div class="update-block">
-                <div class="update-date">10.02.2026</div>
-                <p>“Now, what I want is, Facts. Teach these boys and girls nothing but Facts. Facts alone are wanted in life. Plant nothing else, and root out everything else. You can only form the minds of reasoning animals upon Facts: nothing else will ever be of any service to them. This is the principle on which I bring up my own children, and this is the principle on which I bring up these children. Stick to Facts, sir!” The speaker, and the schoolmaster, and the third grown person present, all backed a little, and swept with their eyes the inclined plane of little vessels then and there arranged in order, ready to have imperial gallons of facts poured into them until they were full to the brim. In this life, we want nothing but Facts, sir; nothing but Facts!” “Girl number twenty,” said Mr. Gradgrind, squarely pointing with his square forefinger, “I don’t know that girl. Who is that girl?” “Sissy Jupe, sir,” explained number twenty, blushing, rising up. “Sissy is not a name,” said Mr. Gradgrind. “Don’t call yourself Sissy. Call yourself Cecilia.” “Yes, sir,” returned the girl. “Cecilia Jupe. Let me see. What is your father?” “He belongs to the horse-riding, if you please, sir.” “Girl number twenty unable to define a horse!” said Mr. Gradgrind, for the general behoof of all present. “Girl number twenty possessed of no facts in reference to one of the commonest of animals! Some boy’s definition of a horse. Bitzer, yours.” “The quadruped, and graminivorous, Mr. Gradgrind,” replied Bitzer, “forty teeth, namely twenty-four grinders, four eye-teeth, and twelve incisive. Sheds coat in the spring; in marshy countries sheds hoofs, too. Hoofs hard, but requiring to be shod with iron. Age known by marks in mouth.” “Now girl number twenty,” said Mr. Gradgrind, “you know what a horse is.” “Yes, sir,” said Sissy Jupe. “Then define a horse.” Sissy Jupe hesitated, and looked for help, and blushed, and said nothing. “Girl number twenty unable to define a horse!” repeated Mr. Gradgrind. “Very well. Now let me ask you this. You know what a carpet is?” “Yes, sir.” “Then you know what a carpet is made of?” “Of wool, sir.” “Very well. Now suppose you were asked to describe a carpet, what would you say?” “I should say it was a thing that was made of wool, and had patterns on it, and was something to walk on.” “Why, yes. And what do you mean by patterns?” “Why, I mean flowers, and birds, and horses, and things like that.” “Not facts, girl number twenty! Not facts!”</p>
-            </div>
-
-
-        </div>
-    </div>
+<div
+  id="updates-modal"
+  class="modal-overlay"
+  data-fragment="data/modals/updates-content.html">
 </div>
 
 <div id="suggestions-modal" class="custom-modal">
@@ -310,164 +591,206 @@
         <!-- Шапка модалки -->
         <div class="modal-header">
             <h2>Supplementary Materials</h2>
-            <button class="modal-close-btn" onclick="closeSupplementaryModal()" title="Закрити">
+            <button class="modal-close-btn" onclick="closeSupplementaryModal()">
     <i class="fa-solid fa-xmark"></i>
 </button>
         </div>
 
-        <!-- Список материалов -->
-        <div class="modal-body supplementary-list">
-
-            <!-- Элемент 1: Внутренний — Glossary of Terms -->
-            <div class="supplementary-item"
-                 data-type="internal"
-                 data-target="glossary-terms"
-                 onclick="handleMaterialClick(this)">
-
-                <!-- Текстовая часть карточки -->
-                <div class="item-text">
-                    <h3 class="item-title">Glossary</h3>
-                    <span class="item-pub-type">Table</span>
-                    <span class="item-date">Published: June 21, 2026</span>
-                    <p class="item-description">
-                        The glossary contains definitions of all attributes and their possible values, which are also summarised in the main table header tooltips.
-                    </p>
-                </div>
-
-                <!-- Иконка-превью -->
-                <div class="item-preview-wrapper">
-                    <img src="img/glos.jpg" alt="Preview" class="item-preview-img">
-                </div>
-
-            </div>
-            <!-- /Элемент 1 -->
-
-            <!-- Элемент 2: Внешняя ссылка — книга Electronic Atlases -->
-            <div class="supplementary-item"
-                 data-type="external"
-                 data-target="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf"
-                 onclick="handleMaterialClick(this)">
-
-                <!-- Текстовая часть карточки -->
-                <div class="item-text">
-                    <h3 class="item-title">
-                        Electronic Atlases: Development Trends and Research Methodology
-                    </h3>
-                    <span class="item-pub-type">Book</span>
-                    <span class="item-date">Published: December 30, 2025</span>
-                    <p class="item-description">
-                        The book presents a periodization of electronic atlas (EA) development
-                        and identifies metaconcepts of atlas applications. It refines the
-                        classification of EAs, clarifies the concept of the EA, and outlines
-                        current research approaches and methods. The book provides a detailed
-                        characterization of four core EA components as end-user applications:
-                        interface, information architecture and navigation, content
-                        representation, and functionality. It also introduces and validates
-                        a methodology for media-cartographic analysis of EAs through empirical
-                        case studies of the European Atlas of the Seas and the Czech
-                        Historical Atlas.
-                    </p>
-                </div>
-
-                <!-- Картинка-превью -->
-                <div class="item-preview-wrapper">
-                    <img src="img/krak_book.png" alt="Preview" class="item-preview-img">
-                </div>
-
-            </div>
-            <!-- /Элемент 2 -->
-            <!-- Элемент 3: Внешняя ссылка —  статья -->
-            <div class="supplementary-item"
-                 data-type="external"
-                 data-target="https://doi.org/10.1080/23729333.2026.2682461"
-                 onclick="handleMaterialClick(this)">
-
-                <!-- Текстовая часть карточки -->
-                <div class="item-text">
-                    <h3 class="item-title">
-                        Revisiting the Electronic Atlas Concept: From Theoretical Model to Metaconcepts of Atlas Applications
-                    </h3>
-                    <span class="item-pub-type">Article</span>
-                    <span class="item-date">Published: June 15, 2026</span>
-                    <p class="item-description">
-                        The article introduces the concept of ‘atlas metaconcept’ and proposes a framework for describing the metaconcepts of electronic atlases. It develops a typology of nine metaconcepts and a matrix of indicators for their identification based on a media-cartographic analysis of 100 electronic atlases. Each metaconcept is accompanied by a definition, a brief description, and examples of atlases.
-
-                    </p>
-                </div>
-
-                <!-- Картинка-превью -->
-                <div class="item-preview-wrapper">
-                    <img src="img/IJC.jpg" alt="Preview" class="item-preview-img">
-                </div>
-
-                </div>
-            <!-- /Элемент 3 -->
-
-        </div>
-        <!-- /Список материалов -->
-
+       <div class="modal-body supplementary-list" data-fragment="data/modals/supplementary-list.html">
+         
+       </div>
     </div>
     <!-- /Внутреннее окно -->
 
 </div>
 <!-- ===== /МОДАЛЬНОЕ ОКНО: Supplementary Materials ===== -->
 
+<!-- Модальное окно глоссария -->
+<div data-fragment="data/modals/glossary-content.html"></div>
+<div data-fragment="data/modals/pdf-viewer.html"></div>
 
-<!-- ===== МОДАЛЬНОЕ ОКНО: Material Content (вложенный контент глоссария и др.) ===== -->
-<div id="material-content-modal" class="modal" style="display: none;">
 
-    <!-- Внутреннее окно модалки -->
-    <div class="modal-content custom-material-modal">
+<!-- ==========================================================
+     ПРЕДУПРЕЖДЕНИЕ ДЛЯ НЕБОЛЬШИХ ЭКРАНОВ
+     ========================================================== -->
 
-        <!-- Шапка с заголовком и кнопкой закрытия -->
-        <div class="modal-header2">
-            <button class="modal-back" onclick="goBackToSupplementary()" title="Back to Supplementary Materials"><i class="fa-solid fa-chevron-left"></i>
-        </button>
-            <h2>Glossary of Terms</h2>
-            <span class="modal-close" onclick="closeMaterialContentModal()"><i class="fa-solid fa-xmark"></i></span>
-
-            <!-- Навігаційне меню по секціях таблиці -->
-         <!-- Навігаційне меню по секціях таблиці -->
-         <div class="glossary-nav-menu">
-    <span class="nav-menu-label">Jump to:</span>
-    <div class="nav-menu-items">
-        <!-- ГРУПА 1: Bibliographic та Content -->
-        <div class="nav-group-basics">
-            <a href="#sec-default" class="nav-item nav-default">Bibliographic</a>
-            <a href="#sec-content" class="nav-item nav-content">Content</a>
-        </div>
-        <!-- ГРУПА 2: Решта (General, Interface, тощо) -->
-        <div class="nav-group-main">
-            <a href="#sec-general" class="nav-item nav-general">General</a>
-            <a href="#sec-interface" class="nav-item nav-interface">Interface</a>
-            <a href="#sec-navigation" class="nav-item nav-navigation">Navigation</a>
-            <a href="#sec-representation" class="nav-item nav-representation">Representation</a>
-            <a href="#sec-functionality" class="nav-item nav-functionality">Functionality</a>
-        </div>
+<div
+  id="device-warning"
+  class="device-warning"
+  hidden
+>
+  <section
+    class="device-warning__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="device-warning-title"
+    aria-describedby="device-warning-description"
+  >
+    <div class="device-warning__icon" aria-hidden="true">
+      <i class="fa-solid fa-desktop"></i>
     </div>
-</div>
-        </div>
 
-        <!-- Тело модалки: наполняется динамически через JS -->
-       <div id="material-content-body" class="modal-body">
-            <div class="glossary-table-container">
-                <table class="custom-glossary-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Attribute</th>
-                            <th>Predefined Value</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody id="glossary-table-tbody"></tbody>
-                </table>
-            </div>
-        </div>
+    <h2 id="device-warning-title">
+      Desktop experience recommended
+    </h2>
 
-    </div>
+    <p id="device-warning-description" class="device-warning__text">
+      Atlas Explorer is designed primarily for desktop and laptop
+      screens. On smaller devices, the atlas table and some analytical
+      tools are unavailable.
+    </p>
+
+    <p class="device-warning__recommendation">
+      For full access to the catalog and comparison tools, please open
+      the website on a screen with a resolution of at least
+      <strong>1368 × 768</strong>.
+    </p>
+
+    <button
+      type="button"
+      id="device-warning-continue"
+      class="device-warning__button"
+    >
+      Continue in limited mode
+    </button>
+  </section>
 </div>
-<!-- ===== /МОДАЛЬНОЕ ОКНО: Material Content ===== -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const warning = document.getElementById("device-warning");
+    const continueButton = document.getElementById(
+      "device-warning-continue"
+    );
+
+    const smallScreenQuery = window.matchMedia(
+      "(max-width: 1299px)"
+    );
+
+    let warningWasShown = false;
+    let previousFocus = null;
+
+    function openDeviceWarning() {
+      if (warningWasShown || !smallScreenQuery.matches) {
+        return;
+      }
+
+      warningWasShown = true;
+      previousFocus = document.activeElement;
+
+      warning.hidden = false;
+      document.body.classList.add("device-warning-open");
+
+      requestAnimationFrame(() => {
+        continueButton.focus();
+      });
+    }
+
+    function closeDeviceWarning() {
+      warning.hidden = true;
+      document.body.classList.remove("device-warning-open");
+
+      if (
+        previousFocus &&
+        typeof previousFocus.focus === "function"
+      ) {
+        previousFocus.focus();
+      }
+    }
+
+    openDeviceWarning();
+
+    continueButton.addEventListener(
+      "click",
+      closeDeviceWarning
+    );
+
+    warning.addEventListener("click", (event) => {
+      if (event.target === warning) {
+        closeDeviceWarning();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Escape" &&
+        !warning.hidden
+      ) {
+        closeDeviceWarning();
+      }
+    });
+
+    smallScreenQuery.addEventListener("change", (event) => {
+      if (!event.matches && !warning.hidden) {
+        closeDeviceWarning();
+      }
+    });
+  });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .querySelectorAll('.definition-popover-wrapper')
+    .forEach((wrapper) => {
+      const trigger = wrapper.querySelector('.definition-trigger');
+      const popover = wrapper.querySelector('.definition-popover');
+      const closeButton = wrapper.querySelector(
+        '.definition-popover-close'
+      );
+
+      if (!trigger || !popover) return;
+
+      const setPopoverState = (isOpen) => {
+        wrapper.classList.toggle('is-open', isOpen);
+
+        trigger.setAttribute(
+          'aria-expanded',
+          String(isOpen)
+        );
+
+        popover.setAttribute(
+          'aria-hidden',
+          String(!isOpen)
+        );
+      };
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        setPopoverState(
+          !wrapper.classList.contains('is-open')
+        );
+      });
+
+      closeButton?.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        setPopoverState(false);
+        trigger.focus();
+      });
+
+      document.addEventListener('pointerdown', (event) => {
+        if (!wrapper.contains(event.target)) {
+          setPopoverState(false);
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (
+          event.key === 'Escape' &&
+          wrapper.classList.contains('is-open')
+        ) {
+          setPopoverState(false);
+          trigger.focus();
+        }
+      });
+    });
+});
+
+</script>
 
 </body>
 </html>

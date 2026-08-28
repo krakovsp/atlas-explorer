@@ -1,0 +1,48 @@
+<aside
+  id="cookie-consent"
+  class="cookie-consent"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-consent-title"
+  aria-describedby="cookie-consent-text"
+  hidden>
+
+  <h2 id="cookie-consent-title">
+    Analytics Cookies
+  </h2>
+
+  <p id="cookie-consent-text">
+  Atlas Explorer uses
+  <a href="https://marketingplatform.google.com/about/analytics/"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="cookie-consent-link">Google Analytics</a>
+  to collect statistical information about website usage, including visitor
+  interactions and approximate geographic location (country and region).
+  This helps us understand how the website is used and where our visitors come from.
+  Google Analytics is loaded only if you accept analytics cookies.
+  More information is available in
+  <a href="#site-information-modal"
+     class="cookie-consent-link"
+     onclick="event.preventDefault(); openSiteInformationModal(event);">Site Information</a>.
+</p>
+
+  <div class="cookie-consent-actions">
+
+    <button
+      type="button"
+      class="cookie-consent-btn cookie-consent-btn--reject"
+      onclick="rejectAnalyticsCookies()">
+      Reject
+    </button>
+
+    <button
+      type="button"
+      class="cookie-consent-btn cookie-consent-btn--accept"
+      onclick="acceptAnalyticsCookies()">
+      Accept Analytics
+    </button>
+
+  </div>
+
+</aside>

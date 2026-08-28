@@ -1,0 +1,487 @@
+/* ============================================================
+   01. CORE & HEADER — базовая система и шапка
+
+   ОГЛАВЛЕНИЕ
+   1.1    Глобальные токены и базовая система страницы
+   1.2    Каркас и палитра шапки
+   1.3    Боковые изображения шапки
+   1.4    Центральный заголовок Atlas Explorer
+   1.5    Фон и переходы центральной части шапки
+
+   Порядок подключения: 1 / 10
+   ============================================================ */
+
+/* ============================================================
+   1.1. Глобальные токены и базовая система страницы
+   ============================================================ */
+
+
+
+
+
+:root {
+  
+  --font-primary:
+    "Source Sans 3",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  --font-display:
+    "Playfair Display",
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  
+ --root-font-size: clamp(14px, calc(10px + 0.6vmin), 21px);
+
+  font-size: var(--root-font-size);
+
+  --intro-divider-thickness: 2px;
+  --intro-divider-dash-length: 10px;
+  --intro-divider-dash-gap: 5px;
+  
+  --intro-divider-color: rgba(117, 96, 79, 0.34);
+  
+  --intro-divider-color-active:
+    rgba(79, 102, 85, 0.38);
+
+  color-scheme: light;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  
+  --header-height: 10dvh;
+  --intro-height: min(60dvh, 42rem);
+
+  
+  --intro-padding-block: clamp(18px, 2.2dvh, 40px);
+  --intro-padding-inline: clamp(20px, 2vw, 64px);
+  --intro-card-gap: clamp(22px, 2.35vw, 64px);
+
+  --intro-max-width: 2800px;
+
+  
+
+
+
+--ui-warm-surface: #e9e0d5;
+--ui-warm-surface-soft: #f0e9e0;
+--ui-warm-surface-deep: #ded2c4;
+
+--ui-warm-border: #b6a593;
+--ui-warm-border-strong: #9f8c79;
+
+--ui-warm-text: #584a40;
+--ui-warm-muted: #827469;
+
+--ui-warm-accent: #75604f;
+--ui-warm-accent-hover: #624f41;
+
+--ui-warm-light: #f6f0e8;
+
+--ui-green: #4f6655;
+--ui-green-soft: #dfe5dc;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background-color: #faf8f5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-primary);
+  color: #2d2924;
+  background-color: #faf8f5;
+}
+
+/* ============================================================
+   1.2. Каркас и палитра шапки
+   ============================================================ */
+
+
+
+
+
+.site-header {
+  --header-image-filter:
+  grayscale(0.02)
+  sepia(0.05)
+  saturate(0.95)
+  contrast(0.98);
+
+   --header-left-brightness: 1.04;
+
+  
+
+
+
+  --header-left-image: url("../img/history.png");
+  --header-right-image: url("../img/digital_2.png");
+
+  
+
+
+
+
+  --header-cartographer-image: url("../img/Cosmograf.png");
+  --header-cartographer-x: 35%;
+  --header-cartographer-opacity: 0.20;
+
+
+
+
+
+--header-center-bg-top: #806B56;
+--header-center-bg: #79634F;
+--header-center-bg-bottom: #705B49;
+--header-transition-rgb: 121, 99, 79;
+
+--header-text-color: #2D2924;
+
+--header-left-extra-saturate: 0.78;
+--header-left-extra-contrast: 0.90;
+--header-left-extra-brightness: 1.00;
+
+--header-left-overlay-top: rgba(102, 85, 69, 0.09);
+--header-left-overlay-bottom: rgba(102, 85, 69, 0.15);
+
+
+--header-right-extra-saturate: 0.68;
+--header-right-extra-contrast: 0.84;
+--header-right-extra-brightness: 0.94;
+
+
+--header-right-overlay-top: rgba(102, 85, 69, 0.14);
+--header-right-overlay-bottom: rgba(102, 85, 69, 0.24);
+
+
+--header-transition-width: clamp(70px, 4vw, 120px);
+
+
+--header-side-overlay-top: rgba(95, 79, 65, 0.06);
+--header-side-overlay-bottom: rgba(95, 79, 65, 0.11);
+
+
+--header-left-focus-x: 100%;
+--header-left-focus-y: 47%;
+
+--header-right-focus-x: 190%;
+--header-right-focus-y: 60%;
+
+
+--header-center-width: 32%;
+--header-side-width: 34%;
+
+
+--header-title-size: clamp(2.6rem, 3.7vw, 5rem);
+
+ --header-side-tile-width: clamp(500px, 32vw, 820px);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  flex: 0 0 var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: var(--header-height);
+  min-height: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  text-align: center;
+
+  background-color: #8E7F71;
+
+  border-top: 1px solid rgba(241, 236, 228, 0.28);
+
+  border-bottom:
+    1px solid rgba(74, 69, 65, 0.62);
+
+box-shadow:
+    inset 0 -1px 0 rgba(196, 178, 154, 0.16),
+
+    0 1px 0 rgba(91, 76, 64, 0.18),
+    0 4px 10px rgba(74, 69, 65, 0.14);
+}
+
+
+/* ============================================================
+   1.3. Боковые изображения шапки
+   ============================================================ */
+
+
+
+
+
+.site-header::before,
+.site-header::after {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+
+  width: calc(
+    var(--header-side-width) +
+    var(--header-transition-width)
+);
+  
+
+
+
+
+  
+
+
+
+background-size:
+    var(--header-transition-width) 100%,
+    100% 100%,
+    var(--header-side-tile-width) auto;
+
+background-repeat:
+    no-repeat,
+    no-repeat,
+    repeat-x;
+  
+  pointer-events: none;
+}
+
+.site-header::before {
+    left: 0;
+
+    background-image:
+        linear-gradient(
+            var(--header-left-overlay-top),
+            var(--header-left-overlay-bottom)
+        ),
+        var(--header-left-image);
+
+    background-size:
+        100% 100%,
+        var(--header-side-tile-width) auto;
+
+    background-repeat:
+        no-repeat,
+        repeat-x;
+
+    background-position:
+        center center,
+        var(--header-left-focus-x) var(--header-left-focus-y);
+
+    filter:
+        var(--header-image-filter)
+        saturate(var(--header-left-extra-saturate))
+        contrast(var(--header-left-extra-contrast))
+        brightness(var(--header-left-extra-brightness));
+}
+
+.site-header::after {
+    right: 0;
+
+    background-image:
+        linear-gradient(
+            var(--header-right-overlay-top),
+            var(--header-right-overlay-bottom)
+        ),
+        var(--header-right-image);
+
+    background-size:
+        100% 100%,
+        var(--header-side-tile-width) auto;
+
+    background-repeat:
+        no-repeat,
+        repeat-x;
+
+    background-position:
+        center center,
+        var(--header-right-focus-x) var(--header-right-focus-y);
+
+    filter:
+        var(--header-image-filter)
+        saturate(var(--header-right-extra-saturate))
+        contrast(var(--header-right-extra-contrast))
+        brightness(var(--header-right-extra-brightness));
+}
+
+
+/* ============================================================
+   1.4. Центральный заголовок Atlas Explorer
+   ============================================================ */
+
+
+
+
+
+.site-header h1 {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+
+  
+
+
+  overflow: visible;
+
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 var(--header-center-width);
+
+  width: var(--header-center-width);
+  min-width: var(--header-center-width);
+  max-width: var(--header-center-width);
+
+  margin: 0;
+  padding: 0.08em 0.92em 0.14em;
+
+  box-sizing: border-box;
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: var(--header-title-size);
+  white-space: nowrap;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.045em;
+
+  color: var(--header-text-color);
+
+background: transparent;
+
+  box-shadow:
+    inset 0 1px 0 rgba(196, 178, 154, 0.16),
+    inset 0 -1px 0 rgba(74, 69, 65, 0.30);
+
+  text-shadow:
+    0 1px 0 rgba(255, 248, 238, 0.14);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ============================================================
+   1.5. Фон и переходы центральной части шапки
+   ============================================================ */
+
+
+
+
+
+.site-header h1::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  inset: 0;
+  border-radius: inherit;
+
+  background-image: var(--header-cartographer-image);
+  background-repeat: no-repeat;
+  background-position: var(--header-cartographer-x) 18%;
+  background-size: auto 160%;
+
+  opacity: var(--header-cartographer-opacity);
+
+  
+
+
+
+  filter: grayscale(0.18) sepia(0.10) contrast(1.02);
+
+  pointer-events: none;
+
+}
+
+.site-header h1::after {
+    content: "";
+
+    position: absolute;
+    z-index: -2;
+
+    top: 0;
+    bottom: 0;
+
+    left: calc(-1 * var(--header-transition-width));
+    right: calc(-1 * var(--header-transition-width));
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--header-center-bg-top) 0%,
+            var(--header-center-bg) 48%,
+            var(--header-center-bg-bottom) 100%
+        );
+
+    
+
+
+
+    -webkit-mask-image:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.15) 5%,
+            rgba(0, 0, 0, 0.42) 9%,
+            rgba(0, 0, 0, 0.72) 13%,
+            #000 18%,
+            #000 82%,
+            rgba(0, 0, 0, 0.72) 87%,
+            rgba(0, 0, 0, 0.42) 91%,
+            rgba(0, 0, 0, 0.15) 95%,
+            transparent 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.15) 5%,
+            rgba(0, 0, 0, 0.42) 9%,
+            rgba(0, 0, 0, 0.72) 13%,
+            #000 18%,
+            #000 82%,
+            rgba(0, 0, 0, 0.72) 87%,
+            rgba(0, 0, 0, 0.42) 91%,
+            rgba(0, 0, 0, 0.15) 95%,
+            transparent 100%
+        );
+
+    pointer-events: none;
+}
+

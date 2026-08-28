@@ -1,0 +1,1114 @@
+/* ============================================================
+   08. TABLE SHELL & CONTROLS — оболочка таблицы и Column Picker
+
+   ОГЛАВЛЕНИЕ
+   8.1    Переменные и палитра таблицы
+   8.2    Контейнер таблицы и responsive visibility
+   8.3    Навигационная панель
+   8.4    Кнопки вкладок и базовые controls
+   8.5    Fullscreen control
+   8.6    Supplementary control и fullscreen overlay fix
+   8.7    Tab content и fullscreen mode
+   8.8    Column Picker: окно и системные элементы
+   8.9    Column Picker: элементы колонок и controls
+   8.10   Column Picker: scrollbar
+
+   Порядок подключения: 8 / 10
+   ============================================================ */
+
+/* ============================================================
+   8.1. Переменные и палитра таблицы
+   ============================================================ */
+
+:root {
+    --table-nav-btn-height: clamp(28px, 3vh, 36px);
+    --table-btn-icon-gap: clamp(8px, calc(0.34vw + 3px), 10px);
+
+
+
+    --table-control-cut: 5px;
+
+   
+
+    --table-surface-nav: #ebe4da;
+
+    --table-surface-frame: #e8e3da;
+
+    --table-surface-header: #ddd6cc;
+
+    --table-surface-header-col: #e0d9cf;
+
+    --table-surface-footer: #e8e3da;
+
+
+    
+
+    --table-row-odd: #f8f5ef;
+
+    --table-row-even: #eee9e1;
+
+    --table-row-hover: #e2dbd1;
+
+
+    
+
+    --table-border: #c7bcae;
+
+    --table-border-soft: #d9d0c6;
+
+
+    
+
+    --table-text: #554c44;
+
+    --table-text-strong: #473f38;
+
+
+    
+
+    --table-control-bg: #f4f0e9;
+
+    --table-control-bg-hover: #e4dcd1;
+
+    --table-control-border: #bdb1a4;
+
+    --table-control-border-hover: #9d8c7d;
+
+    --table-control-text: #574d45;
+
+
+    --table-accent: #827266;
+
+    --table-accent-dark: #706055;
+
+    --table-accent-text: #fffaf4;
+
+
+
+--table-filter-bg: #f1ece4;
+--table-filter-bg-focus: #faf7f2;
+--table-filter-border: #d0c5b8;
+--table-filter-placeholder: #8f857c;
+
+
+--table-popup-bg: #f3eee7;
+
+
+
+--table-control-active: #7f7064;
+--table-control-active-dark: #6e6056;
+--table-control-active-text: #fffaf4;
+
+
+--table-control-pressed: #ddd4c8;
+
+
+--table-supp-bg: #4b5456;
+--table-supp-bg-hover: #3e4748;
+--table-supp-bg-active: #333b3c;
+
+--table-help-bg: #955650;
+--table-help-bg-hover: #7f4742;
+--table-help-bg-active: #6f3d39;
+
+}
+
+
+#table-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
+
+/* ============================================================
+   8.2. Контейнер таблицы и responsive visibility
+   ============================================================ */
+
+
+.table-section {
+    position: relative;
+
+    flex: 0 0 var(--table-height);
+
+    height: var(--table-height);
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+#table1-id {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto !important;
+}
+
+@media screen and (min-width: 1100px) {
+  .table-section {
+    min-height: 0;
+  }
+}
+
+@media screen and (max-width: 1099px) {
+    #table-container,
+    .table-section,
+    .table-section.fullscreen-mode {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   8.3. Навигационная панель
+   ============================================================ */
+
+
+.nav-tabs {
+    position: relative;
+    flex: 0 0 auto; 
+    min-height: 6vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2vh 1.5vw;
+    background:
+        var(--table-surface-nav);
+
+    border:
+        1px solid
+        var(--table-border);
+
+    box-shadow:
+        0 1px 4px
+        rgba(74, 64, 54, 0.075);
+}
+
+.settings-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5vw !important;
+    position: relative !important; 
+}
+
+
+/* ============================================================
+   8.4. Кнопки вкладок и базовые controls
+   ============================================================ */
+
+
+.tab-button i, .settings-btn i, .fullscreen-btn i, .supplementary-btn i, .help-btn i {
+    font-size: 0.85rem !important;
+}
+
+
+
+.tab-button,
+.settings-btn,
+.fullscreen-btn,
+.supplementary-btn,
+.scroll-arrow-btn,
+.help-btn,
+.row-selection-trigger-btn {
+    height:
+        var(--table-nav-btn-height) !important;
+
+    min-height:
+        var(--table-nav-btn-height) !important;
+
+    box-sizing:
+        border-box !important;
+}
+
+
+.tab-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap:
+        var(--table-btn-icon-gap) !important;
+
+    padding:
+        0 1.2vw 0 !important;
+
+    margin-right:
+        5px !important;
+
+    font-family:
+        var(--font-primary) !important;
+
+    font-size:
+        0.95rem !important;
+
+    font-weight:
+        650 !important;
+
+    white-space:
+        nowrap;
+
+    color:
+        var(--table-control-text) !important;
+
+    background-color:
+        var(--table-control-bg) !important;
+
+    border:
+        1px solid
+        var(--table-control-border) !important;
+
+    border-bottom:
+        1px solid
+        var(--table-control-border) !important;
+
+    border-radius:
+        8px 8px 0 0 !important;
+
+    clip-path:
+        none !important;
+
+    -webkit-clip-path:
+        none !important;
+
+    box-shadow:
+        0 1px 2px rgba(74, 64, 54, 0.045) !important;
+
+    cursor:
+        pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease !important;
+}
+ 
+.tab-button:hover {
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+
+    box-shadow:
+        0 1px 3px rgba(74, 64, 54, 0.07) !important;
+}
+ 
+
+.tab-button.active {
+    position: relative;
+    z-index: 2;
+
+    background-color:
+        var(--table-control-active) !important;
+
+    color:
+        var(--table-control-active-text) !important;
+
+    border-color:
+        var(--table-control-active-dark) !important;
+
+    border-radius:
+        8px 8px 0 0 !important;
+
+    box-shadow:
+        0 2px 4px rgba(74, 64, 54, 0.16) !important;
+
+    font-weight:
+        700 !important;
+}
+
+.tab-button > i {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  line-height: 1;
+}
+
+
+
+.settings-btn { 
+    display: flex;
+    align-items: center;
+
+    padding: 0 1vw !important;
+    border-radius: 6px;
+
+    background-color:
+        var(--table-control-bg) !important;
+
+    border:
+        1px solid
+        var(--table-control-border) !important;
+
+    color:
+        var(--table-control-text) !important;
+
+    transition: all 0.15s ease-in-out !important;
+}
+ 
+.settings-btn:hover {
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+
+    box-shadow:
+        0 1px 3px rgba(74, 64, 54, 0.07) !important;
+}
+ 
+
+.settings-btn.active {
+    background-color:
+        var(--table-control-pressed) !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-control-active) !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ============================================================
+   8.5. Fullscreen control
+   ============================================================ */
+
+
+.fullscreen-btn {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        0 0.82vw !important;
+
+    border-radius:
+        4px !important;
+
+    clip-path:
+        none !important;
+
+    -webkit-clip-path:
+        none !important;
+
+    cursor:
+        pointer;
+
+    color:
+        var(--table-control-active-text) !important;
+
+    background:
+        var(--table-control-active) !important;
+
+    border:
+        1px solid
+        var(--table-control-active-dark) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 250, 244, 0.18),
+        inset 0 0 0 1px rgba(255, 250, 244, 0.07),
+        0 2px 5px rgba(74, 64, 54, 0.18)
+        !important;
+
+    transition:
+        background-color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease
+        !important;
+}
+
+
+.fullscreen-btn:hover {
+    color:
+        #fffaf4 !important;
+
+    background:
+        var(--table-control-active-dark) !important;
+
+    border-color:
+        #62544b !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 250, 244, 0.20),
+        inset 0 0 0 1px rgba(255, 250, 244, 0.08),
+        0 3px 7px rgba(74, 64, 54, 0.23)
+        !important;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.fullscreen-btn:active {
+    background:
+        #62544b !important;
+
+    transform:
+        translateY(0);
+
+    box-shadow:
+        inset 0 2px 4px rgba(45, 37, 32, 0.22)
+        !important;
+}
+
+
+.fullscreen-btn i {
+    font-size:
+        0.94rem !important;
+
+    text-shadow:
+        0 1px 1px rgba(45, 37, 32, 0.30);
+}
+
+/* ============================================================
+   8.6. Supplementary control и fullscreen overlay fix
+   ============================================================ */
+
+.nav-tabs .supplementary-btn {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 !important;
+
+    padding:
+    0
+    clamp(14px, 1vw, 18px)
+    !important;
+
+    white-space: nowrap;
+
+    color: #ffffff !important;
+
+    background-color:
+        var(--table-supp-bg) !important;
+
+    border:
+        1px solid
+        #3f484a !important;
+
+    border-radius:
+        4px !important;
+
+    clip-path:
+        none !important;
+
+    -webkit-clip-path:
+        none !important;
+
+    box-shadow:
+        0 1px 2px rgba(43, 37, 33, 0.08) !important;
+
+    cursor: pointer;
+
+    transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease,
+    transform 0.16s ease !important;
+}
+
+.nav-tabs .supplementary-btn:hover {
+    color: #ffffff !important;
+
+    background-color:
+        var(--table-supp-bg-hover) !important;
+
+    border-color:
+        #374042 !important;
+
+    box-shadow:
+        0 2px 4px rgba(43, 37, 33, 0.12) !important;
+
+    transform:
+        translateY(-1px);
+}
+
+.nav-tabs .supplementary-btn:active {
+    transform:
+        translateY(0);
+}
+
+.fullscreen-mode .modal-overlay {
+    z-index: 999999 !important;
+}
+
+/* ============================================================
+   8.7. Tab content и fullscreen mode
+   ============================================================ */
+
+.tab-content { 
+    display: none !important; 
+    flex: 1;
+    min-height: 0;
+}
+
+
+.tab-content.active {
+    display: flex !important; 
+    flex-direction: column;
+    height: 100% !important;
+    flex: 1 1 auto;
+}
+
+
+.table-section.fullscreen-mode {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 10001 !important; 
+    background: #EDEADE !important;
+    flex: none !important; 
+}
+
+
+.table-section.fullscreen-mode .fullscreen-btn i::before {
+    content: "\f066"; 
+}
+
+
+/* ============================================================
+   8.8. Column Picker: окно и системные элементы
+   ============================================================ */
+
+#column-picker {
+  display: none !important;
+
+  position: fixed !important;
+  z-index: 99999 !important;
+
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  width: 60vw;
+  height: clamp(260px, 34vh, 460px);
+
+  min-width: 520px !important;
+  min-height: 260px !important;
+
+  max-width: min(86vw, calc(100vw - 32px)) !important;
+  max-height: calc(100vh - 32px) !important; 
+
+
+  padding: 44px 15px 36px !important;
+
+  box-sizing: border-box !important;
+
+  
+  background-color:
+    var(--table-popup-bg) !important;
+
+border:
+    1px solid
+    var(--table-border) !important;
+  border-radius: 12px !important;
+
+  box-shadow:
+    0 15px 45px rgba(74, 64, 54, 0.14),
+    0 4px 12px rgba(74, 64, 54, 0.08)
+    !important;
+
+  overflow: hidden !important;
+
+  
+  resize: both !important;
+}
+
+#column-picker.show {
+  display: flex !important;
+  align-items: stretch !important;
+
+  gap: clamp(16px, 1.5vw, 40px) !important;
+}
+
+
+.column-picker-close-btn {
+    position: absolute !important;
+    z-index: 20 !important;
+
+    top:
+        clamp(6px, 0.45rem, 8px) !important;
+
+    right:
+        clamp(7px, 0.5rem, 10px) !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width:
+        clamp(24px, 1.6rem, 30px) !important;
+
+    height:
+        clamp(24px, 1.6rem, 30px) !important;
+
+    padding: 0 !important;
+
+    color:
+        var(--table-accent) !important;
+
+    background-color:
+        var(--table-control-bg) !important;
+
+    border:
+        1px solid
+        var(--table-control-border) !important;
+
+    border-radius:
+        50% !important;
+
+    font-size:
+        clamp(
+            0.78rem,
+            calc(0.72rem + 0.08vw),
+            0.9rem
+        ) !important;
+
+    line-height:
+        1 !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.column-picker-close-btn:hover {
+    color:
+        #ffffff !important;
+
+    background-color:
+        var(--table-control-active) !important;
+
+    border-color:
+        var(--table-control-active-dark) !important;
+
+    transform:
+        rotate(90deg);
+}
+
+.column-picker-close-btn:focus-visible {
+  outline: 2px solid rgba(142, 127, 113, 0.45);
+  outline-offset: 2px;
+}
+
+
+.picker-resize-hint {
+  position: absolute;
+  z-index: 10;
+
+  right: 29px;
+  bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin: 0;
+
+  font-family: var(--font-primary) !important;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+
+  color: #7a7067;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.picker-resize-symbol {
+  color: #8e7f71;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+
+#column-picker::after {
+  content: "";
+
+  position: absolute;
+  z-index: 11;
+
+  right: 4px;
+  bottom: 4px;
+
+  width: 16px;
+  height: 16px;
+
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 3px,
+    rgba(142, 127, 113, 0.72) 3px 4px
+  );
+
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+
+  pointer-events: none;
+}
+
+
+.picker-header {
+    background: #f1f3f5;
+    color: #0078d4;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.picker-columns-viewport {
+  flex: 1 1 auto !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  overflow: auto !important;
+}
+
+.picker-columns {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: wrap !important;
+  align-content: flex-start !important;
+
+  height: 100% !important;
+  min-width: max-content !important;
+
+  gap: 8px clamp(16px, 1.5vw, 40px) !important;
+  padding-right: 6px !important;
+  box-sizing: border-box !important;
+}
+
+/* ============================================================
+   8.9. Column Picker: элементы колонок и controls
+   ============================================================ */
+
+.column-item {
+    font-family:
+        'Source Sans 3',
+        sans-serif !important;
+
+    font-size:
+        0.8rem !important;
+
+    font-weight:
+        500 !important;
+
+    color:
+        var(--table-text) !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        color 0.15s ease !important;
+
+    flex:
+        0 0 auto !important;
+
+    width:
+        290px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        12px !important;
+
+    box-sizing:
+        border-box !important;
+
+    white-space:
+        nowrap !important;
+}
+
+.column-item:hover {
+    color:
+        var(--table-text-strong) !important;
+}
+
+.column-item input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    margin: 0 3px !important;
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+    border: 1px solid #8E7F71 !important;
+    transform: rotate(45deg) !important;
+    background: #FFF !important;
+    cursor: pointer !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.column-item input[type="checkbox"]:checked {
+    background: #8E7F71 !important;
+}
+
+.column-item input[type="checkbox"]:checked::after {
+    content: "\f00c" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    color: #FFF !important;
+    font-size: 8px !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+
+
+.picker-controls {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 0 0 145px;
+    width: 145px;
+    cursor: grab !important;
+    touch-action: none;
+    user-select: none;
+    gap: 10px !important;
+    height: 100% !important; 
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    padding-right: 20px !important;
+    
+    border-right:
+    1px solid
+    var(--table-border) !important;
+    
+    justify-content: center !important; 
+}
+
+.picker-controls.is-dragging {
+    cursor: grabbing !important;
+}
+
+
+.picker-drag-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+
+    font-family: var(--font-primary) !important;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+
+    color:
+    var(--table-text) !important;
+
+background-color:
+    rgba(255, 255, 255, 0.22);
+
+border:
+    1px dashed
+    var(--table-control-border) !important;
+
+border-radius:
+    4px;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+.picker-drag-hint i {
+    flex: 0 0 auto;
+
+    font-size:
+        0.78rem;
+
+    color:
+        var(--table-accent) !important;
+}
+
+
+html.column-picker-is-dragging,
+html.column-picker-is-dragging * {
+    cursor: grabbing !important;
+}
+
+
+.picker-select-all-btn,
+.picker-clear-all-btn {
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    gap:
+        8px !important;
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        7px 14px !important;
+
+    box-sizing:
+        border-box !important;
+
+    font-family:
+        'Source Sans 3',
+        sans-serif !important;
+
+    font-size:
+        0.78rem !important;
+
+    font-weight:
+        600 !important;
+
+    color:
+        var(--table-control-text) !important;
+
+    background-color:
+        var(--table-control-bg) !important;
+
+    border:
+        1px solid
+        var(--table-control-border) !important;
+
+    border-radius:
+        4px !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease !important;
+}
+
+
+.picker-select-all-btn:hover {
+    color:
+        var(--table-control-active-text) !important;
+
+    background-color:
+        var(--table-control-active) !important;
+
+    border-color:
+        var(--table-control-active-dark) !important;
+}
+
+
+.picker-clear-all-btn:hover {
+    color:
+        #ffffff !important;
+
+    background-color:
+        var(--table-help-bg) !important;
+
+    border-color:
+        var(--table-help-bg-hover) !important;
+}
+
+
+.column-item.column-interface input[type="checkbox"] { border-color: #D6C83C !important; }
+.column-item.column-interface input[type="checkbox"]:checked { background-color: #D6C83C !important; }
+
+.column-item.column-navigation input[type="checkbox"] { border-color: #7FAFD4 !important; }
+.column-item.column-navigation input[type="checkbox"]:checked { background-color: #7FAFD4 !important; }
+
+.column-item.column-represent input[type="checkbox"] { border-color: #92C483 !important; }
+.column-item.column-represent input[type="checkbox"]:checked { background-color: #92C483 !important; }
+
+.column-item.column-func input[type="checkbox"] { border-color: #B0B0B0 !important; }
+.column-item.column-func input[type="checkbox"]:checked { background-color: #B0B0B0 !important; }
+
+.column-item.column-general input[type="checkbox"] { border-color: #C2BAB0 !important; }
+.column-item.column-general input[type="checkbox"]:checked { background-color: #C2BAB0 !important; }
+
+/* ============================================================
+   8.10. Column Picker: scrollbar
+   ============================================================ */
+
+.picker-columns-viewport {
+    overflow:
+        auto !important;
+
+    scrollbar-gutter:
+        stable;
+
+    scrollbar-width:
+        thin !important;
+
+    scrollbar-color:
+        var(--table-control-border)
+        var(--table-popup-bg)
+        !important;
+}
+
+
+.picker-columns-viewport::-webkit-scrollbar-track {
+    background:
+        var(--table-popup-bg);
+
+    border-radius:
+        999px;
+}
+
+
+.picker-columns-viewport::-webkit-scrollbar-thumb {
+    background-color:
+        var(--table-control-border);
+
+    border:
+        2px solid
+        var(--table-popup-bg);
+
+    border-radius:
+        999px;
+}
+
+
+.picker-columns-viewport::-webkit-scrollbar-thumb:hover {
+    background-color:
+        var(--table-control-active);
+}
+
+

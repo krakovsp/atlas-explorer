@@ -1,0 +1,1078 @@
+/* ============================================================
+   03. MOBILE CATALOGUE — карточный каталог для ограниченного режима
+
+   ОГЛАВЛЕНИЕ
+   3.1    Mobile Atlas Explorer: включение и основной контейнер
+   3.2    Быстрые действия мобильного режима
+   3.3    Карточка мобильного каталога
+   3.4    Шапка мобильного каталога
+   3.5    Поиск по мобильному каталогу
+   3.6    Мобильные вкладки атрибутов
+   3.7    Список и карточки атласов
+   3.8    Краткая информация карточки
+   3.9    Триггер View Details
+   3.10   Раскрытые атрибуты карточки
+   3.11   Кнопка Show More
+   3.12   Состояния загрузки, пустого результата и ошибки
+   3.13   Адаптация для очень узких телефонов
+
+   Порядок подключения: 3 / 10
+   ============================================================ */
+
+/* ============================================================
+   3.1. Mobile Atlas Explorer: включение и основной контейнер
+   ============================================================ */
+
+.mobile-explorer {
+    display: none;
+}
+
+@media screen and (max-width: 1099px) {
+
+    .mobile-explorer {
+        display: block;
+
+        width: 100%;
+
+        padding:
+            clamp(8px, 2.5dvh, 22px)
+            clamp(16px, 4vw, 32px)
+            clamp(32px, 6dvh, 56px);
+
+        background-color:
+        var(--ui-warm-surface-deep);
+
+    background-image:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(79, 102, 85, 0.045),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(117, 96, 79, 0.055),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            180deg,
+            #ded4c7 0%,
+            #e8e0d6 100%
+        );
+
+    border-top:
+        1px solid rgba(117, 96, 79, 0.22);
+
+        box-sizing: border-box;
+    }
+
+
+    .mobile-explorer-inner {
+        width: min(100%, 48rem);
+
+        margin-inline: auto;
+    }
+
+
+
+/* ============================================================
+   3.2. Быстрые действия мобильного режима
+   ============================================================ */
+
+    
+
+
+
+    .mobile-explorer-actions {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        gap: 0.75rem;
+
+        width: 100%;
+
+        margin-bottom:
+            clamp(1.6rem, 5dvh, 2.8rem);
+    }
+
+
+    .mobile-explorer-action {
+        display: grid;
+
+        grid-template-columns:
+            auto
+            minmax(0, 1fr)
+            auto;
+
+        align-items: center;
+
+        gap: 0.85rem;
+
+        width: 100%;
+
+        min-height: 3.6rem;
+
+        padding:
+            0.75rem
+            0.95rem;
+
+        box-sizing: border-box;
+
+
+        font-family:
+            var(--font-primary);
+
+        text-align: left;
+        text-decoration: none;
+
+
+        color:
+        var(--ui-warm-text);
+
+    background:
+        rgba(240, 233, 224, 0.96);
+
+    border:
+        1px solid
+        var(--ui-warm-border);
+
+        border-radius: 9px;
+
+    box-shadow:
+        0 3px 8px rgba(74, 60, 48, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+
+    button.mobile-explorer-action {
+        appearance: none;
+    }
+
+
+    .mobile-explorer-action > i:first-child {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 2rem;
+        height: 2rem;
+
+        font-size: 1rem;
+
+        color:
+        var(--ui-green);
+
+    background:
+        rgba(79, 102, 85, 0.09);
+
+        border-radius: 50%;
+    }
+
+
+    .mobile-explorer-action > span {
+        display: flex;
+
+        flex-direction: column;
+
+        min-width: 0;
+
+        gap: 0.08rem;
+    }
+
+
+    .mobile-explorer-action strong {
+        font-size: 1rem;
+        font-weight: 750;
+        line-height: 1.2;
+
+        color: #473f38;
+    }
+
+
+    .mobile-explorer-action small {
+        font-size: 0.82rem;
+        font-weight: 400;
+        line-height: 1.25;
+
+        color: var(--ui-warm-muted);
+    }
+
+
+    .mobile-explorer-action-arrow {
+        font-size: 0.75rem;
+
+        color: var(--ui-warm-accent);
+    }
+
+
+    .mobile-explorer-action:active {
+    background-color:
+        var(--ui-warm-surface);
+
+    transform:
+        translateY(1px);
+}
+
+
+
+/* ============================================================
+   3.3. Карточка мобильного каталога
+   ============================================================ */
+
+    
+
+
+
+    .mobile-atlas-catalogue {
+        scroll-margin-top: 1rem;
+
+        overflow: hidden;
+
+        width: 100%;
+
+        background-color:
+        var(--ui-warm-surface);
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(117, 96, 79, 0.045) 1px,
+            transparent 1px
+        );
+
+    border:
+        1px solid
+        var(--ui-warm-border);
+
+        border-radius: 12px;
+
+    box-shadow:
+        0 5px 10px rgba(74, 60, 48, 0.05),
+        0 16px 34px rgba(74, 60, 48, 0.08);
+    }
+
+
+
+/* ============================================================
+   3.4. Шапка мобильного каталога
+   ============================================================ */
+
+    
+
+
+
+    .mobile-catalogue-header {
+        padding:
+            1.15rem
+            1rem
+            0.9rem;
+
+        border-bottom:
+        1px solid
+        rgba(159, 140, 121, 0.34)
+    }
+
+
+    .mobile-catalogue-heading {
+        display: flex;
+
+        align-items: flex-end;
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        margin-bottom: 0.95rem;
+    }
+
+
+    .mobile-catalogue-eyebrow {
+        display: block;
+
+        margin-bottom: 0.12rem;
+
+        font-size: 0.68rem;
+        font-weight: 750;
+
+        line-height: 1;
+
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        color: var(--ui-warm-accent);
+    }
+
+
+    .mobile-catalogue-heading h2 {
+        margin: 0;
+
+        font-family: var(--font-primary);
+
+        font-size: clamp(
+            1.45rem,
+            5vw,
+            1.75rem
+        );
+
+        font-weight: 780;
+        line-height: 1.12;
+
+        color:
+        #473f38;
+    }
+
+
+    .mobile-catalogue-count {
+        flex: 0 0 auto;
+
+        padding:
+            0.28rem
+            0.55rem;
+
+        font-size: 0.76rem;
+        font-weight: 650;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+        color:
+        var(--ui-warm-text);
+
+    background:
+        var(--ui-warm-surface-deep);
+
+        border-radius: 999px;
+    }
+
+
+
+/* ============================================================
+   3.5. Поиск по мобильному каталогу
+   ============================================================ */
+
+    
+
+
+
+    .mobile-catalogue-search {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+    }
+
+
+    .mobile-catalogue-search > i {
+        position: absolute;
+
+        z-index: 2;
+
+        left: 0.82rem;
+
+        font-size: 0.82rem;
+
+        color: var(--ui-warm-accent);
+
+        pointer-events: none;
+    }
+
+
+    .mobile-catalogue-search input {
+        width: 100%;
+
+        height: 2.8rem;
+
+        padding:
+            0
+            2.7rem
+            0
+            2.35rem;
+
+        box-sizing: border-box;
+
+
+        font-family: var(--font-primary);
+
+        font-size: 0.95rem;
+
+        color:
+        var(--ui-warm-text);
+
+    background-color:
+        var(--ui-warm-light);
+
+    border:
+        1px solid
+        var(--ui-warm-border);
+
+    border-radius:
+        8px;
+
+        outline: none;
+    }
+
+    
+.mobile-catalogue-search input[type="search"]::-webkit-search-cancel-button,
+.mobile-catalogue-search input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.mobile-catalogue-search input[type="search"]::-ms-clear,
+.mobile-catalogue-search input[type="search"]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+
+    .mobile-catalogue-search input::placeholder {
+    color:
+        var(--ui-warm-muted);
+
+    opacity:
+        0.82;
+}
+
+
+    .mobile-catalogue-search input:focus {
+    border-color:
+        var(--ui-warm-accent);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(117, 96, 79, 0.13);
+}
+
+
+    .mobile-catalogue-search-clear {
+        position: absolute;
+
+        z-index: 3;
+
+        right: 0.55rem;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 1.8rem;
+        height: 1.8rem;
+
+        padding: 0;
+
+        color: var(--ui-warm-text);
+
+        background: transparent;
+
+        border: 0;
+
+        border-radius: 50%;
+
+        cursor: pointer;
+    }
+
+
+
+/* ============================================================
+   3.6. Мобильные вкладки атрибутов
+   ============================================================ */
+
+    
+
+
+
+    .mobile-catalogue-tabs {
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        gap: 0.35rem;
+
+        width: 100%;
+
+        padding:
+            0.75rem
+            0.8rem;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scrollbar-width: none;
+
+        border-bottom:
+        1px solid
+        rgba(159, 140, 121, 0.30);
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .mobile-catalogue-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .mobile-catalogue-tab {
+        flex: 0 0 auto;
+
+        min-height: 2.2rem;
+
+        padding:
+            0.4rem
+            0.75rem;
+
+        font-family: var(--font-primary);
+
+        font-size: 0.82rem;
+        font-weight: 650;
+
+        line-height: 1.1;
+
+        white-space: nowrap;
+
+
+        color:
+        var(--ui-warm-text);
+
+    background-color:
+        var(--ui-warm-surface-soft);
+
+    border:
+        1px solid
+        var(--ui-warm-border);
+
+    border-radius:
+        6px;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+
+    .mobile-catalogue-tab.active {
+    color:
+        var(--ui-warm-light);
+
+    background-color:
+        var(--ui-warm-accent);
+
+    border-color:
+        var(--ui-warm-accent-hover);
+}
+
+
+
+/* ============================================================
+   3.7. Список и карточки атласов
+   ============================================================ */
+
+    
+
+
+
+    .mobile-atlas-list {
+        display: grid;
+
+        gap: 0.8rem;
+
+        padding:
+            0.9rem
+            0.8rem;
+    }
+
+
+
+    
+
+
+
+    .mobile-atlas-card {
+    overflow:
+        hidden;
+
+    background-color:
+        #f3eee7;
+
+    border:
+        1px solid
+        #cbbfb2;
+
+    border-radius:
+        9px;
+
+    box-shadow:
+        0 2px 5px rgba(74, 60, 48, 0.05);
+}
+
+
+    .mobile-atlas-card.expanded {
+    border-color:
+        rgba(79, 102, 85, 0.46);
+
+    box-shadow:
+        0 5px 14px
+        rgba(79, 102, 85, 0.08);
+}
+
+
+    .mobile-atlas-card-header {
+        padding:
+            0.85rem
+            0.9rem
+            0.55rem;
+    }
+
+
+    .mobile-atlas-id {
+        margin-bottom: 0.2rem;
+
+        font-size: 0.68rem;
+        font-weight: 750;
+
+        line-height: 1;
+
+        letter-spacing: 0.075em;
+        text-transform: uppercase;
+
+        color: var(--ui-warm-accent);
+    }
+
+
+    .mobile-atlas-title {
+        margin: 0;
+
+        font-size: 1.05rem;
+        font-weight: 750;
+        line-height: 1.28;
+
+        color: #405548;
+    }
+
+
+    .mobile-atlas-title-link,
+    .mobile-atlas-title-text {
+        color: inherit;
+
+        text-decoration: none;
+    }
+
+
+    .mobile-atlas-title-link i {
+        margin-left: 0.25rem;
+
+        font-size: 0.62em;
+
+        color: var(--ui-warm-accent);
+    }
+
+
+
+/* ============================================================
+   3.8. Краткая информация карточки
+   ============================================================ */
+
+    
+
+
+
+    .mobile-atlas-summary {
+        display: grid;
+
+        gap: 0;
+
+        margin: 0;
+
+        padding:
+            0
+            0.9rem
+            0.65rem;
+    }
+
+
+    .mobile-atlas-summary-row {
+        display: grid;
+
+        grid-template-columns:
+            minmax(7rem, 0.85fr)
+            minmax(0, 1.15fr);
+
+        gap: 0.7rem;
+
+        padding:
+            0.3rem
+            0;
+
+        border-bottom:
+        1px solid
+        rgba(159, 140, 121, 0.20);
+    }
+
+
+    .mobile-atlas-summary-row:last-child {
+        border-bottom: 0;
+    }
+
+
+    .mobile-atlas-summary dt,
+    .mobile-atlas-summary dd {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.35;
+    }
+
+
+    .mobile-atlas-summary dt {
+        font-weight: 600;
+
+        color: var(--ui-warm-muted);
+    }
+
+
+    .mobile-atlas-summary dd {
+        min-width: 0;
+
+        font-weight: 550;
+
+        color:  var(--ui-warm-text);
+
+        overflow-wrap: anywhere;
+    }
+
+
+
+/* ============================================================
+   3.9. Триггер View Details
+   ============================================================ */
+
+    
+
+
+
+   .mobile-atlas-details-trigger {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 2.6rem;
+
+    padding:
+        0.55rem
+        0.9rem;
+
+    font-family:
+        var(--font-primary);
+
+    font-size:
+        0.84rem;
+
+    font-weight:
+        700;
+
+    text-align:
+        left;
+
+    color:
+        var(--ui-green);
+
+    background:
+        rgba(79, 102, 85, 0.045);
+
+    
+    appearance: none;
+    -webkit-appearance: none;
+
+    border:
+        0;
+
+    
+    border-top:
+        1px solid
+        rgba(159, 140, 121, 0.16);
+
+    border-radius:
+        0;
+
+    box-shadow:
+        none;
+
+    outline:
+        none;
+
+    cursor:
+        pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+    .mobile-atlas-details-trigger i {
+        font-size: 0.72rem;
+
+        transition:
+            transform 0.18s ease;
+    }
+
+
+    .mobile-atlas-card.expanded
+    .mobile-atlas-details-trigger i {
+        transform: rotate(180deg);
+    }
+
+
+
+/* ============================================================
+   3.10. Раскрытые атрибуты карточки
+   ============================================================ */
+
+    
+
+
+
+    .mobile-atlas-details {
+        padding:
+            0
+            0.9rem
+            0.95rem;
+
+        background-color:
+        rgba(233, 224, 213, 0.58);
+
+    border-top:
+        1px solid
+        rgba(159, 140, 121, 0.22);
+    }
+
+
+    .mobile-atlas-details-heading {
+        padding:
+            0.8rem
+            0
+            0.55rem;
+
+        font-size: 0.76rem;
+        font-weight: 800;
+
+        line-height: 1.2;
+
+        letter-spacing: 0.06em;
+
+        text-transform: uppercase;
+
+        color: var(--ui-green);
+    }
+
+
+    .mobile-atlas-attributes {
+        margin: 0;
+    }
+
+
+    .mobile-atlas-attribute-row {
+        display: grid;
+
+        grid-template-columns:
+            minmax(7.5rem, 0.9fr)
+            minmax(0, 1.1fr);
+
+        gap: 0.75rem;
+
+        padding:
+            0.55rem
+            0;
+
+        border-bottom:
+        1px solid
+        rgba(159, 140, 121, 0.22);
+    }
+
+
+    .mobile-atlas-attribute-row:last-child {
+        border-bottom: 0;
+    }
+
+
+    .mobile-atlas-attribute-row dt,
+    .mobile-atlas-attribute-row dd {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.42;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .mobile-atlas-attribute-row dt {
+        font-weight: 650;
+
+        color: var(--ui-warm-text);
+    }
+
+
+    .mobile-atlas-attribute-row dd {
+        color: var(--ui-warm-text);
+    }
+
+
+    .mobile-atlas-empty {
+        margin: 0;
+
+        font-size: 0.84rem;
+        line-height: 1.45;
+
+        color: #80766d;
+    }
+
+
+
+/* ============================================================
+   3.11. Кнопка Show More
+   ============================================================ */
+
+    
+
+
+
+    .mobile-atlas-load-more {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 0.55rem;
+
+        width: calc(100% - 1.6rem);
+
+        min-height: 2.8rem;
+
+        margin:
+            0
+            0.8rem
+            0.9rem;
+
+        padding:
+            0.55rem
+            1rem;
+
+
+        font-family: var(--font-primary);
+
+        font-size: 0.86rem;
+        font-weight: 700;
+
+
+        color: #5c524a;
+
+        background-color: #faf8f5;
+
+        border:
+            1px solid #cfc6bc;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+    }
+
+
+    .mobile-atlas-load-more[hidden] {
+        display: none !important;
+    }
+
+
+    .mobile-atlas-load-more i {
+        font-size: 0.7rem;
+
+        color: #8e7f71;
+    }
+
+
+
+/* ============================================================
+   3.12. Состояния загрузки, пустого результата и ошибки
+   ============================================================ */
+
+    
+
+
+
+    .mobile-catalogue-loading,
+    .mobile-catalogue-message {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 0.7rem;
+
+        min-height: 7rem;
+
+        padding: 1rem;
+
+        text-align: center;
+
+        color: #776c63;
+    }
+
+
+    .mobile-catalogue-message > div {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 0.15rem;
+    }
+
+
+    .mobile-catalogue-message strong {
+        color: #48423d;
+    }
+
+
+    .mobile-catalogue-message span {
+        font-size: 0.84rem;
+    }
+
+
+/* ============================================================
+   3.13. Адаптация для очень узких телефонов
+   ============================================================ */
+
+    
+
+
+
+    @media screen and (max-width: 430px) {
+
+        .mobile-atlas-summary-row,
+        .mobile-atlas-attribute-row {
+            grid-template-columns:
+                minmax(6.5rem, 0.82fr)
+                minmax(0, 1.18fr);
+
+            gap: 0.55rem;
+        }
+
+    }
+
+}
+

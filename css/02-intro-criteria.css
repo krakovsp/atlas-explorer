@@ -1,0 +1,1074 @@
+/* ============================================================
+   02. INTRO & CRITERIA — композиция Intro и определения
+
+   ОГЛАВЛЕНИЕ
+   2.1    Intro: основной контейнер и связь с таблицей
+   2.2    Intro-карточки: базовая геометрия и адаптивные режимы
+   2.3    Atlas Criteria: заголовок и список критериев
+   2.4    Atlas Definition: триггер и редакционный разделитель
+   2.5    Atlas Definition: popover с определениями
+   2.6    Atlas Definition: адаптивность popover
+   2.7    Ограниченный режим страницы ниже основного порога
+
+   Порядок подключения: 2 / 10
+   ============================================================ */
+
+/* ============================================================
+   2.1. Intro: основной контейнер и связь с таблицей
+   ============================================================ */
+
+
+
+
+
+.intro-section {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex: 0 0 auto;
+
+  width: 100%;
+  height: auto;
+  min-height: var(--intro-height);
+
+  align-items: stretch;
+  justify-content: center;
+
+  padding:
+    var(--intro-padding-block)
+    var(--intro-padding-inline);
+
+ background-color: #dcd0c1;
+
+  background-image:
+
+    
+    linear-gradient(
+        180deg,
+        rgba(105, 87, 70, 0.11) 0%,
+        rgba(105, 87, 70, 0.035) 12%,
+        transparent 26%
+    ),
+
+    
+    radial-gradient(
+        ellipse at 50% 44%,
+        rgba(255, 253, 248, 0.48) 0%,
+        rgba(249, 245, 237, 0.22) 48%,
+        transparent 76%
+    ),
+
+    
+    radial-gradient(
+        circle at 13% 25%,
+        rgba(67, 99, 82, 0.055) 0%,
+        transparent 31%
+    ),
+
+    
+    radial-gradient(
+        circle at 87% 73%,
+        rgba(105, 87, 70, 0.075) 0%,
+        transparent 34%
+    ),
+
+    
+    linear-gradient(
+        rgba(91, 78, 63, 0.035) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(91, 78, 63, 0.035) 1px,
+        transparent 1px
+    ),
+
+    
+    linear-gradient(
+        135deg,
+        #e5dccf 0%,
+        #dcd1c3 52%,
+        #cfc1b0 100%
+    );
+
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    38px 38px,
+    38px 38px,
+    100% 100%;
+
+  background-position: center;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    repeat,
+    repeat,
+    no-repeat;
+
+  border-bottom: 1px solid rgba(91, 76, 64, 0.32);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 9px 20px rgba(66, 54, 43, 0.035),
+    inset 0 -8px 18px rgba(66, 54, 43, 0.05);
+}
+
+.intro-container {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.7fr)
+    minmax(0, 1.7fr)
+    minmax(0, 0.4fr);
+
+  grid-template-areas:
+    "criteria about info";
+
+  grid-template-rows: auto;
+  align-items: stretch;
+
+  width: min(100%, var(--intro-max-width));
+  height: auto;
+
+  min-width: 0;
+  min-height: calc(
+    var(--intro-height)
+    - var(--intro-padding-block)
+    - var(--intro-padding-block)
+  );
+
+  margin-inline: auto;
+  gap: var(--intro-card-gap);
+}
+
+
+
+
+
+body > .table-section {
+  flex: 1 0 30dvh;
+
+  height: auto;
+  min-height: 30dvh;
+
+  overflow: hidden;
+}
+
+/* ============================================================
+   2.2. Intro-карточки: базовая геометрия и адаптивные режимы
+   ============================================================ */
+
+
+
+
+
+
+
+
+.about-block,
+.criteria-block,
+.info-block {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  height: auto;
+  align-self: stretch;
+
+  padding: clamp(16px, 1.15rem, 28px) clamp(16px, 1.25vw, 36px);
+
+  background-color: #f0ebe3;
+
+  background-size: 8px 8px;
+  border: 1px solid #b5a696;
+  border-radius: 10px;
+
+  box-shadow:
+    0 4px 7px rgba(91, 76, 64, 0.055),
+    0 14px 30px rgba(91, 76, 64, 0.11);
+
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.3s ease;
+}
+
+
+
+
+.about-block:focus-within,
+.criteria-block:focus-within,
+.info-block:focus-within {
+  z-index: 10;
+  border-color: #8e7f71;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    z-index: 10;
+
+    transform: translateY(-3px);
+
+    border-color: #8e7f71;
+
+    box-shadow:
+      0 20px 38px rgba(107, 95, 83, 0.15),
+      0 6px 12px rgba(107, 95, 83, 0.05);
+  }
+}
+
+
+
+
+
+.main-about {
+  grid-area: about;
+} 
+
+.criteria-block {
+  grid-area: criteria;
+
+  padding:
+    clamp(12px, calc(6px + 0.95vmin), 26px)
+    clamp(14px, 1.1vw, 32px);
+}
+
+.info-block {
+  grid-area: info;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  align-self: stretch;
+}
+
+
+.info-block > h2,
+.author-profile {
+  flex: 0 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 1100px) and (max-width: 1599px),
+       screen and (min-width: 1100px) and (max-height: 999px) {
+  :root {
+    --intro-height: min(60dvh, 36rem);
+
+    --intro-padding-block: clamp(14px, 1.7dvh, 20px);
+    --intro-padding-inline: clamp(16px, 1.7vw, 30px);
+    --intro-card-gap: clamp(16px, 1.8vw, 30px);
+  }
+  body > .table-section {
+    flex: 1 1 0;
+    min-height: 0;
+  }
+}
+
+
+
+
+
+
+@media screen and (min-width: 2400px) and (min-height: 1250px) {
+  :root {
+    
+
+
+
+    --intro-height: min(50dvh, 40rem);
+
+    --intro-padding-block: clamp(28px, 2.4dvh, 48px);
+    --intro-padding-inline: clamp(32px, 2.2vw, 72px);
+    --intro-card-gap: clamp(36px, 2.4vw, 72px);
+
+  }
+}
+
+
+
+@media screen and
+       (min-width: 1600px) and
+       (max-width: 2399px) and
+       (min-height: 1000px) {
+  :root {
+    --intro-height: min(55dvh, 36rem);
+  }
+}
+
+
+
+
+
+
+@media screen and (max-width: 1099px) {
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body {
+    height: auto;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .intro-section {
+    flex: 0 0 auto;
+
+    height: auto;
+    min-height: 0;
+
+    align-items: stretch;
+
+    padding:
+      clamp(20px, 5dvh, 40px)
+      clamp(16px, 4vw, 32px);
+  }
+
+  .intro-container {
+  grid-template-columns: minmax(0, 1fr);
+
+  grid-template-areas:
+    "about"
+    "criteria"
+    "info";
+
+  grid-template-rows:
+    auto
+    auto
+    auto;
+
+  width: 100%;
+  height: auto;
+  max-height: none;
+
+  gap: clamp(18px, 4vw, 32px);
+}
+
+.main-about,
+.criteria-block,
+.info-block {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
+
+  body > .table-section {
+    display: none !important;
+  }
+
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   2.3. Atlas Criteria: заголовок и список критериев
+   ============================================================ */
+
+
+
+
+
+.intro-section .criteria-block h2 {
+  margin: 0;
+  padding-bottom: 0.3rem;
+
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.criteria-list {
+  display: grid;
+  flex: 1 1 auto;
+
+  
+
+
+
+
+  grid-auto-rows: minmax(min-content, 1fr);
+  align-items: center;
+
+  width: 100%;
+  min-height: 0;
+
+  margin: 0 0 0.3rem;
+  padding: 0;
+
+  row-gap: clamp(0.3rem, 0.45vmin, 0.55rem);
+
+  list-style: none;
+  counter-reset: criteria-counter;
+}
+
+.criteria-list > li {
+  position: relative;
+
+  margin: 0;
+  padding-left: 1.8em;
+
+  font-size: 1rem;
+  line-height: 1.43;
+
+  color: #212529;
+
+  counter-increment: criteria-counter;
+}
+
+.criteria-list > li::before {
+  content: counter(criteria-counter);
+
+  position: absolute;
+  top: 0.16em;
+  left: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5em;
+  height: 1.5em;
+
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+
+  color: #ffffff;
+  background-color: #7d6e61;
+
+  border: 1px solid #7d6e61;
+  border-radius: 50%;
+
+  box-shadow: 0 2px 5px rgba(125, 110, 97, 0.3);
+}
+
+
+/* ============================================================
+   2.4. Atlas Definition: триггер и редакционный разделитель
+   ============================================================ */
+
+
+
+
+
+.criteria-footer {
+  position: relative;
+
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  margin-top: 0;
+  padding:
+    clamp(0.55rem, 0.7vmin, 0.7rem)
+    0
+    clamp(0.2rem, 0.25vmin, 0.25rem);
+
+  text-align: center;
+
+}
+
+
+
+
+
+
+
+
+
+.definition-popover-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 100%;
+
+  gap: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+.definition-popover-wrapper::before,
+.definition-popover-wrapper::after {
+  content: "";
+
+  flex: 1 1 auto;
+
+  height: 1.5px;
+
+  background-color:
+    rgba(117, 96, 79, 0.34);
+
+  background-image: none;
+
+  transition:
+    background-color 0.18s ease;
+}
+
+
+.definition-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  min-width: 0;
+
+  gap: 0.42rem;
+
+  padding:
+    0.2rem
+    clamp(7px, 0.45vw, 10px);
+
+  font-family: var(--font-primary);
+
+  font-size:
+  clamp(
+    1rem,
+    calc(0.82rem + 0.22vw),
+    1.14rem
+  );
+
+  font-weight: 700;
+  line-height: 1.15;
+
+  white-space: nowrap;
+
+  color: #4f6655;
+
+  background: transparent;
+
+  border: 0;
+  border-radius: 0;
+
+  box-shadow: none;
+
+  cursor: pointer;
+
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease,
+    letter-spacing 0.18s ease;
+}
+
+
+.definition-trigger i {
+  flex: 0 0 auto;
+
+  font-size: 0.95em;
+
+  color: currentColor;
+
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease;
+}
+
+
+
+
+.definition-trigger:hover {
+  color: #3f5948;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  text-decoration: none;
+
+  transform:
+    translateY(-1px);
+}
+
+
+.definition-trigger:hover i {
+  transform:
+    scale(1.09);
+}
+
+
+
+.definition-trigger[aria-expanded="true"],
+.definition-popover-wrapper.is-open .definition-trigger {
+  color: #365440;
+
+  font-weight: 750;
+
+  letter-spacing:
+    0.012em;
+
+  transform: none;
+}
+
+
+.definition-trigger[aria-expanded="true"] i,
+.definition-popover-wrapper.is-open .definition-trigger i {
+  transform:
+    scale(1.1);
+}
+
+
+.definition-trigger:active {
+  color: #314d3a;
+
+  transform:
+    translateY(1px);
+}
+
+
+.definition-trigger:focus-visible {
+  outline:
+    1px solid
+    rgba(79, 102, 85, 0.52);
+
+  outline-offset:
+    4px;
+}
+
+/* ============================================================
+   2.5. Atlas Definition: popover с определениями
+   ============================================================ */
+
+
+
+
+
+.definition-popover {
+  position: absolute;
+  z-index: 120;
+
+  bottom: calc(100% + 0.8rem);
+  left: 50%;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  width: min(46rem, calc(100vw - 3rem));
+  overflow: visible;
+
+  padding: 1px;
+  gap: 1px;
+
+  text-align: left;
+
+  background-color: var(--ui-warm-border);
+
+  border: 1px solid var(--ui-warm-border-strong);
+
+  box-shadow:
+    0 18px 42px rgba(74, 60, 48, 0.20),
+    0 5px 14px rgba(74, 60, 48, 0.12);
+
+  border-radius: 10px;
+
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-15%, 0.45rem) scale(0.985);
+  transform-origin: 15% bottom;
+
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+
+.definition-popover::after {
+  content: "";
+
+  position: absolute;
+  bottom: -8px;
+  left: 15%;
+
+  width: 14px;
+  height: 14px;
+
+  background-color: #e9dfd3;
+
+border-right: 1px solid var(--ui-warm-border-strong);
+border-bottom: 1px solid var(--ui-warm-border-strong);
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+
+
+.definition-panel {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.definition-panel--conceptual {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(111, 92, 74, 0.10),
+            transparent 65%
+        ),
+        #ece2d6;
+
+    border-radius: 9px 0 0 9px;
+}
+
+.definition-panel--operational {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 102, 85, 0.09),
+            transparent 65%
+        ),
+        #e6e2d8;
+
+    border-radius: 0 9px 9px 0;
+}
+
+.definition-panel h3 {
+  margin: 0 1.5rem 0.65rem 0;
+  padding: 0;
+
+  font-family: var(--font-primary);
+  font-size: clamp(0.78rem, 0.72rem + 0.07vw, 0.88rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+
+  border: 0;
+}
+
+.definition-panel--conceptual h3 {
+    color: #725a47;
+}
+
+.definition-panel--operational h3 {
+    color: var(--ui-green);
+}
+
+.definition-panel p {
+  margin: 0;
+
+  font-family: var(--font-primary);
+  font-size: clamp(0.86rem, 0.8rem + 0.08vw, 0.96rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.003em;
+
+  color: #48423d;
+}
+
+
+
+.definition-popover-close {
+    position: absolute;
+    z-index: 3;
+
+    top: 0.55rem;
+    right: 0.55rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.65rem;
+    height: 1.65rem;
+    padding: 0;
+
+    font-size: 0.82rem;
+
+    color: #75695f;
+    background-color: rgba(236, 226, 214, 0.82);
+
+    
+    border: 1px solid #b6a593;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.definition-popover-close:hover {
+    color: #ffffff;
+    background-color: #75604f;
+}
+
+.definition-popover-close:focus-visible {
+    outline: none;
+}
+
+
+
+.definition-popover-wrapper.is-open .definition-popover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(-15%, 0) scale(1);
+}
+
+
+/* ============================================================
+   2.6. Atlas Definition: адаптивность popover
+   ============================================================ */
+
+
+
+
+
+
+
+@media screen and (min-width: 2000px) {
+  .definition-trigger {
+    padding: 0.38rem 0.95rem;
+    gap: 0.42rem;
+
+    font-size: 1.14rem;
+  }
+}
+
+@media screen and (max-width: 1599px) {
+  .definition-popover {
+    width: min(42rem, calc(100vw - 2.5rem));
+  }
+
+  .definition-panel {
+    padding: 0.85rem 0.9rem 0.9rem;
+  }
+
+  .definition-panel h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .definition-panel p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+}
+
+@media screen and (max-width: 1099px) {
+  .definition-popover {
+    left: 50%;
+
+    grid-template-columns: minmax(0, 1fr);
+
+    width: calc(100vw - 4rem);
+    max-width: 42rem;
+
+    transform: translate(-50%, 0.45rem) scale(0.985);
+    transform-origin: center bottom;
+  }
+
+.definition-popover-wrapper.is-open .definition-popover {
+  transform: translate(-50%, 0) scale(1);
+}
+
+  .definition-panel--conceptual {
+    border-radius: 9px 9px 0 0;
+  }
+
+  .definition-panel--operational {
+    border-radius: 0 0 9px 9px;
+  }
+
+  .definition-popover::after {
+    left: 50%;
+  }
+
+  .definition-trigger {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .definition-popover {
+    width: calc(100vw - 2rem);
+  }
+
+  .definition-panel {
+    padding: 0.8rem;
+  }
+
+  .definition-panel h3 {
+    padding-right: 1.5rem;
+    font-size: 0.76rem;
+  }
+
+  .definition-panel p {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+}
+
+
+
+
+.visually-hidden {
+  position: absolute !important;
+
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+
+  padding: 0 !important;
+  margin: -1px !important;
+
+  white-space: nowrap !important;
+
+  border: 0 !important;
+
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+}
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .definition-trigger,
+  .definition-popover,
+  .definition-popover-close {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   2.7. Ограниченный режим страницы ниже основного порога
+   ============================================================ */
+
+
+
+
+
+
+@media screen and (max-width: 1099px) {
+  :root {
+    font-size: clamp(14px, 1.1vw, 18px);
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body {
+    height: auto;
+  }
+
+  .intro-section {
+    flex: 0 0 auto;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .intro-container {
+    flex-direction: column;
+
+    height: auto;
+    max-height: none;
+    gap: clamp(18px, 4vw, 32px);
+  }
+
+  .about-block,
+  .criteria-block,
+  .info-block {
+    flex: 0 0 auto;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    padding: clamp(18px, 4vw, 30px);
+  }
+
+  .intro-section .criteria-block h2 {
+    font-size: 1.35rem;
+  }
+
+.criteria-list {
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+  .criteria-list > li {
+    padding-left: 2rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .table-section {
+    display: none;
+  }
+
+  .about-block:hover,
+  .criteria-block:hover,
+  .info-block:hover {
+    transform: none;
+  }
+}
+

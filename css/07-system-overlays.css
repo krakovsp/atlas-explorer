@@ -1,0 +1,692 @@
+/* ============================================================
+   07. SYSTEM OVERLAYS — device warning, PDF viewer и cookie consent
+
+   ОГЛАВЛЕНИЕ
+   7.1    Предупреждение для экранов меньше 1300 px
+   7.2    PDF Viewer: окно просмотра и адаптация
+   7.3    Финальная поверхность контейнера glossary
+   7.4    Cookie Consent и Cookie Settings
+
+   Порядок подключения: 7 / 10
+   ============================================================ */
+
+/* ============================================================
+   7.1. Предупреждение для экранов меньше 1300 px
+   ============================================================ */
+
+
+.device-warning[hidden] {
+  display: none !important;
+}
+
+.device-warning {
+  position: fixed;
+  z-index: 3000000;
+
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: clamp(1rem, 4vw, 2rem);
+
+  background-color:
+    rgba(55, 47, 41, 0.72);
+
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+
+body.device-warning-open {
+  overflow: hidden !important;
+}
+
+
+.device-warning__dialog {
+  width: min(100%, 34rem);
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+
+  padding:
+    clamp(1.5rem, 5vw, 2.25rem)
+    clamp(1.25rem, 5vw, 2.5rem);
+
+  overflow-y: auto;
+
+  font-family: var(--font-primary);
+  text-align: center;
+
+  color:
+    var(--ui-warm-text);
+
+background:
+    radial-gradient(
+        rgba(117, 96, 79, 0.035) 1px,
+        transparent 1px
+    ),
+    #f0ebe3;
+
+background-size:
+    8px 8px;
+
+border:
+    1px solid
+    var(--ui-warm-border);
+
+    border-radius: 12px;
+
+box-shadow:
+    0 24px 60px rgba(74, 60, 48, 0.24),
+    0 8px 20px rgba(74, 60, 48, 0.11);
+
+  animation: device-warning-enter 0.25s ease-out;
+}
+
+
+.device-warning__icon {
+  display: grid;
+  place-items: center;
+
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0 auto 1rem;
+
+  font-size: 1.55rem;
+
+  color:
+        var(--ui-warm-light);
+
+    background-color:
+        var(--ui-warm-accent);
+
+    border:
+        1px solid
+        var(--ui-warm-border-strong);
+
+    box-shadow:
+        0 4px 12px rgba(74, 60, 48, 0.14);
+}
+
+
+.device-warning__dialog h2 {
+  margin: 0 0 0.9rem;
+
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+  font-weight: 750;
+  line-height: 1.2;
+
+  color: #473f38;
+}
+
+
+.device-warning__text {
+  margin: 0;
+
+  font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+  line-height: 1.55;
+
+  color: var(--ui-warm-text);
+}
+
+
+.device-warning__recommendation {
+  margin: 1rem 0 1.4rem;
+  padding: 0.8rem 0.9rem;
+
+  font-size: clamp(0.9rem, 3.4vw, 1rem);
+  line-height: 1.5;
+
+  color:
+        var(--ui-warm-text);
+
+    background-color:
+        rgba(223, 229, 220, 0.48);
+
+    border-left:
+        3px solid
+        var(--ui-green);
+
+    border-radius:
+        6px;
+}
+
+.device-warning__recommendation strong {
+  var(--ui-green);
+}
+
+
+.device-warning__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.2rem;
+
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  color:
+        var(--ui-warm-light);
+
+    background-color:
+        var(--ui-warm-accent);
+
+    border:
+        1px solid
+        var(--ui-warm-accent);
+
+    border-radius:
+        7px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.device-warning__button:hover {
+   background-color:
+        var(--ui-warm-accent-hover);
+
+    border-color:
+        var(--ui-warm-accent-hover);
+
+    box-shadow:
+        0 4px 12px rgba(74, 60, 48, 0.16);
+
+    transform:
+        translateY(-1px);
+}
+
+.device-warning__button:focus-visible {
+    outline:
+        3px solid rgba(117, 96, 79, 0.28);
+
+    outline-offset:
+        3px;
+}
+
+@keyframes device-warning-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-warning__dialog {
+    animation: none;
+  }
+
+  .device-warning__button {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   7.2. PDF Viewer: окно просмотра и адаптация
+   ============================================================ */
+
+.pdf-viewer-modal {
+    padding: clamp(10px, 1.4vw, 28px);
+}
+
+.pdf-viewer-window {
+    position: relative;
+
+    width: min(94vw, 1800px) !important;
+    height: min(90dvh, 1100px) !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    background: #f4eee6 !important;
+    border: 1px solid #c9b9a9 !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 22px 60px rgba(43, 37, 33, 0.28),
+        0 5px 15px rgba(43, 37, 33, 0.12);
+}
+
+.pdf-viewer-header {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding:
+        18px
+        74px
+        16px
+        18px;
+
+    border-bottom: 1px solid #ccbba9;
+}
+
+.pdf-viewer-header h2 {
+    margin: 0;
+
+    font-family: var(--font-primary);
+    font-size: clamp(1.1rem, 0.7rem + 0.5vw, 1.5rem);
+    font-weight: 750;
+    color: #4c4036;
+}
+
+.pdf-viewer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-right: 42px;
+}
+
+.pdf-viewer-external-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.45em;
+
+    min-height: 34px;
+    padding: 6px 12px;
+
+    font-family: var(--font-primary);
+    font-size: clamp(0.84rem, 0.76rem + 0.12vw, 0.96rem);
+    font-weight: 700;
+    line-height: 1;
+
+    color: #4d6754;
+    background: #f7f3ed;
+
+    border: 1px solid #c9b9a9;
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.pdf-viewer-external-link:hover {
+    color: #3d5646;
+    background: #eee7dd;
+    border-color: #a99682;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(74, 62, 61, 0.10);
+}
+
+.pdf-viewer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+
+    padding: clamp(8px, 0.8vw, 14px);
+
+    background: transparent !important;
+    border-top: none;
+}
+
+.pdf-viewer-frame {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid #cfc1b2;
+    border-radius: 8px;
+
+    background: #f4eee6;
+    box-shadow: none;
+}
+
+.pdf-viewer-window .modal-close-btn {
+    top: 18px !important;
+    right: 18px !important;
+
+    width: 2rem !important;
+    height: 2rem !important;
+
+    background: #ece3d8 !important;
+    border: 1px solid #c6b5a3 !important;
+    color: #78695c !important;
+}
+
+.pdf-viewer-window .modal-close-btn:hover {
+    background: #75604f !important;
+    border-color: #75604f !important;
+    color: #ffffff !important;
+}
+
+
+@media (max-width: 900px) {
+    .pdf-viewer-modal {
+        padding: 8px;
+    }
+
+    .pdf-viewer-window {
+        width: calc(100vw - 16px) !important;
+        height: calc(100dvh - 16px) !important;
+
+        border-radius: 10px !important;
+    }
+
+    .pdf-viewer-external-link {
+        width: 34px;
+        min-width: 34px;
+        padding-inline: 0;
+    }
+
+    .pdf-viewer-external-link span {
+        display: none;
+    }
+
+    .pdf-viewer-body {
+        padding: 6px;
+    }
+}
+/* ============================================================
+   7.3. Финальная поверхность контейнера glossary
+   ============================================================ */
+
+
+.custom-material-modal .glossary-table-container {
+    border: 1px solid #d2c3b3 !important;
+    border-radius: 10px !important;
+    background: #f3ede4 !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22) !important;
+}
+
+/* ============================================================
+   7.4. Cookie Consent и Cookie Settings
+   ============================================================ */
+
+.cookie-consent[hidden] {
+  display: none !important;
+}
+
+.cookie-consent {
+  position: fixed;
+  right: clamp(14px, 1.4vw, 26px);
+  bottom: clamp(14px, 1.6vh, 24px);
+  z-index: 25000;
+
+  width: min(30rem, calc(100vw - 28px));
+  padding:
+    1.4rem
+    1.2rem
+    1.2rem;
+
+  box-sizing: border-box;
+  overflow: hidden;
+
+  font-family: var(--font-primary);
+
+  color: #4a4641;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ),
+    #f0ebe3;
+
+  border: 1px solid #b5a696;
+  border-radius: 14px;
+
+  box-shadow:
+    0 20px 48px rgba(43, 37, 33, 0.22),
+    0 6px 14px rgba(43, 37, 33, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(8px);
+}
+
+
+.cookie-consent::before {
+  content: "Privacy & Analytics";
+
+  position: absolute;
+
+  top: 1.15rem;
+  right: 1.1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  padding: 0.3rem 0.65rem;
+
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+
+  color: #6f6054;
+
+  background-color:
+    rgba(142, 127, 113, 0.10);
+
+  border:
+    1px solid
+    rgba(142, 127, 113, 0.24);
+
+  border-radius: 999px;
+}
+
+
+.cookie-consent::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+
+  width: 100%;
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8e7f71 0%,
+      #b5a696 35%,
+      #4a6b53 70%,
+      #b14d4d 100%
+    );
+  opacity: 0.9;
+}
+
+
+.cookie-consent h2 {
+  margin: 0 0 0.75rem;
+
+  padding-right: 9.5rem;
+
+  font-family: var(--font-primary);
+
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+
+  color: #4a3e3d;
+}
+
+
+.cookie-consent p {
+  margin: 0 0 1rem !important;
+
+  font-size: 0.95rem;
+  line-height: 1.55;
+
+  color: #4a4641;
+}
+
+
+.cookie-consent-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.cookie-consent-btn {
+  min-height: 2.35rem;
+  padding: 0.55rem 1rem;
+
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.cookie-consent-btn:hover {
+  transform: translateY(-1px);
+}
+
+.cookie-consent-btn:active {
+  transform: translateY(0);
+}
+
+
+.cookie-consent-btn--reject {
+  color: #7a3f3f;
+  background-color: rgba(177, 77, 77, 0.08);
+  border: 1px solid rgba(177, 77, 77, 0.42);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.cookie-consent-btn--reject:hover {
+  color: #ffffff;
+  background-color: #b14d4d;
+  border-color: #b14d4d;
+
+  box-shadow:
+    0 4px 10px rgba(177, 77, 77, 0.22);
+}
+
+
+.cookie-consent-btn--accept {
+  color: #ffffff;
+  background-color: #4a6b53;
+  border: 1px solid #4a6b53;
+
+  box-shadow:
+    0 4px 10px rgba(74, 107, 83, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.cookie-consent-btn--accept:hover {
+  background-color: #3f624a;
+  border-color: #3f624a;
+
+  box-shadow:
+    0 6px 14px rgba(74, 107, 83, 0.26);
+}
+
+
+.site-info-text-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+
+  font: inherit;
+  font-weight: 700;
+
+  color: #4a6b53;
+  background: none;
+  border: 0;
+
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 107, 83, 0.35);
+  text-underline-offset: 0.14em;
+
+  cursor: pointer;
+}
+
+.site-info-text-link:hover {
+  color: #3f624a;
+  text-decoration-color: currentColor;
+}
+
+.cookie-consent-link {
+  color: var(--ui-warm-accent);
+
+  font-weight: 600;
+
+  text-decoration: underline;
+  text-decoration-color: rgba(117, 96, 79, 0.4);
+  text-underline-offset: 0.14em;
+
+  transition:
+    color 0.18s ease,
+    text-decoration-color 0.18s ease;
+}
+
+.cookie-consent-link:hover {
+  color: var(--ui-warm-accent-hover);
+  text-decoration-color: currentColor;
+}
+
+
+@media screen and (max-width: 640px) {
+  .cookie-consent {
+    right: 12px;
+    bottom: 12px;
+
+    width: calc(100vw - 24px);
+    padding: 1rem 1rem 1.05rem;
+  }
+
+  .cookie-consent h2 {
+    font-size: 1.08rem;
+  }
+
+  .cookie-consent p {
+    font-size: 0.9rem;
+  }
+
+  .cookie-consent-actions {
+    justify-content: stretch;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cookie-consent-btn {
+    width: 100%;
+  }
+}

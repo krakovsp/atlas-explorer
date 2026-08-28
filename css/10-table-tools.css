@@ -1,0 +1,1136 @@
+/* ============================================================
+   10. TABLE TOOLS — row selection, Help, Quick Jump и служебные controls
+
+   ОГЛАВЛЕНИЕ
+   10.1   Горизонтальные scroll controls
+   10.2   Row Selection: trigger и рабочая выборка
+   10.3   Row Selection: вертикальное меню и checkbox-column
+   10.4   Clear Filters
+   10.5   Индикаторы Yes / No
+   10.6   Help: контейнер и кнопка
+   10.7   Общая округлая форма рабочих и служебных controls
+   10.8   Help: окно
+   10.9   Help: элементы accordion
+   10.10  Help: заголовки accordion
+   10.11  Help: содержимое accordion
+   10.12  Quick Jump для Media-Cartographic Attributes
+   10.13  Apply button dropdown-фильтра
+   10.14  Compact toolbar для 1300–1599 px
+
+   Порядок подключения: 10 / 10
+   ============================================================ */
+
+/* ============================================================
+   10.1. Горизонтальные scroll controls
+   ============================================================ */
+
+.custom-scroll-controls {
+    display: flex !important;
+    flex-direction: row !important; 
+    align-items: center !important;
+    font-size:  0.85rem !important;
+    gap: 4px !important; 
+    flex-shrink: 0 !important; 
+}
+
+.scroll-arrow-btn {
+    background-color:
+    var(--table-control-bg) !important;
+
+border:
+    1px solid
+    var(--table-control-border) !important;
+
+color:
+    var(--table-control-text) !important;
+    border-radius:
+    2px !important;
+
+clip-path:
+    none !important;
+
+-webkit-clip-path:
+    none !important;
+    
+    width: var(--table-nav-btn-height) !important;
+    padding: 0 !important;
+    font-size:  0.85rem !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+    box-sizing: border-box !important;
+
+}
+
+.scroll-arrow-btn:hover {
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+
+    box-shadow:
+        0 1px 3px
+        rgba(74, 64, 54, 0.07) !important;
+}
+
+
+.scroll-arrow-btn:active {
+    background-color:
+        #d8cfc3 !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-accent) !important;
+
+    box-shadow:
+        inset 0 1px 2px
+        rgba(74, 64, 54, 0.06) !important;
+}
+
+
+
+
+/* ============================================================
+   10.2. Row Selection: trigger и рабочая выборка
+   ============================================================ */
+
+.row-selection-controls {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    position: relative !important;
+}
+
+
+.row-selection-trigger-btn {
+    height: var(--table-nav-btn-height) !important;
+    min-height: var(--table-nav-btn-height) !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--table-btn-icon-gap) !important;
+
+    padding: 0 1vw !important;
+
+    font-family: var(--font-primary) !important;
+    font-size: 0.95rem !important;
+    font-weight: 650 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    color:
+        var(--table-control-text) !important;
+    
+    background-color:
+        var(--table-control-bg) !important;
+    
+    border:
+        1px solid
+        var(--table-control-border) !important;
+    
+    box-shadow:
+        0 1px 2px
+        rgba(74, 64, 54, 0.045) !important;
+
+    border-radius: 6px !important;
+    cursor: pointer !important;
+
+    transition: all 0.15s ease-in-out !important;
+    box-sizing: border-box !important;
+}
+
+.row-selection-trigger-btn:hover {
+    color:
+        var(--table-text-strong) !important;
+
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+
+    box-shadow:
+        0 1px 3px rgba(74, 64, 54, 0.07) !important;
+}
+
+
+.row-selection-trigger-btn.is-editing {
+    color:
+        var(--table-text-strong) !important;
+
+    background-color:
+        var(--table-control-pressed) !important;
+
+    border-color:
+        var(--table-control-active) !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+
+.row-selection-trigger-btn.is-active {
+    color: #FFFFFF !important;
+    background-color: #42634C !important;
+    border-color: #36523F !important;
+    box-shadow: 0 1px 3px rgba(54, 82, 63, 0.18) !important;
+}
+
+.row-selection-trigger-btn i {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+}
+
+
+/* ============================================================
+   10.3. Row Selection: вертикальное меню и checkbox-column
+   ============================================================ */
+
+.row-selection-actions-menu {
+    display: none !important;
+
+    
+    position: fixed !important;
+    z-index: 99999 !important;
+
+    width: max-content !important;
+    min-width: 205px !important;
+    max-width: min(260px, calc(100vw - 24px)) !important;
+
+    padding: 8px !important;
+    box-sizing: border-box !important;
+
+    
+    color:
+    var(--table-text) !important;
+
+background-color:
+    #e7e0d6 !important;
+
+border:
+    1px solid
+    var(--table-border) !important;
+
+box-shadow:
+    0 12px 28px rgba(43, 37, 33, 0.16),
+    0 4px 10px rgba(43, 37, 33, 0.08) !important;
+   
+    border-radius: 10px !important;
+
+
+}
+
+.row-selection-actions-menu.show {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+
+.row-selection-action-btn {
+    width: 100% !important;
+    min-height: var(--table-nav-btn-height) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+
+    font-family: var(--font-primary, "Source Sans 3", sans-serif) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+
+    color:
+    var(--table-control-text) !important;
+
+background-color:
+    var(--table-control-bg) !important;
+
+border:
+    1px solid
+    var(--table-control-border) !important;
+
+border-radius:
+    4px !important;
+
+    cursor: pointer !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.row-selection-action-btn i {
+    width: 14px !important;
+    flex: 0 0 14px !important;
+    margin: 0 !important;
+
+    font-size: 0.82rem !important;
+    text-align: center !important;
+}
+
+.row-selection-action-btn:hover:not(:disabled) {
+    color: #FFFFFF !important;
+    background-color: #8E7F71 !important;
+    border-color: #8E7F71 !important;
+}
+
+
+.row-selection-action-btn:hover:not(:disabled) {
+    color:
+        var(--table-text-strong) !important;
+
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+}
+
+.row-selection-apply-btn:not(:disabled) {
+    color:
+        #36523f !important;
+
+    background-color:
+        rgba(66, 99, 76, 0.055) !important;
+
+    border-color:
+        rgba(66, 99, 76, 0.34) !important;
+}
+
+.row-selection-apply-btn:hover:not(:disabled) {
+    color:
+        #ffffff !important;
+
+    background-color:
+        #42634c !important;
+
+    border-color:
+        #36523f !important;
+}
+
+
+.row-selection-reset-btn {
+    color: #6A5F56 !important;
+}
+
+
+.row-selection-cancel-btn {
+    color: #756A61 !important;
+}
+
+.row-selection-action-btn:disabled {
+    color:
+        #9a9189 !important;
+
+    background-color:
+        #ded8cf !important;
+
+    border-color:
+        #cfc6bb !important;
+
+    box-shadow:
+        none !important;
+
+    cursor:
+        not-allowed !important;
+
+    opacity:
+        0.68 !important;
+}
+
+
+.tabulator .tabulator-cell.row-selection-column,
+.tabulator .tabulator-col.row-selection-column {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center !important;
+}
+
+.tabulator .tabulator-cell.row-selection-column {
+    background-color: rgba(142, 127, 113, 0.035) !important;
+}
+
+.row-select-checkbox {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    width: 15px !important;
+    height: 15px !important;
+    margin: 0 !important;
+
+    display: inline-grid !important;
+    place-content: center !important;
+
+    background-color: #FBF9F6 !important;
+    border: 1px solid #A99D92 !important;
+    border-radius: 3px !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background-color 0.14s ease,
+        border-color 0.14s ease,
+        box-shadow 0.14s ease !important;
+}
+
+.row-select-checkbox::before {
+    content: "";
+
+    width: 7px;
+    height: 4px;
+
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+
+    transform: rotate(-45deg) scale(0);
+    transform-origin: center;
+
+    transition: transform 0.12s ease;
+}
+
+.row-select-checkbox:hover {
+    border-color: #8E7F71 !important;
+    box-shadow: 0 0 0 2px rgba(142, 127, 113, 0.10) !important;
+}
+
+.row-select-checkbox:checked {
+    background-color: #8E7F71 !important;
+    border-color: #75695F !important;
+}
+
+.row-select-checkbox:checked::before {
+    transform: rotate(-45deg) scale(1);
+}
+
+.row-select-checkbox:focus-visible {
+    outline: 2px solid rgba(142, 127, 113, 0.42);
+    outline-offset: 2px;
+}
+
+
+/* ============================================================
+   10.4. Clear Filters
+   ============================================================ */
+
+.footer-clear-filters-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    
+    background-color:
+        var(--table-control-bg) !important;
+
+    border:
+        1px solid
+        var(--table-control-border) !important;
+
+    color:
+        var(--table-control-text) !important;
+    
+    height: 3vh !important;
+    min-height: 24px !important;
+    padding: 0 10px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    
+    
+    margin-left: 0 !important;
+    margin-right: 12px !important; 
+    
+    transition: all 0.2s ease-in-out !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important; 
+
+}
+
+
+.footer-clear-filters-btn:hover {
+    background-color:
+        var(--table-control-bg-hover) !important;
+
+    color:
+        var(--table-text-strong) !important;
+
+    border-color:
+        var(--table-control-border-hover) !important;
+}
+
+
+.footer-clear-filters-btn:active {
+    transform: scale(0.97) !important;
+}
+
+
+.footer-row-control-btn {
+    background: #FFF !important;
+    border: 1px solid #C2BAB0 !important;
+    color: #8E7F71 !important;
+    padding: 3px 8px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease-in-out !important;
+    margin-right: 5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+
+.footer-isolate-btn:hover {
+    background-color: #8E7F71 !important;
+    color: #FFF !important;
+    border-color: #8E7F71 !important;
+}
+
+
+.footer-reset-btn:hover {
+    background-color: #d9534f !important;
+    color: #FFF !important;
+    border-color: #d9534f !important;
+}
+
+
+.tabulator-row.tabulator-selected {
+    background-color: #EDEADE !important; 
+    color: #4A4541 !important;            
+    border-bottom: 1px dashed #C2BAB0 !important;
+}
+
+.tabulator-row.tabulator-selected:hover {
+    background-color: #E6E1D3 !important; 
+}
+
+/* ============================================================
+   10.5. Индикаторы Yes / No
+   ============================================================ */
+
+.table-tick,
+.table-cross {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.4em;
+    height: 1.25em;
+
+    border-radius: 4px;
+
+    font-size: 0.76em !important;
+    font-weight: 700 !important;
+    line-height: 1;
+
+    vertical-align: middle;
+}
+
+.table-tick {
+    color: #4F6655 !important;
+    background-color: #E0E5DF;
+    border: 1px solid #C7D0C7;
+}
+
+.table-cross {
+    color: #805B58 !important;
+    background-color: #E8E0DC;
+    border: 1px solid #D2C5BE;
+}
+
+/* ============================================================
+   10.6. Help: контейнер и кнопка
+   ============================================================ */
+
+
+.help-container {
+    position: relative;
+    display: inline-flex;
+}
+
+
+
+.help-btn {
+    display: flex;
+    align-items: center;
+
+    padding: 0 0.8vw !important;
+
+    border-radius:
+    2px !important;
+
+clip-path:
+    none !important;
+
+-webkit-clip-path:
+    none !important;
+    cursor: pointer;
+
+    background-color:
+        var(--table-help-bg) !important;
+
+    border:
+        1px solid
+        #7c4943 !important;
+
+    color: #FAF8F5 !important;
+
+    box-shadow:
+        0 1px 3px rgba(84, 48, 44, 0.12) !important;
+
+    transition:
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out !important;
+}
+
+
+.help-btn:hover {
+    background-color:
+        var(--table-help-bg-hover) !important;
+
+    border-color:
+        #6d3e39 !important;
+
+    color: #FFFFFF !important;
+}
+
+
+.help-btn.active {
+    background-color:
+        var(--table-help-bg-active) !important;
+
+    border-color:
+        #5e332f !important;
+
+    color: #FAF8F5 !important;
+
+    font-weight: 700 !important;
+
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* ============================================================
+   10.7. Общая округлая форма рабочих и служебных controls
+   ============================================================ */
+
+
+.settings-btn,
+.row-selection-trigger-btn,
+.fullscreen-btn,
+.scroll-arrow-btn,
+.help-btn,
+.footer-clear-filters-btn,
+.tabulator .tabulator-footer .tabulator-page,
+.tabulator .tabulator-footer .tabulator-page-size,
+.tabulator .tabulator-footer select.tabulator-page-size {
+    border-radius:
+        4px !important;
+
+    clip-path:
+        none !important;
+
+    -webkit-clip-path:
+        none !important;
+}
+
+/* ============================================================
+   10.8. Help: окно
+   ============================================================ */
+
+
+.help-accordion-menu {
+    display: none !important;
+
+
+    position: fixed !important;
+
+    top: auto;
+    left: auto;
+
+    z-index: 99999 !important;
+
+
+    width: clamp(420px, 30vw, 560px) !important;
+    max-width: calc(100vw - 24px) !important;
+
+
+    padding: 10px 10px !important;
+
+    box-sizing: border-box !important;
+
+
+    
+    color: #48423d !important;
+    background-color:
+    var(--table-popup-bg) !important;
+
+    border: 1px solid rgba(142, 127, 113, 0.62) !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 22px 52px rgba(43, 37, 33, 0.24),
+        0 6px 18px rgba(43, 37, 33, 0.12) !important;
+
+    overflow: visible !important;
+}
+
+
+.help-accordion-menu.show {
+    display: block !important;
+}
+
+/* ============================================================
+   10.9. Help: элементы accordion
+   ============================================================ */
+
+.help-accordion-item {
+    background-color: transparent !important;
+
+    border-bottom:
+        1px solid rgba(142, 127, 113, 0.22) !important;
+}
+
+.help-accordion-item:last-child {
+    border-bottom: none !important;
+}
+
+/* ============================================================
+   10.10. Help: заголовки accordion
+   ============================================================ */
+
+.help-accordion-header {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    padding: 10px 9px !important;
+
+    background-color: transparent !important;
+
+    border: none !important;
+
+    text-align: left !important;
+
+    font-family: var(--font-primary, 'Source Sans 3', sans-serif) !important;
+    font-size: clamp(0.96rem, 0.92rem + 0.08vw, 1.04rem) !important;
+    font-weight: 750 !important;
+    line-height: 1.25 !important;
+
+    color: #433c37 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease !important;
+}
+
+
+.help-accordion-header:hover {
+    background-color: rgba(142, 127, 113, 0.055) !important;
+    color: #42634c !important;
+}
+
+.help-accordion-item.open .help-accordion-header {
+    color: #42634c !important;
+}
+
+
+.help-accordion-header::after {
+    content: "\f078"; 
+
+    flex: 0 0 auto;
+
+    margin-left: 16px;
+
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+
+    font-size: 12px !important;
+    line-height: 1 !important;
+
+    color: #756a61 !important;
+
+    transition:
+        transform 0.22s ease,
+        color 0.18s ease !important;
+}
+
+.help-accordion-item.open .help-accordion-header::after {
+    transform: rotate(180deg) !important;
+    color: #42634c !important;
+}
+
+
+.help-accordion-item.open
+.help-accordion-header::after {
+    transform: rotate(180deg) !important;
+}
+
+/* ============================================================
+   10.11. Help: содержимое accordion
+   ============================================================ */
+
+.help-accordion-content {
+    max-height: 0;
+
+    overflow: hidden;
+
+    background-color: transparent !important;
+
+    transition: max-height 0.25s ease;
+}
+
+
+.help-accordion-content ul {
+    display: grid;
+
+    gap: 0.42rem;
+
+    margin: 0 !important;
+    padding: 8px 9px 13px !important;
+
+    list-style: none !important;
+}
+
+.help-accordion-content li {
+    margin: 0 !important;
+
+    padding:
+        0.42rem
+        0.4rem
+        0.42rem
+        0.8rem !important;
+
+    font-family:
+        var(--font-primary, "Source Sans 3", sans-serif) !important;
+
+    font-size: clamp(0.90rem, 0.86rem + 0.07vw, 0.98rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+
+    color: #48423d !important;
+
+    background: transparent !important;
+
+    
+    border-left: 2px solid rgba(118, 91, 71, 0.28) !important;
+
+    border-radius: 0 !important;
+}
+
+
+.help-accordion-content li:last-child {
+    margin-bottom: 0 !important;
+}
+
+
+.help-accordion-content li strong {
+    color: #38322e !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   10.12. Quick Jump для Media-Cartographic Attributes
+   ============================================================ */
+
+.table3-anchors-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; 
+    background-color: transparent !important; 
+    padding: 0.25rem 0.5rem; 
+    border: none !important; 
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+
+.anchors-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem); 
+    font-weight: 700;
+    color: #5C524A;
+    display: flex;
+    align-items: center;
+    gap: 0.4em; 
+    white-space: nowrap; 
+}
+
+
+.anchor-dots-group {
+    display: flex;
+    gap: clamp(8px, 1.2vw, 12px); 
+}
+
+
+.anchor-dot {
+    position: relative;
+    
+    width: clamp(10px, 0.73vw, 14px);  
+    height: clamp(10px, 0.73vw, 14px); 
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    flex-shrink: 0; 
+}
+
+.anchor-dot:hover {
+    transform: scale(1.3);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+.anchor-dot.dot-general        { background-color: #E2DDD3; } 
+.anchor-dot.dot-interface      { background-color: #EADCB9; } 
+.anchor-dot.dot-navigation     { background-color: #BDCEDC; } 
+.anchor-dot.dot-representation { background-color: #B9CBB2; } 
+.anchor-dot.dot-functionality  { background-color: #D3D3D0; } 
+
+
+.anchor-dot .dot-tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 180%; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    
+    background-color: #5C524A; 
+    color: #FFF;
+    text-align: center;
+    padding: 0.35em 0.7em; 
+    border-radius: 4px;
+    
+    
+    font-size: clamp(10px, 0.57vw, 11px); 
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600; 
+    white-space: nowrap;
+    
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    
+    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    z-index: 999; 
+}
+
+
+.anchor-dot:hover .dot-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* ============================================================
+   10.13. Apply button dropdown-фильтра
+   ============================================================ */
+
+.tabulator-edit-list-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+
+    padding: 6px 8px !important;
+    margin-top: 4px !important;
+
+    border-top:
+        1px solid
+        var(--table-border) !important;
+
+    background-color:
+        #dcd3c8 !important;
+
+    position: sticky !important;
+    bottom: 0 !important;
+
+    z-index: 10 !important;
+}
+
+
+.tabulator-edit-list-apply-btn {
+    height: 26px !important;
+    padding: 0 10px !important;
+
+    font-family:
+        'Source Sans 3',
+        sans-serif !important;
+
+    font-size:
+        0.78rem !important;
+
+    font-weight:
+        600 !important;
+
+    color:
+        var(--table-control-active-text) !important;
+
+    background-color:
+        var(--table-control-active) !important;
+
+    border:
+        1px solid
+        var(--table-control-active-dark) !important;
+
+    border-radius:
+        4px !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out !important;
+}
+
+.tabulator-edit-list-apply-btn:hover {
+    background-color:
+        var(--table-control-active-dark) !important;
+
+    border-color:
+        #5f5148 !important;
+}
+
+/* ============================================================
+   10.14. Compact toolbar для 1300–1599 px
+   ============================================================ */
+
+
+@media screen and (min-width: 1100px) and (max-width: 1599px) {
+
+    
+    .nav-tabs {
+        padding-left:
+            0.7vw !important;
+
+        padding-right:
+            0.7vw !important;
+    }
+
+
+    
+    .tab-button,
+    .settings-btn,
+    .row-selection-trigger-btn,
+    .supplementary-btn,
+    .fullscreen-btn,
+    .scroll-arrow-btn,
+    .help-btn {
+        flex:
+            0 0 auto !important;
+
+        flex-shrink:
+            0 !important;
+    }
+
+
+    
+    .settings-group {
+        gap:
+            4px !important;
+    }
+
+
+    
+    .tab-button {
+        padding:
+            0 0.65vw !important;
+
+        margin-right:
+            3px !important;
+
+        font-size:
+            0.86rem !important;
+    }
+
+
+    
+    .row-selection-trigger-btn {
+        padding:
+            0 0.65vw !important;
+
+        font-size:
+            0.86rem !important;
+    }
+
+
+    
+    .settings-btn {
+        padding:
+            0 0.65vw !important;
+
+        font-size:
+            0.86rem !important;
+    }
+
+
+    
+    .nav-tabs .supplementary-btn {
+        padding:
+            0 0.75vw !important;
+
+        font-size:
+            0.86rem !important;
+    }
+
+
+    
+    .help-btn {
+        padding:
+            0 0.6vw !important;
+
+        font-size:
+            0.84rem !important;
+    }
+
+
+    
+    .fullscreen-btn {
+        padding:
+            0 0.58vw !important;
+    }
+
+
+    
+    .tab-button i,
+    .settings-btn i,
+    .row-selection-trigger-btn i,
+    .supplementary-btn i,
+    .help-btn i {
+        font-size:
+            0.78rem !important;
+    }
+
+
+    .fullscreen-btn i {
+        font-size:
+            0.88rem !important;
+    }
+}
+

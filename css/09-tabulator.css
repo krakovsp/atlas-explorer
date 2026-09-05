@@ -1005,15 +1005,26 @@ body:has(.tabulator-header-filter:focus-within) .tabulator-tooltip {
 }
 
 .tabulator .tabulator-cell.cell-uncertain {
-    box-shadow:
-        inset 0 0 0 1.25px rgba(158, 71, 71, 0.40) !important;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(158, 71, 71, 0.45) 0,
+            rgba(158, 71, 71, 0.45) 3px,
+            transparent 3px
+        ),
+        #F3E9E6 !important;
+
+    box-shadow: none !important;
 }
 
 .tabulator .tabulator-row
     .tabulator-cell.cell-uncertain:hover {
-
-    background-color: rgba(158, 71, 71, 0.035) !important;
-
-    box-shadow:
-        inset 0 0 0 1.25px rgba(158, 71, 71, 0.58) !important;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(158, 71, 71, 0.60) 0,
+            rgba(158, 71, 71, 0.60) 3px,
+            transparent 3px
+        ),
+        #EFE0DC !important;
 }

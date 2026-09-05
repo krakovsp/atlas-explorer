@@ -1032,7 +1032,7 @@ if (!paginator.querySelector(".table3-anchors-bar")) {
 
         <div class="anchor-dots-group">
             <button class="anchor-dot dot-general"
-                    data-column="Status"
+                    data-column="Metaconcept"
                     title="General Information">
                 <span class="dot-tooltip">General</span>
             </button>

@@ -495,7 +495,7 @@ const MOBILE_CARD_SUMMARY_FIELDS = {
             label: "Atlas Focus"
         },
         {
-            field: "Usage style",
+            field: "Usage Style",
             label: "Usage Style"
         }
     ]

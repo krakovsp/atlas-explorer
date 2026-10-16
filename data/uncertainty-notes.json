@@ -1,0 +1,153 @@
+[
+  {
+    "id": 10,
+    "attribute": "Ontology of Mapped Entities",
+    "comment": "The developers do not refer to the atlas as a 'national' atlas, but it is positioned as the Atlas (AIS) of Austria—that is, as an atlas representing the country"
+  },
+  {
+    "id": 32,
+    "attribute": "Ontology of Mapped Entities",
+    "comment": "The developers do not refer to the atlas as a 'national' atlas, but it is positioned as the Atlas (AIS) of Austria—that is, as an atlas representing the country"
+  },
+  {
+    "id": 40,
+    "attribute": "Metaconcept Type",
+    "comment": "There are grounds for classifying the Metaconcept Type as Compendium of Visualization Modules. However, given the unified layout and representation of both Map-Vis Sections, preference was given to Collection of Profiles"
+  },
+  {
+    "id": 42,
+    "attribute": "Ontology of Mapped Entities",
+    "comment": "The developers do not refer to the atlas as a 'national' atlas, but it is positioned as the Atlas (AIS) of Austria—that is, as an atlas representing the country"
+  },
+  {
+    "id": 52,
+    "attribute": "Technology Type",
+    "comment": "No confirmation of the use of the NL Atlas Platform was found"
+  },
+  {
+    "id": 52,
+    "attribute": "Technology",
+    "comment": "No confirmation of the use of the NL Atlas Platform was found"
+  },
+  {
+    "id": 61,
+    "attribute": "Technology Type",
+    "comment": "No confirmation of the use of the Mapbox was found"
+  },
+  {
+    "id": 61,
+    "attribute": "Technology",
+    "comment": "No confirmation of the use of the Mapbox was found"
+  },
+  {
+    "id": 64,
+    "attribute": "Content Type",
+    "comment": "The developers do not refer to the atlas as a 'national' atlas, but it is positioned as the Atlas (AIS) of Austria—that is, as an atlas representing the country"
+  },
+  {
+    "id": 69,
+    "attribute": "Technology Type",
+    "comment": "The use of Mapbox could not be confirmed; the interface resembles MapStore"
+  },
+  {
+    "id": 69,
+    "attribute": "Technology",
+    "comment": "The use of Mapbox could not be confirmed; the interface resembles MapStore"
+  },
+  {
+    "id": 71,
+    "attribute": "Major Updates",
+    "comment": "The exact number of Major Updates was not determined"
+  },
+  {
+    "id": 76,
+    "attribute": "Content Type",
+    "comment": "Atlas project is a classic example of a national atlas; however, the electronic atlas currently represents only one topic (society), corresponding to Volume 3 of the printed version"
+  },
+  {
+    "id": 78,
+    "attribute": "Metaconcept",
+    "comment": "The final choice of Metaconcept Type depends on how many editions of the atlas are considered and which edition is used as the basis for the analysis"
+  },
+  {
+    "id": 78,
+    "attribute": "Main Style of Maps",
+    "comment": "The final choice of Main Map Style depends on how many editions of the atlas are considered and which edition is used as the basis for the analysis"
+  },
+  {
+    "id": 79,
+    "attribute": "Major Updates",
+    "comment": "The exact number of Major Updates was not determined"
+  },
+  {
+    "id": 81,
+    "attribute": "Technology",
+    "comment": "The specific SVG library could not be identified"
+  },
+  {
+    "id": 82,
+    "attribute": "Last Update",
+    "comment": "The date of the Last Update was not determined due to the large number of objects and records"
+  },
+  {
+    "id": 82,
+    "attribute": "Last Major Update",
+    "comment": "The exact date of the latest Major Update was not determined"
+  },
+  {
+    "id": 84,
+    "attribute": "Organisational Structure (Map-Vis Level)",
+    "comment": "The Organisational Structure was determined based on the main map section, while the division into categories was treated as part of the filtering mechanism. The final choice of Organisational Structure depends on which thematic modules are included in the analysis and on how the relationships between categories are interpreted"
+  },
+   {
+    "id": 93,
+    "attribute": "Metaconcept",
+    "comment": "Despite the use of the Restricted Map Concept and the dominance of maps, the Visualization Atlas metaconcept was selected because maps serve as interfaces to data and additional graphics, cartographic representation is monotonous and visualization-oriented in style, and narrative texts and multimedia are absent"
+  },
+  {
+    "id": 95,
+    "attribute": "Metaconcept",
+    "comment": "Despite the use of the Flexible Map Concept and maps serving as interfaces to data and additional graphics, the Cartographic Atlas Application metaconcept was selected because the atlas has well-developed traditional cartographic representation, with a wide variety of map methods and multivariate maps"
+  },
+  {
+    "id": 97,
+    "attribute": "Metaconcept",
+    "comment": "The focus on quantitative data, limited variety of map methods, contour basemaps, and absence of narrative texts and multimedia support classifying the atlases on the Swiss Statatlas 2.0 platform (Swiss Stats Map Explorer) under the Visualization Atlas metaconcept, despite their lack of additional graphics and diagrams"
+  },
+  {
+    "id": 97,
+    "attribute": "Main Style of Maps",
+    "comment": "The map style is traditional according to formal criteria; however, the variety of map methods is rather limited, and the main basemap is an contour map"
+  },
+  {
+    "id": 98,
+    "attribute": "Metaconcept",
+    "comment": "The focus on quantitative data, limited variety of map methods, contour basemaps, and absence of narrative texts and multimedia support classifying the atlases on the Swiss Statatlas 2.0 platform (Swiss Stats Map Explorer) under the Visualization Atlas metaconcept, despite their lack of additional graphics and diagrams"
+  },
+  {
+    "id": 98,
+    "attribute": "Main Style of Maps",
+    "comment": "The map style is traditional according to formal criteria; however, the variety of map methods is rather limited, and the main basemap is an contour map"
+  },
+  {
+    "id": 98,
+    "attribute": "Organisational Structure (Atlas Level)",
+    "comment": "Unlike other atlases on the Swiss Statatlas 2.0 platform (Swiss Stats Map Explorer), this atlas contains several content tabs, which formally provides grounds for distinguishing an Organizational Structure at the atlas level"
+  },
+  {
+    "id": 99,
+    "attribute": "Metaconcept",
+    "comment": "The focus on quantitative data, limited variety of map methods, contour basemaps, and absence of narrative texts and multimedia support classifying the atlases on the Swiss Statatlas 2.0 platform (Swiss Stats Map Explorer) under the Visualization Atlas metaconcept, despite their lack of additional graphics and diagrams"
+  },
+  {
+    "id": 100,
+    "attribute": "Metaconcept",
+    "comment": "The focus on quantitative data, limited variety of map methods, contour basemaps, and absence of narrative texts and multimedia support classifying the atlases on the Swiss Statatlas 2.0 platform (Swiss Stats Map Explorer) under the Visualization Atlas metaconcept, despite their lack of additional graphics and diagrams"
+  },
+  {
+    "id": 100,
+    "attribute": "Main Style of Maps",
+    "comment": "The map style is traditional according to formal criteria; however, the variety of map methods is rather limited, and the main basemap is an contour map"
+  }
+
+]

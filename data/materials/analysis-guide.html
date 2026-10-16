@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Atlas Explorer Analysis Guide — a practical workflow for analyzing electronic atlases.">
+  <title>Analysis Guide — Atlas Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="analysis-guide.css">
+</head>
+<body>
+  <header class="guide-masthead">
+    <div class="guide-masthead-inner">
+      <div class="guide-eyebrow">Atlas Explorer</div>
+      <h1>Analysis Guide</h1>
+      <p class="guide-subtitle">A Step-by-Step Guide to Electronic Atlas Analysis</p>
+      <a
+  class="guide-download"
+  href="Atlas_Explorer_Analysis_Guide.pdf"
+  download
+  aria-label="Download the Analysis Guide as PDF"
+>
+  <svg class="guide-download-icon"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+    <path d="M6 2.75h8l4 4V21.25H6z"/>
+    <path d="M14 2.75v4h4"/>
+    <path d="M12 10v6"/>
+    <path d="M9.5 13.5 12 16l2.5-2.5"/>
+  </svg>
+
+  <span>Download PDF</span>
+</a>
+    </div>
+  </header>
+
+  <main class="guide-page">
+    <article class="guide-article">
+      <section class="guide-introduction" aria-label="Introduction">
+<p>The order of attributes within the Atlas Explorer analysis modules is designed to guide users through an atlas’s characteristics sequentially, moving from the general to the specific. However, for analyzing new atlases from scratch, this sequence is not optimal in terms of analytical logic (analysis proceeds from the specific to the general), time efficiency (for example, the product may ultimately prove not to be an atlas), or the objectivity of the analysis.</p>
+<p>This document presents a model for atlas analysis used by the developer of Atlas Explorer. Atlases are analyzed from a media-cartographic perspective; consequently, some thematic, critical, technical, and other aspects may currently receive less attention. The proposed model is not intended to be the only correct approach. Its goal, like that of the entire analysis, is to gain a better understanding of the structure of atlases and the design and editorial decisions made, and to find ways to make atlases more interesting, engaging, and meaningful. The analysis workflow is presented in Figure 1.</p>
+</section>
+<figure class="guide-figure" id="figure-1">
+  <img
+    src="../../img/Guide/Figure_1_1.png"
+    alt="Figure 1. Analysis Workflow"
+    class="guide-figure-img"
+  >
+
+  <figcaption>
+    <span class="figure-number">Figure 1.</span>
+    Analysis Workflow
+  </figcaption>
+</figure>
+<section class="guide-step guide-step-major" id="step-1">
+  <div class="step-heading">
+    <span class="step-index">Step 1</span>
+    <h2>Identify the Atlas Theme (What Is This Atlas About?)</h2>
+  </div>
+  <div class="step-body">
+    <p>First, we need to establish in general terms what the atlas is about: its main theme, topics and the territory (or space) it covers. Detailed information about the developers and the project is not necessary at this stage of the analysis. Information available on the homepage and the About page is usually sufficient.</p>
+  </div>
+</section>
+<aside class="guide-note" aria-labelledby="note-using-ai-in-atlas-analysis">
+  <div class="note-mark" aria-hidden="true">i</div>
+  <div class="note-content">
+    <div class="insert-label">Note</div>
+    <h3 id="note-using-ai-in-atlas-analysis">Using AI in Atlas Analysis</h3>
+    <p>We suggest using AI models only as assistants in atlas analysis rather than as a complete replacement for the analyst for two main reasons. First, the best way to develop an understanding of individual atlases—and especially of atlases as a general concept and of their components—is through the analysis process itself. Second, any answers provided by AI still need to be verified by the analyst. For the bibliographic module, the most practical approach is to use AI from the beginning and then verify the information it provides. For all other modules, we recommend conducting the analysis independently first and using AI afterwards for consultation and verification as a second opinion. When using AI, it is particularly important to explain in detail the logic behind the analysis of the relevant attribute and to provide screenshots showing the elements being analyzed.</p>
+  </div>
+</aside>
+<section class="guide-step guide-step-major" id="step-2">
+  <div class="step-heading">
+    <span class="step-index">Step 2</span>
+    <h2>Atlasness Assessment (Determine Whether It Is an Atlas)</h2>
+  </div>
+  <div class="step-body">
+    <p>Before proceeding to a detailed analysis of the product, it is necessary to make sure that it is indeed an atlas. Here, detailed analysis refers to a full analysis using the express analysis model, which takes approximately 2–3 hours; the standard analysis model usually requires about 30–50 hours. To assess atlasness, examine the product’s structure (its information architecture) and its main content.</p>
+  </div>
+</section>
+<section class="guide-step guide-step-minor" id="step-2-1">
+  <div class="step-heading">
+    <span class="step-index">Step 2.1</span>
+    <h3>Review the Atlas Structure</h3>
+  </div>
+  <div class="step-body">
+    <p>Review all thematic sections and subsections to identify the <span class="attribute-term">Method of Page Presentation</span>, the types of screens (interfaces), and whether a <span class="attribute-term">Layout Template</span> is used. At this stage, the implementation of such attributes as <span class="attribute-term">Distribution</span>, <span class="attribute-term">Implementation Method</span>, <span class="attribute-term">Access User Guidance</span>, <span class="attribute-term">Inclusiveness</span>, and the attributes related to the atlas language also becomes clear.</p>
+  </div>
+</section>
+<section class="guide-step guide-step-minor" id="step-2-2">
+  <div class="step-heading">
+    <span class="step-index">Step 2.2</span>
+    <h3>Review Maps and Spatial Content</h3>
+  </div>
+  <div class="step-body">
+    <p>Review the atlas pages to verify the presence of maps and/or (geo)visualizations and make a preliminary assessment of <span class="attribute-term">Content Spatiality</span>. If only raster maps are present, determine whether they were specifically created or adapted for the atlas. Also check whether the raster content is displayed within the atlas’s multimedia shell rather than opened as embedded PDF files.</p>
+  </div>
+</section>
+<section class="guide-step guide-step-minor" id="step-2-3">
+  <div class="step-heading">
+    <span class="step-index">Step 2.3</span>
+    <h3>Check for Non-Atlas Spatial Applications</h3>
+  </div>
+  <div class="step-body">
+    <p>Check whether the product is another type of spatial application rather than an atlas. In some cases, this is immediately apparent and requires little discussion. For example, when the product consists solely of a collection of dashboards, an interactive map with multiple layers devoted to a single topic, or a specialized GIS/CIS interface with numerous tools and monitoring functions. In other cases, the atlasness of the product may become clear only through further analysis. In borderline cases, we recommend conducting a full analysis of the product as an atlas.</p>
+<p>If the product passes the three checks described above, it can be considered an atlas.</p>
+<p>If it does not, identify the type of non-atlas application and briefly explain why the product should not be considered an atlas. Classifying a product as a non-atlas does not automatically mean that it is unsuccessful or unworthy of attention. Interesting solutions can and should be sought across all types of spatial and thematic applications. It simply means that, at present, the product lacks certain spatial or other characteristics required for it to be considered an object of study in atlas cartography (atlas discipline). It is also worth considering whether the project has the potential to develop into an atlas and what changes could transform it into one.</p>
+  </div>
+</section>
+<aside class="guide-note" aria-labelledby="note-emotions-in-atlas-analysis">
+  <div class="note-mark" aria-hidden="true">i</div>
+  <div class="note-content">
+    <div class="insert-label">Note</div>
+    <h3 id="note-emotions-in-atlas-analysis">Emotions in Atlas Analysis</h3>
+    <p>Any analysis is inherently subjective because it is conducted by a person with a particular set of knowledge, beliefs, interests, and other personal characteristics. During the analysis, the analyst will inevitably experience certain emotions toward the atlas.</p>
+<p>Feelings of interest, curiosity, or fascination can be positive indicators, but the analyst should always identify what causes them. Do they result from the atlas itself as an application, or from the analyst’s personal interest in the topic of the atlas?  In the latter case, external factors may increase the subjectivity of the conclusions.</p>
+<p>Negative emotions, in turn, may create a desire to complete the analysis more quickly. This can lead to inaccurate conclusions caused by reduced attention, haste, or insufficient examination of the atlas.</p>
+<p>In addition to the general recommendation to conduct analysis only when alert and able to maintain a high level of concentration, we encourage analysts to treat atlas analysis not merely as a routine task but also as a reflective exercise. This means paying attention to and critically considering one’s own thoughts, impressions, and emotions throughout the interaction with the atlas.</p>
+  </div>
+</aside>
+<section class="guide-step guide-step-major" id="step-3">
+  <div class="step-heading">
+    <span class="step-index">Step 3</span>
+    <h2>Confirm Release Status</h2>
+  </div>
+  <div class="step-body">
+    <p>Before continuing the analysis, make sure that the atlas is a fully released product rather than a prototype or beta version. If an official release or version 1.0 has not yet been published, the analysis should be postponed until the product reaches a stable release stage.</p>
+  </div>
+</section>
+<figure class="guide-figure" id="figure-2">
+  <img
+    src="../../img/Guide/Figure_2.png"
+    alt="Figure 2. Electronic Atlas Components from a Media Perspective"
+    class="guide-figure-img"
+  >
+
+  <figcaption>
+    <span class="figure-number">Figure 2.</span>
+    Electronic Atlas Components from a Media Perspective
+  </figcaption>
+</figure>
+<section class="guide-step guide-step-major" id="step-4">
+  <div class="step-heading">
+    <span class="step-index">Step 4</span>
+    <h2>Full Atlas Analysis</h2>
+  </div>
+  <div class="step-body">
+    <p>Proceed with the full express analysis of the atlas across the three groups of attributes.</p>
+<p>We recommend leaving the <span class="attribute-term">Bibliographic Attributes</span> module, as well as detailed information about the atlas project and its developers, until the end of the analysis. Prior knowledge about the atlas concept, purpose, or thematic content may influence how its elements are subsequently perceived. To conduct a more impartial analysis, one must gradually acquire knowledge and form, reconsider, and refine conclusions through direct interaction with the atlas.</p>
+<p>Before starting the analysis, check whether the atlas requires user registration. If registration is available, create an account to ensure access to all available content and functionality.</p>
+  </div>
+</section>
+<section class="guide-step guide-step-minor" id="step-4-1">
+  <div class="step-heading">
+    <span class="step-index">Step 4.1</span>
+    <h3>Explore Thematic Content</h3>
+  </div>
+  <div class="step-body">
+    <p>Begin by focusing on the thematic attributes—that is, on what information the atlas contains. Review all thematic pages and map titles, and record which topics, territories, and time periods are represented, as well as the order in which they appear and their relative prominence within the atlas. Pay attention to the dating of the content and the frequency of updates.</p>
+<p>For now, postpone completing the <span class="attribute-term">Content Type</span>, <span class="attribute-term">AI-generated Content</span>, <span class="attribute-term">Data Catalog</span>, and <span class="attribute-term">Story-centered Content</span> attributes, as they are more closely related to content representation.</p>
+  </div>
+</section>
+<aside class="reflection-block" aria-labelledby="reflection-thematic-content">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-thematic-content">Thematic Content</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Which aspects of the atlas’s content and implementation are determined by its (content) type? To what extent does the atlas meet the requirements associated with atlases of this purpose and topic?</li>
+<li>What should be considered a national / state atlas? Is it appropriate to classify this atlas as national? What characteristics, if any, are missing for it to qualify as such?</li>
+<li>What characteristics justify classifying an atlas as educational? Is it useful to distinguish educational atlases as a separate type at all?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 7 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>What might explain the current order of topics and their relative prominence within the atlas?</li>
+<li>Which regions and territories does the atlas cover? Does it provide a broader geographical context, or is it limited to the specific territory under study?</li>
+<li>Which time periods does the atlas cover? Which indicators use data from different periods? Which indicators would benefit from a stronger temporal dimension?</li>
+<li>What signs suggest that some of the content may have been generated using AI? To what extent is AI involved, and how appropriate is its use in this particular atlas?</li>
+<li>How frequently is the content updated? What would be an appropriate update frequency for this atlas?</li>
+<li>How is the <span class="attribute-term">Data Catalog</span> implemented? Does this atlas actually need one?</li>
+<li>How could the relationships between individual stories be strengthened?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-2">
+  <div class="step-heading">
+    <span class="step-index">Step 4.2</span>
+    <h3>Explore Information Architecture</h3>
+  </div>
+  <div class="step-body">
+    <p>Next, determine how the thematic information is organized within the atlas by moving directly to the <span class="attribute-term">Information Architecture and Navigation</span> submodule. At this stage, complete all attributes up to the navigation-related ones, as navigation is better examined together with the interface.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-ia" aria-labelledby="reflection-information-architecture-and-navigation">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-information-architecture-and-navigation">Information Architecture and Navigation</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>How appropriate is the atlas’s <span class="attribute-term">Method of Page Presentation</span>? Is a separate homepage justified? Are separate navigation and reference pages necessary? Is it appropriate to distinguish several map screens and several map pages? What explains the presence of several content screens?</li>
+<li>Assess the depth and scope of the information architecture. Is an appropriate balance maintained between them?</li>
+<li>Which Organizational Schemes are primary and which are supplementary? How consistently are these schemes applied across different levels of the atlas?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 9 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>How many classifications of thematic content are used? Are all relevant combinations and relationships between content elements taken into account?</li>
+<li>Which Organizational Structures are primary and which are supplementary? Does it accurately represent the relationships between content elements? Do the organizational structures of the atlas and the map section coincide?</li>
+<li>How clear and unambiguous are the headings and thematic labels? Are they consistent with established professional terminology? Check for unnecessary jargon, technical terminology, or overly complex wording. Also consider the inclusiveness and ethical appropriateness of the labels used.</li>
+<li>Is <span class="attribute-term">Global Navigation</span> implemented consistently across all pages? Is the global navigation menu clearly visible? Can global navigation be easily distinguished from supplementary navigation? Is the homepage overloaded with navigation links or mechanisms?</li>
+<li>How is <span class="attribute-term">Contextual Navigation</span> implemented? Where are bidirectional links used, and which elements do they connect? Is <span class="attribute-term">Adaptive Navigation</span> present?</li>
+<li>How is <span class="attribute-term">Supplementary Navigation</span> implemented? Which supplementary navigation elements are placed at the first level of the interface?</li>
+<li>How is <span class="attribute-term">Detached Navigation</span> implemented? Would an additional navigation model be useful? Are a sitemap or an index necessary?</li>
+<li>How is access to thematic content organized? Is the navigation intuitive? Can users easily orient themselves within the atlas?</li>
+<li>Is a search function necessary for this atlas? Which external search systems, if any, are used, and how effectively do they work? How clear and understandable are the search results?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-3">
+  <div class="step-heading">
+    <span class="step-index">Step 4.3</span>
+    <h3>Media-Cartographic Attributes: First Iteration</h3>
+  </div>
+  <div class="step-body">
+    <p>Now focus on how the atlas is implemented as an application and how its thematic content is integrated into the application/website. Analyze the related groups of Interface, Navigation, Content Representation, and Functionality attributes in sequence. Postpone completing the <span class="attribute-term">General Attributes</span> for now.</p>
+<p>While reviewing the atlas pages, it is useful to take screenshots of typical implementations and noteworthy solutions. Afterwards, select the most representative and informative screenshots for archiving according to the scheme shown in Figure 3.</p>
+<p>Postpone the analysis of the interface and atlas performance on mobile devices. Also leave aside the attributes related to the presence of a paper atlas.</p>
+  </div>
+</section>
+<figure class="guide-figure" id="figure-3">
+  <img
+    src="../../img/Guide/Figure_3.png"
+    alt="Figure 3. Screenshot Scheme for Archiving Atlas Pages"
+    class="guide-figure-img"
+  >
+
+  <figcaption>
+    <span class="figure-number">Figure 3.</span>
+    Screenshot Scheme for Archiving Atlas Pages
+  </figcaption>
+</figure><p>Begin by analyzing the media-cartographic attributes at the atlas level and the thematic section level, and only then proceed to the map/visualization section level (Figure 4). Accordingly, the first iteration excludes the following attributes: <span class="attribute-term">Layout Pattern (Map-Vis Level)</span>, <span class="attribute-term">Map Area Ratio (Map-Vis Level)</span>, <span class="attribute-term">Layout Flexibility</span>, <span class="attribute-term">Main Navigation Mechanism (Map-Vis Level)</span>, <span class="attribute-term">Search on Map</span>, as well as all attributes from <span class="attribute-term">Map Concept</span> onward, including those related to functionality.</p>
+<figure class="guide-figure" id="figure-4">
+  <img
+    src="../../img/Guide/Figure_4.png"
+    alt="Figure 4. Atlas Information Architecture Levels"
+    class="guide-figure-img"
+  >
+
+  <figcaption>
+    <span class="figure-number">Figure 4.</span>
+    Atlas Information Architecture Levels
+  </figcaption>
+</figure>
+<aside class="reflection-block reflection-interface" aria-labelledby="reflection-interface">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-interface">Interface</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Are <span class="attribute-term">Atlas Modes</span> available? How is switching between modes implemented, and which atlas components change when a mode is switched? What is the purpose of introducing different modes, for example, to serve different user groups?</li>
+<li>Is the arrangement of elements on the screen optimal? Compare the amount of screen space occupied by the map and by interface elements. Is the interface overloaded, or is it perhaps too minimalistic? How could the layout be improved?</li>
+<li>Is there an appropriate balance between the number of interface levels and the number of elements placed at each level?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 4 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>How flexible are the layouts of map pages? Which interface elements can be modified, and in what ways?</li>
+<li>Is the use of a common <span class="attribute-term">Layout Template</span> appropriate for thematic pages? Which pages or indicators would benefit from an alternative layout or design?</li>
+<li>Is the interface consistent across the atlas? Which pages and elements are visually consistent, and which are not? How is a common visual style or motif maintained throughout the atlas?</li>
+<li>Does the atlas’s visual design—and the design of its individual sections and elements—reflect its theme? How could this connection be strengthened?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-4">
+  <div class="step-heading">
+    <span class="step-index">Step 4.4</span>
+    <h3>Media-Cartographic Attributes: Second Iteration</h3>
+  </div>
+  <div class="step-body">
+    <p>Now analyze the atlas’s cartographic representation and functionality, completing all related attributes. Proceed through the attributes in sequence, starting with the Interface group. This second iteration also serves to verify and refine the attribute values identified during the first iteration.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-representation" aria-labelledby="reflection-content-representation">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-content-representation">Content Representation</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Is <span class="attribute-term">Scroll-based Representation</span> appropriate for this atlas? Are the pages too long? Is local navigation provided?</li>
+<li>Which storytelling techniques are used? What is missing, and how could the storytelling be strengthened?</li>
+<li>Which <span class="attribute-term">Representation Units</span> are combined at the first level of the interface? Which units can be combined at deeper levels? Which useful combinations are missing?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 15 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>How informative are the texts? Do the texts accompanying maps correspond to their content? Are they formal or narrative in style? Do they establish links to other maps or topics?</li>
+<li>How consistent is the style of the texts across the atlas and with the overall style of the atlas? Is any information presented in text that could be communicated more effectively in cartographic or graphical form?</li>
+<li>Are the length and readability of the texts appropriate, considering factors such as font size, typeface, and text-container width? How effectively are texts positioned in relation to maps? Are they overloaded with information, and how well do they work with other interface elements?</li>
+<li>Which types of graphics and diagrams are used, and how are they distributed across different sections, representations, and individual screens or pages? Characterize the graphics and diagrams used on the maps. Are the selected types of graphics and diagrams appropriate and well suited to the data being represented?</li>
+<li>Which types of audio are used? How important is audio for this particular atlas?</li>
+<li>Are the selected thematic indicators suitable for animation? Which animation variables are used, and how are they implemented? Is any form of “pseudo-animation” present, such as user-controlled manipulation of temporal data?</li>
+<li>Describe the atlas’s <span class="attribute-term">Map Concept</span>. What functions do maps perform within the atlas? Does the way maps and layers are presented correspond to the atlas’s theme and purpose?</li>
+<li>Describe the visual style of the maps. Is it consistent with the theme of the atlas, its interface, and the visual style of other content?</li>
+<li>Are the map projections appropriately selected? Is the use of a globe justified? Are projections standardized across the atlas where appropriate?</li>
+<li>Is the number of scale levels appropriate? Should the number of scale levels be limited? Is it consistent across maps? Is the initial map scale appropriately selected? Are map scales standardized where necessary? Is thematic generalization coordinated with the generalization of basemap elements?</li>
+<li>How effectively does the basemap support orientation and help reveal spatial relationships between thematic indicators and the underlying geography? Do base layers and thematic layers work well together? Is the content of the basemap appropriate for the theme and purpose of the maps and the atlas? Are enough basemaps provided, or are some unnecessary?</li>
+<li>Which map methods are used, and how are they combined? Are reference units, data classification methods, and map methods standardized where appropriate? How could the cartographic representation be made more diverse? What degree of consistency between maps would be most appropriate for this atlas?</li>
+<li>Where is the legend placed? Does it accurately represent the map content, and is it easy to understand? Should basemap elements be included in the legend? Are the scales applied correctly, and are the color palettes visually pleasing? Is the use of automatically generated legends justified?</li>
+<li>What functions do map labels perform? How extensively and in what level of detail are they used? Are the labels appropriately generalized? Is the use of unlabeled maps justified? Is labeling applied consistently across the atlas?</li>
+<li>What map comparison options are provided, and how are they implemented? Is cartographic information easy to compare? How could the comparability of content within the atlas be improved?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-5">
+  <div class="step-heading">
+    <span class="step-index">Step 4.5</span>
+    <h3>Synthesize Media-Cartographic Attributes</h3>
+  </div>
+  <div class="step-body">
+    <p>Complete all general media-cartographic attributes and determine the atlas metaconcept.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-functionality" aria-labelledby="reflection-functionality">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-functionality">Functionality</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Does the atlas function correctly? Describe any problems encountered. Which EA content fails to load or open? What causes delays when navigating thematic content or maps? How could these problems be resolved?</li>
+<li>What additional capabilities become available after signing in? What additional functions should the atlas provide to registered users?</li>
+<li>Which interactive navigation functions does the atlas provide? How are sorting and filtering implemented, and what content do they apply to? Is the functionality of the navigation system sufficient?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 4 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>Which interactive map functions are implemented? How consistent is map interactivity across the atlas? Does the level of interactivity correspond to the atlas’s purpose?</li>
+<li>How is legend interactivity implemented? Which legend elements are interactive? How does the legend change dynamically? Are the available functions for modifying or customizing symbolization appropriate for the atlas?</li>
+<li>What content can be imported and exported? Would greater opportunities for users to extend the atlas content be useful?</li>
+<li>How is the <span class="attribute-term">Print Map</span> function implemented? Does the exported document include a conventional map layout and legend? Is the exported map of sufficient quality?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-6">
+  <div class="step-heading">
+    <span class="step-index">Step 4.6</span>
+    <h3>Complete the Thematic Module</h3>
+  </div>
+  <div class="step-body">
+    <p>After completing the media-cartographic analysis, return to the thematic analysis module and complete the previously postponed attributes: <span class="attribute-term">Content Type</span>, <span class="attribute-term">AI-generated Content</span>, <span class="attribute-term">Data Catalog</span>, and <span class="attribute-term">Story-centred Content</span>.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-general" aria-labelledby="reflection-general-media-cartographic-attributes">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-general-media-cartographic-attributes">General Media-Cartographic Attributes</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Which specific <span class="attribute-term">Method of Page Presentation</span> is used in the atlas? Describe it.</li>
+<li>What is the composition of non-map and map-based/visualization sections? Is the presence of multiple visualization sections justified? Is it appropriate to use non-map sections in this atlas? How could the sections be better integrated, particularly through navigation between them?</li>
+<li>What indicates the <span class="attribute-term">Focus</span> of the atlas? Does this focus correspond to the atlas’s theme and purpose?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 5 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>How many <span class="attribute-term">Usage Styles</span> does the atlas support? Do they correspond to the atlas’s theme and purpose?</li>
+<li>Who is the primary user of the atlas? How flexible is the atlas in meeting the needs of both professional users and a general audience? Would separate atlas modes for different audiences be useful?</li>
+<li>Which <span class="attribute-term">Inclusiveness</span> options are implemented? Which groups of users with disabilities are supported?</li>
+<li>Which learning materials and tools are provided to users? How clear and useful are they? How could the barrier to entry be lowered? Are dedicated learning materials necessary?</li>
+<li>Justify the choice of <span class="attribute-term">Metaconcept</span>. Is there a basis for identifying a second metaconcept? If multiple metaconcepts are present, how well do they work together? Is the selected metaconcept appropriate for the atlas’s theme and purpose?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-7">
+  <div class="step-heading">
+    <span class="step-index">Step 4.7</span>
+    <h3>Complete Bibliographic Attributes</h3>
+  </div>
+  <div class="step-body">
+    <p>Proceed to the <span class="attribute-term">Bibliographic Attributes</span> module and complete the attributes in sequence. Search for all available information about the project, including legal information, on the atlas website, in publications related to the atlas, and in other accessible open sources.</p>
+<p>Check whether a related paper atlas exists. Such an atlas should have identical or very similar thematic content and include at least several authors who were involved in the creation of the electronic atlas. If a related paper atlas exists and the electronic version is a reproduction of it, revise the <span class="attribute-term">Metaconcept</span> and any other relevant media-cartographic attributes accordingly.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-bibliographic" aria-labelledby="reflection-bibliographic-attributes">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-bibliographic-attributes">Bibliographic Attributes</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Does the atlas require a major update? If so, what should be updated first, and why?</li>
+<li>How does the publisher may influence the thematic content of the atlas? To what extent does the location of the publisher’s headquarters influence its policies? Does the publisher’s international status have any noticeable effects on the atlas?</li>
+<li>What determines the choice of atlas languages? Why is English absent? How important would an English version be for this particular atlas?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 6 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="4">
+        <li>How are the functions of the atlas formats distributed within a <span class="attribute-term">Dual Concept</span>? How do the formats differ, and what explains the use of a dual approach?</li>
+<li>How justified is the need to install the atlas or maintain a permanent internet connection?</li>
+<li>What explains restricted access to the atlas content? Is this restriction justified?</li>
+<li>How suitable is an <span class="attribute-term">App-oriented</span> solution for atlas creation?</li>
+<li>How much design flexibility does the atlas platform provide? Which atlas-specific functions or elements are missing?</li>
+<li>How justified is an <span class="attribute-term">Embedded</span> implementation of the atlas? In the case of a <span class="attribute-term">Separate</span> implementation, is this choice determined solely by technical considerations?</li>
+      </ol>
+    </details>
+</aside>
+<section class="guide-step guide-step-minor" id="step-4-8">
+  <div class="step-heading">
+    <span class="step-index">Step 4.8</span>
+    <h3>Test on Mobile Devices</h3>
+  </div>
+  <div class="step-body">
+    <p>Complete the analysis by testing the atlas on mobile devices. Mobile testing is placed at the end of the analysis because the main desktop version and its full functionality should be examined first. This makes it clear which functions should then be tested in the mobile version. The <span class="attribute-term">Fully Functional</span> attribute should be assessed based on the desktop version.</p>
+  </div>
+</section>
+<aside class="reflection-block reflection-mobile" aria-labelledby="reflection-mobile-devices">
+  <div class="reflection-heading">
+    <span class="reflection-symbol" aria-hidden="true">?</span>
+    <div>
+      <div class="insert-label">Questions for Reflection</div>
+      <h3 id="reflection-mobile-devices">Mobile Devices</h3>
+    </div>
+  </div>
+  <ol class="reflection-list">
+    <li>Is the atlas interface adapted to different screen sizes and mobile devices? For which devices, if any, has the interface been substantially redesigned? Assess the usability of the interface on mobile devices.</li>
+<li>Which content does not open or display properly on mobile devices? Is this content critical? Could it be adapted for mobile use, and would doing so be worthwhile?</li>
+  </ol>
+    <details class="reflection-more">
+      <summary><span class="summary-show">Show 2 more questions</span><span class="summary-hide">Show fewer questions</span></summary>
+      <ol class="reflection-list reflection-list-more" start="3">
+        <li>Is the atlas’s functionality preserved on mobile devices? Which interactive functions are missing? Is the mobile functionality sufficient?</li>
+<li>Is adapting the atlas for mobile devices worthwhile? Would a separate mobile application be useful? What should it look like, and which functions should it provide?</li>
+      </ol>
+    </details>
+</aside>
+    </article>
+  </main>
+
+  <footer class="guide-footer">
+    <span>Atlas Explorer</span>
+    <span>Analysis Guide</span>
+  </footer>
+</body>
+</html>

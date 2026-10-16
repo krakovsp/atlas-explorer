@@ -1,0 +1,608 @@
+/* ============================================================
+   Atlas Explorer — Analysis Guide
+   Standalone stylesheet. Designed to visually align with the
+   Atlas Explorer palette while using a textbook/editorial layout.
+   ============================================================ */
+
+:root {
+  --font-primary: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  /* Atlas Explorer-derived neutrals and accents */
+  --page: #faf8f5;
+  --paper: #fcfbf7;
+  --paper-deep: #f0ebe3;
+  --warm-surface: #e9e0d5;
+  --warm-surface-deep: #ded2c4;
+  --warm-border: #b6a593;
+  --warm-border-strong: #9f8c79;
+  --warm-text: #584a40;
+  --warm-muted: #827469;
+  --warm-accent: #75604f;
+  --warm-accent-hover: #624f41;
+  --green: #4f6655;
+  --green-dark: #3f624a;
+  --green-soft: #dfe5dc;
+  --ink: #2d2924;
+  --body: #4a4641;
+  --muted: #786e66;
+  --rule: rgba(117, 96, 79, 0.24);
+
+  /* Guide-specific insert colors */
+  --note-bg: #e7ede5;
+  --note-border: #8fa08f;
+  --note-ink: #35503d;
+  --question-bg: #f3ede4;
+  --question-border: #c4aa82;
+  --question-ink: #604b34;
+
+  --text-width: 840px;
+  --insert-width: 1020px;
+  --figure-width: 720px;
+  --page-gutter: clamp(20px, 4vw, 72px);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--page); }
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--font-primary);
+  font-size: clamp(15px, 0.28vw + 13.5px, 17.5px);
+  line-height: 1.64;
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(91, 78, 63, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 78, 63, 0.018) 1px, transparent 1px),
+    var(--page);
+  background-size: 42px 42px;
+}
+
+/* ---------- Atlas Explorer custom cursor ---------- */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --ae-cursor-default: url("../../img/cursors/cursor-selection-80.svg") 2 2, default;
+    --ae-cursor-pointer: url("../../img/cursors/cursor-pointer-80.svg") 7 1, pointer;
+  }
+
+  html,
+  body {
+    cursor: var(--ae-cursor-default);
+  }
+
+  a,
+  button,
+  summary,
+  [role="button"],
+  .reflection-more summary {
+    cursor: var(--ae-cursor-pointer);
+  }
+}
+
+/* ---------- Masthead ---------- */
+.guide-masthead {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(74, 69, 65, 0.42);
+  background:
+    radial-gradient(circle at 16% 20%, rgba(223,229,220,.18), transparent 26%),
+    radial-gradient(circle at 86% 82%, rgba(255,255,255,.09), transparent 28%),
+    linear-gradient(135deg, #806b56 0%, #79634f 54%, #705b49 100%);
+  box-shadow: 0 5px 18px rgba(74, 69, 65, 0.10);
+}
+.guide-masthead::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(to bottom, #000, transparent 94%);
+}
+.guide-masthead-inner {
+  position: relative;
+  z-index: 1;
+  width: min(var(--insert-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+  padding: clamp(48px, 7vw, 92px) 0 clamp(42px, 6vw, 78px);
+  color: #faf8f5;
+}
+.guide-eyebrow {
+  margin-bottom: .45rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(250,248,245,.76);
+}
+.guide-masthead h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 5.4rem);
+  line-height: .98;
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+.guide-subtitle {
+  max-width: 650px;
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.45;
+  color: rgba(250,248,245,.84);
+}
+
+/* ---------- PDF download ---------- */
+.guide-download {
+  position: absolute;
+  right: 0;
+  bottom: clamp(42px, 6vw, 78px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: .58rem;
+
+  padding: .68rem 1rem;
+
+  font-family: var(--font-primary);
+  font-size: .88rem;
+  line-height: 1;
+  font-weight: 650;
+  color: #faf8f5;
+  text-decoration: none;
+
+  border: 1px solid rgba(250, 248, 245, .42);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .07);
+
+  backdrop-filter: blur(2px);
+
+  transition:
+    background-color .18s ease,
+    border-color .18s ease,
+    transform .18s ease;
+}
+
+.guide-download:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(250, 248, 245, .68);
+  transform: translateY(-1px);
+}
+
+.guide-download:focus-visible {
+  outline: 2px solid rgba(250, 248, 245, .82);
+  outline-offset: 3px;
+}
+
+.guide-download-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Page / editorial column ---------- */
+.guide-page { padding: clamp(34px, 6vw, 78px) var(--page-gutter) clamp(64px, 9vw, 120px); }
+.guide-article {
+  position: relative;
+  width: min(var(--text-width), 100%);
+  margin-inline: auto;
+}
+.guide-article > p,
+.guide-introduction p,
+.step-body p,
+.note-content p { margin: 0 0 1rem; color: var(--body); }
+.guide-article p:last-child,
+.guide-introduction p:last-child,
+.step-body p:last-child,
+.note-content p:last-child { margin-bottom: 0; }
+
+.guide-introduction {
+  position: relative;
+  margin-bottom: clamp(34px, 5vw, 58px);
+  padding: 0 0 clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--rule);
+}
+.guide-introduction p {
+  font-size: clamp(1.04rem, 1.05vw, 1.16rem);
+  line-height: 1.58;
+  color: #3e3934;
+}
+
+.attribute-term {
+  font-weight: 600;
+  color: #3f5144;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .16em;
+  text-decoration-color: rgba(79,102,85,.34);
+}
+
+/* ---------- Steps: the main line of the guide ---------- */
+.guide-step {
+  position: relative;
+  margin: clamp(38px, 6vw, 70px) 0 0;
+  padding-left: clamp(18px, 2.3vw, 30px);
+  border-left: 2px solid rgba(117,96,79,.28);
+}
+
+/* Major steps (1, 2, 3, 4) read as chapter-level milestones. */
+.guide-step-major {
+  margin-top: clamp(56px, 8vw, 94px);
+  padding-left: clamp(24px, 3vw, 38px);
+  border-left: 5px solid var(--warm-accent);
+}
+.guide-step-major .step-heading {
+  margin-bottom: 1.15rem;
+  padding: .2rem 0 .45rem;
+}
+.guide-step-major .step-index {
+  margin-bottom: .45rem;
+  font-size: .82rem;
+  letter-spacing: .115em;
+  color: var(--warm-accent);
+}
+.guide-step-major h2 {
+  font-size: clamp(2rem, 3.7vw, 3rem);
+  line-height: 1.04;
+  font-weight: 780;
+}
+
+/* Substeps (2.1, 4.1, etc.) remain clearly subordinate. */
+.guide-step-minor {
+  margin-top: clamp(30px, 4.4vw, 50px);
+  padding-left: clamp(16px, 2vw, 24px);
+  border-left: 1px solid rgba(79,102,85,.34);
+}
+.guide-step-minor .step-heading { margin-bottom: .8rem; }
+.guide-step-minor .step-index {
+  margin-bottom: .28rem;
+  font-size: .72rem;
+  letter-spacing: .085em;
+  color: var(--green-dark);
+}
+.guide-step-minor h3 {
+  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  line-height: 1.2;
+  font-weight: 720;
+  color: #465148;
+}
+.step-heading { margin-bottom: .9rem; }
+.step-index {
+  display: inline-block;
+  margin-bottom: .32rem;
+  font-size: .77rem;
+  line-height: 1;
+  font-weight: 750;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+}
+.guide-step h2,
+.guide-step h3 {
+  margin: 0;
+  color: #403a35;
+  letter-spacing: -.025em;
+}
+.step-body { max-width: 100%; }
+
+/* ---------- Figures ---------- */
+.guide-figure {
+  width: min(var(--figure-width), calc(100vw - 2 * var(--page-gutter)));
+  margin: clamp(30px, 4.5vw, 54px) 50%;
+  transform: translateX(-50%);
+}
+
+/* Real figure image */
+.guide-figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(117, 96, 79, 0.22);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: 0 8px 24px rgba(74, 69, 65, 0.08);
+}
+
+/* Placeholder for figures that have not yet been added */
+.figure-placeholder {
+  min-height: clamp(250px, 44vw, 500px);
+  display: grid;
+  place-content: center;
+  gap: .3rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--warm-muted);
+  border: 1px dashed var(--warm-border);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(117, 96, 79, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(117, 96, 79, .035) 1px, transparent 1px),
+    #f4f0e9;
+  background-size: 28px 28px;
+}
+
+.figure-placeholder-label {
+  font-weight: 650;
+  color: var(--warm-text);
+}
+
+.figure-placeholder-file {
+  font-size: .82rem;
+  color: var(--warm-muted);
+}
+
+.guide-figure figcaption {
+  margin-top: .72rem;
+  font-family: var(--font-primary);
+  font-size: .88rem;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.figure-number {
+  font-weight: 650;
+  color: #403a35;
+}
+
+/* ---------- Shared insert label ---------- */
+.insert-label {
+  margin-bottom: .18rem;
+  font-size: .72rem;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+
+/* ---------- Notes: fully visible ---------- */
+.guide-note {
+  width: min(var(--insert-width), calc(100vw - 2 * var(--page-gutter)));
+  margin: clamp(34px, 5vw, 58px) 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  gap: clamp(16px, 2.5vw, 28px);
+  padding: clamp(22px, 3.5vw, 36px);
+  border: 1px solid var(--note-border);
+  border-left: 5px solid var(--green);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255,255,255,.55), transparent 28%),
+    var(--note-bg);
+  box-shadow: 0 10px 28px rgba(63,98,74,.08);
+}
+.note-mark {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(63,98,74,.4);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--note-ink);
+  background: rgba(255,255,255,.42);
+}
+.guide-note .insert-label { color: var(--green-dark); }
+.guide-note h3 {
+  margin: 0 0 .8rem;
+  font-size: clamp(1.18rem, 1.75vw, 1.5rem);
+  line-height: 1.22;
+  letter-spacing: -.018em;
+  color: var(--note-ink);
+}
+.guide-note p {
+  color: #405348;
+  font-size: .90em;
+  line-height: 1.56;
+}
+
+/* ---------- Questions for Reflection: textbook worksheet ---------- */
+.reflection-block {
+  /* Default palette for reflection groups that do not have a module color. */
+  --reflection-accent: var(--question-border);
+  --reflection-bg: var(--question-bg);
+  --reflection-heading-bg: rgba(255,255,255,.20);
+  --reflection-ink: var(--question-ink);
+  --reflection-rule: rgba(117,96,79,.15);
+
+  width: min(var(--insert-width), calc(100vw - 2 * var(--page-gutter)));
+  margin: clamp(36px, 5.5vw, 66px) 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 1px solid var(--reflection-accent);
+  border-radius: 10px;
+  background: var(--reflection-bg);
+  box-shadow: 0 10px 30px rgba(117,96,79,.07);
+}
+
+/* Module palettes: first color = structural accent; second color = reading surface. */
+.reflection-ia {
+  --reflection-accent: #adc2d1;
+  --reflection-bg: #dbe4eb;
+  --reflection-heading-bg: #adc2d1;
+}
+.reflection-interface {
+  --reflection-accent: #e5d3a2;
+  --reflection-bg: #f3ead3;
+  --reflection-heading-bg: #e5d3a2;
+}
+.reflection-representation {
+  --reflection-accent: #b1c5a1;
+  --reflection-bg: #e9efe3;
+  --reflection-heading-bg: #b1c5a1;
+}
+.reflection-functionality {
+  --reflection-accent: #c7c7c0;
+  --reflection-bg: #e6e6e1;
+  --reflection-heading-bg: #c7c7c0;
+}
+.reflection-general {
+  --reflection-accent: #d8d1c1;
+  --reflection-bg: #ece7dc;
+  --reflection-heading-bg: #d8d1c1;
+}
+.reflection-bibliographic {
+  --reflection-accent: #d6b3a5;
+  --reflection-bg: #f1e1da;
+  --reflection-heading-bg: #d6b3a5;
+}
+.reflection-mobile {
+  --reflection-accent: #bfb3d2;
+  --reflection-bg: #e8e2f0;
+  --reflection-heading-bg: #bfb3d2;
+}
+
+.reflection-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  align-items: center;
+  gap: 14px;
+  padding: clamp(20px, 3vw, 30px) clamp(20px, 3.4vw, 34px) 16px;
+  border-bottom: 1px solid var(--reflection-accent);
+  background: var(--reflection-heading-bg);
+}
+.reflection-symbol {
+  display: grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border: 1px solid rgba(45,41,36,.22);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--reflection-bg);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
+}
+.reflection-block .insert-label { color: var(--warm-accent); }
+.reflection-block h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.75vw, 1.52rem);
+  line-height: 1.22;
+  letter-spacing: -.018em;
+  color: var(--ink);
+}
+.reflection-list {
+  margin: 0;
+  padding: clamp(18px, 3vw, 30px) clamp(24px, 4vw, 44px) clamp(20px, 3vw, 30px) clamp(3.4rem, 6vw, 5.2rem);
+}
+.reflection-list li {
+  margin: 0;
+  padding: .68rem .2rem .78rem .35rem;
+  font-size: .90em;
+  line-height: 1.52;
+  color: var(--body);
+  border-bottom: 1px solid var(--reflection-rule);
+}
+.reflection-list li:last-child { border-bottom: 0; }
+.reflection-list li::marker { font-weight: 700; color: var(--warm-accent); }
+.reflection-ia .reflection-list li::marker,
+.reflection-interface .reflection-list li::marker,
+.reflection-representation .reflection-list li::marker,
+.reflection-functionality .reflection-list li::marker,
+.reflection-general .reflection-list li::marker,
+.reflection-bibliographic .reflection-list li::marker,
+.reflection-mobile .reflection-list li::marker { color: var(--ink); }
+
+.reflection-more { border-top: 1px solid var(--reflection-accent); }
+.reflection-more summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  list-style: none;
+  padding: .9rem clamp(20px, 3.4vw, 34px);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(255,255,255,.28);
+  transition: background .18s ease, color .18s ease;
+}
+.reflection-more summary::-webkit-details-marker { display: none; }
+.reflection-more summary::after {
+  content: "+";
+  width: 1.65rem;
+  height: 1.65rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid var(--reflection-accent);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--reflection-bg);
+}
+.reflection-more[open] summary::after { content: "−"; }
+.reflection-more summary:hover { background: rgba(255,255,255,.52); color: var(--warm-accent-hover); }
+.summary-hide { display: none; }
+.reflection-more[open] .summary-show { display: none; }
+.reflection-more[open] .summary-hide { display: inline; }
+.reflection-list-more { padding-top: .55rem; }
+
+/* ---------- Footer ---------- */
+.guide-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.2rem var(--page-gutter);
+  font-size: .82rem;
+  color: rgba(250,248,245,.76);
+  background: #705b49;
+  border-top: 1px solid rgba(74,69,65,.42);
+}
+
+/* ---------- Accessibility / responsive ---------- */
+.reflection-more summary:focus-visible {
+  outline: 3px solid rgba(79,102,85,.32);
+  outline-offset: -3px;
+}
+
+@media (max-width: 900px) {
+  .guide-download {
+    position: static;
+    margin-top: 1.35rem;
+  }
+}
+
+@media (max-width: 680px) {
+  body { font-size: 15px; }
+  .guide-figure { width: min(100%, calc(100vw - 2 * var(--page-gutter))); }
+  .guide-masthead-inner { padding-top: 40px; padding-bottom: 38px; }
+  .guide-step { padding-left: 15px; }
+  .guide-note { grid-template-columns: 1fr; }
+  .note-mark { width: 2rem; height: 2rem; font-size: 1.15rem; }
+  .reflection-heading { grid-template-columns: 1fr; }
+  .reflection-symbol { width: 2rem; height: 2rem; font-size: 1.18rem; }
+  .reflection-list { padding-left: 3rem; }
+  .guide-footer { flex-direction: column; gap: .15rem; }
+  .guide-download { position: static; margin-top: 1.35rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reflection-more summary { transition: none; }
+}
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .guide-masthead { color: #000; background: none; box-shadow: none; border-bottom: 1px solid #888; }
+  .guide-masthead-inner { color: #000; padding: 24pt 0; }
+  .guide-eyebrow, .guide-subtitle { color: #444; }
+  .guide-page { padding: 20pt 0; }
+  .guide-note, .reflection-block, .guide-figure { width: 100%; margin-left: 0; margin-right: 0; transform: none; box-shadow: none; break-inside: avoid; }
+  .reflection-more { display: block; }
+  .reflection-more summary { display: none; }
+  .reflection-more:not([open]) > *:not(summary) { display: block; }
+  .guide-footer { color: #444; background: none; border-top: 1px solid #888; }
+}

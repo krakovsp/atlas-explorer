@@ -1,0 +1,116 @@
+<div
+  class="modal-content suggestions-modal-content site-information-modal-content"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="site-information-title"
+  onclick="event.stopPropagation()">
+
+  <div class="modal-header">
+    <h2 id="site-information-title">Site Information &amp; Credits</h2>
+
+    <button
+      type="button"
+      class="modal-close-btn"
+      onclick="closeSiteInformationModal()"
+      aria-label="Close Site Information">&times;
+    </button>
+  </div>
+
+  <div class="modal-body site-information-body">
+
+    <section class="site-info-section">
+      <h3>Project &amp; Authorship</h3>
+      <p>
+        Atlas Explorer is a non-commercial research project independently designed, developed, and maintained by Stanislav Krakovskyi, a Researcher at the Department of Cartography, <a href="https://igu.org.ua/"
+       target="_blank"
+       rel="noopener noreferrer">Institute of Geography of the National Academy of Sciences of Ukraine</a>.
+      </p>
+    </section>
+
+    <section class="site-info-section">
+      <h3>Technology</h3>
+<p>
+  The website is built with HTML, CSS, and JavaScript. Interactive data tables
+  are implemented using
+  <a href="https://www.tabulator.info/"
+     target="_blank"
+     rel="noopener noreferrer">Tabulator 5.5</a>,
+  an open-source JavaScript library distributed under the
+  <a href="licenses/TABULATOR-LICENSE.txt"
+     target="_blank"
+     rel="noopener noreferrer">MIT License</a>.
+</p>
+    </section>
+
+    <section class="site-info-section">
+      <h3>AI-assisted Development</h3>
+      <p>
+        ChatGPT and Google Gemini were used as supporting tools during code development,
+        debugging, and interface refinement. The project concept, research methodology,
+        data structure, content, and final implementation decisions remain the
+        responsibility of the author.
+      </p>
+    </section>
+
+    <section class="site-info-section">
+  <h3>Visual Materials</h3>
+
+  <p>
+    Unless otherwise credited, illustrative images used on the website were
+    generated with
+    <a href="https://chatgpt.com/"
+       target="_blank"
+       rel="noopener noreferrer">ChatGPT</a>.
+
+    Non-AI visual materials include the logo of the Institute of Geography of the National Academy of Sciences of Ukraine
+    and the
+    <a href="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf"
+       data-type="pdf"
+       data-target="https://igu.org.ua/sites/default/files/igu-files/mono/Krakovskyi_Electronic%20atlases_2025_book.pdf"
+       onclick="event.preventDefault(); closeSiteInformationModal(); handleMaterialClick(this);">
+      cover of the author's monograph
+      <span class="item-title" hidden>Electronic Atlases: Trends in Development and Research Methodology</span>
+    </a>,
+    both designed by V. Horobchenko and used with permission.
+  </p>
+</section>
+
+    <section class="site-info-section">
+  <h3>Services & Privacy</h3>
+
+  <p>
+    <a href="https://marketingplatform.google.com/about/analytics/"
+       target="_blank"
+       rel="noopener noreferrer">Google Analytics</a>
+    is used, with your consent, to collect statistical information about website
+    usage and visitor interactions, including approximate geographic information
+    such as country and region. These data help assess the geographic reach
+    of Atlas Explorer and understand how the website is used. Analytics cookies
+    are disabled by default, and Google Analytics is not loaded until consent is
+    granted. You may accept or reject analytics cookies and change your choice at
+    any time using
+    <button
+      type="button"
+      class="site-info-text-link"
+      onclick="openCookieSettings()">Cookie Settings</button>.
+    For information about how Google processes data from websites using its
+    services, see
+    <a href="https://policies.google.com/technologies/partner-sites"
+       target="_blank"
+       rel="noopener noreferrer">Google Privacy & Terms</a>.
+  </p>
+  <p>
+  Suggestions submitted through the website are processed using
+  <a href="https://formspree.io/"
+     target="_blank"
+     rel="noopener noreferrer">Formspree</a>.
+  Formspree is used solely to transmit submitted suggestions to the author.
+  For information about how Formspree processes submitted data, see the
+  <a href="https://formspree.io/legal/privacy-policy/"
+     target="_blank"
+     rel="noopener noreferrer">Formspree Privacy Policy</a>.
+</p>
+</section>
+
+  </div>
+</div>

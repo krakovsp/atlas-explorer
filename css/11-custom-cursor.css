@@ -1,0 +1,327 @@
+/* =========================================================
+   ATLAS EXPLORER — CUSTOM CURSOR SYSTEM
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. Cursor textures
+   --------------------------------------------------------- */
+
+:root {
+
+    --ae-cursor-default:
+        url("../img/cursors/cursor-selection-80.svg") 2 2,
+        default;
+
+    --ae-cursor-pointer:
+        url("../img/cursors/cursor-pointer-80.svg") 8 1,
+        pointer;
+}
+
+
+/* =========================================================
+   CUSTOM CURSORS
+   Desktop / mouse / trackpad only
+   ========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+
+    /* -----------------------------------------------------
+       2. Default cursor
+       ----------------------------------------------------- */
+
+    html,
+    body {
+        cursor: var(--ae-cursor-default);
+    }
+
+
+    /* =====================================================
+       3. NATIVE INTERACTIVE ELEMENTS
+       ===================================================== */
+
+    a[href],
+
+    button:not(:disabled),
+
+    summary,
+
+    select:not(:disabled),
+
+    label[for],
+
+    input[type="button"]:not(:disabled),
+    input[type="submit"]:not(:disabled),
+    input[type="reset"]:not(:disabled),
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+
+    [role="button"]:not([aria-disabled="true"]),
+
+    [onclick] {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       4. INTRO / ATLAS CRITERIA
+       ===================================================== */
+
+    .definition-trigger,
+    .definition-popover-close {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       5. ABOUT / AUTHOR
+       ===================================================== */
+
+    .about-footer .suggestions-trigger,
+    .suggestions-trigger,
+
+    .author-actions-container .btn-author-action,
+    .author-actions-container .updates-log-pill-btn {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       6. MOBILE CATALOGUE
+       Also applies when this interface is opened on a
+       narrow desktop window with a mouse.
+       ===================================================== */
+
+    .mobile-explorer-action,
+    .mobile-catalogue-search-clear,
+    .mobile-catalogue-tab,
+    .mobile-atlas-details-trigger,
+    .mobile-atlas-load-more {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       7. MODALS
+       ===================================================== */
+
+    .modal-content .modal-close-btn,
+    .modal-window .modal-close-btn,
+
+    .custom-material-modal .modal-header2 .modal-close,
+    .custom-material-modal .modal-header2 .modal-back,
+
+    .update-details > summary,
+
+    .form-submit-btn,
+    .add-value-btn,
+    .remove-value-btn,
+
+    .supplementary-item {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       8. SYSTEM OVERLAYS
+       ===================================================== */
+
+    .device-warning__button,
+    .cookie-consent-btn,
+    .site-info-text-link {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       9. MAIN TABLE NAVIGATION
+       ===================================================== */
+
+    .tab-button,
+    .fullscreen-btn,
+
+    .nav-tabs .supplementary-btn {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       10. COLUMN PICKER
+       ===================================================== */
+
+    .column-picker-close-btn,
+
+    .column-item,
+    .column-item input[type="checkbox"],
+
+    .picker-select-all-btn,
+    .picker-clear-all-btn {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       11. TABLE TOOLS
+       ===================================================== */
+
+    .scroll-arrow-btn,
+
+    .row-selection-trigger-btn,
+    .row-selection-action-btn:not(:disabled),
+    .row-select-checkbox,
+
+    .footer-clear-filters-btn,
+    .footer-row-control-btn,
+
+    .help-btn,
+    .help-accordion-header,
+
+    .anchor-dot,
+
+    .tabulator-edit-list-apply-btn {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       12. TABULATOR — HEADER
+       Column headers can be clicked for sorting.
+       ===================================================== */
+
+    .tabulator .tabulator-header .tabulator-col {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+   13. TABULATOR — DATA CELLS
+   Override the original pointer rules from
+   09-tabulator.css
+   ===================================================== */
+
+.tabulator .tabulator-row .tabulator-cell,
+.tabulator .tabulator-row .tabulator-cell:not(.title-column):not([data-field="actions"]),
+.tabulator .tabulator-row .tabulator-cell.title-column,
+.tabulator .tabulator-row .tabulator-cell a,
+.tabulator .tabulator-row .tabulator-cell a *,
+.tabulator .tabulator-row .tabulator-cell span {
+    cursor: var(--ae-cursor-pointer) !important;
+}
+
+
+    /* =====================================================
+       14. TABULATOR — FOOTER / PAGINATION
+       ===================================================== */
+
+    .tabulator .tabulator-footer .tabulator-page,
+    .tabulator .tabulator-footer .tabulator-page-size {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       15. TABULATOR — LIST / DROPDOWN ITEMS
+       ===================================================== */
+
+    .tabulator-edit-list-item {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       16. SEARCH CANCEL BUTTON
+       Chromium / Opera / Edge
+       ===================================================== */
+
+    .tabulator .tabulator-header-filter
+    input[type="search"]::-webkit-search-cancel-button {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       17. TABULATOR SCROLLBAR
+       Chromium-based browsers
+       ===================================================== */
+
+    .tabulator-tableholder::-webkit-scrollbar-track,
+    .tabulator-tableholder::-webkit-scrollbar-thumb,
+    .tabulator-tableholder::-webkit-scrollbar-thumb:hover {
+        cursor: var(--ae-cursor-pointer) !important;
+    }
+
+
+    /* =====================================================
+       18. TEXT CURSOR
+
+       Must come AFTER the pointer rules.
+       ===================================================== */
+
+    input[type="text"],
+    input[type="search"],
+    input[type="email"],
+    input[type="url"],
+    input[type="number"],
+    input[type="password"],
+
+    textarea,
+
+    [contenteditable="true"],
+
+    .tabulator-header-filter input[type="text"],
+    .tabulator-header-filter input[type="search"] {
+        cursor: text !important;
+    }
+
+
+    /* =====================================================
+       19. COLUMN RESIZING
+
+       Must override the pointer assigned to column headers.
+       ===================================================== */
+
+    .tabulator-col-resize-handle,
+    .tabulator-col-resize-handle-prev {
+        cursor: col-resize !important;
+    }
+
+
+    /* =====================================================
+       20. DRAGGING
+       ===================================================== */
+
+    .picker-controls,
+    [draggable="true"] {
+        cursor: grab !important;
+    }
+
+
+    .picker-controls.is-dragging,
+    [draggable="true"]:active,
+
+    html.column-picker-is-dragging,
+    html.column-picker-is-dragging * {
+        cursor: grabbing !important;
+    }
+
+
+    /* =====================================================
+       21. DISABLED CONTROLS
+
+       Must always come last.
+       ===================================================== */
+
+    button:disabled,
+
+    input:disabled,
+    select:disabled,
+    textarea:disabled,
+
+    [aria-disabled="true"],
+
+    .row-selection-action-btn:disabled {
+        cursor: not-allowed !important;
+    }
+
+}

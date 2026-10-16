@@ -1,0 +1,1303 @@
+/* ============================================================
+   04. INTRO CONTENT & AUTHOR — About, Info и Author
+
+   ОГЛАВЛЕНИЕ
+   4.1    Intro: reduced motion
+   4.2    Общая типографика и заголовки Intro
+   4.3    Карточка About: текст и смысловые блоки
+   4.4    Карточка About: footer и компактный режим
+   4.5    Info: заголовок, выделения и ссылки
+   4.6    Author: профиль, институт и логотип
+   4.7    Author: нижние действия и контактный popover
+   4.8    Intro footer dividers и метаданные автора
+   4.9    Крупные экраны: глобальное увеличение шрифта
+   4.10   Author actions: index-tab controls и состояния
+   4.11   Author: адаптивная типографика до 2000 px
+
+   Порядок подключения: 4 / 10
+   ============================================================ */
+
+/* ============================================================
+   4.1. Intro: reduced motion
+   ============================================================ */
+
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .about-block,
+  .criteria-block,
+  .info-block
+   {
+    transition: none
+  }
+}
+
+/* ============================================================
+   4.2. Общая типографика и заголовки Intro
+   ============================================================ */
+
+
+
+
+
+.intro-section h2 {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.4rem;
+
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  color: #4a3e3d;
+
+  border-bottom: 2px solid rgba(97, 60, 36, 0.25);
+}
+
+.intro-section h3 {
+  margin: 0 0 0.5rem;
+
+  font-size: 1.2rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+
+  color: #4a3e3d;
+}
+
+/* ============================================================
+   4.3. Карточка About: текст и смысловые блоки
+   ============================================================ */
+
+
+
+
+
+.about-section {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 0;
+}
+
+
+.about-section > p {
+  position: relative;
+  display: block;
+  align-self: flex-start;
+
+  
+  width: calc(100% - clamp(0.5rem, 0.9vw, 1.4rem));
+
+  margin: 0;
+
+  
+  padding:
+    clamp(0.58rem, 1.1vh, 0.85rem)
+    clamp(0.65rem, 0.8vw, 1rem)
+    clamp(0.58rem, 1.1vh, 0.85rem)
+    clamp(7.8rem, 9vw, 10rem);
+
+  font-size: 1rem;
+  line-height: 1.55;
+
+  color: #4a4641;
+
+  border-radius: 6px;
+}
+
+.about-section > p + p {
+  border-top: 0;
+}
+
+
+.about-section > p::before {
+  position: absolute;
+  top: clamp(0.58rem, 1.1vh, 0.85rem);
+  left: 0.7rem;
+
+  display: block;
+  width: 6.4rem;
+
+  padding-top: 0.15em;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-section > p:nth-of-type(1) {
+  background-color: rgba(142, 127, 113, 0.065);
+}
+
+.about-section > p:nth-of-type(1)::before {
+  content: "Purpose";
+  color: #7d6e61;
+}
+
+.about-section > p:nth-of-type(2) {
+  background-color: rgba(73, 103, 120, 0.055);
+}
+
+.about-section > p:nth-of-type(2)::before {
+  content: "Classification";
+  color: #496878;
+}
+
+.about-section > p:nth-of-type(3) {
+  background-color: rgba(74, 107, 83, 0.06);
+}
+.about-section > p:nth-of-type(3)::before {
+  content: "Methodology";
+  color: #4a6b53;
+}
+
+.about-section > p strong {
+  padding: 0;
+
+  font-weight: 650;
+  letter-spacing: -0.005em;
+
+  background: none;
+
+  -webkit-box-decoration-break: initial;
+  box-decoration-break: initial;
+}
+
+
+.about-section > p:nth-of-type(1) strong {
+  color: #6f6054;
+}
+
+
+.about-section > p:nth-of-type(2) strong {
+  color: #3f6070;
+}
+
+
+.about-section > p:nth-of-type(3) strong {
+  color: #3f624a;
+}
+
+.about-section .about-cursive {
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   4.4. Карточка About: footer и компактный режим
+   ============================================================ */
+
+
+
+
+
+.about-footer {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  
+  row-gap:
+    clamp(0.7rem, 1.1dvh, 1.05rem);
+
+  margin-top: auto;
+
+  padding:
+    clamp(0.72rem, 1.25dvh, 0.95rem)
+    0.3rem
+    clamp(0.3rem, 0.55dvh, 0.45rem);
+
+  text-align: center;
+}
+
+
+
+.about-footer .suggestions-text {
+  margin: 0;
+
+  font-size: 1.16rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+
+  color: #625c56;
+}
+
+
+.about-footer .suggestions-trigger {
+  padding-inline: 0.08em;
+
+  font-weight: 700;
+
+  color: #3f624a !important;
+
+  text-decoration-line: underline;
+  text-decoration-color: rgba(63, 98, 74, 0.45);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.about-footer .suggestions-trigger:hover {
+  color: #2f543b !important;
+  background-color: rgba(74, 107, 83, 0.07);
+  text-decoration-color: #2f543b;
+}
+
+
+.about-footer .enjoy-text {
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+
+  color: #3b5340 !important;
+}
+
+
+
+
+
+@media screen and (max-width: 1099px) {
+.about-section {
+    gap: 0.45rem;
+  }
+
+  .about-section > p {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  .about-section > p::before {
+    position: static;
+
+    width: auto;
+    margin-bottom: 0.35rem;
+    padding-top: 0;
+  }
+}
+
+
+
+@media screen and (min-width: 2000px) and (min-height: 1100px) {
+  .about-section {
+    gap: 0.3rem;
+  }
+
+  .about-section > p {
+    padding-block: clamp(0.8rem, 1.15vh, 1rem);
+
+    
+    line-height: 1.62;
+  }
+}
+
+/* ============================================================
+   4.5. Info: заголовок, выделения и ссылки
+   ============================================================ */
+
+
+.info-block h2 {
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+
+.afil-link {
+  text-decoration: none !important;
+  color: #4a4541 !important;
+  transition: all 0.2s ease;
+}
+
+.afil-link.value {
+  border-bottom: 1px solid transparent;
+}
+
+
+.suggestions-trigger {
+  color: #4a6b53 !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 107, 83, 0.3);
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+
+.suggestions-trigger:hover {
+  color: #5b8566 !important;
+  text-decoration-color: #5b8566;
+  letter-spacing: 0.2px;
+}
+
+/* ============================================================
+   4.6. Author: профиль, институт и логотип
+   ============================================================ */
+
+.author-section {
+  margin-top: 1vh !important;
+  margin-bottom: 2vh !important;
+  padding-bottom: 1.5vh;
+  border-bottom: 1px solid #edeade;
+
+}
+
+.author-name {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.45rem;
+
+  margin:
+    0 0 0.32rem 0 !important;
+
+  font-family:
+    var(--font-primary);
+
+  font-size:
+    1.14rem !important;
+
+  font-weight:
+    760 !important;
+
+  line-height:
+    1.18;
+
+  letter-spacing:
+    -0.012em;
+
+  color:
+    #4a3e3d !important;
+}
+
+
+
+.author-flag {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.author-position {
+  margin:
+    0.1rem 0 0;
+
+  font-family:
+    var(--font-primary);
+
+  font-size:
+    0.84rem !important;
+
+  font-weight:
+    500 !important;
+
+  font-style:
+    italic;
+
+  line-height:
+    1.35;
+
+  letter-spacing:
+    0.01em;
+
+  color:
+    #756a61 !important;
+}
+
+.institution-panel {
+  display: flex;
+
+  flex:
+    1 1 auto;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    100%;
+
+  min-height:
+    0;
+
+  margin:
+    clamp(
+      0.7rem,
+      1.4vh,
+      1.1rem
+    )
+    0;
+
+  padding:
+    clamp(
+      0.95rem,
+      1.65vh,
+      1.3rem
+    )
+    clamp(
+      0.5rem,
+      0.75vw,
+      0.8rem
+    );
+
+  text-align:
+    center;
+
+
+  
+
+  background-color:
+    rgba(73, 103, 120, 0.055);
+
+
+  border:
+    1px solid
+    rgba(73, 103, 120, 0.14);
+
+  border-radius:
+    7px;
+
+
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.34);
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.institution-logo-link {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  margin: 0;
+
+  text-decoration: none;
+
+  transition: transform 0.2s ease;
+}
+
+.institution-large-logo {
+  display: block;
+
+  width: min(94%, 11rem);
+  height: auto;
+  margin-inline: auto;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter:
+  grayscale(8%)
+  opacity(0.95);
+
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.institution-name {
+  width: 100%;
+
+  margin:
+    clamp(0.6rem, 1vh, 0.82rem)
+    auto
+    0;
+
+  font-family:
+    var(--font-primary);
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.28;
+
+  letter-spacing:
+    0.005em;
+
+  text-align:
+    center;
+
+  color:
+    #4a4641;
+}
+
+
+.institution-name span {
+  display: block;
+
+  margin-top:
+    0.18rem;
+
+  font-size:
+    0.88em;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.32;
+
+  letter-spacing:
+    0.01em;
+
+  color:
+    #827469;
+}
+
+.institution-logo-link:hover {
+  transform:
+    none;
+}
+
+
+.institution-logo-link:hover .institution-large-logo {
+  filter:
+    grayscale(0%)
+    opacity(1);
+
+  transform:
+    scale(1.012);
+}
+
+
+
+
+.institution-panel:has(.institution-logo-link:hover) {
+  background-color:
+    rgba(73, 103, 120, 0.078);
+
+  border-color:
+    rgba(73, 103, 120, 0.22);
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.38),
+
+    0 2px 7px
+      rgba(73, 103, 120, 0.04);
+}
+
+/* ============================================================
+   4.7. Author: нижние действия и контактный popover
+   ============================================================ */
+
+
+.author-actions-container {
+  position: relative;
+
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+
+  width: 100%;
+  margin-top: 0;
+
+  gap: clamp(0.28rem, 0.48vh, 0.42rem);
+}
+
+
+.author-actions-container .updates-log-pill-btn {
+  margin: 0 !important;
+}
+
+
+.contact-popover-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.contact-toggle-checkbox {
+  display: none; 
+}
+
+.contact-mini-popover {
+  position: absolute;
+
+  bottom: 130%;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    translateY(8px);
+
+  width: 100%;
+  max-width: 250px;
+
+  padding: 0.7rem 0.9rem;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    #f0ebe3;
+
+  color: #4a4641;
+
+  border: 1px solid #b5a696;
+  border-radius: 10px;
+
+  box-shadow:
+    0 4px 8px rgba(91, 76, 64, 0.07),
+    0 12px 26px rgba(91, 76, 64, 0.14);
+
+  z-index: 200;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.22s ease;
+}
+
+
+.popover-arrow {
+  position: absolute;
+
+  top: 100%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-width: 7px;
+  border-style: solid;
+
+  border-color:
+    #f0ebe3
+    transparent
+    transparent
+    transparent;
+}
+
+.popover-arrow::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: 1px;
+  left: -7px;
+
+  border-width: 7px;
+  border-style: solid;
+
+  border-color:
+    #b5a696
+    transparent
+    transparent
+    transparent;
+
+  z-index: -1;
+}
+
+
+.contact-toggle-checkbox:checked ~ .contact-mini-popover {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+.popover-contacts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popover-contacts-list li {
+  display: flex;
+  align-items: center;
+
+  gap: 0.65rem;
+
+  padding: 0.48rem 0;
+
+  font-size: 0.85rem;
+
+  color: #4a4641;
+
+  border-bottom:
+    1px solid
+    rgba(181, 166, 150, 0.38);
+}
+
+.popover-contacts-list li:last-child {
+  border-bottom: none;
+}
+
+.popover-contacts-list i {
+  width: 1rem;
+
+  color: #8e7f71;
+
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.popover-contacts-list a {
+  color: #4a4641;
+
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+    color 0.16s ease,
+    text-decoration-color 0.16s ease;
+}
+
+.popover-contacts-list a:hover {
+  color: #75604f;
+
+  text-decoration: underline;
+  text-decoration-color:
+    rgba(117, 96, 79, 0.42);
+
+  text-underline-offset: 0.14em;
+}
+
+
+
+.author-card-footer {
+  flex: 0 0 auto;
+
+  width: 100%;
+
+  margin-top: clamp(0.8rem, 1.5vh, 1.2rem) !important;
+  padding-top: clamp(0.85rem, 1.1vh, 1rem);
+}
+
+/* ============================================================
+   4.8. Intro footer dividers и метаданные автора
+   ============================================================ */
+
+
+.about-footer,
+.author-card-footer {
+  position: relative;
+
+  border-top: 0 !important;
+}
+
+
+.about-footer::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height:
+    var(--intro-divider-thickness);
+
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+
+      var(--intro-divider-color) 0,
+
+      var(--intro-divider-color)
+        var(--intro-divider-dash-length),
+
+      transparent
+        var(--intro-divider-dash-length),
+
+      transparent
+        calc(
+          var(--intro-divider-dash-length) +
+          var(--intro-divider-dash-gap)
+        )
+    );
+
+  background-repeat:
+    repeat-x;
+
+  background-size:
+    auto
+    var(--intro-divider-thickness);
+
+  pointer-events: none;
+}
+
+
+.author-card-footer::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height:
+    1.5px;
+
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+
+      var(--intro-divider-color) 0,
+
+      var(--intro-divider-color)
+        var(--intro-divider-dash-length),
+
+      transparent
+        var(--intro-divider-dash-length),
+
+      transparent
+        calc(
+          var(--intro-divider-dash-length) +
+          var(--intro-divider-dash-gap)
+        )
+    );
+
+  background-repeat:
+    repeat-x;
+
+  background-size:
+    auto
+    1.5px;
+
+  pointer-events: none;
+}
+
+
+.criteria-footer {
+  position: relative;
+
+  border-top: 0 !important;
+}
+
+
+.author-card-footer .footer-row:last-child {
+  margin-bottom: 0;
+}
+
+.author-card-footer .footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  gap: 0.6rem;
+
+  margin-bottom:
+    0.28rem;
+
+  font-family:
+    var(--font-primary);
+
+  font-size:
+    0.7rem;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.2;
+
+  letter-spacing:
+    0.07em;
+
+  text-transform:
+    uppercase;
+
+  color:
+    #91857b;
+}
+
+/* ============================================================
+   4.9. Крупные экраны: глобальное увеличение шрифта
+   ============================================================ */
+
+@media screen and (min-width: 2000px) and (min-height: 1000px) {
+  :root {
+    --root-font-size: clamp(18px, calc(12px + 0.6vmin), 23px);
+  }
+}
+
+/* ============================================================
+   4.10. Author actions: index-tab controls и состояния
+   ============================================================ */
+
+.author-actions-container {
+  --author-tab-cut: 7px;
+}
+
+
+.author-actions-container .btn-author-action,
+.author-actions-container .updates-log-pill-btn {
+  position: relative;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+
+  gap: 0.55rem !important;
+
+  width: 100% !important;
+
+  min-height: 0;
+
+  margin: 0 !important;
+
+  padding:
+    0.36rem
+    calc(0.85rem + var(--author-tab-cut))
+    0.36rem
+    0.78rem !important;
+
+  box-sizing: border-box;
+
+  font-family:
+    var(--font-primary) !important;
+
+  font-size:
+    0.85rem !important;
+
+  font-weight:
+    700 !important;
+
+  line-height:
+    1.15;
+
+  text-align:
+    left !important;
+
+  color:
+    var(--ui-warm-text) !important;
+
+  background:
+    rgba(233, 224, 213, 0.48) !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
+
+
+  box-shadow:
+    inset 2px 0 0
+      rgba(159, 140, 121, 0.72),
+
+    inset 0 1px 0
+      rgba(182, 165, 147, 0.58),
+
+    inset 0 -1px 0
+      rgba(182, 165, 147, 0.58)
+      !important;
+  
+
+  clip-path:
+    polygon(
+      0 0,
+      calc(100% - var(--author-tab-cut)) 0,
+      100% 50%,
+      calc(100% - var(--author-tab-cut)) 100%,
+      0 100%
+    );
+
+  -webkit-clip-path:
+    polygon(
+      0 0,
+      calc(100% - var(--author-tab-cut)) 0,
+      100% 50%,
+      calc(100% - var(--author-tab-cut)) 100%,
+      0 100%
+    );
+
+  cursor:
+    pointer !important;
+
+  transition:
+    color 0.16s ease,
+    background-color 0.16s ease,
+    box-shadow 0.16s ease
+    !important;
+}
+
+
+.author-actions-container .btn-author-action i,
+.author-actions-container .updates-log-pill-btn i {
+  flex: 0 0 auto;
+
+  width: 1rem;
+
+  margin: 0 !important;
+
+  text-align: center;
+
+  color:
+    #756b62;
+
+  transition:
+    color 0.16s ease;
+}
+
+
+.author-actions-container .btn-author-action:hover,
+.author-actions-container .updates-log-pill-btn:hover {
+  color:
+    #4f6655 !important;
+
+  background:
+    rgba(222, 210, 196, 0.56) !important;
+
+  box-shadow:
+    inset 3px 0 0
+      rgba(79, 102, 85, 0.74),
+
+    inset 0 1px 0
+      rgba(159, 140, 121, 0.62),
+
+    inset 0 -1px 0
+      rgba(159, 140, 121, 0.62)
+      !important;
+}
+
+
+.author-actions-container .btn-author-action:hover i,
+.author-actions-container .updates-log-pill-btn:hover i {
+  color:
+    #4f6655;
+}
+
+
+.contact-toggle-checkbox:checked + .btn-contact {
+  color:
+    #3f5948 !important;
+
+  background:
+    rgba(79, 102, 85, 0.09) !important;
+
+  box-shadow:
+    inset 3px 0 0
+      rgba(79, 102, 85, 0.82),
+
+    inset 0 1px 0
+      rgba(79, 102, 85, 0.36),
+
+    inset 0 -1px 0
+      rgba(79, 102, 85, 0.36)
+      !important;
+}
+
+.author-actions-container .btn-author-action:focus-visible,
+.author-actions-container .updates-log-pill-btn:focus-visible {
+  outline:
+    1px solid
+    rgba(79, 102, 85, 0.55);
+
+  outline-offset:
+    2px;
+}
+
+/* ============================================================
+   4.11. Author: адаптивная типографика до 2000 px
+   ============================================================ */
+
+@media screen and (max-width: 1999px) {
+
+  
+.author-name {
+  gap:
+    clamp(
+      0.32rem,
+      0.42vw,
+      0.46rem
+    );
+
+  font-size:
+    clamp(
+      1rem,
+      calc(0.76rem + 0.32vw),
+      1.1rem
+    ) !important;
+
+  line-height:
+    1.18;
+
+  letter-spacing:
+    -0.012em;
+}
+
+
+.author-flag {
+  width:
+    clamp(
+      14px,
+      1em,
+      18px
+    ) !important;
+
+  height:
+    clamp(
+      14px,
+      1em,
+      18px
+    ) !important;
+}
+
+
+.author-position {
+  font-size:
+    clamp(
+      0.74rem,
+      calc(0.63rem + 0.14vw),
+      0.82rem
+    ) !important;
+
+  line-height:
+    1.34;
+}
+
+
+.institution-name {
+  font-size:
+    clamp(
+      0.7rem,
+      calc(0.59rem + 0.13vw),
+      0.78rem
+    );
+
+  line-height:
+    1.28;
+}
+
+
+.institution-name span {
+  font-size:
+    0.88em;
+
+  line-height:
+    1.32;
+}
+
+  
+  .btn-author-action,
+.updates-log-pill-btn {
+  min-height: 0;
+
+  padding: 0.3vh 1vw !important;
+
+  font-size:
+    clamp(
+      0.72rem,
+      calc(0.6rem + 0.16vw),
+      0.84rem
+    ) !important;
+
+  line-height: normal;
+}
+
+  
+.author-card-footer .footer-row {
+  gap:
+    0.45rem;
+
+  font-size:
+    clamp(
+      0.62rem,
+      calc(0.54rem + 0.1vw),
+      0.7rem
+    );
+
+  line-height:
+    1.2;
+
+  letter-spacing:
+    0.065em;
+}
+
+.contact-mini-popover {
+    bottom: calc(100% + clamp(0.5rem, 0.9vh, 0.75rem));
+
+    width:
+      min(
+        calc(100vw - 2rem),
+        clamp(12.5rem, 16vw, 15rem)
+      );
+
+    max-width: none;
+
+    padding:
+      clamp(0.5rem, 0.8vh, 0.7rem)
+      clamp(0.6rem, 0.75vw, 0.85rem);
+  }
+
+  .popover-contacts-list li {
+    min-width: 0;
+
+    gap: clamp(0.4rem, 0.5vw, 0.65rem);
+    padding: clamp(0.32rem, 0.55vh, 0.48rem) 0;
+
+    font-size:
+      clamp(
+        0.72rem,
+        calc(0.6rem + 0.17vw),
+        0.84rem
+      );
+
+    line-height: 1.28;
+  }
+
+  .popover-contacts-list i {
+    flex: 0 0 1rem;
+
+    width: 1rem;
+
+    font-size: 0.95em;
+  }
+
+  .popover-contacts-list a {
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+  }  
+}
+
